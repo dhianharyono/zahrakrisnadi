@@ -89,7 +89,7 @@ const Hero: React.FC = () => {
 
               {/* Secondary Meal Image (Floating) */}
               <div className='absolute -bottom-8 -left-12 lg:bottom-12 lg:-left-24 z-20 rounded-3xl overflow-hidden shadow-2xl transform rotate-6 hover:rotate-0 transition-transform duration-500 border-4 border-white hidden sm:block'>
-                <div className='relative h-[160px] w-[160px] lg:h-[200px] lg:w-[200px] bg-gray-100'>
+                <div className='relative h-40 w-40 lg:h-50 lg:w-50 bg-gray-100'>
                   <Image
                     src='/meal.jpg'
                     alt='Healthy Meal'
@@ -101,8 +101,8 @@ const Hero: React.FC = () => {
               </div>
 
               {/* Verification Badge */}
-              <div className='absolute bottom-4 right-4 lg:bottom-12 lg:-right-12 z-30 bg-white p-2 lg:p-4 rounded-xl lg:rounded-2xl shadow-xl flex items-center gap-2 lg:gap-4 animate-bounce-slow max-w-[140px] lg:max-w-none border border-gray-50 transform scale-90 lg:scale-100 origin-bottom-right'>
-                <div className='w-8 h-8 lg:w-12 lg:h-12 bg-green-100 rounded-lg lg:rounded-xl flex items-center justify-center text-green-600 flex-shrink-0'>
+              <div className='absolute bottom-4 right-4 lg:bottom-12 lg:-right-12 z-30 bg-white p-2 lg:p-4 rounded-xl lg:rounded-2xl shadow-xl flex items-center gap-2 lg:gap-4 animate-bounce-slow max-w-35 lg:max-w-none border border-gray-50 transform scale-90 lg:scale-100 origin-bottom-right'>
+                <div className='w-8 h-8 lg:w-12 lg:h-12 bg-green-100 rounded-lg lg:rounded-xl flex items-center justify-center text-green-600 shrink-0'>
                   <BadgeCheck size={16} className='lg:w-6 lg:h-6' />
                 </div>
                 <div>
