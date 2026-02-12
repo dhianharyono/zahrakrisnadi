@@ -35,7 +35,7 @@ const Hero: React.FC = () => {
                     '_blank',
                   )
                 }
-                className='flex items-center justify-center gap-2 bg-primary hover:bg-orange-600 text-white px-6 py-3 lg:px-8 lg:py-4 rounded-full font-bold shadow-lg shadow-orange-200 hover:shadow-xl transform hover:-translate-y-1 transition-all w-full sm:w-auto cursor-pointer text-sm lg:text-base'
+                className='flex items-center justify-center gap-2 bg-primary hover:bg-orange-600 text-white px-6 py-3 lg:px-8 lg:py-4 rounded-full font-bold shadow-lg shadow-orange-200 hover:shadow-xl transform hover:-translate-y-1 transition-all w-full sm:w-auto cursor-pointer text-xs md:text-sm lg:text-base'
               >
                 Mulai Konsultasi
               </button>
@@ -45,7 +45,7 @@ const Hero: React.FC = () => {
                     .getElementById('services')
                     ?.scrollIntoView({ behavior: 'smooth' })
                 }
-                className='flex items-center justify-center gap-2 bg-white hover:bg-gray-50 text-gray-800 px-6 py-3 lg:px-8 lg:py-4 rounded-full font-bold border border-gray-200 shadow-sm hover:shadow-md transition-all w-full sm:w-auto cursor-pointer text-sm lg:text-base'
+                className='flex items-center justify-center gap-2 bg-white hover:bg-gray-50 text-gray-800 px-6 py-3 lg:px-8 lg:py-4 rounded-full font-bold border border-gray-200 shadow-sm hover:shadow-md transition-all w-full sm:w-auto cursor-pointer text-xs md:text-sm lg:text-base'
               >
                 {/* <PlayCircle className='w-5 h-5 text-primary' /> */}
                 Lihat Layanan

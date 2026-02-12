@@ -23,11 +23,11 @@ const Portfolio: React.FC = () => {
   return (
     <section id='portfolio' className='py-15 bg-white relative'>
       <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
-        <div className='text-center mb-16'>
+        <div className='text-center mb-5 md:mb-16'>
           <span className='text-primary font-serif italic text-sm md:text-lg mb-2 block'>
             Galeri
           </span>
-          <h2 className='text-xl lg:text-4xl font-extrabold text-gray-900 mb-4 leading-tight'>
+          <h2 className='text-xl lg:text-4xl font-extrabold text-gray-900 mb-2 md:mb-4 leading-tight'>
             Portofolio <span className='text-primary italic'>Kegiatan</span>
           </h2>
           <p className='text-gray-600 max-w-2xl mx-auto text-sm md:text-lg'>

@@ -65,19 +65,19 @@ const BMICalculator: React.FC = () => {
       <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
         <div className='grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-start'>
           {/* Left Side: Text Content */}
-          <div className='space-y-6 p-4'>
+          <div className='space-y-3 md:space-y-6 p-4'>
             <span className='text-primary font-serif italic text-sm md:text-lg mb-2 block'>
               Pantau Progressmu
             </span>
             <h2 className='text-xl lg:text-4xl font-extrabold text-gray-900 leading-tight'>
               Kalkulator BMI
             </h2>
-            <p className='text-xs md:text-sm md:text-base lg:text-lg text-gray-600'>
+            <p className='text-xs md:text-sm lg:text-lg text-gray-600'>
               Ketahui Body Mass Index (BMI) Anda secara instan. BMI adalah
               indikator sederhana dari rasio berat badan terhadap tinggi badan
               yang digunakan untuk mengklasifikasikan status berat badan.
             </p>
-            <ul className='space-y-4 pt-4 text-sm md:text-lg'>
+            <ul className='space-y-4 text-xs md:text-sm lg:text-lg mt-5'>
               <li className='flex items-center gap-3'>
                 <div className='w-6 h-6 rounded-full bg-orange-100 flex items-center justify-center text-orange-600'>
                   <ChevronRight size={16} />
@@ -106,7 +106,7 @@ const BMICalculator: React.FC = () => {
           </div>
 
           {/* Right Reference: Form OR Result Card */}
-          <div className='bg-white mt-8 lg:mt-10 rounded-3xl shadow-xl border border-gray-100 overflow-hidden relative transition-all duration-500 ease-in-out'>
+          <div className='bg-white mt-0 md:mt-8 lg:mt-10 rounded-3xl shadow-xl border border-gray-100 overflow-hidden relative transition-all duration-500 ease-in-out'>
             {bmi === null ? (
               // --- FORM STATE --- //
               <div className='p-6 lg:p-10 space-y-6'>

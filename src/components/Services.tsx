@@ -17,7 +17,7 @@ const Services: React.FC = () => {
           <span className='text-primary font-serif italic text-sm md:text-lg mb-2 block'>
             Layanan
           </span>
-          <h2 className='text-xl lg:text-4xl font-extrabold text-gray-900 mb-4 leading-tight'>
+          <h2 className='text-xl lg:text-4xl font-extrabold text-gray-900 mb-2 md:mb-4 leading-tight'>
             Program Nutrisi{' '}
             <span className='text-primary italic'>Unggulan</span>
           </h2>
@@ -34,10 +34,11 @@ const Services: React.FC = () => {
               <div
                 key={index}
                 className={`group relative rounded-xl md:rounded-3xl p-2 md:p-6 transition-all duration-500 ease-out hover:-translate-y-1 md:hover:-translate-y-3 flex flex-col h-full transform
-                                ${isHighlight
-                    ? 'bg-linear-to-br from-gray-900 to-gray-800 text-white shadow-lg md:shadow-2xl ring-2 md:ring-4 scale-[1.02] md:scale-105 z-10'
-                    : 'bg-white border border-gray-100 shadow-md md:shadow-xl hover:shadow-lg md:hover:shadow-2xl text-gray-900'
-                  }`}
+                                ${
+                                  isHighlight
+                                    ? 'bg-linear-to-br from-gray-900 to-gray-800 text-white shadow-lg md:shadow-2xl ring-2 md:ring-4 scale-[1.02] md:scale-105 z-10'
+                                    : 'bg-white border border-gray-100 shadow-md md:shadow-xl hover:shadow-lg md:hover:shadow-2xl text-gray-900'
+                                }`}
               >
                 {/* Image Container */}
                 <div
@@ -84,12 +85,13 @@ const Services: React.FC = () => {
                       )
                     }
                     className={`w-full text-[8px] sm:text-xs md:text-sm mt-auto py-1.5 md:py-4 rounded-md md:rounded-xl font-bold flex items-center justify-center gap-1 md:gap-2 transition-all duration-300 transform group-hover:scale-[1.02] cursor-pointer
-                                        ${isHighlight
-                        ? 'bg-primary hover:bg-orange-600 text-white shadow-sm md:shadow-lg shadow-orange-900/20'
-                        : 'bg-gray-50 hover:bg-gray-100 text-gray-900 border border-gray-200 hover:border-gray-300'
-                      }`}
+                                        ${
+                                          isHighlight
+                                            ? 'bg-primary hover:bg-orange-600 text-white shadow-sm md:shadow-lg shadow-orange-900/20'
+                                            : 'bg-gray-50 hover:bg-gray-100 text-gray-900 border border-gray-200 hover:border-gray-300'
+                                        }`}
                   >
-                    Daftar <span className="hidden sm:inline">Sekarang</span>
+                    Daftar <span className='hidden sm:inline'>Sekarang</span>
                   </button>
                 </div>
               </div>

@@ -6,7 +6,7 @@ const Footer: React.FC = () => {
   return (
     <footer className='bg-dark text-white pt-20 pb-10'>
       <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
-        <div className='grid grid-cols-1 lg:grid-cols-4 gap-12 lg:gap-8 mb-5 border-b border-gray-800 pb-12'>
+        <div className='grid grid-cols-1 lg:grid-cols-4 p-4 gap-12 lg:gap-8 mb-5 border-b border-gray-800 pb-12'>
           {/* Brand */}
           <div className='lg:col-span-2 space-y-3 md:space-y-6'>
             <div className='flex items-center gap-2'>
