@@ -101,7 +101,7 @@ const Portfolio: React.FC = () => {
             </button>
 
             {/* Image Side */}
-            <div className='w-full md:w-1/2 h-56 md:h-auto relative bg-gray-50 flex-shrink-0'>
+            <div className='w-full md:w-1/2 h-56 md:h-auto relative bg-gray-50 shrink-0'>
               <Image
                 src={selectedItem.image}
                 alt={selectedItem.title}

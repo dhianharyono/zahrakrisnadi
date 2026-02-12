@@ -13,12 +13,12 @@ const Hero: React.FC = () => {
             <span className='text-primary font-serif italic text-sm md:text-lg block text-center lg:text-left'>
               Think Healthier
             </span>
-            <h1 className='text-3xl lg:text-6xl font-extrabold text-gray-900 leading-tight text-center lg:text-left'>
+            <h1 className='text-2xl lg:text-6xl font-extrabold text-gray-900 leading-tight text-center lg:text-left'>
               Your
               <span className='text-primary'> Nutrition </span> Journey Start
               Here
             </h1>
-            <p className='text-sm lg:text-lg text-gray-600 leading-relaxed max-w-lg mx-auto lg:mx-0 text-center lg:text-left mb-8 lg:mb-10'>
+            <p className='text-xs md:text-sm lg:text-lg text-gray-600 leading-relaxed max-w-lg mx-auto lg:mx-0 text-center lg:text-left mb-8 lg:mb-10'>
               Kami hadir untuk membantu kamu menjadi versi diri yang paling
               sehat melalui pendekatan gizi berbasis ilmu. Dapatkan pendampingan
               personal lewat layanan konsultasi gizi online yang praktis, aman,

@@ -61,8 +61,8 @@ const Navbar: React.FC = () => {
         <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
           <div className='flex justify-between items-center h-20'>
             <div className='shrink-0 flex items-center'>
-              <span className='text-xl md:text-2xl font-bold bg-clip-text text-transparent bg-linear-to-r from-primary to-orange-600'>
-                <a href="#">ZahraKrisnadi</a>
+              <span className='text-sm md:text-xl lg:text-2xl font-bold bg-clip-text text-transparent bg-linear-to-r from-primary to-orange-600'>
+                <a href='#'>ZahraKrisnadi</a>
               </span>
             </div>
             <div className='hidden md:flex space-x-8 items-center'>
@@ -104,8 +104,9 @@ const Navbar: React.FC = () => {
 
         {/* Mobile Menu */}
         <div
-          className={`md:hidden bg-white shadow-lg absolute w-full left-0 overflow-hidden transition-all duration-300 ease-in-out ${isOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
-            }`}
+          className={`md:hidden bg-white shadow-lg absolute w-full left-0 overflow-hidden transition-all duration-300 ease-in-out ${
+            isOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
+          }`}
         >
           <div className='px-4 pt-2 pb-6 space-y-2'>
             {NAV_LINKS.map((link) => (
