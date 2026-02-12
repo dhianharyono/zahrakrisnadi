@@ -94,9 +94,9 @@ const Navbar: React.FC = () => {
             <div className='md:hidden flex items-center'>
               <button
                 onClick={toggleMenu}
-                className='text-gray-700 hover:text-primary focus:outline-none'
+                className='text-gray-700 hover:text-primary focus:outline-none w-5 h-5 flex items-center justify-center'
               >
-                {isOpen ? <X size={28} /> : <Menu size={28} />}
+                {isOpen ? <X /> : <Menu />}
               </button>
             </div>
           </div>

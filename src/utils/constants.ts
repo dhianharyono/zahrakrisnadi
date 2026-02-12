@@ -64,7 +64,7 @@ export const SERVICES_DATA = [
     title: 'Manajemen Berat Badan',
     description:
       'Program khusus untuk mencapai berat badan ideal secara sehat dan berkelanjutan.',
-    image: '/meal-planing.jpg',
+    image: '/meal-planings.jpg',
     highlight: false,
   },
   {
@@ -78,7 +78,7 @@ export const SERVICES_DATA = [
     title: 'Diet Terapi Penyakit',
     description:
       'Pengaturan pola makan khusus bagi penderita Diabetes, Hipertensi, dan lainnya.',
-    image: '/smiling.jpg',
+    image: '/hipertensi.jpg',
     highlight: false,
   },
 ];

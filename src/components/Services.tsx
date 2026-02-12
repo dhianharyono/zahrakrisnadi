@@ -11,7 +11,9 @@ const Services: React.FC = () => {
   };
 
   const prevSlide = () => {
-    setActiveIndex((prev) => (prev - 1 + SERVICES_DATA.length) % SERVICES_DATA.length);
+    setActiveIndex(
+      (prev) => (prev - 1 + SERVICES_DATA.length) % SERVICES_DATA.length,
+    );
   };
 
   return (
@@ -46,10 +48,11 @@ const Services: React.FC = () => {
               <div
                 key={index}
                 className={`group relative rounded-3xl p-6 transition-all duration-500 ease-out hover:-translate-y-3 flex flex-col h-full transform hover:scale-105
-                                ${isHighlight
-                    ? 'bg-linear-to-br from-gray-900 to-gray-800 text-white shadow-2xl ring-4 scale-105 hover:scale-110 z-10'
-                    : 'bg-white border border-gray-100 shadow-xl hover:shadow-2xl text-gray-900'
-                  }`}
+                                ${
+                                  isHighlight
+                                    ? 'bg-linear-to-br from-gray-900 to-gray-800 text-white shadow-2xl ring-4 scale-105 hover:scale-110 z-10'
+                                    : 'bg-white border border-gray-100 shadow-xl hover:shadow-2xl text-gray-900'
+                                }`}
               >
                 <div
                   className={`relative h-64 lg:h-80 w-full aspect-4/3 rounded-2xl overflow-hidden mb-6 shadow-md transition-transform duration-500 group-hover:scale-[1.02] ${isHighlight ? 'ring-2 ring-white/20' : ''}`}
@@ -93,10 +96,11 @@ const Services: React.FC = () => {
                       )
                     }
                     className={`w-full text-sm mt-auto py-4 rounded-xl font-bold flex items-center justify-center gap-2 transition-all duration-300 transform group-hover:scale-[1.02] cursor-pointer
-                                        ${isHighlight
-                        ? 'bg-primary hover:bg-orange-600 text-white shadow-lg shadow-orange-900/20'
-                        : 'bg-gray-50 hover:bg-gray-100 text-gray-900 border border-gray-200 hover:border-gray-300'
-                      }`}
+                                        ${
+                                          isHighlight
+                                            ? 'bg-primary hover:bg-orange-600 text-white shadow-lg shadow-orange-900/20'
+                                            : 'bg-gray-50 hover:bg-gray-100 text-gray-900 border border-gray-200 hover:border-gray-300'
+                                        }`}
                   >
                     Daftar Sekarang
                   </button>
@@ -119,10 +123,11 @@ const Services: React.FC = () => {
               return (
                 <div
                   key={index}
-                  className={`relative rounded-3xl p-6 flex flex-col w-full max-w-sm mx-auto shadow-xl transition-all duration-300 ${isHighlight
-                    ? 'bg-linear-to-br from-gray-900 to-gray-800 text-white ring-4 ring-gray-800'
-                    : 'bg-white border border-gray-100 text-gray-900'
-                    }`}
+                  className={`relative rounded-3xl p-6 flex flex-col w-full max-w-sm mx-auto shadow-xl transition-all duration-300 ${
+                    isHighlight
+                      ? 'bg-linear-to-br from-gray-900 to-gray-800 text-white ring-4 ring-gray-800'
+                      : 'bg-white border border-gray-100 text-gray-900'
+                  }`}
                 >
                   <div
                     className={`relative h-64 w-full aspect-square rounded-2xl overflow-hidden mb-6 shadow-md`}
@@ -145,13 +150,13 @@ const Services: React.FC = () => {
 
                   <div className='flex flex-col grow text-center'>
                     <h3
-                      className={`text-xl font-bold mb-3 ${isHighlight ? 'text-white' : 'text-gray-900'}`}
+                      className={`text-lg md:text-xl font-bold mb-3 ${isHighlight ? 'text-white' : 'text-gray-900'}`}
                     >
                       {service.title}
                     </h3>
 
                     <p
-                      className={`text-sm leading-relaxed mb-6 ${isHighlight ? 'text-gray-300' : 'text-gray-600'}`}
+                      className={`text-xs md:text-sm leading-relaxed mb-6 ${isHighlight ? 'text-gray-300' : 'text-gray-600'}`}
                     >
                       {service.description}
                     </p>
@@ -166,10 +171,11 @@ const Services: React.FC = () => {
                         )
                       }
                       className={`w-full py-3 rounded-xl font-bold flex items-center justify-center gap-2 cursor-pointer
-                                          ${isHighlight
-                          ? 'bg-primary hover:bg-orange-600 text-white'
-                          : 'bg-gray-50 hover:bg-gray-100 text-gray-900 border border-gray-200'
-                        }`}
+                                          ${
+                                            isHighlight
+                                              ? 'bg-primary hover:bg-orange-600 text-white'
+                                              : 'bg-gray-50 hover:bg-gray-100 text-gray-900 border border-gray-200'
+                                          }`}
                     >
                       Daftar Sekarang
                     </button>
@@ -183,26 +189,27 @@ const Services: React.FC = () => {
           <button
             onClick={prevSlide}
             className='absolute left-0 top-1/2 -translate-y-1/2 bg-white/80 p-2 rounded-full shadow-lg hover:bg-white text-gray-800 backdrop-blur-sm transition-all z-20 cursor-pointer'
-            aria-label="Previous"
+            aria-label='Previous'
           >
             <ChevronLeft size={24} />
           </button>
           <button
             onClick={nextSlide}
             className='absolute right-0 top-1/2 -translate-y-1/2 bg-white/80 p-2 rounded-full shadow-lg hover:bg-white text-gray-800 backdrop-blur-sm transition-all z-20 cursor-pointer'
-            aria-label="Next"
+            aria-label='Next'
           >
             <ChevronRight size={24} />
           </button>
 
           {/* Dots/Indicators */}
-          <div className="flex justify-center gap-2 mt-6">
+          <div className='flex justify-center gap-2 mt-6'>
             {SERVICES_DATA.map((_, idx) => (
               <button
                 key={idx}
                 onClick={() => setActiveIndex(idx)}
-                className={`w-2 h-2 rounded-full transition-all ${idx === activeIndex ? 'bg-primary w-6' : 'bg-gray-300'
-                  }`}
+                className={`w-2 h-2 rounded-full transition-all ${
+                  idx === activeIndex ? 'bg-primary w-6' : 'bg-gray-300'
+                }`}
               />
             ))}
           </div>
