@@ -119,7 +119,7 @@ const BMICalculator: React.FC = () => {
                       type='number'
                       value={height}
                       onChange={(e) => setHeight(e.target.value)}
-                      className='w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all placeholder-gray-400'
+                      className='w-full px-4 py-3 text-xs md:text-sm bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all placeholder-gray-400'
                       placeholder='170'
                     />
                   </div>
@@ -131,7 +131,7 @@ const BMICalculator: React.FC = () => {
                       type='number'
                       value={weight}
                       onChange={(e) => setWeight(e.target.value)}
-                      className='w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all placeholder-gray-600'
+                      className='w-full px-4 py-3 text-xs md:text-sm bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all placeholder-gray-600'
                       placeholder='65'
                     />
                   </div>
@@ -145,10 +145,10 @@ const BMICalculator: React.FC = () => {
                     type='number'
                     value={age}
                     onChange={(e) => setAge(e.target.value)}
-                    className='w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all placeholder-gray-400'
+                    className='w-full px-4 py-3 text-xs md:text-sm bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all placeholder-gray-400'
                     placeholder='25'
                   />
-                  <p className='text-xs text-gray-400 italic'>
+                  <p className='text-[10px] md:text-xs text-gray-400 italic'>
                     *Kalkulator ini berlaku untuk usia 20 tahun ke atas.
                   </p>
                 </div>
@@ -156,7 +156,7 @@ const BMICalculator: React.FC = () => {
                 <button
                   onClick={calculateBMI}
                   disabled={loading}
-                  className='w-full text-sm bg-primary hover:bg-orange-600 text-white font-bold py-4 rounded-xl shadow-lg shadow-orange-200 transition-all active:scale-95 disabled:opacity-70 disabled:cursor-not-allowed flex justify-center items-center cursor-pointer'
+                  className='w-full text-xs md:text-sm bg-primary hover:bg-orange-600 text-white font-bold py-4 rounded-xl shadow-lg shadow-orange-200 transition-all active:scale-95 disabled:opacity-70 disabled:cursor-not-allowed flex justify-center items-center cursor-pointer'
                 >
                   {loading ? (
                     <Loader2 className='animate-spin' />

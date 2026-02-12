@@ -9,7 +9,7 @@ const Hero: React.FC = () => {
       <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full'>
         <div className='grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-20 items-center'>
           {/* Left Content */}
-          <div className='space-y-3 lg:space-y-8 mt-8 lg:mt-0'>
+          <div className='space-y-3 lg:space-y-8 mt-15 lg:mt-0'>
             <span className='text-primary font-serif italic text-sm md:text-lg block text-center lg:text-left'>
               Think Healthier
             </span>
@@ -101,7 +101,7 @@ const Hero: React.FC = () => {
               </div>
 
               {/* Verification Badge */}
-              <div className='absolute bottom-4 right-4 lg:bottom-12 lg:-right-12 z-30 bg-white p-2 lg:p-4 rounded-xl lg:rounded-2xl shadow-xl flex items-center gap-2 lg:gap-4 animate-bounce-slow max-w-35 lg:max-w-none border border-gray-50 transform scale-90 lg:scale-100 origin-bottom-right'>
+              <div className='absolute bottom-4 right-4 lg:bottom-12 lg:-right-12 z-30 bg-white p-2 lg:p-4 rounded-xl lg:rounded-2xl shadow-xl flex items-center gap-2 lg:gap-4 animate-bounce-slow w-auto lg:max-w-none border border-gray-50 transform scale-90 lg:scale-100 origin-bottom-right'>
                 <div className='w-8 h-8 lg:w-12 lg:h-12 bg-green-100 rounded-lg lg:rounded-xl flex items-center justify-center text-green-600 shrink-0'>
                   <BadgeCheck size={16} className='lg:w-6 lg:h-6' />
                 </div>
@@ -109,7 +109,7 @@ const Hero: React.FC = () => {
                   <p className='font-semibold text-gray-500 text-[10px] lg:text-sm'>
                     TERVERIFIKASI
                   </p>
-                  <p className='font-bold text-xs lg:text-sm text-gray-900 leading-tight'>
+                  <p className='font-bold text-xs lg:text-sm text-gray-900 leading-tight whitespace-nowrap'>
                     Dietisien Berlisensi
                   </p>
                 </div>
