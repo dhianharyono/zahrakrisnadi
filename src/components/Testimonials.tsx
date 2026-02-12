@@ -15,49 +15,58 @@ const Testimonials: React.FC = () => {
           </h2>
         </div>
 
-        <div className='relative w-full overflow-hidden mask-gradient'>
+        <div className='relative w-full md:overflow-hidden overflow-x-auto snap-x snap-mandatory scrollbar-hide mask-gradient'>
           {/* Internal Style for Marquee Animation */}
           <style jsx>{`
-            @keyframes marquee {
-              0% {
-                transform: translateX(0);
+            .scrollbar-hide::-webkit-scrollbar {
+              display: none;
+            }
+            .scrollbar-hide {
+              -ms-overflow-style: none;
+              scrollbar-width: none;
+            }
+            @media (min-width: 768px) {
+              @keyframes marquee {
+                0% {
+                  transform: translateX(0);
+                }
+                100% {
+                  transform: translateX(-50%);
+                }
               }
-              100% {
-                transform: translateX(-50%);
+              .animate-marquee {
+                animation: marquee 50s linear infinite;
+                width: max-content;
               }
-            }
-            .animate-marquee {
-              animation: marquee 50s linear infinite;
-              width: max-content;
-            }
-            .mask-gradient {
-              mask-image: linear-gradient(
-                to right,
-                transparent,
-                black 10%,
-                black 90%,
-                transparent
-              );
-              -webkit-mask-image: linear-gradient(
-                to right,
-                transparent,
-                black 10%,
-                black 90%,
-                transparent
-              );
-            }
-            .pause-on-hover:hover {
-              animation-play-state: paused;
+              .mask-gradient {
+                mask-image: linear-gradient(
+                  to right,
+                  transparent,
+                  black 10%,
+                  black 90%,
+                  transparent
+                );
+                -webkit-mask-image: linear-gradient(
+                  to right,
+                  transparent,
+                  black 10%,
+                  black 90%,
+                  transparent
+                );
+              }
+              .pause-on-hover:hover {
+                animation-play-state: paused;
+              }
             }
           `}</style>
 
-          <div className='flex gap-8 animate-marquee pause-on-hover py-8'>
-            {/* Render items twice for seamless loop */}
+          <div className='flex gap-4 md:gap-8 animate-marquee pause-on-hover py-8 px-4 md:px-0'>
+            {/* Render items twice for seamless loop on desktop, just a long list on mobile */}
             {[...TESTIMONIALS_DATA, ...TESTIMONIALS_DATA].map(
               (testimonial, index) => (
                 <div
                   key={index}
-                  className='w-75 md:w-100 bg-white rounded-3xl p-6 md:p-8 border shadow-sm border-orange-100 hover:shadow-xl transition-all duration-300 relative group flex flex-col justify-between shrink-0'
+                  className='w-[85vw] sm:w-80 md:w-100 bg-white rounded-3xl p-6 md:p-8 border shadow-sm border-orange-100 hover:shadow-xl transition-all duration-300 relative group flex flex-col justify-between shrink-0 snap-center'
                 >
                   <div className='absolute top-6 left-6 opacity-10 transform -translate-x-2 -translate-y-2 group-hover:scale-110 transition-transform'>
                     <Quote size={40} className='text-primary md:w-14 md:h-14' />

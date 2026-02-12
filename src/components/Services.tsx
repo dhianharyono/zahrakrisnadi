@@ -1,8 +1,19 @@
 import React from 'react';
 import Image from 'next/image';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { SERVICES_DATA, CONTACT_INFO } from '../utils/constants';
 
 const Services: React.FC = () => {
+  const [activeIndex, setActiveIndex] = React.useState(1);
+
+  const nextSlide = () => {
+    setActiveIndex((prev) => (prev + 1) % SERVICES_DATA.length);
+  };
+
+  const prevSlide = () => {
+    setActiveIndex((prev) => (prev - 1 + SERVICES_DATA.length) % SERVICES_DATA.length);
+  };
+
   return (
     <section
       id='services'
@@ -27,22 +38,21 @@ const Services: React.FC = () => {
           </p>
         </div>
 
-        <div className='grid grid-cols-3 gap-2 md:gap-6 lg:gap-8 items-stretch px-1 md:px-0'>
+        {/* Desktop View (Grid) */}
+        <div className='hidden md:grid md:grid-cols-3 gap-6 lg:gap-8 items-start'>
           {SERVICES_DATA.map((service, index) => {
             const isHighlight = service.highlight;
             return (
               <div
                 key={index}
-                className={`group relative rounded-xl md:rounded-3xl p-2 md:p-6 transition-all duration-500 ease-out hover:-translate-y-1 md:hover:-translate-y-3 flex flex-col h-full transform
-                                ${
-                                  isHighlight
-                                    ? 'bg-linear-to-br from-gray-900 to-gray-800 text-white shadow-lg md:shadow-2xl ring-2 md:ring-4 scale-[1.02] md:scale-105 z-10'
-                                    : 'bg-white border border-gray-100 shadow-md md:shadow-xl hover:shadow-lg md:hover:shadow-2xl text-gray-900'
-                                }`}
+                className={`group relative rounded-3xl p-6 transition-all duration-500 ease-out hover:-translate-y-3 flex flex-col h-full transform hover:scale-105
+                                ${isHighlight
+                    ? 'bg-linear-to-br from-gray-900 to-gray-800 text-white shadow-2xl ring-4 scale-105 hover:scale-110 z-10'
+                    : 'bg-white border border-gray-100 shadow-xl hover:shadow-2xl text-gray-900'
+                  }`}
               >
-                {/* Image Container */}
                 <div
-                  className={`relative h-20 sm:h-28 md:h-64 w-full aspect-square md:aspect-4/3 rounded-lg md:rounded-2xl overflow-hidden mb-2 md:mb-6 shadow-sm md:shadow-md transition-transform duration-500 group-hover:scale-[1.02] ${isHighlight ? 'ring-1 md:ring-2 ring-white/20' : ''}`}
+                  className={`relative h-64 lg:h-80 w-full aspect-4/3 rounded-2xl overflow-hidden mb-6 shadow-md transition-transform duration-500 group-hover:scale-[1.02] ${isHighlight ? 'ring-2 ring-white/20' : ''}`}
                 >
                   <div
                     className={`absolute inset-0 z-10 ${isHighlight ? 'bg-black/10' : 'bg-transparent'}`}
@@ -54,27 +64,25 @@ const Services: React.FC = () => {
                     className='object-cover transition-transform duration-700 group-hover:scale-110'
                   />
                   {isHighlight && (
-                    <div className='absolute top-1.5 right-1.5 md:top-4 md:right-4 z-20 bg-orange-500 text-white text-[7px] md:text-xs font-bold px-1.5 py-0.5 md:px-3 md:py-1 rounded-full shadow-md'>
+                    <div className='absolute top-4 right-4 z-20 bg-orange-500 text-white text-xs font-bold px-3 py-1 rounded-full shadow-lg'>
                       POPULAR
                     </div>
                   )}
                 </div>
 
-                {/* Content */}
                 <div className='flex flex-col grow'>
                   <h3
-                    className={`text-[10px] sm:text-xs md:text-xl font-bold mb-1 md:mb-2 leading-tight ${isHighlight ? 'text-white' : 'text-gray-900'}`}
+                    className={`text-xl font-bold mb-2 ${isHighlight ? 'text-white' : 'text-gray-900'}`}
                   >
                     {service.title}
                   </h3>
 
                   <p
-                    className={`text-[8px] sm:text-[10px] md:text-sm leading-relaxed mb-2 md:mb-6 grow line-clamp-3 md:line-clamp-none ${isHighlight ? 'text-gray-300' : 'text-gray-600'}`}
+                    className={`text-sm leading-relaxed mb-6 grow ${isHighlight ? 'text-gray-300' : 'text-gray-600'}`}
                   >
                     {service.description}
                   </p>
 
-                  {/* Action Button */}
                   <button
                     onClick={() =>
                       window.open(
@@ -84,19 +92,120 @@ const Services: React.FC = () => {
                         '_blank',
                       )
                     }
-                    className={`w-full text-[8px] sm:text-xs md:text-sm mt-auto py-1.5 md:py-4 rounded-md md:rounded-xl font-bold flex items-center justify-center gap-1 md:gap-2 transition-all duration-300 transform group-hover:scale-[1.02] cursor-pointer
-                                        ${
-                                          isHighlight
-                                            ? 'bg-primary hover:bg-orange-600 text-white shadow-sm md:shadow-lg shadow-orange-900/20'
-                                            : 'bg-gray-50 hover:bg-gray-100 text-gray-900 border border-gray-200 hover:border-gray-300'
-                                        }`}
+                    className={`w-full text-sm mt-auto py-4 rounded-xl font-bold flex items-center justify-center gap-2 transition-all duration-300 transform group-hover:scale-[1.02] cursor-pointer
+                                        ${isHighlight
+                        ? 'bg-primary hover:bg-orange-600 text-white shadow-lg shadow-orange-900/20'
+                        : 'bg-gray-50 hover:bg-gray-100 text-gray-900 border border-gray-200 hover:border-gray-300'
+                      }`}
                   >
-                    Daftar <span className='hidden sm:inline'>Sekarang</span>
+                    Daftar Sekarang
                   </button>
                 </div>
               </div>
             );
           })}
+        </div>
+
+        {/* Mobile View (Carousel) */}
+        <div className='md:hidden relative px-4'>
+          <div className='flex items-center justify-center'>
+            {SERVICES_DATA.map((service, index) => {
+              if (index !== activeIndex) return null;
+
+              const isHighlight = service.highlight; // Or force highlight style for clarity if needed, but let's stick to data
+              // The user wants the card enlarged. We can use the 'highlight' style or a robust style for all.
+              // Let's use a robust style for the active one.
+
+              return (
+                <div
+                  key={index}
+                  className={`relative rounded-3xl p-6 flex flex-col w-full max-w-sm mx-auto shadow-xl transition-all duration-300 ${isHighlight
+                    ? 'bg-linear-to-br from-gray-900 to-gray-800 text-white ring-4 ring-gray-800'
+                    : 'bg-white border border-gray-100 text-gray-900'
+                    }`}
+                >
+                  <div
+                    className={`relative h-64 w-full aspect-square rounded-2xl overflow-hidden mb-6 shadow-md`}
+                  >
+                    <div
+                      className={`absolute inset-0 z-10 ${isHighlight ? 'bg-black/10' : 'bg-transparent'}`}
+                    ></div>
+                    <Image
+                      src={service.image}
+                      alt={service.title}
+                      fill
+                      className='object-cover'
+                    />
+                    {isHighlight && (
+                      <div className='absolute top-4 right-4 z-20 bg-orange-500 text-white text-xs font-bold px-3 py-1 rounded-full shadow-lg'>
+                        POPULAR
+                      </div>
+                    )}
+                  </div>
+
+                  <div className='flex flex-col grow text-center'>
+                    <h3
+                      className={`text-xl font-bold mb-3 ${isHighlight ? 'text-white' : 'text-gray-900'}`}
+                    >
+                      {service.title}
+                    </h3>
+
+                    <p
+                      className={`text-sm leading-relaxed mb-6 ${isHighlight ? 'text-gray-300' : 'text-gray-600'}`}
+                    >
+                      {service.description}
+                    </p>
+
+                    <button
+                      onClick={() =>
+                        window.open(
+                          CONTACT_INFO.whatsapp.url(
+                            `Halo Dietisienmu, saya tertarik dengan program ${service.title}.`,
+                          ),
+                          '_blank',
+                        )
+                      }
+                      className={`w-full py-3 rounded-xl font-bold flex items-center justify-center gap-2 cursor-pointer
+                                          ${isHighlight
+                          ? 'bg-primary hover:bg-orange-600 text-white'
+                          : 'bg-gray-50 hover:bg-gray-100 text-gray-900 border border-gray-200'
+                        }`}
+                    >
+                      Daftar Sekarang
+                    </button>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+
+          {/* Navigation Arrows */}
+          <button
+            onClick={prevSlide}
+            className='absolute left-0 top-1/2 -translate-y-1/2 bg-white/80 p-2 rounded-full shadow-lg hover:bg-white text-gray-800 backdrop-blur-sm transition-all z-20 cursor-pointer'
+            aria-label="Previous"
+          >
+            <ChevronLeft size={24} />
+          </button>
+          <button
+            onClick={nextSlide}
+            className='absolute right-0 top-1/2 -translate-y-1/2 bg-white/80 p-2 rounded-full shadow-lg hover:bg-white text-gray-800 backdrop-blur-sm transition-all z-20 cursor-pointer'
+            aria-label="Next"
+          >
+            <ChevronRight size={24} />
+          </button>
+
+          {/* Dots/Indicators */}
+          <div className="flex justify-center gap-2 mt-6">
+            {SERVICES_DATA.map((_, idx) => (
+              <button
+                key={idx}
+                onClick={() => setActiveIndex(idx)}
+                className={`w-2 h-2 rounded-full transition-all ${idx === activeIndex ? 'bg-primary w-6' : 'bg-gray-300'
+                  }`}
+              />
+            ))}
+          </div>
         </div>
       </div>
     </section>

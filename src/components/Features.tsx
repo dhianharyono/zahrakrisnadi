@@ -36,7 +36,7 @@ const Features: React.FC = () => {
                 </div>
 
                 {/* Content */}
-                <div className='relative z-10 mt-4 md:mt-6 flex-1 flex flex-col justify-start w-full'>
+                <div className='relative z-10 mt-0 md:mt-6 flex-1 flex flex-col justify-start w-full'>
                   <h3 className='text-[10px] sm:text-xs md:text-lg lg:text-2xl font-bold text-gray-900 mb-2 md:mb-3 leading-tight px-1'>
                     {feature.title}
                   </h3>
