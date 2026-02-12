@@ -170,11 +170,11 @@ const BMICalculator: React.FC = () => {
               <div className='p-8 lg:p-10 animate-fade-in'>
                 <div className='flex justify-between items-start mb-6'>
                   <div>
-                    <h3 className='text-xl font-bold text-gray-900'>
+                    <h3 className='text-sm md:text-xl font-bold text-gray-900'>
                       Hasil Anda:
                     </h3>
                     <p
-                      className={`text-2xl font-extrabold ${resultCategory?.textCurrent} mt-1`}
+                      className={`text-lg md:text-2xl font-extrabold ${resultCategory?.textCurrent} mt-1`}
                     >
                       {resultCategory?.label}
                     </p>
@@ -239,9 +239,13 @@ const BMICalculator: React.FC = () => {
                           <div
                             className={`w-2.5 h-2.5 rounded-full ${cat.color}`}
                           ></div>
-                          <span>{cat.range}</span>
+                          <span className='text-xs md:text-sm'>
+                            {cat.range}
+                          </span>
                         </div>
-                        <div className='w-1/2'>{cat.label}</div>
+                        <div className='w-1/2 text-xs md:text-sm'>
+                          {cat.label}
+                        </div>
                       </div>
                     ))}
                   </div>
@@ -249,10 +253,10 @@ const BMICalculator: React.FC = () => {
 
                 {/* Explanation */}
                 <div className='mb-8 pt-6 border-t border-gray-100'>
-                  <h4 className='font-bold text-gray-900 mb-2'>
+                  <h4 className='font-bold text-gray-900 mb-2 text-sm md:text-lg'>
                     Apa maksudnya?
                   </h4>
-                  <p className='text-gray-600 text-sm leading-relaxed'>
+                  <p className='text-gray-600 text-xs md:text-sm leading-relaxed'>
                     Memiliki IMT (BMI) <span className='font-bold'>{bmi}</span>{' '}
                     berarti berat badan Anda{' '}
                     <span className='lowercase'>
@@ -268,7 +272,7 @@ const BMICalculator: React.FC = () => {
                       const message = `Halo Admin, saya sudah hitung BMI saya dan hasilnya ${bmi} (${resultCategory?.label}). Saya ingin konsultasi lebih lanjut dok.`;
                       window.open(CONTACT_INFO.whatsapp.url(message), '_blank');
                     }}
-                    className='w-full bg-[#0F766E] hover:bg-[#0d655e] text-white font-semibold py-3 px-4 rounded-xl shadow-md transition-all active:scale-95 block text-center text-sm'
+                    className='w-full bg-[#0F766E] hover:bg-[#0d655e] text-white font-semibold py-3 px-4 rounded-xl shadow-md transition-all active:scale-95 block text-center text-xs md:text-sm'
                   >
                     Konsultasi Dokter Online
                   </button>
