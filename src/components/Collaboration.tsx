@@ -13,13 +13,13 @@ const Collaboration: React.FC = () => {
           <div className='absolute bottom-0 left-0 w-32 h-32 lg:w-48 lg:h-48 bg-green-100/30 rounded-full blur-3xl -z-10 -translate-x-1/3 translate-y-1/3'></div>
 
           <div className='flex-1 space-y-4 lg:space-y-6 text-center md:text-left'>
-            <span className='text-primary font-serif italic text-lg mb-2 block'>
+            <span className='text-primary font-serif italic text-sm md:text-lg mb-2 block'>
               Partnership
             </span>
-            <h2 className='text-2xl lg:text-5xl font-extrabold text-gray-900'>
+            <h2 className='text-xl lg:text-5xl font-extrabold text-gray-900'>
               Mari Berkolaborasi
             </h2>
-            <p className='text-base lg:text-lg text-gray-600 leading-relaxed max-w-xl mx-auto md:mx-0'>
+            <p className='text-xs md:text-base lg:text-lg text-gray-600 leading-relaxed max-w-xl mx-auto md:mx-0'>
               Terbuka untuk kerjasama kemitraan, pembicara seminar kesehatan,
               atau narasumber artikel gizi berkualitas. Mari bersama membangun
               masyarakat yang lebih sehat.
@@ -44,7 +44,7 @@ const Collaboration: React.FC = () => {
             </div>
           </div>
 
-          <div className='flex-1 w-full max-w-sm relative'>
+          <div className='flex-1 w-full max-w-sm relative p-4 md:p-0'>
             {/* Placeholder visual/illustration or graphics */}
             <div className='relative aspect-square bg-gray-50 rounded-2xl overflow-hidden border-4 border-white shadow-xl transform rotate-3 hover:rotate-0 transition-all duration-500'>
               <div className='absolute inset-0 flex items-center justify-center bg-gray-100 text-gray-300'></div>

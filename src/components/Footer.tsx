@@ -8,7 +8,7 @@ const Footer: React.FC = () => {
       <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
         <div className='grid grid-cols-1 lg:grid-cols-4 gap-12 lg:gap-8 mb-5 border-b border-gray-800 pb-12'>
           {/* Brand */}
-          <div className='lg:col-span-2 space-y-6'>
+          <div className='lg:col-span-2 space-y-3 md:space-y-6'>
             <div className='flex items-center gap-2'>
               <div className='w-8 h-8 bg-primary rounded-lg flex items-center justify-center text-white font-bold'>
                 Z
@@ -32,7 +32,7 @@ const Footer: React.FC = () => {
 
           {/* Navigation */}
           <div>
-            <h4 className='text-lg font-bold text-white mb-6'>Menu</h4>
+            <h4 className='text-lg font-bold text-white mb-3 md:mb-6'>Menu</h4>
             <ul className='space-y-3 text-sm text-gray-400'>
               <li>
                 <a href='#' className='hover:text-primary transition-colors'>
@@ -76,7 +76,9 @@ const Footer: React.FC = () => {
 
           {/* Services (Optional or just Contact) - Let's use Contact as requested */}
           <div>
-            <h4 className='text-lg font-bold text-white mb-6'>Kontak</h4>
+            <h4 className='text-lg font-bold text-white mb-3 md:mb-6'>
+              Kontak
+            </h4>
             <ul className='space-y-4 text-sm text-gray-400'>
               <li className='flex items-center gap-3'>
                 <Linkedin className='text-primary shrink-0' size={18} />

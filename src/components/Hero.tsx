@@ -9,8 +9,8 @@ const Hero: React.FC = () => {
       <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full'>
         <div className='grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-20 items-center'>
           {/* Left Content */}
-          <div className='space-y-6 lg:space-y-8 mt-8 lg:mt-0'>
-            <span className='text-primary font-serif italic text-lg block text-center lg:text-left'>
+          <div className='space-y-3 lg:space-y-8 mt-8 lg:mt-0'>
+            <span className='text-primary font-serif italic text-sm md:text-lg block text-center lg:text-left'>
               Think Healthier
             </span>
             <h1 className='text-3xl lg:text-6xl font-extrabold text-gray-900 leading-tight text-center lg:text-left'>
@@ -18,14 +18,14 @@ const Hero: React.FC = () => {
               <span className='text-primary'> Nutrition </span> Journey Start
               Here
             </h1>
-            <p className='text-base lg:text-lg text-gray-600 leading-relaxed max-w-lg mx-auto lg:mx-0 text-center lg:text-left mb-8 lg:mb-10'>
+            <p className='text-sm lg:text-lg text-gray-600 leading-relaxed max-w-lg mx-auto lg:mx-0 text-center lg:text-left mb-8 lg:mb-10'>
               Kami hadir untuk membantu kamu menjadi versi diri yang paling
               sehat melalui pendekatan gizi berbasis ilmu. Dapatkan pendampingan
               personal lewat layanan konsultasi gizi online yang praktis, aman,
               dan sesuai dengan kebutuhan Anda.
             </p>
 
-            <div className='flex flex-col sm:flex-row gap-4 pt-4 justify-center lg:justify-start'>
+            <div className='flex flex-col-2 sm:flex-row gap-4 pt-4 justify-center lg:justify-start'>
               <button
                 onClick={() =>
                   window.open(

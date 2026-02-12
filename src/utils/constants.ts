@@ -19,9 +19,8 @@ export const CONTACT_INFO = {
 };
 
 export const NAV_LINKS = [
-  { label: 'Beranda', href: '#' },
-  { label: 'Kenapa Kami', href: '#why-us' },
   { label: 'Layanan', href: '#services' },
+  { label: 'Kalkulator BMI', href: '#bmi-calculator' },
   { label: 'Testimoni', href: '#testimonials' },
   { label: 'Kolaborasi', href: '#collaboration' },
   { label: 'Portofolio', href: '#portfolio' },
@@ -212,7 +211,7 @@ export const PORTFOLIO_DATA = [
     category: 'Moderator',
     description:
       'Selain aktif sebagai penggiat sosial, saya memiliki pengalaman dalam memandu forum diskusi kesehatan profesional. Saya dipercaya menjadi moderator dalam seminar "Gizi Usia Produktif" di Brawijaya Hospital Duren Tiga yang mengulas pentingnya nutrisi bagi kelompok usia produktif.',
-    image: '/portofolio/moderator.png',
+    image: '/moderator.png',
   },
   {
     title: 'YAYASAN SEMANGAT MUDA INDONESIA',

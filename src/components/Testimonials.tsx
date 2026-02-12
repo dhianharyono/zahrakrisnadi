@@ -7,10 +7,10 @@ const Testimonials: React.FC = () => {
     <section id='testimonials' className='py-12 lg:py-20 bg-white'>
       <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
         <div className='text-center mb-8 lg:mb-10'>
-          <span className='text-primary font-serif italic text-lg mb-2 block'>
+          <span className='text-primary font-serif italic text-sm md:text-lg mb-2 block'>
             Kisah Sukses
           </span>
-          <h2 className='text-3xl lg:text-4xl font-extrabold text-gray-900 mb-4 leading-tight'>
+          <h2 className='text-xl lg:text-4xl font-extrabold text-gray-900 mb-4 leading-tight'>
             Apa Kata <span className='text-primary italic'>Mereka</span>
           </h2>
         </div>

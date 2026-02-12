@@ -14,34 +14,34 @@ const Services: React.FC = () => {
 
       <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
         <div className='text-center max-w-2xl mx-auto mb-10 lg:mb-16'>
-          <span className='text-primary font-serif italic text-lg mb-2 block'>
+          <span className='text-primary font-serif italic text-sm md:text-lg mb-2 block'>
             Layanan
           </span>
-          <h2 className='text-3xl lg:text-4xl font-extrabold text-gray-900 mb-4 leading-tight'>
+          <h2 className='text-xl lg:text-4xl font-extrabold text-gray-900 mb-4 leading-tight'>
             Program Nutrisi{' '}
             <span className='text-primary italic'>Unggulan</span>
           </h2>
-          <p className='text-gray-600 max-w-2xl mx-auto'>
+          <p className='text-gray-600 text-sm max-w-2xl mx-auto'>
             Pilih solusi kesehatan yang dirancang khusus untuk kebutuhan tubuh
             Anda.
           </p>
         </div>
 
-        <div className='grid grid-cols-1 md:grid-cols-3 gap-8 items-start'>
+        <div className='grid grid-cols-3 gap-2 md:gap-6 lg:gap-8 items-stretch px-1 md:px-0'>
           {SERVICES_DATA.map((service, index) => {
             const isHighlight = service.highlight;
             return (
               <div
                 key={index}
-                className={`group relative rounded-4xl p-5 sm:p-6 transition-all duration-500 ease-out hover:-translate-y-3 flex flex-col h-full transform hover:scale-105
+                className={`group relative rounded-xl md:rounded-3xl p-2 md:p-6 transition-all duration-500 ease-out hover:-translate-y-1 md:hover:-translate-y-3 flex flex-col h-full transform
                                 ${isHighlight
-                    ? 'bg-linear-to-br from-gray-900 to-gray-800 text-white shadow-2xl ring-4 scale-105 hover:scale-110 z-10'
-                    : 'bg-white border border-gray-100 shadow-xl hover:shadow-2xl text-gray-900'
+                    ? 'bg-linear-to-br from-gray-900 to-gray-800 text-white shadow-lg md:shadow-2xl ring-2 md:ring-4 scale-[1.02] md:scale-105 z-10'
+                    : 'bg-white border border-gray-100 shadow-md md:shadow-xl hover:shadow-lg md:hover:shadow-2xl text-gray-900'
                   }`}
               >
                 {/* Image Container */}
                 <div
-                  className={`relative h-64 sm:h-80 lg:h-97.5 w-full aspect-4/3 rounded-2xl overflow-hidden mb-6 shadow-md transition-transform duration-500 group-hover:scale-[1.02] ${isHighlight ? 'ring-2 ring-white/20' : ''}`}
+                  className={`relative h-20 sm:h-28 md:h-64 w-full aspect-square md:aspect-4/3 rounded-lg md:rounded-2xl overflow-hidden mb-2 md:mb-6 shadow-sm md:shadow-md transition-transform duration-500 group-hover:scale-[1.02] ${isHighlight ? 'ring-1 md:ring-2 ring-white/20' : ''}`}
                 >
                   <div
                     className={`absolute inset-0 z-10 ${isHighlight ? 'bg-black/10' : 'bg-transparent'}`}
@@ -53,7 +53,7 @@ const Services: React.FC = () => {
                     className='object-cover transition-transform duration-700 group-hover:scale-110'
                   />
                   {isHighlight && (
-                    <div className='absolute top-4 right-4 z-20 bg-orange-500 text-white text-xs font-bold px-3 py-1 rounded-full shadow-lg'>
+                    <div className='absolute top-1.5 right-1.5 md:top-4 md:right-4 z-20 bg-orange-500 text-white text-[7px] md:text-xs font-bold px-1.5 py-0.5 md:px-3 md:py-1 rounded-full shadow-md'>
                       POPULAR
                     </div>
                   )}
@@ -62,13 +62,13 @@ const Services: React.FC = () => {
                 {/* Content */}
                 <div className='flex flex-col grow'>
                   <h3
-                    className={`text-xl font-bold mb-2 ${isHighlight ? 'text-white' : 'text-gray-900'}`}
+                    className={`text-[10px] sm:text-xs md:text-xl font-bold mb-1 md:mb-2 leading-tight ${isHighlight ? 'text-white' : 'text-gray-900'}`}
                   >
                     {service.title}
                   </h3>
 
                   <p
-                    className={`text-sm leading-relaxed mb-6 grow ${isHighlight ? 'text-gray-300' : 'text-gray-600'}`}
+                    className={`text-[8px] sm:text-[10px] md:text-sm leading-relaxed mb-2 md:mb-6 grow line-clamp-3 md:line-clamp-none ${isHighlight ? 'text-gray-300' : 'text-gray-600'}`}
                   >
                     {service.description}
                   </p>
@@ -83,13 +83,13 @@ const Services: React.FC = () => {
                         '_blank',
                       )
                     }
-                    className={`w-full mt-auto py-4 rounded-xl font-bold flex items-center justify-center gap-2 transition-all duration-300 transform group-hover:scale-[1.02] cursor-pointer
+                    className={`w-full text-[8px] sm:text-xs md:text-sm mt-auto py-1.5 md:py-4 rounded-md md:rounded-xl font-bold flex items-center justify-center gap-1 md:gap-2 transition-all duration-300 transform group-hover:scale-[1.02] cursor-pointer
                                         ${isHighlight
-                        ? 'bg-primary hover:bg-orange-600 text-white shadow-lg shadow-orange-900/20'
+                        ? 'bg-primary hover:bg-orange-600 text-white shadow-sm md:shadow-lg shadow-orange-900/20'
                         : 'bg-gray-50 hover:bg-gray-100 text-gray-900 border border-gray-200 hover:border-gray-300'
                       }`}
                   >
-                    Daftar Sekarang
+                    Daftar <span className="hidden sm:inline">Sekarang</span>
                   </button>
                 </div>
               </div>

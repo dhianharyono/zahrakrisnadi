@@ -66,18 +66,18 @@ const BMICalculator: React.FC = () => {
         <div className='grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-start'>
           {/* Left Side: Text Content */}
           <div className='space-y-6 p-4'>
-            <span className='text-primary font-serif italic text-lg mb-2 block'>
+            <span className='text-primary font-serif italic text-sm md:text-lg mb-2 block'>
               Pantau Progressmu
             </span>
-            <h2 className='text-3xl lg:text-4xl font-extrabold text-gray-900 leading-tight'>
+            <h2 className='text-xl lg:text-4xl font-extrabold text-gray-900 leading-tight'>
               Kalkulator BMI
             </h2>
-            <p className='text-base lg:text-lg text-gray-600'>
+            <p className='text-xs md:text-sm md:text-base lg:text-lg text-gray-600'>
               Ketahui Body Mass Index (BMI) Anda secara instan. BMI adalah
               indikator sederhana dari rasio berat badan terhadap tinggi badan
               yang digunakan untuk mengklasifikasikan status berat badan.
             </p>
-            <ul className='space-y-4 pt-4'>
+            <ul className='space-y-4 pt-4 text-sm md:text-lg'>
               <li className='flex items-center gap-3'>
                 <div className='w-6 h-6 rounded-full bg-orange-100 flex items-center justify-center text-orange-600'>
                   <ChevronRight size={16} />
@@ -112,7 +112,7 @@ const BMICalculator: React.FC = () => {
               <div className='p-6 lg:p-10 space-y-6'>
                 <div className='grid grid-cols-2 gap-6'>
                   <div className='space-y-2'>
-                    <label className='text-sm font-semibold text-gray-600'>
+                    <label className='text-xs md:text-sm font-semibold text-gray-600'>
                       Tinggi (cm)
                     </label>
                     <input
@@ -124,7 +124,7 @@ const BMICalculator: React.FC = () => {
                     />
                   </div>
                   <div className='space-y-2'>
-                    <label className='text-sm font-semibold text-gray-600'>
+                    <label className='text-xs md:text-sm font-semibold text-gray-600'>
                       Berat (kg)
                     </label>
                     <input
@@ -138,7 +138,7 @@ const BMICalculator: React.FC = () => {
                 </div>
 
                 <div className='space-y-2'>
-                  <label className='text-sm font-semibold text-gray-600'>
+                  <label className='text-xs md:text-sm font-semibold text-gray-600'>
                     Usia (tahun)
                   </label>
                   <input
@@ -156,7 +156,7 @@ const BMICalculator: React.FC = () => {
                 <button
                   onClick={calculateBMI}
                   disabled={loading}
-                  className='w-full bg-primary hover:bg-orange-600 text-white font-bold py-4 rounded-xl shadow-lg shadow-orange-200 transition-all active:scale-95 disabled:opacity-70 disabled:cursor-not-allowed flex justify-center items-center cursor-pointer'
+                  className='w-full text-sm bg-primary hover:bg-orange-600 text-white font-bold py-4 rounded-xl shadow-lg shadow-orange-200 transition-all active:scale-95 disabled:opacity-70 disabled:cursor-not-allowed flex justify-center items-center cursor-pointer'
                 >
                   {loading ? (
                     <Loader2 className='animate-spin' />
