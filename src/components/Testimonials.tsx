@@ -74,7 +74,7 @@ const Testimonials: React.FC = () => {
                         />
                       ))}
                     </div>
-                    <p className='text-gray-600 leading-relaxed italic z-10 relative text-sm md:text-base'>
+                    <p className='text-gray-600 leading-relaxed italic z-10 relative text-xs md:text-sm lg:text-base'>
                       &quot;{testimonial.content}&quot;
                     </p>
                   </div>
@@ -88,7 +88,7 @@ const Testimonials: React.FC = () => {
                       />
                     </div>
                     <div>
-                      <h4 className='font-bold text-gray-900 text-sm'>
+                      <h4 className='font-bold text-gray-900 text-xs md:text-sm'>
                         {testimonial.name}
                       </h4>
                       <p className='text-xs text-gray-400 font-medium uppercase tracking-wide'>

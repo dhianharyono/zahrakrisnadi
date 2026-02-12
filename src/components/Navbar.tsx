@@ -108,13 +108,13 @@ const Navbar: React.FC = () => {
             isOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
           }`}
         >
-          <div className='px-4 pt-2 pb-6 space-y-2'>
+          <div className='px-2 pt-2 pb-3'>
             {NAV_LINKS.map((link) => (
               <a
                 key={link.label}
                 href={link.href}
                 onClick={() => setIsOpen(false)}
-                className='block px-3 py-2 text-gray-700 hover:text-primary hover:bg-orange-50 rounded-md font-medium'
+                className='block px-3 py-2 text-gray-700 hover:text-primary hover:bg-orange-50 rounded-md font-medium text-xs'
               >
                 {link.label}
               </a>
