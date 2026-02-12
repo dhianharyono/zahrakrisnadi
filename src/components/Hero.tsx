@@ -110,7 +110,7 @@ const Hero: React.FC = () => {
                     TERVERIFIKASI
                   </p>
                   <p className='font-bold text-xs lg:text-sm text-gray-900 leading-tight whitespace-nowrap'>
-                    Dietisien Berlisensi
+                    Ahli Gizi Berlisensi
                   </p>
                 </div>
               </div>

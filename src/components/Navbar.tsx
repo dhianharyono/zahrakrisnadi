@@ -31,7 +31,7 @@ const Navbar: React.FC = () => {
                 <Instagram size={14} className='sm:w-5 sm:h-5' />
               </Link>
             </span>
-            <span className='flex items-center gap-2'>
+            {/* <span className='flex items-center gap-2'>
               <Link
                 href={CONTACT_INFO.whatsapp.url(
                   'Halo Dietisienmu, saya ingin bertanya.',
@@ -41,7 +41,7 @@ const Navbar: React.FC = () => {
               >
                 <MessageCircleHeart size={14} className='sm:w-5 sm:h-5' />
               </Link>
-            </span>
+            </span> */}
           </div>
           <div className='flex items-center gap-6'>
             <span className='flex items-center gap-2'>
