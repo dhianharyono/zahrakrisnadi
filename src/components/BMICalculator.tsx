@@ -110,45 +110,90 @@ const BMICalculator: React.FC = () => {
             {bmi === null ? (
               // --- FORM STATE --- //
               <div className='p-6 lg:p-10 space-y-6'>
-                <div className='grid grid-cols-2 gap-6'>
-                  <div className='space-y-2'>
-                    <label className='text-xs md:text-sm font-semibold text-gray-600'>
-                      Tinggi (cm)
-                    </label>
+                <div className='grid grid-cols-1 sm:grid-cols-2 gap-6'>
+                  <div className='space-y-3'>
+                    <div className='flex justify-between items-end'>
+                      <label className='text-xs md:text-sm font-semibold text-gray-600'>
+                        Tinggi (cm)
+                      </label>
+                      <div className='flex items-center gap-1 bg-white px-3 py-1.5 rounded-lg border border-gray-200 shadow-sm focus-within:ring-2 focus-within:ring-primary focus-within:border-transparent transition-all'>
+                        <input
+                          type='number'
+                          value={height}
+                          onChange={(e) => setHeight(e.target.value)}
+                          className='w-12 text-right text-sm font-bold text-gray-900 outline-none bg-transparent'
+                          placeholder='170'
+                        />
+                        <span className='text-xs text-gray-500 select-none'>
+                          cm
+                        </span>
+                      </div>
+                    </div>
                     <input
-                      type='number'
-                      value={height}
+                      type='range'
+                      min='100'
+                      max='220'
+                      value={height || 165}
                       onChange={(e) => setHeight(e.target.value)}
-                      className='w-full px-4 py-3 text-xs md:text-sm bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all placeholder-gray-400'
-                      placeholder='170'
+                      className='w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-primary'
                     />
                   </div>
-                  <div className='space-y-2'>
-                    <label className='text-xs md:text-sm font-semibold text-gray-600'>
-                      Berat (kg)
-                    </label>
+                  <div className='space-y-3'>
+                    <div className='flex justify-between items-end'>
+                      <label className='text-xs md:text-sm font-semibold text-gray-600'>
+                        Berat (kg)
+                      </label>
+                      <div className='flex items-center gap-1 bg-white px-3 py-1.5 rounded-lg border border-gray-200 shadow-sm focus-within:ring-2 focus-within:ring-primary focus-within:border-transparent transition-all'>
+                        <input
+                          type='number'
+                          value={weight}
+                          onChange={(e) => setWeight(e.target.value)}
+                          className='w-12 text-right text-sm font-bold text-gray-900 outline-none bg-transparent'
+                          placeholder='60'
+                        />
+                        <span className='text-xs text-gray-500 select-none'>
+                          kg
+                        </span>
+                      </div>
+                    </div>
                     <input
-                      type='number'
-                      value={weight}
+                      type='range'
+                      min='30'
+                      max='150'
+                      value={weight || 60}
                       onChange={(e) => setWeight(e.target.value)}
-                      className='w-full px-4 py-3 text-xs md:text-sm bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all placeholder-gray-600'
-                      placeholder='65'
+                      className='w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-primary'
                     />
                   </div>
                 </div>
 
-                <div className='space-y-2'>
-                  <label className='text-xs md:text-sm font-semibold text-gray-600'>
-                    Usia (tahun)
-                  </label>
+                <div className='space-y-3'>
+                  <div className='flex justify-between items-end'>
+                    <label className='text-xs md:text-sm font-semibold text-gray-600'>
+                      Usia (tahun)
+                    </label>
+                    <div className='flex items-center gap-1 bg-white px-3 py-1.5 rounded-lg border border-gray-200 shadow-sm focus-within:ring-2 focus-within:ring-primary focus-within:border-transparent transition-all'>
+                      <input
+                        type='number'
+                        value={age}
+                        onChange={(e) => setAge(e.target.value)}
+                        className='w-12 text-right text-sm font-bold text-gray-900 outline-none bg-transparent'
+                        placeholder='25'
+                      />
+                      <span className='text-xs text-gray-500 select-none'>
+                        th
+                      </span>
+                    </div>
+                  </div>
                   <input
-                    type='number'
-                    value={age}
+                    type='range'
+                    min='20'
+                    max='100'
+                    value={age || 25}
                     onChange={(e) => setAge(e.target.value)}
-                    className='w-full px-4 py-3 text-xs md:text-sm bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all placeholder-gray-400'
-                    placeholder='25'
+                    className='w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-primary'
                   />
-                  <p className='text-[10px] md:text-xs text-gray-400 italic'>
+                  <p className='text-[10px] md:text-xs text-gray-400 italic mt-10'>
                     *Kalkulator ini berlaku untuk usia 20 tahun ke atas.
                   </p>
                 </div>
@@ -259,9 +304,7 @@ const BMICalculator: React.FC = () => {
                   <p className='text-gray-600 text-xs md:text-sm leading-relaxed'>
                     Memiliki IMT (BMI) <span className='font-bold'>{bmi}</span>{' '}
                     berarti berat badan Anda{' '}
-                    <span className='lowercase'>
-                      {resultCategory?.description}
-                    </span>
+                    <span>{resultCategory?.description}</span>
                   </p>
                 </div>
 
@@ -274,7 +317,7 @@ const BMICalculator: React.FC = () => {
                     }}
                     className='w-full bg-[#0F766E] hover:bg-[#0d655e] text-white font-semibold py-3 px-4 rounded-xl shadow-md transition-all active:scale-95 block text-center text-xs md:text-sm'
                   >
-                    Konsultasi Dokter Online
+                    Konsultasi Ahli Gizi Online
                   </button>
                 </div>
 

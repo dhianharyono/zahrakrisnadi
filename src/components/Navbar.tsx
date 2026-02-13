@@ -1,11 +1,5 @@
 import React, { useState } from 'react';
-import {
-  Instagram,
-  MapPinMinusInside,
-  Menu,
-  MessageCircleHeart,
-  X,
-} from 'lucide-react';
+import { Instagram, MapPinMinusInside, Menu, X } from 'lucide-react';
 import Link from 'next/link';
 import { CONTACT_INFO, NAV_LINKS } from '../utils/constants';
 
@@ -31,17 +25,6 @@ const Navbar: React.FC = () => {
                 <Instagram size={14} className='sm:w-5 sm:h-5' />
               </Link>
             </span>
-            {/* <span className='flex items-center gap-2'>
-              <Link
-                href={CONTACT_INFO.whatsapp.url(
-                  'Halo Dietisienmu, saya ingin bertanya.',
-                )}
-                target='_blank'
-                className='hover:text-red-400 transition-colors'
-              >
-                <MessageCircleHeart size={14} className='sm:w-5 sm:h-5' />
-              </Link>
-            </span> */}
           </div>
           <div className='flex items-center gap-6'>
             <span className='flex items-center gap-2'>

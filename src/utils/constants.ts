@@ -203,28 +203,28 @@ export const PORTFOLIO_DATA = [
     title: 'Grand Launching @nourishmate.id ',
     category: 'Speaker',
     description:
-      'Sebagai seorang Dietisien (Ahli Gizi) yang berdedikasi, saya aktif menjembatani edukasi kesehatan baik secara klinis maupun komunitas. Saya memiliki pengalaman sebagai pembicara dalam webinar "Balance Diet" bersama Nourishmate dan berperan sebagai moderator dalam forum profesional di Brawijaya Hospital Duren Tiga yang membahas gizi untuk usia produktif.',
+      'Sebagai Dietisien (Ahli Gizi) yang berdedikasi, saya berkomitmen menjembatani edukasi kesehatan berbasis sains baik di ranah klinis maupun komunitas. Berpengalaman sebagai pembicara dalam webinar “Balance Diet” bersama Nourishmate, saya aktif mengedukasi masyarakat agar mampu menerapkan pola makan seimbang secara praktis, berkelanjutan, dan sesuai kebutuhan individu.',
     image: '/portofolio/speaker-1.jpg',
   },
   {
     title: 'Memperingati Hari Gizi Nasional | Brawijaya Hospital',
     category: 'Moderator',
     description:
-      'Selain aktif sebagai penggiat sosial, saya memiliki pengalaman dalam memandu forum diskusi kesehatan profesional. Saya dipercaya menjadi moderator dalam seminar "Gizi Usia Produktif" di Brawijaya Hospital Duren Tiga yang mengulas pentingnya nutrisi bagi kelompok usia produktif.',
+      'Selain aktif sebagai penggiat sosial di bidang kesehatan, saya berpengalaman memandu forum diskusi kesehatan profesional. Saya dipercaya sebagai moderator dalam seminar “Gizi Usia Produktif” di Brawijaya Hospital Duren Tiga, yang mengulas peran strategis gizi dalam menjaga kesehatan, produktivitas, dan kualitas hidup kelompok usia produktif.',
     image: '/moderator.png',
   },
   {
     title: 'YAYASAN SEMANGAT MUDA INDONESIA',
     category: 'Health Educator',
     description:
-      'Semangat Muda bergerak pada bidang pengabdian masyarakat disektor Pendidikan, Kesehatan, Lingkungan, Pariwisata dan Ekonomi kreatif. Program kerja SMI dirancang secara khusus untuk menciptakan calon pemimpin muda yang responsif dan berintegritas tinggi terhadap lingkungan sekitar. Pelaksanaan program kerja SMI akan melibatkan berbagai peran pemerintah, masyarakat dan pemuda-pemudi Warna Negara Indonesia (WNI) pada usia produktif (±15-35 tahun) yang memiliki keinginan yang kuat dalam meningkatkan potensi diri baik di dalam maupun di luar negeri.',
+      'Semangat Muda Indonesia (SMI) merupakan organisasi pengabdian masyarakat yang bergerak di bidang pendidikan, kesehatan, lingkungan, pariwisata, dan ekonomi kreatif dengan fokus membentuk pemimpin muda yang responsif, berintegritas, dan peduli terhadap lingkungan. Melalui kolaborasi dengan pemerintah dan masyarakat, SMI menjalankan program berdampak seperti Si Ceting (edukasi stunting dan pendampingan ibu hamil serta balita dengan Smart Chart dari 1000 Days Fund di Desa Keciput), edukasi PHBS di SDN 16 Sijuk, Belitung, serta keterlibatan relawan terpilih sebagai delegasi fully funded dan Best Volunteer.',
     image: '/portofolio/volunter.jpg',
   },
   {
     title: 'NGOBROL GIZI PRA NIKAH',
     category: 'Speaker',
     description:
-      'Yup nikah butuh macam-macam persiapan, terutama terkait gizi nih. Karena sebagai muslimah punya tugas yg mulia untuk concern sama pemenuhan gizi keluarganya. So, kenali gizi yg tepat bagi keluargamu, karena muslim yg sehat dan kuat itu sangat Allah cintai.',
+      'Menikah membutuhkan kesiapan, termasuk kesiapan gizi. Sebagai muslimah, kita memiliki tugas mulia untuk peduli terhadap gizi pra-konsepsi dan gizi keluarga. Melalui peran saya sebagai pembicara edukasi gizi, saya mengajak para muslimah memahami pentingnya pemenuhan gizi sejak awal sebagai ikhtiar membangun keluarga yang sehat dan kuat, karena muslim yang sehat lebih dicintai Allah SWT.',
     image: '/portofolio/pemateri.jpg',
   },
   {
