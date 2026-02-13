@@ -109,7 +109,7 @@ export const TESTIMONIALS_DATA = [
     image: 'https://i.pravatar.cc/150?u=sisi',
   },
   {
-    name: 'Gagah Prakoso',
+    name: 'Dewi Nurutari',
     role: 'Pewirausaha',
     content:
       'Saya lebih produktif dan tidak mudah lelah. Pola makan yang disarankan sangat mudah diterapkan di tengah kesibukan saya.',
