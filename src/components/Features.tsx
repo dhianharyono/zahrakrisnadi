@@ -31,7 +31,7 @@ const Features: React.FC = () => {
                   className={`absolute -top-6 md:-top-12 left-1/2 transform -translate-x-1/2 w-12 h-12 md:w-20 md:h-20 lg:w-24 lg:h-24 rounded-full ${feature.bgColor} flex items-center justify-center shadow-md md:shadow-lg transition-transform duration-500 group-hover:scale-110 group-hover:shadow-xl border-2 md:border-4 border-white`}
                 >
                   <Icon
-                    className={`${feature.color} w-6 h-6 md:w-10 md:h-10 lg:w-12 lg:h-12`}
+                    className={`${feature.color} w-6 h-6 md:w-10 md:h-10 lg:w-10 lg:h-10`}
                   />
                 </div>
 
