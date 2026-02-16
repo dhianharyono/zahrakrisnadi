@@ -247,24 +247,24 @@ export const PORTFOLIO_DATA = [
     category: 'Health Educator',
     description:
       'Berperan sebagai fasilitator dalam mendampingi kader Posyandu untuk mengikuti dan menyelesaikan pelatihan digital Kader Academy bertema “Stunting and Smart Posters” yang diselenggarakan oleh 1000 Days Fund. Pendampingan dilakukan melalui edukasi materi, diskusi interaktif, serta asistensi teknis agar kader mampu memahami isu stunting secara komprehensif dan mengaplikasikan media edukasi secara efektif di masyarakat.',
-    image: '/portofolio/volunter.jpg',
+    image: '/portofolio/stunting_fix.jpg',
   },
   {
-    title: 'Si Ceting Banda',
+    title: 'Si Ceting (Cegah Stunting Itu Penting) Banda',
     category: 'Helath Educator',
     description:
       'Sebagai PIC program Kuliah Kader Si Ceting (Cegah Stunting Itu Penting), saya mengoordinasikan pelatihan penggunaan Smart Chart dari 1000 Days Fund kepada Kader Posyandu di Desa Dender, Banda Neira. Program ini bertujuan membekali kader dengan pemahaman komprehensif tentang stunting dan pencegahannya, serta meningkatkan kemampuan mereka dalam menggunakan media edukasi Smart Chart secara efektif untuk penyuluhan kepada masyarakat.',
     image: '/portofolio/si_ceting.JPG',
   },
   {
-    title: 'NGOBROL GIZI PRA NIKAH @casispolriid',
+    title: 'Menjaga Nutrisi Tubuh Untuk Latihan Binsik Polri',
     category: 'Speaker',
     description:
       'Menjaga Nutrisi Tubuh untuk Latihan Binsik Polri adalah Health Talk kolaborasi bersama CasisPolri.id yang membahas strategi gizi tepat untuk mendukung energi, pemulihan otot, hidrasi, dan komposisi tubuh ideal selama latihan intens. Materi disusun aplikatif dan berbasis evidence-based nutrition untuk membantu calon anggota Polri tampil prima saat seleksi.',
     image: '/portofolio/casispilriid.jpeg',
   },
   {
-    title: 'Nasyiatul Aisyiyah',
+    title: 'Diskusi Online Nasyiatul Aisyiyah',
     category: 'Speaker',
     description:
       'Menjadi speaker dalam acara yang diselenggarakan oleh Pimpinan Cabang Nasyiatul Aisyiyah Sewon Selatan, saya membawakan tema tentang cara, tips, dan trik menikmati makanan bersama keluarga sekaligus meningkatkan kesadaran terhadap isu food waste. Materi ini menekankan pentingnya perencanaan menu, pengaturan porsi yang bijak, kreativitas mengolah sisa bahan makanan, serta membangun kebiasaan makan mindful agar makanan lebih dihargai, dinikmati, dan tidak terbuang sia-sia dalam kehidupan sehari-hari.',
