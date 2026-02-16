@@ -55,7 +55,7 @@ const Hero: React.FC = () => {
             <div className='pt-8 flex items-center justify-center lg:justify-start gap-6 lg:gap-8 text-gray-500'>
               <div className='text-center lg:text-left'>
                 <h3 className='text-2xl lg:text-3xl font-bold text-green-800'>
-                  500+
+                  58+
                 </h3>
                 <p className='text-xs lg:text-sm font-medium'>Klien Terbantu</p>
               </div>

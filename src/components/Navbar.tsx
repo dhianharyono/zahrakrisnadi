@@ -45,7 +45,7 @@ const Navbar: React.FC = () => {
           <div className='flex justify-between items-center h-20'>
             <div className='shrink-0 flex items-center'>
               <span className='text-lg md:text-xl lg:text-2xl font-bold bg-clip-text text-transparent bg-linear-to-r from-primary to-orange-600'>
-                <a href='#'>ZahraKrisnadi</a>
+                <a href='#'>Zahra Krisnadi</a>
               </span>
             </div>
             <div className='hidden md:flex space-x-8 items-center'>

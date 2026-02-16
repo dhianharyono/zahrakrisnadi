@@ -14,7 +14,7 @@ const Footer: React.FC = () => {
                 Z
               </div>
               <span className='text-lg md:text-xl font-bold text-white tracking-tight'>
-                ZahraKrisnadi
+                Zahra Krisnadi
               </span>
             </div>
             <li className='flex items-center gap-4'>

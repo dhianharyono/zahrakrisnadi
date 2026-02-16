@@ -29,9 +29,9 @@ export const NAV_LINKS = [
 export const FEATURES_DATA = [
   {
     id: '01',
-    title: 'Personalized',
+    title: 'Program Diet Personalized',
     description:
-      'Rencana nutrisi yang disusun khusus sesuai kebutuhan unik tubuh dan gaya hidup Anda.',
+      'Kami percaya bahwa kamu spesial. Karena itu kamu perlu pola makan yang spesial juga, khusus untukmu.',
     Icon: Salad,
     color: 'text-green-600',
     bgColor: 'bg-green-100',
@@ -39,9 +39,9 @@ export const FEATURES_DATA = [
   },
   {
     id: '02',
-    title: 'Anti Ribet',
+    title: 'Diet Anti Ribet dan Tanpa Produk',
     description:
-      'Pola makan praktis tanpa aturan rumit, mudah diikuti dan berkelanjutan jangka panjang.',
+      'Dengan bantuan ahli gizi, kamu tetap bisa capai target sehat tapa tergantung produk diet apapun.',
     Icon: Timer,
     color: 'text-orange-600',
     bgColor: 'bg-orange-100',
@@ -49,9 +49,9 @@ export const FEATURES_DATA = [
   },
   {
     id: '03',
-    title: 'Tersertifikasi',
+    title: 'Dietisien/Ahli Gizi Terferifikasi',
     description:
-      'Konsultasi langsung dengan ahli gizi profesional yang memiliki sertifikasi resmi.',
+      'Berpengalaman dan teregistrasi oleh MTKI (Majelis Tenaga Kesehatan Indonesia)',
     Icon: Award,
     color: 'text-blue-600',
     bgColor: 'bg-blue-100',
@@ -83,54 +83,69 @@ export const SERVICES_DATA = [
   },
 ];
 
-export const TESTIMONIALS_DATA = [
+export const PRICING_PLANS = [
   {
-    name: 'Maya Pertiwi',
-    role: 'Ibu Rumah Tangga',
-    content:
-      'Program dari Zahra Krisnadi sangat menyenangkan. Saya tidak merasa lapar terus-menerus dan berat badan turun secara sehat!',
-    rating: 5,
-    image: 'https://i.pravatar.cc/150?u=maya',
+    name: 'Basic',
+    price: 'Rp 150.000',
+    duration: '30 HARI',
+    description: 'Cocok untuk pemula yang ingin mulai hidup sehat.',
+    features: [
+      { name: 'Konseling 1on1 dengan Ahli Gizi (video call)', value: '1 kali' },
+      { name: 'Pemeriksaan kondisi gizi', value: true },
+      { name: 'Personalized menu', value: true },
+      { name: 'Personalized meal plan', value: '3 hari' },
+      { name: 'Konsultasi chat dengan Ahli Gizi', value: '3 kali per minggu' },
+    ],
+    highlight: false,
   },
   {
-    name: 'Budi Santoso',
-    role: 'Mahasiswa',
+    name: 'Advance',
+    price: 'Rp 300.000',
+    duration: '30 HARI',
+    description: 'Pendampingan intensif untuk hasil yang maksimal.',
+    features: [
+      { name: 'Konseling 1on1 dengan Ahli Gizi (video call)', value: '3 kali' },
+      { name: 'Pemeriksaan kondisi gizi', value: true },
+      { name: 'Personalized menu', value: true },
+      { name: 'Personalized meal plan', value: '10 hari' },
+      { name: 'Konsultasi chat dengan Ahli Gizi', value: 'Setiap hari kerja' },
+    ],
+    highlight: true,
+  },
+];
+
+export const TESTIMONIALS_DATA = [
+  {
+    name: 'Nugraha',
+    role: 'Karyawan Swasta',
     content:
-      'Konsultasi yang sangat mendalam. Zahra Krisnadi membantu saya paham jenis makanan apa yang cocok untuk kondisi lambung saya.',
+      'Sebelumnya saya sudah mengikuti program personal trainer di gym, tetapi menu yang disarankan terasa kurang bervariasi sehingga membuat saya cepat bosan dan kurang konsisten. Setelah konsultasi dengan Kak Zahra, saya mendapatkan guideline makan yang lebih fleksibel dan sesuai kebutuhan saya. Sekarang saya lebih enjoy menjalani pola makan sehat dan terasa jauh lebih sustainable',
     rating: 5,
     image: 'https://i.pravatar.cc/150?u=budi',
   },
   {
-    name: 'Sisi Pratama',
-    role: 'Guru',
+    name: 'Ahmad',
+    role: 'Pengusaha',
     content:
-      'Awalnya meremehkan diet gizi yang mengenyangkan, ternyata saya salah. Performa lari harian saya meningkat drastis berkat menu dari Zahra Krisnadi!',
+      'Setelah konsultasi gizi dan melakukan medical check-up ulang 3 bulan kemudian, Alhamdulillah kadar gula darah dan kolesterol saya sudah kembali normal. Terima kasih atas bimbingan dan panduan makan yang jelas, realistis, dan mudah dijalankan sehingga saya bisa lebih konsisten menjaga pola hidup sehat.',
     rating: 5,
     image: 'https://i.pravatar.cc/150?u=sisi',
   },
   {
-    name: 'Dewi Nurutari',
-    role: 'Pewirausaha',
+    name: 'Ibrahim',
+    role: 'Pemilik Bisnis Catering',
     content:
-      'Saya lebih produktif dan tidak mudah lelah. Pola makan yang disarankan sangat mudah diterapkan di tengah kesibukan saya.',
-    rating: 5,
-    image: 'https://i.pravatar.cc/150?u=gagah',
-  },
-  {
-    name: 'Rina Melati',
-    role: 'Model',
-    content:
-      'Berat badan stabil dan kulit jadi lebih glowing. Terima kasih Zahra Krisnadi!',
-    rating: 5,
-    image: 'https://i.pravatar.cc/150?u=rina',
-  },
-  {
-    name: 'Doni Kurniawan',
-    role: 'Atlet',
-    content:
-      'Performa latihan saya meningkat pesat. Dietisien Zahra sangat paham kebutuhan nutrisi atlet.',
+      'Saya kerjasama dengan mbak Zahra sejak 2024, alhamdulillah overall sangat positif. Knowledgenya sangat luas khususnya terkait menu-menu yang sedang tren saat ini, sangat applicable diterapkan di bisnis kami. Komunikasi responsif dan pelayanannya juga yg sangat ramah, memudahkan kami meskipun bekerja dari kota yg berjauhan.',
     rating: 5,
     image: 'https://i.pravatar.cc/150?u=doni',
+  },
+  {
+    name: 'Habibah',
+    role: 'Mahasiswi',
+    content:
+      'First time aku konsultasi dengan ahli gizi dan mudah dimengerti banget. Thank you kak Zahra!',
+    rating: 5,
+    image: 'https://i.pravatar.cc/150?u=maya',
   },
 ];
 
@@ -200,32 +215,11 @@ export const BMI_CATEGORIES: BMICategoryData[] = [
 
 export const PORTFOLIO_DATA = [
   {
-    title: 'Grand Launching @nourishmate.id ',
-    category: 'Speaker',
-    description:
-      'Sebagai Dietisien (Ahli Gizi) yang berdedikasi, saya berkomitmen menjembatani edukasi kesehatan berbasis sains baik di ranah klinis maupun komunitas. Berpengalaman sebagai pembicara dalam webinar “Balance Diet” bersama Nourishmate, saya aktif mengedukasi masyarakat agar mampu menerapkan pola makan seimbang secara praktis, berkelanjutan, dan sesuai kebutuhan individu.',
-    image: '/portofolio/speaker-1.jpg',
-  },
-  {
     title: 'Memperingati Hari Gizi Nasional | Brawijaya Hospital',
     category: 'Moderator',
     description:
       'Selain aktif sebagai penggiat sosial di bidang kesehatan, saya berpengalaman memandu forum diskusi kesehatan profesional. Saya dipercaya sebagai moderator dalam seminar “Gizi Usia Produktif” di Brawijaya Hospital Duren Tiga, yang mengulas peran strategis gizi dalam menjaga kesehatan, produktivitas, dan kualitas hidup kelompok usia produktif.',
     image: '/moderator.png',
-  },
-  {
-    title: 'YAYASAN SEMANGAT MUDA INDONESIA',
-    category: 'Health Educator',
-    description:
-      'Semangat Muda Indonesia (SMI) merupakan organisasi pengabdian masyarakat yang bergerak di bidang pendidikan, kesehatan, lingkungan, pariwisata, dan ekonomi kreatif dengan fokus membentuk pemimpin muda yang responsif, berintegritas, dan peduli terhadap lingkungan. Melalui kolaborasi dengan pemerintah dan masyarakat, SMI menjalankan program berdampak seperti Si Ceting (edukasi stunting dan pendampingan ibu hamil serta balita dengan Smart Chart dari 1000 Days Fund di Desa Keciput), edukasi PHBS di SDN 16 Sijuk, Belitung, serta keterlibatan relawan terpilih sebagai delegasi fully funded dan Best Volunteer.',
-    image: '/portofolio/volunter.jpg',
-  },
-  {
-    title: 'NGOBROL GIZI PRA NIKAH',
-    category: 'Speaker',
-    description:
-      'Menikah membutuhkan kesiapan, termasuk kesiapan gizi. Sebagai muslimah, kita memiliki tugas mulia untuk peduli terhadap gizi pra-konsepsi dan gizi keluarga. Melalui peran saya sebagai pembicara edukasi gizi, saya mengajak para muslimah memahami pentingnya pemenuhan gizi sejak awal sebagai ikhtiar membangun keluarga yang sehat dan kuat, karena muslim yang sehat lebih dicintai Allah SWT.',
-    image: '/portofolio/pemateri.jpg',
   },
   {
     title: 'Kolaborasi Brand Makanan Sehat Nourishmate Catering',
@@ -240,5 +234,40 @@ export const PORTFOLIO_DATA = [
     description:
       'Membangun platform digital untuk membantu masyarakat Indonesia dalam mengakses layanan konsultasi gizi yang terjangkau dan berkualitas.',
     image: '/portofolio/dietisienmu.jpg',
+  },
+  {
+    title: 'Grand Launching @nourishmate.id ',
+    category: 'Speaker',
+    description:
+      'Sebagai Dietisien (Ahli Gizi) yang berdedikasi, saya berkomitmen menjembatani edukasi kesehatan berbasis sains baik di ranah klinis maupun komunitas. Berpengalaman sebagai pembicara dalam webinar “Balance Diet” bersama Nourishmate, saya aktif mengedukasi masyarakat agar mampu menerapkan pola makan seimbang secara praktis, berkelanjutan, dan sesuai kebutuhan individu.',
+    image: '/portofolio/speaker-1.jpg',
+  },
+  {
+    title: 'Fasilitator Pemberdayaan',
+    category: 'Health Educator',
+    description:
+      'Berperan sebagai fasilitator dalam mendampingi kader Posyandu untuk mengikuti dan menyelesaikan pelatihan digital Kader Academy bertema “Stunting and Smart Posters” yang diselenggarakan oleh 1000 Days Fund. Pendampingan dilakukan melalui edukasi materi, diskusi interaktif, serta asistensi teknis agar kader mampu memahami isu stunting secara komprehensif dan mengaplikasikan media edukasi secara efektif di masyarakat.',
+    image: '/portofolio/volunter.jpg',
+  },
+  {
+    title: 'Si Ceting Banda',
+    category: 'Helath Educator',
+    description:
+      'Sebagai PIC program Kuliah Kader Si Ceting (Cegah Stunting Itu Penting), saya mengoordinasikan pelatihan penggunaan Smart Chart dari 1000 Days Fund kepada Kader Posyandu di Desa Dender, Banda Neira. Program ini bertujuan membekali kader dengan pemahaman komprehensif tentang stunting dan pencegahannya, serta meningkatkan kemampuan mereka dalam menggunakan media edukasi Smart Chart secara efektif untuk penyuluhan kepada masyarakat.',
+    image: '/portofolio/si_ceting.jpg',
+  },
+  {
+    title: 'NGOBROL GIZI PRA NIKAH @casispolriid',
+    category: 'Speaker',
+    description:
+      'Menjaga Nutrisi Tubuh untuk Latihan Binsik Polri adalah Health Talk kolaborasi bersama CasisPolri.id yang membahas strategi gizi tepat untuk mendukung energi, pemulihan otot, hidrasi, dan komposisi tubuh ideal selama latihan intens. Materi disusun aplikatif dan berbasis evidence-based nutrition untuk membantu calon anggota Polri tampil prima saat seleksi.',
+    image: '/portofolio/casispilriid.jpeg',
+  },
+  {
+    title: 'Nasyiatul Aisyiyah',
+    category: 'Speaker',
+    description:
+      'Menjadi speaker dalam acara yang diselenggarakan oleh Pimpinan Cabang Nasyiatul Aisyiyah Sewon Selatan, saya membawakan tema tentang cara, tips, dan trik menikmati makanan bersama keluarga sekaligus meningkatkan kesadaran terhadap isu food waste. Materi ini menekankan pentingnya perencanaan menu, pengaturan porsi yang bijak, kreativitas mengolah sisa bahan makanan, serta membangun kebiasaan makan mindful agar makanan lebih dihargai, dinikmati, dan tidak terbuang sia-sia dalam kehidupan sehari-hari.',
+    image: '/portofolio/Nasyiatul_Aisyiyah.jpeg',
   },
 ];
