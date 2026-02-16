@@ -254,7 +254,7 @@ export const PORTFOLIO_DATA = [
     category: 'Helath Educator',
     description:
       'Sebagai PIC program Kuliah Kader Si Ceting (Cegah Stunting Itu Penting), saya mengoordinasikan pelatihan penggunaan Smart Chart dari 1000 Days Fund kepada Kader Posyandu di Desa Dender, Banda Neira. Program ini bertujuan membekali kader dengan pemahaman komprehensif tentang stunting dan pencegahannya, serta meningkatkan kemampuan mereka dalam menggunakan media edukasi Smart Chart secara efektif untuk penyuluhan kepada masyarakat.',
-    image: '/portofolio/si_ceting.jpg',
+    image: '/portofolio/si_ceting.JPG',
   },
   {
     title: 'NGOBROL GIZI PRA NIKAH @casispolriid',
