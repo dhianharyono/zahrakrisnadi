@@ -51,7 +51,7 @@ export const FEATURES_DATA = [
     id: '03',
     title: 'Dietisien/Ahli Gizi Terferifikasi',
     description:
-      'Berpengalaman dan teregistrasi oleh MTKI (Majelis Tenaga Kesehatan Indonesia)',
+      'Berpengalaman dan teregistrasi oleh KKI (Konsil Kesehatan Indonesia)',
     Icon: Award,
     color: 'text-blue-600',
     bgColor: 'bg-blue-100',
@@ -61,23 +61,23 @@ export const FEATURES_DATA = [
 
 export const SERVICES_DATA = [
   {
-    title: 'Manajemen Berat Badan',
+    title: 'Blooming Motherhood',
     description:
-      'Program khusus untuk mencapai berat badan ideal secara sehat dan berkelanjutan.',
-    image: '/meal-planings.jpg',
+      'Program konsultasi gizi untuk wanita yang ingin mempersiapkan kehamilan, menjalani masa hamil dengan optimal, hingga mendukung proses menyusui agar ibu dan bayi tumbuh sehat bersama.',
+    image: '/little-asian.jpg',
     highlight: false,
   },
   {
-    title: 'Nutrisi Ibu & Anak',
+    title: 'Fit & Healthy Body',
     description:
-      'Panduan gizi optimal untuk masa kehamilan hingga tumbuh kembang sang buah hati.',
-    image: '/little-asian.jpg',
+      'Program khusus untuk mencapai berat badan ideal secara sehat dan berkelanjutan.',
+    image: '/meal-planings.jpg',
     highlight: true,
   },
   {
-    title: 'Diet Terapi Penyakit',
+    title: 'Complete Nutrition Care',
     description:
-      'Pengaturan pola makan khusus bagi penderita Diabetes, Hipertensi, dan lainnya.',
+      'Pendampingan pengaturan pola makan khusus untuk Diabetes Mellitus, hipertensi, jantung, kolesterol, asam urat, gangguan pencernaan, hingga pemulihan setelah rawat inap agar kondisi lebih terkontrol dan kualitas hidup tetap optimal.',
     image: '/hipertensi.jpg',
     highlight: false,
   },
@@ -104,7 +104,7 @@ export const PRICING_PLANS = [
     duration: '30 HARI',
     description: 'Pendampingan intensif untuk hasil yang maksimal.',
     features: [
-      { name: 'Konseling 1on1 dengan Ahli Gizi (video call)', value: '3 kali' },
+      { name: 'Konseling 1on1 dengan Ahli Gizi (video call)', value: '2 kali' },
       { name: 'Pemeriksaan kondisi gizi', value: true },
       { name: 'Personalized menu', value: true },
       { name: 'Personalized meal plan', value: '10 hari' },
