@@ -239,7 +239,7 @@ export default function AssessmentPage() {
   const CurrentStepIcon = steps[step - 1].icon;
 
   return (
-    <div className='min-h-screen bg-[#FDFBF7] font-sans text-gray-800 relative selection:bg-primary/20 selection:text-primary pb-20'>
+    <div className='min-h-screen bg-white font-sans text-gray-800 relative selection:bg-primary/20 selection:text-primary pb-20'>
       {/* Background Ambience */}
       <div className='fixed top-0 left-0 w-full h-full pointer-events-none overflow-hidden z-0'>
         <div className='absolute top-[-20%] right-[-10%] w-150 h-150 bg-orange-200/20 rounded-full blur-[100px] opacity-60' />
@@ -248,7 +248,7 @@ export default function AssessmentPage() {
 
       {/* Header */}
       <header className='sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-orange-50/50 shadow-sm transition-all duration-300'>
-        <div className='max-w-5xl mx-auto px-4 sm:px-6 h-16 md:h-20 flex items-center justify-between'>
+        <div className='max-w-5xl mx-auto px-4 sm:px-6 h-16 md:h-20 flex items-center justify-between '>
           <Link href='/' className='flex items-center gap-2 group'>
             <div className='bg-primary/10 p-2 rounded-xl group-hover:bg-primary/20 transition-colors'>
               <ChevronLeft className='w-5 h-5 text-primary' />
@@ -310,15 +310,16 @@ export default function AssessmentPage() {
             return (
               <div
                 key={s.id}
-                className='flex flex-col items-center gap-2 bg-[#FDFBF7] px-2'
+                className='flex flex-col items-center gap-2 bg-white px-2'
               >
                 <div
                   className={`w-10 h-10 rounded-full flex items-center justify-center transition-all duration-500 border-2
-                    ${isActive
-                      ? 'bg-primary border-primary text-white shadow-lg shadow-orange-200 scale-110'
-                      : isCompleted
-                        ? 'bg-primary border-primary text-white'
-                        : 'bg-white border-gray-200 text-gray-400'
+                    ${
+                      isActive
+                        ? 'bg-primary border-primary text-white shadow-lg shadow-orange-200 scale-110'
+                        : isCompleted
+                          ? 'bg-primary border-primary text-white'
+                          : 'bg-white border-gray-200 text-gray-400'
                     }`}
                 >
                   {isCompleted ? (
@@ -342,7 +343,7 @@ export default function AssessmentPage() {
           {/* Form Header Inside Card */}
           <div className='bg-linear-to-b from-orange-200 to-white px-3 py-3 md:px-10 md:py-10'>
             <div className='flex items-center gap-4 mb-2'>
-              <div className='w-8 h-8 md:w-12 md:h-12 rounded-lg md:rounded-2xl bg-white shadow-md flex items-center justify-center text-primary transform rotate-3'>
+              <div className='w-8 h-8 md:w-12 md:h-12 rounded-lg md:rounded-2xl bg-white shadow-md flex items-center justify-center text-primary'>
                 <CurrentStepIcon className='w-3 h-3 md:w-6 md:h-6' />
               </div>
               <div>
@@ -358,7 +359,7 @@ export default function AssessmentPage() {
 
           <form
             onSubmit={(e) => e.preventDefault()}
-            className='px-6 py-3 md:px-10 space-y-8'
+            className='px-6 py-5 md:py-3 md:px-10 space-y-8'
           >
             {/* Step 1: Identitas */}
             {step === 1 && (
@@ -387,10 +388,11 @@ export default function AssessmentPage() {
                           handleChange('tanggalLahir', e.target.value)
                         }
                         className={`w-full pl-12 pr-4 py-3.5 bg-gray-50 border rounded-xl outline-none transition-all duration-200 font-medium
-                           ${errors.tanggalLahir
-                            ? 'border-red-300 bg-red-50 focus:border-red-500 focus:ring-4 focus:ring-red-100'
-                            : 'border-transparent focus:bg-white focus:border-primary focus:ring-4 focus:ring-orange-100 placeholder:text-gray-400'
-                          }`}
+                           ${
+                             errors.tanggalLahir
+                               ? 'border-red-300 bg-red-50 focus:border-red-500 focus:ring-4 focus:ring-red-100'
+                               : 'border-transparent focus:bg-white focus:border-primary focus:ring-4 focus:ring-orange-100 placeholder:text-gray-400'
+                           }`}
                       />
                     </div>
                     {errors.tanggalLahir && (
@@ -586,10 +588,11 @@ export default function AssessmentPage() {
                           handleChange('frekuensiMakanLainnya', '');
                         }}
                         className={`w-14 h-14 rounded-full border-2 text-sm font-bold transition-all duration-200 flex items-center justify-center
-                            ${formData.frekuensiMakan === opt
-                            ? 'bg-primary border-primary text-white shadow-lg shadow-orange-200 scale-105'
-                            : 'bg-white text-gray-500 border-gray-200 hover:border-gray-300'
-                          }`}
+                            ${
+                              formData.frekuensiMakan === opt
+                                ? 'bg-primary border-primary text-white shadow-lg shadow-orange-200 scale-105'
+                                : 'bg-white text-gray-500 border-gray-200 hover:border-gray-300'
+                            }`}
                       >
                         {opt}
                       </button>
@@ -604,10 +607,11 @@ export default function AssessmentPage() {
                           handleChange('frekuensiMakan', 'Lainnya');
                         }}
                         className={`w-full px-5 py-3.5 rounded-2xl border bg-white outline-none font-medium transition-all
-                             ${formData.frekuensiMakan === 'Lainnya'
-                            ? 'border-primary ring-2 ring-orange-100'
-                            : 'border-gray-200 text-gray-500'
-                          }`}
+                             ${
+                               formData.frekuensiMakan === 'Lainnya'
+                                 ? 'border-primary ring-2 ring-orange-100'
+                                 : 'border-gray-200 text-gray-500'
+                             }`}
                       />
                     </div>
                   </div>
@@ -837,10 +841,11 @@ export default function AssessmentPage() {
                 type='button'
                 onClick={handleBack}
                 disabled={step === 1}
-                className={`flex text-xs md:text-sm items-center gap-0 md:gap-2 px-2 md:px-8 py-2 md:py-4 rounded-full font-medium transition-all cursor-pointer
-                  ${step === 1
-                    ? 'text-gray-300 cursor-not-allowed'
-                    : 'text-gray-600 bg-gray-100 hover:bg-gray-100 hover:text-gray-900'
+                className={`flex text-xs md:text-sm items-center gap-2 px-8 md:px-8 py-2 md:py-4 rounded-full font-medium transition-all cursor-pointer
+                  ${
+                    step === 1
+                      ? 'text-gray-300 cursor-not-allowed'
+                      : 'text-gray-600 bg-gray-100 hover:bg-gray-100 hover:text-gray-900'
                   }`}
               >
                 <ChevronLeft className='w-5 h-5' />
@@ -850,7 +855,7 @@ export default function AssessmentPage() {
               <button
                 type='button'
                 onClick={step === steps.length ? handleSubmit : handleNext}
-                className='cursor-pointer flex text-xs md:text-sm items-center gap-0 md:gap-2 px-2 md:px-8 py-2 md:py-4 rounded-full bg-primary text-white font-bold tracking-wide hover:shadow-xl hover:shadow-orange-200 hover:-translate-y-1 transition-all duration-300'
+                className='cursor-pointer flex text-xs md:text-sm items-center gap-2 px-8 md:px-8 py-2 md:py-4 rounded-full bg-primary text-white font-bold tracking-wide hover:shadow-xl hover:shadow-orange-200 hover:-translate-y-1 transition-all duration-300'
               >
                 {step === steps.length ? 'Kirim Assessment' : 'Lanjut'}
                 {step === steps.length ? (
@@ -915,10 +920,11 @@ function InputField({
           onChange={(e) => onChange(e.target.value)}
           placeholder={placeholder}
           className={`text-xs md:text-sm w-full ${icon ? 'pl-11' : 'px-4'} pr-4 py-3.5 bg-gray-50 border rounded-xl outline-none transition-all duration-200 font-medium text-gray-900 placeholder:text-gray-400 ${className}
-             ${error
-              ? 'border-red-300 bg-red-50 focus:border-red-500 focus:ring-4 focus:ring-red-100'
-              : 'border-transparent focus:bg-white focus:border-primary focus:ring-4 focus:ring-orange-100'
-            }`}
+             ${
+               error
+                 ? 'border-red-300 bg-red-50 focus:border-red-500 focus:ring-4 focus:ring-red-100'
+                 : 'border-transparent focus:bg-white focus:border-primary focus:ring-4 focus:ring-orange-100'
+             }`}
         />
       </div>
       {error && (
@@ -958,9 +964,10 @@ function TextAreaField({
         placeholder={placeholder}
         rows={3}
         className={`w-full px-4 py-3.5 bg-gray-50 border rounded-xl outline-none transition-all duration-200 font-medium text-gray-900 placeholder:text-gray-400 resize-none ${className}
-          ${error
-            ? 'border-red-300 bg-red-50 focus:border-red-500 focus:ring-4 focus:ring-red-100'
-            : 'border-transparent focus:bg-white focus:border-primary focus:ring-4 focus:ring-orange-100'
+          ${
+            error
+              ? 'border-red-300 bg-red-50 focus:border-red-500 focus:ring-4 focus:ring-red-100'
+              : 'border-transparent focus:bg-white focus:border-primary focus:ring-4 focus:ring-orange-100'
           }`}
       />
       {error && (

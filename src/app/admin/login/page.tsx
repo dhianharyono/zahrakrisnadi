@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { Lock, User, Eye, EyeOff, ArrowRight, ShieldCheck } from 'lucide-react';
 import Image from 'next/image';
+import Link from 'next/link';
 
 export default function AdminLogin() {
     const [username, setUsername] = useState('');
@@ -50,14 +51,14 @@ export default function AdminLogin() {
                     <div className="absolute bottom-0 left-0 -ml-20 -mb-20 w-[500px] h-[500px] bg-orange-500/20 rounded-full blur-[100px]"></div>
                 </div>
 
-                <div className="relative z-10">
+                <Link href="/" className="relative z-10">
                     <div className="flex items-center gap-3 text-2xl font-bold tracking-tight">
                         <div className="w-10 h-10 bg-gradient-to-br from-primary to-green-400 rounded-xl flex items-center justify-center shadow-lg shadow-primary/20">
                             <span className="text-white font-serif italic text-xl">Z</span>
                         </div>
                         Zahra Krisnadi
                     </div>
-                </div>
+                </Link>
 
                 <div className="relative z-10 max-w-xl">
                     <h1 className="text-5xl font-bold leading-tight mb-6">
@@ -87,8 +88,8 @@ export default function AdminLogin() {
             <div className="w-full lg:w-1/2 flex items-center justify-center p-6 sm:p-12 lg:p-24 bg-gray-50/50">
                 <div className="w-full max-w-md space-y-8 bg-white p-8 rounded-3xl shadow-xl shadow-gray-100/50 border border-gray-100">
                     <div className="text-center lg:text-left">
-                        <h2 className="text-3xl font-bold text-gray-900 tracking-tight mb-2">Login Akun</h2>
-                        <p className="text-gray-500">Masukkan kredensial Anda untuk mengakses dashboard.</p>
+                        <h2 className="text-xl font-bold text-gray-900 tracking-tight mb-2">Login Akun</h2>
+                        <p className="text-gray-500 text-sm">Masukkan kredensial Anda untuk mengakses dashboard.</p>
                     </div>
 
                     <form onSubmit={handleLogin} className="space-y-6">
@@ -102,7 +103,7 @@ export default function AdminLogin() {
                                     type="text"
                                     value={username}
                                     onChange={(e) => setUsername(e.target.value)}
-                                    className="block w-full pl-11 pr-4 py-4 bg-gray-50 border border-gray-200 rounded-2xl focus:bg-white focus:ring-4 focus:ring-primary/10 focus:border-primary transition-all outline-none font-medium placeholder:text-gray-400 text-gray-900"
+                                    className="block w-full pl-11 pr-4 text-sm py-4 bg-gray-50 border border-gray-200 rounded-2xl focus:bg-white focus:ring-4 focus:ring-primary/10 focus:border-primary transition-all outline-none font-medium placeholder:text-gray-400 text-gray-900"
                                     placeholder="Masukkan username Anda"
                                     required
                                 />
@@ -119,8 +120,8 @@ export default function AdminLogin() {
                                     type={showPassword ? "text" : "password"}
                                     value={password}
                                     onChange={(e) => setPassword(e.target.value)}
-                                    className="block w-full pl-11 pr-12 py-4 bg-gray-50 border border-gray-200 rounded-2xl focus:bg-white focus:ring-4 focus:ring-primary/10 focus:border-primary transition-all outline-none font-medium placeholder:text-gray-400 text-gray-900"
-                                    placeholder="••••••••"
+                                    className="block w-full pl-11 text-sm pr-12 py-4 bg-gray-50 border border-gray-200 rounded-2xl focus:bg-white focus:ring-4 focus:ring-primary/10 focus:border-primary transition-all outline-none font-medium placeholder:text-gray-400 text-gray-900"
+                                    placeholder="Masukkan Password Anda"
                                     required
                                 />
                                 <button
@@ -147,7 +148,7 @@ export default function AdminLogin() {
                         <button
                             type="submit"
                             disabled={isLoading}
-                            className="w-full flex items-center justify-center gap-2 bg-gray-900 hover:bg-black text-white py-4 rounded-2xl font-bold text-lg shadow-lg hover:shadow-xl hover:-translate-y-1 active:scale-[0.98] transition-all duration-300 disabled:opacity-70 disabled:cursor-not-allowed group"
+                            className="w-full flex text-sm items-center justify-center gap-2 bg-gray-900 hover:bg-black text-white py-4 rounded-2xl font-bold text-lg shadow-lg hover:shadow-xl hover:-translate-y-1 active:scale-[0.98] transition-all duration-300 disabled:opacity-70 disabled:cursor-not-allowed group"
                         >
                             {isLoading ? (
                                 <>

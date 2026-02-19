@@ -51,7 +51,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
     }
 
     return (
-        <div className="min-h-screen bg-[#FDFBF7] flex font-sans relative overflow-x-hidden selection:bg-orange-100 selection:text-primary">
+        <div className="min-h-screen bg-gray-100 flex font-sans relative overflow-x-hidden selection:bg-orange-100 selection:text-primary">
             <Toaster position="top-right" reverseOrder={false} />
 
             {/* Background Decorations */}
@@ -69,7 +69,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
 
             {/* Sidebar */}
             <aside
-                className={`fixed inset-y-0 left-0 z-50 w-72 bg-white/80 backdrop-blur-xl border-r border-white/50 shadow-2xl shadow-orange-100/50 transform transition-transform duration-300 ease-in-out md:translate-x-0 md:static md:h-screen ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'
+                className={`fixed inset-y-0 left-0 z-50 w-72 bg-white/80 backdrop-blur-xl border-r border-white/50 shadow-2xl shadow-orange-100/50 transform transition-transform duration-300 ease-in-out md:translate-x-0 md:sticky md:top-0 h-auto ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'
                     }`}
             >
                 <div className="h-full flex flex-col p-6">
@@ -96,7 +96,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                                     key={item.href}
                                     href={item.href}
                                     onClick={() => setSidebarOpen(false)}
-                                    className={`flex items-center gap-4 px-5 py-3.5 rounded-2xl transition-all duration-300 group ${isActive
+                                    className={`flex items-center gap-4 px-3 py-3 rounded-2xl transition-all duration-300 group ${isActive
                                         ? 'bg-primary text-white shadow-lg shadow-orange-200 translate-x-1'
                                         : 'text-gray-500 hover:bg-orange-50 hover:text-primary hover:translate-x-1'
                                         }`}
