@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import { Eye, Trash2, Search, X, MessageCircle, Edit } from 'lucide-react';
 import { createPortal } from 'react-dom';
 import ConfirmModal from '@/components/ui/ConfirmModal';
+import toast from 'react-hot-toast';
 
 type Assessment = {
   _id: string; // From Mongo
@@ -35,12 +36,6 @@ export default function AdminAssessments() {
   }>({ isOpen: false, id: null });
 
   useEffect(() => {
-    // Check auth (simplified)
-    if (!document.cookie.includes('admin_token=valid')) {
-      router.push('/admin/login');
-      return;
-    }
-
     fetchAssessments();
   }, []);
 
@@ -53,6 +48,7 @@ export default function AdminAssessments() {
       }
     } catch (error) {
       console.error('Failed to fetch', error);
+      toast.error('Gagal memuat data assessment');
     } finally {
       setLoading(false);
     }
@@ -74,8 +70,9 @@ export default function AdminAssessments() {
         prev.filter((item) => item._id !== deleteConfirmation.id),
       );
       setDeleteConfirmation({ isOpen: false, id: null });
+      toast.success('Data assessment berhasil dihapus');
     } catch (error) {
-      alert('Gagal menghapus data');
+      toast.error('Gagal menghapus data');
     } finally {
       setIsDeleting(false);
     }
@@ -109,12 +106,13 @@ export default function AdminAssessments() {
           ),
         );
         setEditingAssessment(null);
+        toast.success('Perubahan berhasil disimpan');
       } else {
-        alert('Gagal menyimpan perubahan');
+        toast.error('Gagal menyimpan perubahan');
       }
     } catch (error) {
       console.error('Failed to update', error);
-      alert('Terjadi kesalahan saat menyimpan');
+      toast.error('Terjadi kesalahan saat menyimpan');
     } finally {
       setIsSaving(false);
     }
@@ -216,7 +214,7 @@ export default function AdminAssessments() {
                         >
                           <Eye className='w-4 h-4' />
                         </button>
-                        <a
+                        {/* <a
                           href={`https://wa.me/6281234567890?text=Halo ${item.namaLengkap}, terkait hasil assessment awal...`}
                           target='_blank'
                           rel='noreferrer'
@@ -224,7 +222,7 @@ export default function AdminAssessments() {
                           title='Hubungi via WA'
                         >
                           <MessageCircle className='w-4 h-4' />
-                        </a>
+                        </a> */}
                         <button
                           onClick={() => handleEditClick(item)}
                           className='cursor-pointer p-2 rounded-xl text-yellow-600 bg-yellow-50 hover:bg-yellow-100 hover:scale-110 transition-all shadow-sm'
@@ -452,7 +450,7 @@ export default function AdminAssessments() {
                 </div>
               </div>
 
-              <div className='p-6 border-t border-gray-100 bg-gray-50/50 flex justify-end font-sans'>
+              {/* <div className='p-6 border-t border-gray-100 bg-gray-50/50 flex justify-end font-sans'>
                 <a
                   href={`https://wa.me/6281234567890?text=Halo ${selectedAssessment?.namaLengkap}, terkait hasil assessment awal...`}
                   target='_blank'
@@ -462,7 +460,7 @@ export default function AdminAssessments() {
                   <MessageCircle className='w-4 h-4' />
                   Hubungi via WA
                 </a>
-              </div>
+              </div> */}
             </div>
           </div>,
           document.body,

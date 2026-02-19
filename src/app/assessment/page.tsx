@@ -314,12 +314,11 @@ export default function AssessmentPage() {
               >
                 <div
                   className={`w-10 h-10 rounded-full flex items-center justify-center transition-all duration-500 border-2
-                    ${
-                      isActive
-                        ? 'bg-primary border-primary text-white shadow-lg shadow-orange-200 scale-110'
-                        : isCompleted
-                          ? 'bg-primary border-primary text-white'
-                          : 'bg-white border-gray-200 text-gray-400'
+                    ${isActive
+                      ? 'bg-primary border-primary text-white shadow-lg shadow-orange-200 scale-110'
+                      : isCompleted
+                        ? 'bg-primary border-primary text-white'
+                        : 'bg-white border-gray-200 text-gray-400'
                     }`}
                 >
                   {isCompleted ? (
@@ -388,11 +387,10 @@ export default function AssessmentPage() {
                           handleChange('tanggalLahir', e.target.value)
                         }
                         className={`w-full pl-12 pr-4 py-3.5 bg-gray-50 border rounded-xl outline-none transition-all duration-200 font-medium
-                           ${
-                             errors.tanggalLahir
-                               ? 'border-red-300 bg-red-50 focus:border-red-500 focus:ring-4 focus:ring-red-100'
-                               : 'border-transparent focus:bg-white focus:border-primary focus:ring-4 focus:ring-orange-100 placeholder:text-gray-400'
-                           }`}
+                           ${errors.tanggalLahir
+                            ? 'border-red-300 bg-red-50 focus:border-red-500 focus:ring-4 focus:ring-red-100'
+                            : 'border-transparent focus:bg-white focus:border-primary focus:ring-4 focus:ring-orange-100 placeholder:text-gray-400'
+                          }`}
                       />
                     </div>
                     {errors.tanggalLahir && (
@@ -588,11 +586,10 @@ export default function AssessmentPage() {
                           handleChange('frekuensiMakanLainnya', '');
                         }}
                         className={`w-14 h-14 rounded-full border-2 text-sm font-bold transition-all duration-200 flex items-center justify-center
-                            ${
-                              formData.frekuensiMakan === opt
-                                ? 'bg-primary border-primary text-white shadow-lg shadow-orange-200 scale-105'
-                                : 'bg-white text-gray-500 border-gray-200 hover:border-gray-300'
-                            }`}
+                            ${formData.frekuensiMakan === opt
+                            ? 'bg-primary border-primary text-white shadow-lg shadow-orange-200 scale-105'
+                            : 'bg-white text-gray-500 border-gray-200 hover:border-gray-300'
+                          }`}
                       >
                         {opt}
                       </button>
@@ -607,11 +604,10 @@ export default function AssessmentPage() {
                           handleChange('frekuensiMakan', 'Lainnya');
                         }}
                         className={`w-full px-5 py-3.5 rounded-2xl border bg-white outline-none font-medium transition-all
-                             ${
-                               formData.frekuensiMakan === 'Lainnya'
-                                 ? 'border-primary ring-2 ring-orange-100'
-                                 : 'border-gray-200 text-gray-500'
-                             }`}
+                             ${formData.frekuensiMakan === 'Lainnya'
+                            ? 'border-primary ring-2 ring-orange-100'
+                            : 'border-gray-200 text-gray-500'
+                          }`}
                       />
                     </div>
                   </div>
@@ -842,10 +838,9 @@ export default function AssessmentPage() {
                 onClick={handleBack}
                 disabled={step === 1}
                 className={`flex text-xs md:text-sm items-center gap-0 md:gap-2 px-2 md:px-8 py-2 md:py-4 rounded-full font-medium transition-all cursor-pointer
-                  ${
-                    step === 1
-                      ? 'text-gray-300 cursor-not-allowed'
-                      : 'text-gray-600 bg-gray-100 hover:bg-gray-100 hover:text-gray-900'
+                  ${step === 1
+                    ? 'text-gray-300 cursor-not-allowed'
+                    : 'text-gray-600 bg-gray-100 hover:bg-gray-100 hover:text-gray-900'
                   }`}
               >
                 <ChevronLeft className='w-5 h-5' />
@@ -920,11 +915,10 @@ function InputField({
           onChange={(e) => onChange(e.target.value)}
           placeholder={placeholder}
           className={`text-xs md:text-sm w-full ${icon ? 'pl-11' : 'px-4'} pr-4 py-3.5 bg-gray-50 border rounded-xl outline-none transition-all duration-200 font-medium text-gray-900 placeholder:text-gray-400 ${className}
-             ${
-               error
-                 ? 'border-red-300 bg-red-50 focus:border-red-500 focus:ring-4 focus:ring-red-100'
-                 : 'border-transparent focus:bg-white focus:border-primary focus:ring-4 focus:ring-orange-100'
-             }`}
+             ${error
+              ? 'border-red-300 bg-red-50 focus:border-red-500 focus:ring-4 focus:ring-red-100'
+              : 'border-transparent focus:bg-white focus:border-primary focus:ring-4 focus:ring-orange-100'
+            }`}
         />
       </div>
       {error && (
@@ -964,10 +958,9 @@ function TextAreaField({
         placeholder={placeholder}
         rows={3}
         className={`w-full px-4 py-3.5 bg-gray-50 border rounded-xl outline-none transition-all duration-200 font-medium text-gray-900 placeholder:text-gray-400 resize-none ${className}
-          ${
-            error
-              ? 'border-red-300 bg-red-50 focus:border-red-500 focus:ring-4 focus:ring-red-100'
-              : 'border-transparent focus:bg-white focus:border-primary focus:ring-4 focus:ring-orange-100'
+          ${error
+            ? 'border-red-300 bg-red-50 focus:border-red-500 focus:ring-4 focus:ring-red-100'
+            : 'border-transparent focus:bg-white focus:border-primary focus:ring-4 focus:ring-orange-100'
           }`}
       />
       {error && (

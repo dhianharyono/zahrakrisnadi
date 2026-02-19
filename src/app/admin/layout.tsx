@@ -1,17 +1,28 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
 import { LayoutDashboard, FileText, MessageSquare, LogOut, Menu, X } from 'lucide-react';
 import ConfirmModal from '@/components/ui/ConfirmModal';
+import { Toaster } from 'react-hot-toast';
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
     const [sidebarOpen, setSidebarOpen] = useState(false);
     const [showLogoutModal, setShowLogoutModal] = useState(false);
     const pathname = usePathname();
     const router = useRouter();
+
+    useEffect(() => {
+        // Protect admin routes
+        if (pathname !== '/admin/login') {
+            const token = document.cookie.split('; ').find(row => row.startsWith('admin_token='))?.split('=')[1];
+            if (token !== 'valid') { // Simple check matching the login logic
+                router.replace('/admin/login');
+            }
+        }
+    }, [pathname, router]);
 
     const handleLogoutClick = () => {
         setShowLogoutModal(true);
@@ -31,11 +42,18 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
 
     // If on login page, render without layout
     if (pathname === '/admin/login') {
-        return <>{children}</>;
+        return (
+            <>
+                <Toaster position="top-center" reverseOrder={false} />
+                {children}
+            </>
+        );
     }
 
     return (
         <div className="min-h-screen bg-[#FDFBF7] flex font-sans relative overflow-x-hidden selection:bg-orange-100 selection:text-primary">
+            <Toaster position="top-right" reverseOrder={false} />
+
             {/* Background Decorations */}
             <div className="fixed top-0 left-0 w-full h-[500px] bg-gradient-to-b from-orange-50 to-transparent -z-10 pointer-events-none" />
             <div className="fixed top-[-100px] right-[-100px] w-[500px] h-[500px] bg-orange-100/40 rounded-full blur-3xl -z-10 opacity-60" />

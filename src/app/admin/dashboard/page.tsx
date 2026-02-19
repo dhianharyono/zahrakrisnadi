@@ -1,7 +1,8 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Users, BarChart as BarChartIcon, Calendar, Award, Activity, AlertCircle, Clock } from 'lucide-react';
+import Link from 'next/link';
+import { Users, BarChart as BarChartIcon, Calendar, Award, Activity, AlertCircle, Clock, ExternalLink } from 'lucide-react';
 import {
     PieChart, Pie, Cell,
     AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip as RechartsTooltip, ResponsiveContainer,
@@ -175,7 +176,50 @@ export default function AdminDashboardAnalytics() {
         }
     };
 
-    if (loading) return <div className="p-8 text-center text-gray-500">Memuat data analitik...</div>;
+    if (loading) return (
+        <div className="space-y-8 pb-10 animate-pulse">
+            {/* Header Skeleton */}
+            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                <div className="space-y-3">
+                    <div className="h-8 w-64 bg-gray-200/80 rounded-xl"></div>
+                    <div className="h-4 w-96 bg-gray-100 rounded-lg"></div>
+                </div>
+                <div className="h-10 w-48 bg-gray-200/80 rounded-xl"></div>
+            </div>
+
+            {/* Stats Cards Skeleton */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                {[...Array(4)].map((_, i) => (
+                    <div key={i} className="h-40 bg-white/60 backdrop-blur-sm rounded-3xl border border-white/60 shadow-sm p-6 flex flex-col justify-between">
+                        <div className="flex justify-between items-start">
+                            <div className="h-12 w-12 bg-gray-200 rounded-2xl"></div>
+                        </div>
+                        <div className="space-y-2">
+                            <div className="h-4 w-24 bg-gray-100 rounded-lg"></div>
+                            <div className="h-8 w-16 bg-gray-200 rounded-lg"></div>
+                        </div>
+                    </div>
+                ))}
+            </div>
+
+            {/* Charts Skeleton */}
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <div className="h-[350px] bg-white/60 backdrop-blur-sm rounded-3xl border border-white/60 shadow-sm p-6">
+                    <div className="h-6 w-32 bg-gray-200 rounded-lg mb-6"></div>
+                    <div className="h-64 w-64 mx-auto bg-gray-100 rounded-full"></div>
+                </div>
+                <div className="lg:col-span-2 h-[350px] bg-white/60 backdrop-blur-sm rounded-3xl border border-white/60 shadow-sm p-6">
+                    <div className="h-6 w-48 bg-gray-200 rounded-lg mb-6"></div>
+                    <div className="h-64 w-full bg-gray-100 rounded-xl"></div>
+                </div>
+            </div>
+            {/* Bottom Skeleton */}
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <div className="h-[300px] bg-white/60 backdrop-blur-sm rounded-3xl border border-white/60 shadow-sm p-6"></div>
+                <div className="h-[300px] bg-white/60 backdrop-blur-sm rounded-3xl border border-white/60 shadow-sm p-6"></div>
+            </div>
+        </div>
+    );
 
     return (
         <div className="space-y-8 animate-fade-in pb-10">
@@ -184,8 +228,16 @@ export default function AdminDashboardAnalytics() {
                     <h1 className="text-2xl font-bold text-gray-800 tracking-tight">Dashboard Analitik</h1>
                     <p className="text-gray-500 mt-1 text-sm">Ringkasan aktivitas dan statistik pasien.</p>
                 </div>
-                <div className="flex gap-3">
-                    <div className="hidden md:block bg-white/50 px-4 py-2 rounded-xl text-sm font-medium text-gray-600 border border-white/50 shadow-sm backdrop-blur-sm">
+                <div className="flex gap-3 items-center">
+                    <Link
+                        href="/"
+                        target="_blank"
+                        className="flex items-center gap-2 bg-white px-4 py-2.5 rounded-xl text-sm font-bold text-gray-700 border border-gray-200 shadow-sm hover:shadow-md hover:text-primary hover:border-primary/20 transition-all group"
+                    >
+                        <ExternalLink className="w-4 h-4 text-gray-400 group-hover:text-primary transition-colors" />
+                        <span className="hidden sm:inline">Lihat Landing Page</span>
+                    </Link>
+                    <div className="hidden md:block bg-white/50 px-4 py-2.5 rounded-xl text-sm font-medium text-gray-600 border border-white/50 shadow-sm backdrop-blur-sm">
                         {new Date().toLocaleDateString('id-ID', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}
                     </div>
                 </div>

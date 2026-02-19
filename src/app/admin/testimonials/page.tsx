@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import { Eye, EyeOff, Trash2, Pencil, X, Star } from 'lucide-react';
 import { createPortal } from 'react-dom';
 import ConfirmModal from '@/components/ui/ConfirmModal';
+import toast from 'react-hot-toast';
 
 type Testimonial = {
     _id: string;
@@ -39,12 +40,6 @@ export default function AdminTestimonials() {
     const [hoverRating, setHoverRating] = useState(0);
 
     useEffect(() => {
-        // Check auth (simplified)
-        if (!document.cookie.includes('admin_token=valid')) {
-            router.push('/admin/login');
-            return;
-        }
-
         fetchTestimonials();
     }, []);
 
@@ -59,6 +54,7 @@ export default function AdminTestimonials() {
             }
         } catch (error) {
             console.error('Failed to fetch', error);
+            toast.error('Gagal memuat data testimonial');
         } finally {
             setLoading(false);
         }
@@ -67,10 +63,9 @@ export default function AdminTestimonials() {
     const handleToggleVisibility = async (id: string, currentStatus: boolean) => {
         try {
             const url = '/api/testimonials';
-            const method = 'PUT'; // Using PUT to update visibility as per updated API 
-
+            // Using PUT to update visibility as per updated API
             const res = await fetch(url, {
-                method: method,
+                method: 'PUT',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ id, isVisible: !currentStatus })
             });
@@ -79,9 +74,13 @@ export default function AdminTestimonials() {
                 setTestimonials(prev => prev.map(t =>
                     t._id === id ? { ...t, isVisible: !currentStatus } : t
                 ));
+                toast.success(`Testimonial berhasil ${!currentStatus ? 'ditampilkan' : 'disembunyikan'}`);
+            } else {
+                toast.error('Gagal mengubah status visibilitas');
             }
         } catch (error) {
             console.error('Failed to update', error);
+            toast.error('Terjadi kesalahan saat mengubah status');
         }
     };
 
@@ -97,8 +96,9 @@ export default function AdminTestimonials() {
             await fetch(`/api/testimonials?id=${deleteConfirmation.id}`, { method: 'DELETE' });
             setTestimonials(prev => prev.filter(t => t._id !== deleteConfirmation.id));
             setDeleteConfirmation({ isOpen: false, id: null });
+            toast.success('Testimonial berhasil dihapus');
         } catch (error) {
-            alert('Gagal menghapus data');
+            toast.error('Gagal menghapus data');
         } finally {
             setIsDeleting(false);
         }
@@ -143,9 +143,13 @@ export default function AdminTestimonials() {
                     rating: 5,
                     isVisible: true
                 });
+                toast.success(editingId ? 'Testimonial berhasil diperbarui' : 'Testimonial berhasil ditambahkan');
+            } else {
+                toast.error('Gagal menyimpan data');
             }
         } catch (error) {
             console.error('Failed to save', error);
+            toast.error('Terjadi kesalahan saat menyimpan');
         } finally {
             setIsSaving(false);
         }
@@ -357,14 +361,14 @@ export default function AdminTestimonials() {
                                     <button
                                         type="button"
                                         onClick={() => setIsAddModalOpen(false)}
-                                        className="px-6 py-2.5 text-gray-600 hover:bg-gray-100 rounded-xl font-medium transition-colors"
+                                        className="cursor-pointer px-6 py-2.5 text-gray-600 hover:bg-gray-300 rounded-xl font-medium transition-colors"
                                         disabled={isSaving}
                                     >
                                         Batal
                                     </button>
                                     <button
                                         type="submit"
-                                        className="px-6 py-2.5 bg-primary text-white hover:bg-orange-600 rounded-xl font-bold shadow-lg shadow-primary/20 transition-all hover:-translate-y-0.5 disabled:opacity-50 disabled:cursor-not-allowed"
+                                        className="cursor-pointer px-6 py-2.5 bg-primary text-white hover:bg-orange-600 rounded-xl font-bold shadow-lg shadow-primary/20 transition-all hover:-translate-y-0.5 disabled:opacity-50 disabled:cursor-not-allowed"
                                         disabled={isSaving}
                                     >
                                         {isSaving ? 'Menyimpan...' : 'Simpan Data'}
