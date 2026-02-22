@@ -131,7 +131,11 @@ export default function AdminAssessments() {
   );
 
   if (loading)
-    return <div className='p-8 text-center text-gray-500'>Memuat data...</div>;
+    return (
+      <div className='p-8 h-125 items-center place-content-center text-sm text-center text-gray-500'>
+        Memuat data...
+      </div>
+    );
 
   return (
     <div className='space-y-8 animate-fade-in pb-10'>
