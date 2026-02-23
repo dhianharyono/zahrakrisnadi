@@ -6,6 +6,7 @@ export interface ITestimonial {
   role: string;
   message: string;
   rating: number;
+  gender?: 'l' | 'p'; // l = Laki-laki, p = Perempuan
   isVisible: boolean; // Managed by admin
 }
 
@@ -16,6 +17,7 @@ const TestimonialSchema = new Schema<ITestimonial>(
     role: { type: String, required: true },
     message: { type: String, required: true },
     rating: { type: Number, required: true, min: 1, max: 5 },
+    gender: { type: String, enum: ['l', 'p'] },
     isVisible: { type: Boolean, default: false },
   },
   { timestamps: true },

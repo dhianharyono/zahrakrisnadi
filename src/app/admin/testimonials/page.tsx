@@ -14,6 +14,7 @@ type Testimonial = {
   role: string;
   message: string;
   rating: number;
+  gender?: 'l' | 'p';
   isVisible: boolean;
   createdAt: string;
   [key: string]: any;
@@ -39,9 +40,23 @@ export default function AdminTestimonials() {
     program: 'Konsultasi Gizi',
     message: '',
     rating: 5,
+    gender: 'p' as 'l' | 'p',
     isVisible: true,
   });
   const [hoverRating, setHoverRating] = useState(0);
+
+  const getAvatarUrl = (name: string, gender?: string) => {
+    const seed = encodeURIComponent(name);
+
+    if (gender === 'l') {
+      return `https://api.dicebear.com/7.x/micah/svg?seed=${seed}&facialHairProbability=30&hair=dougFunny,fonze,mrClean,mrT&backgroundColor=b6e3f4`;
+    }
+    if (gender === 'p') {
+      return `https://api.dicebear.com/7.x/micah/svg?seed=${seed}&facialHairProbability=0&hair=full,pixie,dannyPhantom&backgroundColor=ffdfbf`;
+    }
+
+    return `https://api.dicebear.com/7.x/notionists/svg?seed=${seed}&backgroundColor=e1f5fe`;
+  };
 
   useEffect(() => {
     fetchTestimonials();
@@ -123,6 +138,7 @@ export default function AdminTestimonials() {
       program: testimonial.program,
       message: testimonial.message,
       rating: testimonial.rating,
+      gender: testimonial.gender || 'p',
       isVisible: testimonial.isVisible,
     });
     setEditingId(testimonial._id);
@@ -155,6 +171,7 @@ export default function AdminTestimonials() {
           program: 'Konsultasi Gizi',
           message: '',
           rating: 5,
+          gender: 'p',
           isVisible: true,
         });
         toast.success(
@@ -181,6 +198,7 @@ export default function AdminTestimonials() {
       program: 'Konsultasi Gizi',
       message: '',
       rating: 5,
+      gender: 'p',
       isVisible: true,
     });
     setIsAddModalOpen(true);
@@ -221,6 +239,9 @@ export default function AdminTestimonials() {
                   Nama
                 </th>
                 <th className='px-8 py-5 font-bold text-gray-600 text-xs uppercase tracking-wider'>
+                  Gender
+                </th>
+                <th className='px-8 py-5 font-bold text-gray-600 text-xs uppercase tracking-wider'>
                   Role
                 </th>
                 <th className='px-8 py-5 font-bold text-gray-600 text-xs uppercase tracking-wider'>
@@ -249,6 +270,9 @@ export default function AdminTestimonials() {
                   >
                     <td className='px-8 py-5 text-sm font-semibold text-gray-800 group-hover:text-primary transition-colors'>
                       {item.patientName}
+                    </td>
+                    <td className='px-8 py-5 text-sm font-semibold text-gray-600'>
+                      {item.gender === 'l' ? 'L' : item.gender === 'p' ? 'P' : '-'}
                     </td>
                     <td className='px-8 py-5 text-sm text-gray-600'>
                       {item.role}
@@ -296,11 +320,10 @@ export default function AdminTestimonials() {
                           onClick={() =>
                             handleToggleVisibility(item._id, item.isVisible)
                           }
-                          className={`p-2 rounded-xl transition-all shadow-sm hover:scale-110 cursor-pointer ${
-                            item.isVisible
-                              ? 'text-gray-500 bg-gray-50 hover:bg-gray-100'
-                              : 'text-green-600 bg-green-50 hover:bg-green-100'
-                          }`}
+                          className={`p-2 rounded-xl transition-all shadow-sm hover:scale-110 cursor-pointer ${item.isVisible
+                            ? 'text-gray-500 bg-gray-50 hover:bg-gray-100'
+                            : 'text-green-600 bg-green-50 hover:bg-green-100'
+                            }`}
                           title={item.isVisible ? 'Sembunyikan' : 'Tampilkan'}
                         >
                           {item.isVisible ? (
@@ -323,7 +346,7 @@ export default function AdminTestimonials() {
               ) : (
                 <tr>
                   <td
-                    colSpan={7}
+                    colSpan={8}
                     className='px-8 py-16 text-center text-gray-400'
                   >
                     <div className='flex flex-col items-center gap-3'>
@@ -392,6 +415,45 @@ export default function AdminTestimonials() {
                   </div>
                   <div>
                     <label className='block text-xs font-bold text-gray-500 uppercase tracking-wider mb-2'>
+                      Jenis Kelamin
+                    </label>
+                    <div className='flex gap-4'>
+                      <label className='flex items-center gap-2 cursor-pointer'>
+                        <input
+                          type='radio'
+                          name='gender'
+                          value='l'
+                          checked={newTestimonial.gender === 'l'}
+                          onChange={(e) =>
+                            setNewTestimonial({
+                              ...newTestimonial,
+                              gender: 'l',
+                            })
+                          }
+                          className='w-4 h-4 text-primary focus:ring-primary/20'
+                        />
+                        <span className='text-sm text-gray-700'>Laki-laki</span>
+                      </label>
+                      <label className='flex items-center gap-2 cursor-pointer'>
+                        <input
+                          type='radio'
+                          name='gender'
+                          value='p'
+                          checked={newTestimonial.gender === 'p'}
+                          onChange={(e) =>
+                            setNewTestimonial({
+                              ...newTestimonial,
+                              gender: 'p',
+                            })
+                          }
+                          className='w-4 h-4 text-primary focus:ring-primary/20'
+                        />
+                        <span className='text-sm text-gray-700'>Perempuan</span>
+                      </label>
+                    </div>
+                  </div>
+                  <div>
+                    <label className='block text-xs font-bold text-gray-500 uppercase tracking-wider mb-2'>
                       Program
                     </label>
                     <div className='relative'>
@@ -454,11 +516,10 @@ export default function AdminTestimonials() {
                           className='focus:outline-none transition-transform hover:scale-110'
                         >
                           <Star
-                            className={`w-6 h-6 md:w-8 md:h-8 ${
-                              star <= (hoverRating || newTestimonial.rating)
-                                ? 'fill-yellow-400 text-yellow-400'
-                                : 'text-gray-300'
-                            }`}
+                            className={`w-6 h-6 md:w-8 md:h-8 ${star <= (hoverRating || newTestimonial.rating)
+                              ? 'fill-yellow-400 text-yellow-400'
+                              : 'text-gray-300'
+                              }`}
                           />
                         </button>
                       ))}
@@ -526,8 +587,12 @@ export default function AdminTestimonials() {
 
               <div className='p-8 space-y-6'>
                 <div className='flex items-center gap-4'>
-                  <div className='w-16 h-16 rounded-2xl bg-linear-to-br from-primary to-orange-400 flex items-center justify-center text-white text-2xl font-bold shadow-lg shadow-orange-200'>
-                    {selectedTestimonial.patientName.charAt(0)}
+                  <div className='w-16 h-16 rounded-2xl bg-linear-to-br from-primary to-orange-400 flex items-center justify-center text-white text-2xl font-bold shadow-lg shadow-orange-200 overflow-hidden'>
+                    <img
+                      src={getAvatarUrl(selectedTestimonial.patientName, selectedTestimonial.gender)}
+                      alt={selectedTestimonial.patientName}
+                      className="w-full h-full object-cover"
+                    />
                   </div>
                   <div>
                     <h4 className='text-xl font-bold text-gray-800'>
@@ -535,6 +600,7 @@ export default function AdminTestimonials() {
                     </h4>
                     <p className='text-gray-500 text-sm'>
                       {selectedTestimonial.role || 'Pasien'}
+                      {selectedTestimonial.gender ? ` • ${selectedTestimonial.gender === 'l' ? 'Laki-laki' : 'Perempuan'}` : ''}
                     </p>
                   </div>
                 </div>

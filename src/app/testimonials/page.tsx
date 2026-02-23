@@ -13,6 +13,7 @@ export default function NewTestimonial() {
     program: 'Konsultasi Gizi',
     message: '',
     rating: 5,
+    gender: 'p',
   });
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [hoverRating, setHoverRating] = useState(0);
@@ -136,6 +137,40 @@ export default function NewTestimonial() {
 
               <div>
                 <label className='block text-xs md:text-sm font-medium text-gray-700 mb-2'>
+                  Jenis Kelamin
+                </label>
+                <div className='flex gap-4' style={{ flexDirection: 'row' }}>
+                  <label className='flex items-center gap-2 cursor-pointer'>
+                    <input
+                      type='radio'
+                      name='gender'
+                      value='l'
+                      checked={formData.gender === 'l'}
+                      onChange={(e) =>
+                        setFormData({ ...formData, gender: 'l' })
+                      }
+                      className='w-4 h-4 text-primary focus:ring-primary/20'
+                    />
+                    <span className='text-sm text-gray-700'>Laki-laki</span>
+                  </label>
+                  <label className='flex items-center gap-2 cursor-pointer'>
+                    <input
+                      type='radio'
+                      name='gender'
+                      value='p'
+                      checked={formData.gender === 'p'}
+                      onChange={(e) =>
+                        setFormData({ ...formData, gender: 'p' })
+                      }
+                      className='w-4 h-4 text-primary focus:ring-primary/20'
+                    />
+                    <span className='text-sm text-gray-700'>Perempuan</span>
+                  </label>
+                </div>
+              </div>
+
+              <div>
+                <label className='block text-xs md:text-sm font-medium text-gray-700 mb-2'>
                   Program yang Diikuti
                 </label>
                 <select
@@ -172,11 +207,10 @@ export default function NewTestimonial() {
                       className='focus:outline-none transition-transform hover:scale-110'
                     >
                       <Star
-                        className={`w-6 h-6 md:w-8 md:h-8 ${
-                          star <= (hoverRating || formData.rating)
+                        className={`w-6 h-6 md:w-8 md:h-8 ${star <= (hoverRating || formData.rating)
                             ? 'fill-yellow-400 text-yellow-400'
                             : 'text-gray-300'
-                        }`}
+                          }`}
                       />
                     </button>
                   ))}

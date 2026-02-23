@@ -9,6 +9,7 @@ type TestimonialData = {
   content: string;
   rating: number;
   image: string;
+  gender?: string;
 };
 
 const Testimonials: React.FC = () => {
@@ -24,19 +25,37 @@ const Testimonials: React.FC = () => {
 
   const scrollRef = useRef<HTMLDivElement>(null);
 
+  const getAvatarUrl = (name: string, gender?: string) => {
+    const seed = encodeURIComponent(name);
+
+    // Micah style is very similar to Notionists and allows filtering features explicitly
+    if (gender === 'l') {
+      return `https://api.dicebear.com/7.x/micah/svg?seed=${seed}&facialHairProbability=30&hair=dougFunny,fonze,mrClean,mrT&backgroundColor=b6e3f4`;
+    }
+    if (gender === 'p') {
+      return `https://api.dicebear.com/7.x/micah/svg?seed=${seed}&facialHairProbability=0&hair=full,pixie,dannyPhantom&backgroundColor=ffdfbf`;
+    }
+
+    // Default fallback
+    return `https://api.dicebear.com/7.x/notionists/svg?seed=${seed}&backgroundColor=e1f5fe`;
+  };
+
   useEffect(() => {
     const fetchTestimonials = async () => {
       try {
         const res = await fetch('/api/testimonials?visible=true');
         const json = await res.json();
         if (json.success && Array.isArray(json.data)) {
-          const formattedData = json.data.map((t: any) => ({
-            name: t.patientName,
-            role: t.role || 'Client',
-            content: t.message,
-            rating: t.rating,
-            image: `https://api.dicebear.com/7.x/notionists/svg?seed=${encodeURIComponent(t.patientName)}&backgroundColor=e1f5fe`,
-          }));
+          const formattedData = json.data.map((t: any) => {
+            return {
+              name: t.patientName,
+              role: t.role || 'Client',
+              content: t.message,
+              rating: t.rating,
+              image: getAvatarUrl(t.patientName, t.gender),
+              gender: t.gender,
+            };
+          });
           setTestimonials(formattedData);
         }
       } catch (error) {
@@ -216,9 +235,8 @@ const Testimonials: React.FC = () => {
                     });
                   }
                 }}
-                className={`h-2 rounded-full transition-all duration-300 ${
-                  idx === activeIndex ? 'bg-primary w-6' : 'bg-gray-300 w-2'
-                }`}
+                className={`h-2 rounded-full transition-all duration-300 ${idx === activeIndex ? 'bg-primary w-6' : 'bg-gray-300 w-2'
+                  }`}
                 aria-label={`Go to slide ${idx + 1}`}
               />
             ))}
