@@ -13,6 +13,7 @@ export interface IAssessment {
   lila: number;
   // ... complete Step 2-5 fields
   pemeriksaanLab?: string;
+  pemeriksaanLabFile?: string;
   keluhan?: string[];
   riwayatPenyakit?: string;
   obatKonsumsi?: string;
@@ -52,6 +53,7 @@ const AssessmentSchema = new Schema<IAssessment>(
 
     // Optional / Less strict fields to facilitate partial completion if needed
     pemeriksaanLab: { type: String },
+    pemeriksaanLabFile: { type: String },
     keluhan: { type: [String] },
     riwayatPenyakit: { type: String },
     obatKonsumsi: { type: String },
@@ -81,7 +83,11 @@ const AssessmentSchema = new Schema<IAssessment>(
   { timestamps: true },
 );
 
-// Prevent overwrite model compilation error in dev mode
+// Force recompile model during development to catch schema changes
+if (process.env.NODE_ENV !== 'production') {
+  delete models.Assessment;
+}
+
 const Assessment =
   models.Assessment || model<IAssessment>('Assessment', AssessmentSchema);
 

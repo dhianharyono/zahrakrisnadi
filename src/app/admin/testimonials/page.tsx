@@ -45,6 +45,17 @@ export default function AdminTestimonials() {
   });
   const [hoverRating, setHoverRating] = useState(0);
 
+  const getProgramBadgeStyle = (program: string) => {
+    switch (program) {
+      case 'Konsultasi Gizi': return 'text-amber-700';
+      case 'Penurunan Berat Badan': return 'text-emerald-700';
+      case 'Pengaturan Massa Otot': return 'text-purple-700';
+      case 'Terapi Gizi Medis': return 'text-rose-700';
+      case 'Katering Sehat': return 'text-green-700';
+      default: return 'text-orange-700';
+    }
+  };
+
   const getAvatarUrl = (name: string, gender?: string) => {
     const seed = encodeURIComponent(name);
 
@@ -278,12 +289,12 @@ export default function AdminTestimonials() {
                       {item.role}
                     </td>
                     <td className='px-8 py-5 text-sm text-gray-600'>
-                      <span className='px-3 py-1 bg-orange-50 text-orange-700 rounded-full text-xs font-bold border border-orange-100'>
+                      <span className={`px-3 py-1 rounded-full text-xs font-bold ${getProgramBadgeStyle(item.program)}`}>
                         {item.program}
                       </span>
                     </td>
                     <td className='px-8 py-5 text-sm font-bold text-yellow-500'>
-                      <div className='flex gap-0.5 shadow-sm bg-yellow-50 px-2 py-1 rounded-lg w-fit'>
+                      <div className='flex gap-0.5 w-fit'>
                         {'★'.repeat(item.rating)}
                         <span className='text-gray-300'>
                           {'★'.repeat(5 - item.rating)}

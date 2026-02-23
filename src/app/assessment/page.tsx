@@ -11,6 +11,7 @@ import {
   Apple,
   Dumbbell,
   Calendar,
+  Upload,
 } from 'lucide-react';
 import Link from 'next/link';
 
@@ -28,6 +29,7 @@ type FormData = {
 
   // Step 2: Riwayat Kesehatan
   pemeriksaanLab: string;
+  pemeriksaanLabFile: string;
   keluhan: string[];
   riwayatPenyakit: string;
   obatKonsumsi: string;
@@ -67,6 +69,7 @@ const initialFormData: FormData = {
   tinggiBadan: '',
   lila: '',
   pemeriksaanLab: '',
+  pemeriksaanLabFile: '',
   keluhan: [],
   riwayatPenyakit: '',
   obatKonsumsi: '',
@@ -110,7 +113,7 @@ export default function AssessmentPage() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, [step]);
 
-  const handleChange = (field: keyof FormData, value: any) => {
+  const handleChange = (field: keyof FormData, value: string | string[]) => {
     setFormData((prev) => ({ ...prev, [field]: value }));
     // Clear error when user types
     if (errors[field]) {
@@ -152,6 +155,10 @@ export default function AssessmentPage() {
       requireField('usia', 'Usia wajib diisi');
       requireField('tanggalLahir', 'Tanggal lahir wajib diisi');
       requireField('targetKonsultasi', 'Target konsultasi wajib diisi');
+      if (formData.targetKonsultasi === 'Lainnya') {
+        newErrors.targetKonsultasi = 'Tujuan spesifik wajib diisi';
+        isValid = false;
+      }
     }
 
     if (currentStep === 4) {
@@ -314,12 +321,11 @@ export default function AssessmentPage() {
               >
                 <div
                   className={`w-10 h-10 rounded-full flex items-center justify-center transition-all duration-500 border-2
-                    ${
-                      isActive
-                        ? 'bg-primary border-primary text-white shadow-lg shadow-orange-200 scale-110'
-                        : isCompleted
-                          ? 'bg-primary border-primary text-white'
-                          : 'bg-white border-gray-200 text-gray-400'
+                    ${isActive
+                      ? 'bg-primary border-primary text-white shadow-lg shadow-orange-200 scale-110'
+                      : isCompleted
+                        ? 'bg-primary border-primary text-white'
+                        : 'bg-white border-gray-200 text-gray-400'
                     }`}
                 >
                   {isCompleted ? (
@@ -388,11 +394,10 @@ export default function AssessmentPage() {
                           handleChange('tanggalLahir', e.target.value)
                         }
                         className={`w-full pl-12 pr-4 py-3.5 bg-gray-50 border rounded-xl outline-none transition-all duration-200 font-medium
-                           ${
-                             errors.tanggalLahir
-                               ? 'border-red-300 bg-red-50 focus:border-red-500 focus:ring-4 focus:ring-red-100'
-                               : 'border-transparent focus:bg-white focus:border-primary focus:ring-4 focus:ring-orange-100 placeholder:text-gray-400'
-                           }`}
+                           ${errors.tanggalLahir
+                            ? 'border-red-300 bg-red-50 focus:border-red-500 focus:ring-4 focus:ring-red-100'
+                            : 'border-transparent focus:bg-white focus:border-primary focus:ring-4 focus:ring-orange-100 placeholder:text-gray-400'
+                          }`}
                       />
                     </div>
                     {errors.tanggalLahir && (
@@ -468,14 +473,132 @@ export default function AssessmentPage() {
                   </select>
                 </div>
 
-                <TextAreaField
-                  label='Target Konsultasi'
-                  placeholder='Ceritakan tujuan Anda melakukan konsultasi gizi secara detail...'
-                  required
-                  value={formData.targetKonsultasi}
-                  onChange={(v) => handleChange('targetKonsultasi', v)}
-                  error={errors.targetKonsultasi}
-                />
+                <div className='space-y-4'>
+                  <label className='text-sm font-semibold text-gray-700 block'>
+                    Target Konsultasi <span className='text-red-500'>*</span>
+                  </label>
+                  <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
+                    {[
+                      {
+                        title: 'Body Goals',
+                        desc: 'Capai berat badan idealmu! Paket ini juga didesain untuk mendukung promil, kesuburan dan menurunkan kadar lemak tubuh.',
+                      },
+                      {
+                        title: 'Clinic Care',
+                        desc: 'Program diet untuk penderita penyakit diabetes mellitus, asam urat, kolesterol, jantung, hipertensi, pencernaan, infeksi, dan masih banyak lagi.',
+                      },
+                      {
+                        title: "Women's Health",
+                        desc: 'Program untuk mencapai gizi optimal bagi BUMIL dan BUSUI ASI eksklusif.',
+                      },
+                      {
+                        title: 'Body for Baby',
+                        desc: 'Program untuk membantu orang tua mengatur pola, menu dan porsi makan ANAK.',
+                      },
+                      {
+                        title: 'Lainnya',
+                        desc: 'Tuliskan sendiri tujuan konsultasi Anda secara spesifik.',
+                      },
+                    ].map((target) => {
+                      const predefined = [
+                        'Body Goals',
+                        'Clinic Care',
+                        "Women's Health",
+                        'Body for Baby',
+                      ];
+                      const isCustom =
+                        formData.targetKonsultasi !== '' &&
+                        !predefined.includes(formData.targetKonsultasi);
+                      const isSelected =
+                        target.title === 'Lainnya'
+                          ? isCustom || formData.targetKonsultasi === 'Lainnya'
+                          : formData.targetKonsultasi === target.title;
+
+                      return (
+                        <div
+                          key={target.title}
+                          onClick={() =>
+                            handleChange(
+                              'targetKonsultasi',
+                              target.title === 'Lainnya' ? 'Lainnya' : target.title,
+                            )
+                          }
+                          className={`cursor-pointer rounded-2xl p-4 md:p-5 border-2 transition-all duration-200 text-left flex items-start gap-3
+                            ${isSelected ? 'border-primary bg-orange-50/50 shadow-md shadow-orange-100' : 'border-gray-100 hover:border-gray-200 bg-gray-50'}`}
+                        >
+                          <div
+                            className={`mt-0.5 w-5 h-5 rounded-full border-2 flex items-center justify-center shrink-0 transition-colors ${isSelected ? 'border-primary' : 'border-gray-300'}`}
+                          >
+                            {isSelected && (
+                              <div className='w-2.5 h-2.5 rounded-full bg-primary' />
+                            )}
+                          </div>
+                          <div>
+                            <h4
+                              className={`font-bold text-sm md:text-base mb-1 ${isSelected ? 'text-gray-900' : 'text-gray-700'}`}
+                            >
+                              {target.title}
+                            </h4>
+                            <p className='text-xs text-gray-500 leading-relaxed font-medium'>
+                              {target.desc}
+                            </p>
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+
+                  {(() => {
+                    const predefined = [
+                      'Body Goals',
+                      'Clinic Care',
+                      "Women's Health",
+                      'Body for Baby',
+                    ];
+                    const isCustom =
+                      formData.targetKonsultasi !== '' &&
+                      !predefined.includes(formData.targetKonsultasi);
+
+                    if (isCustom || formData.targetKonsultasi === 'Lainnya') {
+                      return (
+                        <div className='animate-slide-down mt-4'>
+                          <textarea
+                            placeholder='Tuliskan target konsultasi Anda secara detail...'
+                            value={
+                              formData.targetKonsultasi === 'Lainnya'
+                                ? ''
+                                : formData.targetKonsultasi
+                            }
+                            onChange={(e) =>
+                              handleChange(
+                                'targetKonsultasi',
+                                e.target.value.trim() === ''
+                                  ? 'Lainnya'
+                                  : e.target.value,
+                              )
+                            }
+                            className={`w-full px-4 py-3.5 bg-gray-50 border rounded-xl outline-none transition-all duration-200 font-medium min-h-[100px]
+                               ${errors.targetKonsultasi ? 'border-red-300 bg-red-50 focus:border-red-500 focus:ring-4 focus:ring-red-100' : 'border-transparent focus:bg-white focus:border-primary focus:ring-4 focus:ring-orange-100 placeholder:text-gray-400'}`}
+                          />
+                          {errors.targetKonsultasi && (
+                            <p className='text-xs text-red-500 font-medium mt-1'>
+                              {errors.targetKonsultasi}
+                            </p>
+                          )}
+                        </div>
+                      );
+                    }
+
+                    if (errors.targetKonsultasi) {
+                      return (
+                        <p className='text-xs text-red-500 font-medium mt-1'>
+                          {errors.targetKonsultasi}
+                        </p>
+                      );
+                    }
+                    return null;
+                  })()}
+                </div>
 
                 <div className='pt-6 border-t border-dashed border-gray-200'>
                   <h3 className='text-sm md:text-lg font-bold text-gray-900 mb-4'>
@@ -511,12 +634,64 @@ export default function AssessmentPage() {
             {/* Step 2: Riwayat Kesehatan */}
             {step === 2 && (
               <div className='space-y-6 animate-fade-in text-xs md:text-sm'>
-                <TextAreaField
-                  label='Pemeriksaan Lab (jika ada)'
-                  placeholder='Sebutkan hasil lab terakhir (Kolesterol, Gula Darah, Asam Urat, dll)...'
-                  value={formData.pemeriksaanLab}
-                  onChange={(v) => handleChange('pemeriksaanLab', v)}
-                />
+                <div className='space-y-3'>
+                  <label className='text-sm font-semibold text-gray-700 block'>
+                    Pemeriksaan Lab (jika ada)
+                  </label>
+                  <textarea
+                    placeholder='Sebutkan hasil lab terakhir (Kolesterol, Gula Darah, Asam Urat, dll)...'
+                    value={formData.pemeriksaanLab}
+                    onChange={(e) => handleChange('pemeriksaanLab', e.target.value)}
+                    className='w-full px-4 py-3.5 bg-gray-50 border border-transparent rounded-xl outline-none focus:bg-white focus:border-primary focus:ring-4 focus:ring-orange-100 transition-all font-medium text-gray-700 placeholder:text-gray-400 min-h-[100px]'
+                  />
+                  <div className='mt-2'>
+                    <label className='flex items-center justify-center w-full px-4 py-5 bg-orange-50/30 border-2 border-dashed border-orange-200 rounded-xl cursor-pointer hover:bg-orange-50/80 transition-all group overflow-hidden'>
+                      <div className='flex flex-col items-center gap-2'>
+                        <Upload className={`w-6 h-6 transition-colors ${formData.pemeriksaanLabFile ? 'text-primary' : 'text-orange-300 group-hover:text-primary'}`} />
+                        <span className='text-xs md:text-sm font-medium text-orange-900/70 group-hover:text-orange-900 transition-colors'>
+                          {formData.pemeriksaanLabFile ? 'Ganti File/Dokumen' : 'Lampirkan Foto/Dokumen Lab'}
+                        </span>
+                        {formData.pemeriksaanLabFile && (
+                          <span className='text-xs text-primary bg-primary/10 px-3 py-1 rounded-full text-center truncate max-w-[200px] md:max-w-[300px] font-bold border border-primary/20'>
+                            {formData.pemeriksaanLabFile}
+                          </span>
+                        )}
+                        {!formData.pemeriksaanLabFile && (
+                          <span className='text-[10px] text-gray-400 font-medium'>
+                            Maks. 5MB (JPG, PNG, PDF)
+                          </span>
+                        )}
+                      </div>
+                      <input
+                        type='file'
+                        className='hidden'
+                        accept='image/*,.pdf,.doc,.docx'
+                        onChange={async (e) => {
+                          const file = e.target.files?.[0];
+                          if (file) {
+                            handleChange('pemeriksaanLabFile', 'Mengunggah file...');
+                            const fd = new FormData();
+                            fd.append('file', file);
+                            try {
+                              const res = await fetch('/api/upload', {
+                                method: 'POST',
+                                body: fd,
+                              });
+                              const data = await res.json();
+                              if (data.success) {
+                                handleChange('pemeriksaanLabFile', data.fileName);
+                              } else {
+                                handleChange('pemeriksaanLabFile', 'Gagal unggah file');
+                              }
+                            } catch (err) {
+                              handleChange('pemeriksaanLabFile', 'Gagal unggah file');
+                            }
+                          }
+                        }}
+                      />
+                    </label>
+                  </div>
+                </div>
 
                 <div className='space-y-3'>
                   <label className='text-sm font-semibold text-gray-700 block'>
@@ -588,11 +763,10 @@ export default function AssessmentPage() {
                           handleChange('frekuensiMakanLainnya', '');
                         }}
                         className={`w-14 h-14 rounded-full border-2 text-sm font-bold transition-all duration-200 flex items-center justify-center
-                            ${
-                              formData.frekuensiMakan === opt
-                                ? 'bg-primary border-primary text-white shadow-lg shadow-orange-200 scale-105'
-                                : 'bg-white text-gray-500 border-gray-200 hover:border-gray-300'
-                            }`}
+                            ${formData.frekuensiMakan === opt
+                            ? 'bg-primary border-primary text-white shadow-lg shadow-orange-200 scale-105'
+                            : 'bg-white text-gray-500 border-gray-200 hover:border-gray-300'
+                          }`}
                       >
                         {opt}
                       </button>
@@ -607,11 +781,10 @@ export default function AssessmentPage() {
                           handleChange('frekuensiMakan', 'Lainnya');
                         }}
                         className={`w-full px-5 py-3.5 rounded-2xl border bg-white outline-none font-medium transition-all
-                             ${
-                               formData.frekuensiMakan === 'Lainnya'
-                                 ? 'border-primary ring-2 ring-orange-100'
-                                 : 'border-gray-200 text-gray-500'
-                             }`}
+                             ${formData.frekuensiMakan === 'Lainnya'
+                            ? 'border-primary ring-2 ring-orange-100'
+                            : 'border-gray-200 text-gray-500'
+                          }`}
                       />
                     </div>
                   </div>
@@ -704,75 +877,115 @@ export default function AssessmentPage() {
             {/* Step 4: Food Recall */}
             {step === 4 && (
               <div className='space-y-8 animate-fade-in text-xs md:text-sm'>
-                <div className='flex items-start gap-4 p-4 bg-orange-50 rounded-xl border border-orange-100 text-orange-800 text-sm leading-relaxed'>
-                  <div className='bg-orange-100 p-2 rounded-lg shrink-0'>
-                    <Apple className='w-5 h-5 text-orange-600' />
+                <div className='flex items-start gap-3 md:gap-4 p-4 bg-orange-50 rounded-2xl border border-orange-200/60 shadow-inner'>
+                  <div className='bg-orange-100/90 p-2 md:p-3 rounded-xl shrink-0 mt-0.5 shadow-sm'>
+                    <Apple className='w-5 h-5 md:w-6 md:h-6 text-orange-600' />
                   </div>
-                  <p className='text-xs md:text-sm'>
-                    Mohon sebutkan jenis makanan yang{' '}
-                    <strong>biasa dikonsumsi</strong> sehari-hari untuk membantu
-                    kami menganalisis asupan gizi Anda.
-                  </p>
+                  <div className='space-y-3 text-xs md:text-sm text-orange-900 leading-relaxed pr-1 md:pr-2 w-full'>
+                    <div>
+                      <p className='font-bold text-orange-950 text-sm md:text-base'>
+                        Panduan Pengisian Konsumsi
+                      </p>
+                      <p className='opacity-90 mt-0.5'>
+                        Mohon <strong>jawab lengkap</strong> dengan menyebutkan bahan, porsi, frekuensi, dan cara memasaknya! Semakin lengkap pengisiannya, semakin mempermudah assessment gizi awal Anda.
+                      </p>
+                    </div>
+
+                    <div className='bg-white/70 rounded-xl p-3.5 md:p-5 border border-orange-100 space-y-3.5'>
+                      <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
+                        <div>
+                          <p className='font-bold text-orange-800 text-[10px] md:text-xs uppercase tracking-wider mb-1.5 flex items-center gap-1'>
+                            <span className='w-1.5 h-1.5 rounded-full bg-orange-400'></span> Frekuensi
+                          </p>
+                          <p className='text-orange-950/80 text-[11px] md:text-xs font-medium'>Tidak pernah, 1-3x/hari, 4-6x/hari, 1-3x/minggu, 4-6x/minggu, atau 1-3x/bulan</p>
+                        </div>
+                        <div>
+                          <p className='font-bold text-orange-800 text-[10px] md:text-xs uppercase tracking-wider mb-1.5 flex items-center gap-1'>
+                            <span className='w-1.5 h-1.5 rounded-full bg-orange-400'></span> Ukuran Porsi
+                          </p>
+                          <p className='text-orange-950/80 text-[11px] md:text-xs font-medium'>1 potong, 1 mangkuk, 1 gelas, 1 centong, 1 sendok sayur / makan / teh</p>
+                        </div>
+                        <div className='md:col-span-2'>
+                          <p className='font-bold text-orange-800 text-[10px] md:text-xs uppercase tracking-wider mb-1.5 flex items-center gap-1'>
+                            <span className='w-1.5 h-1.5 rounded-full bg-orange-400'></span> Cara Memasak
+                          </p>
+                          <p className='text-orange-950/80 text-[11px] md:text-xs font-medium'>Goreng, rebus, tumis, bakar, panggang, menggunakan santan, dll</p>
+                        </div>
+                      </div>
+
+                      <div className='pt-3.5 mt-2 border-t border-orange-200/50 bg-orange-50/50 -mx-3.5 -mb-3.5 md:-mx-5 md:-mb-5 p-3.5 md:p-5 rounded-b-xl'>
+                        <p className='text-[11px] md:text-xs italic text-orange-800/90 leading-relaxed'>
+                          <span className='font-bold text-orange-900 not-italic inline-block bg-orange-200/50 px-2 py-0.5 rounded mr-1.5 border border-orange-200'>Contoh:</span>
+                          Nasi putih 2 centong 3x/hari, ayam goreng 1 potong 5x/minggu, telur dadar 1 butir 4-6x/minggu, tempe bacem 1 potong 4x/minggu, sayur sop 1 sendok sayur 3x/minggu, jus apel 1 gelas 1x/minggu, dll.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
                 </div>
 
-                <div className='grid grid-cols-1 gap-6'>
-                  <TextAreaField
+                <div className='grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-5'>
+                  <FoodCategoryCard
                     label='Sumber Karbohidrat'
-                    placeholder='Nasi, mie, ubi, singkong, roti, dll'
-                    required
+                    emoji='🍚'
+                    description='Nasi, Roti, Kentang, Mie, Pasta, Singkong, dll.'
+                    placeholder='Cth: Nasi putih 2 centong 3x/hari'
                     value={formData.sumberKarbohidrat}
-                    onChange={(v) => handleChange('sumberKarbohidrat', v)}
+                    onChange={(v: string) => handleChange('sumberKarbohidrat', v)}
                     error={errors.sumberKarbohidrat}
                   />
-                  <div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
-                    <TextAreaField
-                      label='Lauk Hewani'
-                      placeholder='Telur, ayam, daging, ikan, sarden, dll'
-                      required
-                      value={formData.laukHewani}
-                      onChange={(v) => handleChange('laukHewani', v)}
-                      error={errors.laukHewani}
-                    />
-                    <TextAreaField
-                      label='Lauk Nabati'
-                      placeholder='Tempe, tahu, kacang-kacangan'
-                      required
-                      value={formData.laukNabati}
-                      onChange={(v) => handleChange('laukNabati', v)}
-                      error={errors.laukNabati}
-                    />
-                  </div>
-                  <TextAreaField
+                  <FoodCategoryCard
+                    label='Lauk Hewani'
+                    emoji='🍗'
+                    description='Ayam, Daging sapi, Telur, Ikan, Seafood, dll.'
+                    placeholder='Cth: Ayam goreng 1 potong 5x/minggu'
+                    value={formData.laukHewani}
+                    onChange={(v: string) => handleChange('laukHewani', v)}
+                    error={errors.laukHewani}
+                  />
+                  <FoodCategoryCard
+                    label='Lauk Nabati'
+                    emoji='🥜'
+                    description='Tahu, Tempe, Kacang hijau, Kacang merah, dll.'
+                    placeholder='Cth: Tempe bacem manis 1 potong 4x/minggu'
+                    value={formData.laukNabati}
+                    onChange={(v: string) => handleChange('laukNabati', v)}
+                    error={errors.laukNabati}
+                  />
+                  <FoodCategoryCard
                     label='Sayuran'
-                    placeholder='Bayam, wortel, kangkung, buncis, dll'
-                    required
+                    emoji='🥗'
+                    description='Bayam, Kangkung, Sawi, Wortel, Brokoli, dll.'
+                    placeholder='Cth: Sayur sop bening 1 sendok sayur 3x/minggu'
                     value={formData.sayuran}
-                    onChange={(v) => handleChange('sayuran', v)}
+                    onChange={(v: string) => handleChange('sayuran', v)}
                     error={errors.sayuran}
                   />
-                  <TextAreaField
+                  <FoodCategoryCard
                     label='Buah-buahan'
-                    placeholder='Apel, jeruk, pepaya, pisang, dll'
-                    required
+                    emoji='🍎'
+                    description='Pisang, Pepaya, Apel, Jeruk, Mangga, Sirsak, dll.'
+                    placeholder='Cth: Pisang ambon 1 buah 2x/minggu'
                     value={formData.buahbuahan}
-                    onChange={(v) => handleChange('buahbuahan', v)}
+                    onChange={(v: string) => handleChange('buahbuahan', v)}
                     error={errors.buahbuahan}
                   />
-                  <div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
-                    <TextAreaField
-                      label='Minuman'
-                      placeholder='Teh, kopi, susu, boba, soda, minuman energi'
-                      required
-                      value={formData.minuman}
-                      onChange={(v) => handleChange('minuman', v)}
-                      error={errors.minuman}
-                    />
-                    <TextAreaField
-                      label='Cemilan/Snack'
-                      placeholder='Risol, puding, biskuit, martabak, donat, pizza, dll'
-                      required
+                  <FoodCategoryCard
+                    label='Minuman (Selain Air Putih)'
+                    emoji='🥤'
+                    description='Kopi gula, Teh manis, Susu, Jus, Boba, dll.'
+                    placeholder='Cth: Es teh manis pinggir jalan 1 gelas 1-3x/hari'
+                    value={formData.minuman}
+                    onChange={(v: string) => handleChange('minuman', v)}
+                    error={errors.minuman}
+                  />
+                  <div className='md:col-span-2'>
+                    <FoodCategoryCard
+                      label='Cemilan / Snack'
+                      emoji='🍪'
+                      description='Gorengan, Keripik, Roti manis, Coklat, Kue basah, dll.'
+                      placeholder='Cth: Gorengan bakwan 2 buah 1-3x/minggu, Keripik kentang 1 bungkus 3x/bulan'
                       value={formData.cemilan}
-                      onChange={(v) => handleChange('cemilan', v)}
+                      onChange={(v: string) => handleChange('cemilan', v)}
                       error={errors.cemilan}
                     />
                   </div>
@@ -784,7 +997,7 @@ export default function AssessmentPage() {
             {step === 5 && (
               <div className='space-y-6 animate-fade-in'>
                 <div className='bg-green-50/50 rounded-2xl p-6 border border-green-100/50'>
-                  <label className='text-sm md:text-lg font-serif font-bold text-gray-900 block mb-4'>
+                  <label className='text-sm font-semibold text-gray-700 block mb-4'>
                     Apakah Anda rutin berolahraga?
                   </label>
                   <div className='grid grid-cols-2 gap-4'>
@@ -793,7 +1006,7 @@ export default function AssessmentPage() {
                         key={opt}
                         type='button'
                         onClick={() => handleChange('olahraga', opt)}
-                        className={`py-1 md:py-4 rounded-xl font-bold text-sm md:text-lg transition-all border-2
+                        className={`py-3 rounded-xl font-bold text-sm transition-all border-2
                              ${formData.olahraga === opt ? 'bg-green-600 border-green-600 text-white shadow-lg shadow-green-200' : 'bg-white border-gray-100 text-gray-400 hover:border-gray-300'}`}
                       >
                         {opt}
@@ -842,10 +1055,9 @@ export default function AssessmentPage() {
                 onClick={handleBack}
                 disabled={step === 1}
                 className={`flex text-xs md:text-sm items-center gap-2 px-8 md:px-8 py-2 md:py-4 rounded-full font-medium transition-all cursor-pointer
-                  ${
-                    step === 1
-                      ? 'text-gray-300 cursor-not-allowed'
-                      : 'text-gray-600 bg-gray-100 hover:bg-gray-100 hover:text-gray-900'
+                  ${step === 1
+                    ? 'text-gray-300 cursor-not-allowed'
+                    : 'text-gray-600 bg-gray-100 hover:bg-gray-100 hover:text-gray-900'
                   }`}
               >
                 <ChevronLeft className='w-5 h-5' />
@@ -920,11 +1132,10 @@ function InputField({
           onChange={(e) => onChange(e.target.value)}
           placeholder={placeholder}
           className={`text-xs md:text-sm w-full ${icon ? 'pl-11' : 'px-4'} pr-4 py-3.5 bg-gray-50 border rounded-xl outline-none transition-all duration-200 font-medium text-gray-900 placeholder:text-gray-400 ${className}
-             ${
-               error
-                 ? 'border-red-300 bg-red-50 focus:border-red-500 focus:ring-4 focus:ring-red-100'
-                 : 'border-transparent focus:bg-white focus:border-primary focus:ring-4 focus:ring-orange-100'
-             }`}
+             ${error
+              ? 'border-red-300 bg-red-50 focus:border-red-500 focus:ring-4 focus:ring-red-100'
+              : 'border-transparent focus:bg-white focus:border-primary focus:ring-4 focus:ring-orange-100'
+            }`}
         />
       </div>
       {error && (
@@ -954,25 +1165,59 @@ function TextAreaField({
   className = '',
 }: TextAreaFieldProps) {
   return (
-    <div className='flex flex-col gap-2 w-full group'>
-      <label className='text-sm font-semibold text-gray-700 block'>
-        {label} {required && <span className='text-red-500'>*</span>}
+    <div className='animate-slide-down flex flex-col'>
+      <label className='mb-2 text-sm font-semibold text-gray-700 flex items-center justify-between'>
+        <span>
+          {label} {required && <span className='text-red-500'>*</span>}
+        </span>
       </label>
       <textarea
+        placeholder={placeholder}
+        className={`w-full px-4 py-3 bg-gray-50 border rounded-xl outline-none transition-all duration-200 font-medium text-sm lg:text-base min-h-[100px] resize-y
+           ${error ? 'border-red-300 bg-red-50 focus:border-red-500 focus:ring-4 focus:ring-red-100' : 'border-transparent focus:bg-white focus:border-primary focus:ring-4 focus:ring-orange-100 placeholder:text-gray-400'}`}
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        placeholder={placeholder}
-        rows={3}
-        className={`w-full px-4 py-3.5 bg-gray-50 border rounded-xl outline-none transition-all duration-200 font-medium text-gray-900 placeholder:text-gray-400 resize-none ${className}
-          ${
-            error
-              ? 'border-red-300 bg-red-50 focus:border-red-500 focus:ring-4 focus:ring-red-100'
-              : 'border-transparent focus:bg-white focus:border-primary focus:ring-4 focus:ring-orange-100'
-          }`}
       />
       {error && (
-        <span className='text-xs text-red-500 font-medium ml-1'>{error}</span>
+        <p className='text-xs text-red-500 font-medium mt-1.5 flex items-center gap-1'>
+          <Activity className='w-3 h-3' /> {error}
+        </p>
       )}
+    </div>
+  );
+}
+
+interface FoodCategoryCardProps {
+  label: string;
+  emoji: string;
+  description: string;
+  placeholder: string;
+  value: string;
+  onChange: (value: string) => void;
+  error?: string;
+}
+
+function FoodCategoryCard({ label, emoji, description, placeholder, value, onChange, error }: FoodCategoryCardProps) {
+  return (
+    <div className={`bg-white rounded-2xl border p-4 shadow-sm flex flex-col gap-3 transition-colors ${error ? 'border-red-200 bg-red-50/10' : 'border-gray-200/60 hover:border-orange-300'}`}>
+      <div className="flex items-center gap-3 border-b border-gray-100 pb-3">
+        <div className="w-10 h-10 shrink-0 rounded-xl bg-orange-50 flex items-center justify-center text-xl shadow-inner border border-orange-100/50">
+          {emoji}
+        </div>
+        <div>
+          <h4 className="font-bold text-gray-800 text-sm">{label} <span className='text-red-500'>*</span></h4>
+          <p className="text-[10px] md:text-[11px] text-gray-500 leading-tight mt-0.5">{description}</p>
+        </div>
+      </div>
+      <div className="flex-1 flex flex-col">
+        <textarea
+          placeholder={placeholder}
+          value={value}
+          onChange={(e) => onChange(e.target.value)}
+          className={`w-full px-3.5 py-3 flex-1 bg-gray-50/50 border rounded-xl outline-none min-h-[80px] text-xs md:text-sm transition-all focus:bg-white resize-y ${error ? 'border-red-300 focus:border-red-500 focus:ring-4 focus:ring-red-100' : 'border-gray-200 focus:border-primary focus:ring-4 focus:ring-orange-100 placeholder:text-gray-400'}`}
+        />
+        {error && <p className="text-xs text-red-500 font-bold mt-1.5 ml-1">{error}</p>}
+      </div>
     </div>
   );
 }

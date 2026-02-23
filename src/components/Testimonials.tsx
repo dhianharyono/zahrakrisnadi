@@ -16,6 +16,7 @@ const Testimonials: React.FC = () => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [testimonials, setTestimonials] = useState<TestimonialData[]>([]);
   const [expandedIndices, setExpandedIndices] = useState<number[]>([]);
+  const [loading, setLoading] = useState(true);
 
   const toggleExpand = (index: number) => {
     setExpandedIndices((prev) =>
@@ -43,10 +44,11 @@ const Testimonials: React.FC = () => {
   useEffect(() => {
     const fetchTestimonials = async () => {
       try {
+        setLoading(true);
         const res = await fetch('/api/testimonials?visible=true');
         const json = await res.json();
         if (json.success && Array.isArray(json.data)) {
-          const formattedData = json.data.map((t: any) => {
+          const formattedData = json.data.map((t: { patientName: string; role?: string; message: string; rating: number; gender?: string }) => {
             return {
               name: t.patientName,
               role: t.role || 'Client',
@@ -60,6 +62,8 @@ const Testimonials: React.FC = () => {
         }
       } catch (error) {
         console.error('Failed to fetch testimonials', error);
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -129,6 +133,7 @@ const Testimonials: React.FC = () => {
 
         <div className='flex items-center gap-4 mt-auto border-t border-gray-50 pt-6'>
           <div className='w-12 h-12 rounded-full overflow-hidden border-2 border-orange-100 shrink-0 bg-gray-50'>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src={testimonial.image}
               alt={testimonial.name}
@@ -147,6 +152,26 @@ const Testimonials: React.FC = () => {
       </div>
     );
   };
+
+  if (loading) {
+    return (
+      <section id='testimonials' className='py-12 lg:py-20 bg-white'>
+        <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
+          <div className='text-center mb-8 lg:mb-10'>
+            <span className='text-primary font-serif italic text-sm md:text-lg mb-2 block'>
+              Kisah Sukses
+            </span>
+            <h2 className='text-xl lg:text-4xl font-extrabold text-gray-900 mb-4 leading-tight'>
+              Apa Kata <span className='text-primary italic'>Mereka</span>
+            </h2>
+          </div>
+          <div className='flex justify-center items-center py-20'>
+            <div className='animate-spin rounded-full h-12 w-12 border-4 border-gray-200 border-t-primary'></div>
+          </div>
+        </div>
+      </section>
+    );
+  }
 
   if (testimonials.length === 0) {
     return null; // Don't render if no testimonials

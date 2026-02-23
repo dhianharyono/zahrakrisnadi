@@ -313,6 +313,10 @@ export default function AdminAssessments() {
                       label='Pendidikan'
                       value={selectedAssessment?.pendidikan}
                     />
+                    <DetailItem
+                      label='Target Konsultasi'
+                      value={selectedAssessment?.targetKonsultasi}
+                    />
                   </DetailGroup>
 
                   <DetailGroup title='Fisik'>
@@ -346,6 +350,28 @@ export default function AdminAssessments() {
                     <DetailItem
                       label='Lab'
                       value={selectedAssessment?.pemeriksaanLab}
+                    />
+                    <DetailItem
+                      label='Dokumen Lab'
+                      value={
+                        selectedAssessment?.pemeriksaanLabFile ? (
+                          <div className='flex items-center justify-end gap-2 mt-1 sm:mt-0'>
+                            <span className='truncate max-w-[150px] md:max-w-[200px]'>
+                              {selectedAssessment.pemeriksaanLabFile}
+                            </span>
+                            <a
+                              href={`#`}
+                              onClick={(e) => {
+                                e.preventDefault();
+                                window.open(`/uploads/${selectedAssessment.pemeriksaanLabFile}`, '_blank');
+                              }}
+                              className='bg-orange-100 hover:bg-orange-200 text-orange-700 px-3 py-1 rounded-md text-xs font-bold transition-colors shrink-0'
+                            >
+                              Lihat
+                            </a>
+                          </div>
+                        ) : null
+                      }
                     />
                     <DetailItem
                       label='Keluhan'
@@ -562,13 +588,26 @@ export default function AdminAssessments() {
                         ))}
                       </select>
                     </div>
-                    <EditTextArea
-                      label='Tujuan Konsultasi'
-                      value={editingAssessment.targetKonsultasi}
-                      onChange={(v: string) =>
-                        handleInputChange('targetKonsultasi', v)
-                      }
-                    />
+                    <div className='flex flex-col gap-1.5 md:col-span-2'>
+                      <label className='text-xs font-bold text-gray-500 uppercase tracking-wider'>
+                        Tujuan Konsultasi
+                      </label>
+                      <input
+                        list='tujuan-options'
+                        value={editingAssessment.targetKonsultasi || ''}
+                        onChange={(e) =>
+                          handleInputChange('targetKonsultasi', e.target.value)
+                        }
+                        className='w-full px-3 py-2 bg-white border border-gray-200 rounded-lg text-sm text-gray-800 focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all'
+                        placeholder='Ketik atau pilih tujuan...'
+                      />
+                      <datalist id='tujuan-options'>
+                        <option value='Body Goals' />
+                        <option value='Clinic Care' />
+                        <option value="Women's Health" />
+                        <option value='Body for Baby' />
+                      </datalist>
+                    </div>
                   </EditGroup>
 
                   <EditGroup title='Data Fisik'>
@@ -604,6 +643,46 @@ export default function AdminAssessments() {
                         handleInputChange('pemeriksaanLab', v)
                       }
                     />
+                    <div className='flex flex-col gap-1.5 md:col-span-2'>
+                      <label className='text-xs font-bold text-gray-500 uppercase tracking-wider'>
+                        Dokumen Lab (Jika ada)
+                      </label>
+                      <div className='flex items-center gap-3'>
+                        <label className='cursor-pointer bg-white px-4 py-2 border border-gray-200 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-50 transition-all flex items-center justify-center'>
+                          Pilih File
+                          <input
+                            type='file'
+                            className='hidden'
+                            accept='image/*,.pdf,.doc,.docx'
+                            onChange={async (e) => {
+                              const file = e.target.files?.[0];
+                              if (file) {
+                                handleInputChange('pemeriksaanLabFile', 'Mengunggah file...');
+                                const fd = new FormData();
+                                fd.append('file', file);
+                                try {
+                                  const res = await fetch('/api/upload', {
+                                    method: 'POST',
+                                    body: fd,
+                                  });
+                                  const data = await res.json();
+                                  if (data.success) {
+                                    handleInputChange('pemeriksaanLabFile', data.fileName);
+                                  } else {
+                                    handleInputChange('pemeriksaanLabFile', 'Gagal unggah');
+                                  }
+                                } catch (err) {
+                                  handleInputChange('pemeriksaanLabFile', 'Gagal unggah');
+                                }
+                              }
+                            }}
+                          />
+                        </label>
+                        <span className='text-sm text-gray-500 truncate max-w-[200px]'>
+                          {editingAssessment.pemeriksaanLabFile || 'Belum ada file'}
+                        </span>
+                      </div>
+                    </div>
                     {/* Note: Keluhan is array, simplified to text input for MVP or need join/split logic */}
                     <div className='flex flex-col gap-1.5 md:col-span-2'>
                       <label className='text-xs font-bold text-gray-500 uppercase tracking-wider'>
@@ -842,12 +921,12 @@ function EditTextArea({ label, value, onChange, rows = 3 }: any) {
   );
 }
 
-function DetailItem({ label, value }: any) {
+function DetailItem({ label, value }: { label: string; value: any }) {
   if (!value) return null;
   return (
-    <div className='flex flex-col sm:flex-row sm:justify-between text-sm'>
-      <span className='text-gray-500 font-medium'>{label}:</span>
-      <span className='text-gray-800 text-right font-medium'>{value}</span>
+    <div className='flex flex-col sm:flex-row sm:justify-between text-sm py-1 border-b border-gray-50/50 last:border-0 gap-1 sm:gap-4'>
+      <span className='text-gray-500 font-medium shrink-0'>{label}:</span>
+      <span className='text-gray-800 sm:text-right font-medium break-words sm:max-w-xs md:max-w-sm'>{value}</span>
     </div>
   );
 }
