@@ -14,6 +14,7 @@ import {
   Upload,
 } from 'lucide-react';
 import Link from 'next/link';
+import toast from 'react-hot-toast';
 
 type FormData = {
   // Step 1: Identitas
@@ -107,6 +108,7 @@ export default function AssessmentPage() {
     {},
   );
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isUploadingFile, setIsUploadingFile] = useState(false);
 
   // Scroll to top on step change
   useEffect(() => {
@@ -646,20 +648,31 @@ export default function AssessmentPage() {
                   />
                   <div className='mt-2'>
                     <label className='flex items-center justify-center w-full px-4 py-5 bg-orange-50/30 border-2 border-dashed border-orange-200 rounded-xl cursor-pointer hover:bg-orange-50/80 transition-all group overflow-hidden'>
-                      <div className='flex flex-col items-center gap-2'>
-                        <Upload className={`w-6 h-6 transition-colors ${formData.pemeriksaanLabFile ? 'text-primary' : 'text-orange-300 group-hover:text-primary'}`} />
-                        <span className='text-xs md:text-sm font-medium text-orange-900/70 group-hover:text-orange-900 transition-colors'>
-                          {formData.pemeriksaanLabFile ? 'Ganti File/Dokumen' : 'Lampirkan Foto/Dokumen Lab'}
-                        </span>
-                        {formData.pemeriksaanLabFile && (
-                          <span className='text-xs text-primary bg-primary/10 px-3 py-1 rounded-full text-center truncate max-w-[200px] md:max-w-[300px] font-bold border border-primary/20'>
-                            {formData.pemeriksaanLabFile}
-                          </span>
-                        )}
-                        {!formData.pemeriksaanLabFile && (
-                          <span className='text-[10px] text-gray-400 font-medium'>
-                            Maks. 5MB (JPG, PNG, PDF)
-                          </span>
+                      <div className='flex flex-col items-center gap-2 group cursor-pointer relative'>
+                        {isUploadingFile ? (
+                          <>
+                            <div className='w-6 h-6 border-2 border-orange-300 border-t-primary rounded-full animate-spin'></div>
+                            <span className='text-xs md:text-sm font-medium text-primary'>
+                              Mengunggah file...
+                            </span>
+                          </>
+                        ) : (
+                          <>
+                            <Upload className={`w-6 h-6 transition-colors ${formData.pemeriksaanLabFile ? 'text-primary' : 'text-orange-300 group-hover:text-primary'}`} />
+                            <span className='text-xs md:text-sm font-medium text-orange-900/70 group-hover:text-orange-900 transition-colors'>
+                              {formData.pemeriksaanLabFile ? 'Ganti File/Dokumen' : 'Lampirkan Foto/Dokumen Lab'}
+                            </span>
+                            {formData.pemeriksaanLabFile && (
+                              <span className='text-xs text-primary bg-primary/10 px-3 py-1 rounded-full text-center truncate max-w-[200px] md:max-w-[300px] font-bold border border-primary/20'>
+                                {formData.pemeriksaanLabFile}
+                              </span>
+                            )}
+                            {!formData.pemeriksaanLabFile && (
+                              <span className='text-[10px] text-gray-400 font-medium'>
+                                Maks. 5MB (JPG, PNG, PDF)
+                              </span>
+                            )}
+                          </>
                         )}
                       </div>
                       <input
@@ -669,7 +682,7 @@ export default function AssessmentPage() {
                         onChange={async (e) => {
                           const file = e.target.files?.[0];
                           if (file) {
-                            handleChange('pemeriksaanLabFile', 'Mengunggah file...');
+                            setIsUploadingFile(true);
                             const fd = new FormData();
                             fd.append('file', file);
                             try {
@@ -681,10 +694,12 @@ export default function AssessmentPage() {
                               if (data.success) {
                                 handleChange('pemeriksaanLabFile', data.fileName);
                               } else {
-                                handleChange('pemeriksaanLabFile', 'Gagal unggah file');
+                                toast.error('Gagal unggah file');
                               }
                             } catch (err) {
-                              handleChange('pemeriksaanLabFile', 'Gagal unggah file');
+                              toast.error('Gagal unggah file');
+                            } finally {
+                              setIsUploadingFile(false);
                             }
                           }
                         }}

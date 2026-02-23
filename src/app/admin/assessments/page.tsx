@@ -30,6 +30,7 @@ export default function AdminAssessments() {
   );
   const [isDeleting, setIsDeleting] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
+  const [isUploadingFile, setIsUploadingFile] = useState(false);
   const [deleteConfirmation, setDeleteConfirmation] = useState<{
     isOpen: boolean;
     id: string | null;
@@ -354,7 +355,7 @@ export default function AdminAssessments() {
                     <DetailItem
                       label='Dokumen Lab'
                       value={
-                        selectedAssessment?.pemeriksaanLabFile ? (
+                        selectedAssessment?.pemeriksaanLabFile && selectedAssessment?.pemeriksaanLabFile !== 'Mengunggah file...' && selectedAssessment?.pemeriksaanLabFile !== 'Gagal unggah' ? (
                           <div className='flex items-center justify-end gap-2 mt-1 sm:mt-0'>
                             <span className='truncate max-w-[150px] md:max-w-[200px]'>
                               {selectedAssessment.pemeriksaanLabFile}
@@ -363,7 +364,7 @@ export default function AdminAssessments() {
                               href={`#`}
                               onClick={(e) => {
                                 e.preventDefault();
-                                window.open(`/uploads/${selectedAssessment.pemeriksaanLabFile}`, '_blank');
+                                window.open(`/api/uploads/${selectedAssessment.pemeriksaanLabFile}`, '_blank');
                               }}
                               className='bg-orange-100 hover:bg-orange-200 text-orange-700 px-3 py-1 rounded-md text-xs font-bold transition-colors shrink-0'
                             >
@@ -657,7 +658,7 @@ export default function AdminAssessments() {
                             onChange={async (e) => {
                               const file = e.target.files?.[0];
                               if (file) {
-                                handleInputChange('pemeriksaanLabFile', 'Mengunggah file...');
+                                setIsUploadingFile(true);
                                 const fd = new FormData();
                                 fd.append('file', file);
                                 try {
@@ -669,17 +670,25 @@ export default function AdminAssessments() {
                                   if (data.success) {
                                     handleInputChange('pemeriksaanLabFile', data.fileName);
                                   } else {
-                                    handleInputChange('pemeriksaanLabFile', 'Gagal unggah');
+                                    toast.error('Gagal unggah');
                                   }
                                 } catch (err) {
-                                  handleInputChange('pemeriksaanLabFile', 'Gagal unggah');
+                                  toast.error('Gagal unggah');
+                                } finally {
+                                  setIsUploadingFile(false);
                                 }
                               }
                             }}
                           />
                         </label>
                         <span className='text-sm text-gray-500 truncate max-w-[200px]'>
-                          {editingAssessment.pemeriksaanLabFile || 'Belum ada file'}
+                          {isUploadingFile ? 'Mengunggah file...' : (
+                            editingAssessment.pemeriksaanLabFile &&
+                              editingAssessment.pemeriksaanLabFile !== 'Mengunggah file...' &&
+                              editingAssessment.pemeriksaanLabFile !== 'Gagal unggah'
+                              ? editingAssessment.pemeriksaanLabFile
+                              : 'Belum ada file'
+                          )}
                         </span>
                       </div>
                     </div>
