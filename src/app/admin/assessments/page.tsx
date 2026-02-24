@@ -290,6 +290,16 @@ export default function AdminAssessments() {
               <div className='p-8 overflow-y-auto font-sans custom-scrollbar'>
                 <div className='grid grid-cols-1 md:grid-cols-2 gap-8'>
                   <DetailGroup title='Identitas'>
+                    {selectedAssessment?.pilihanPaket && (
+                      <DetailItem
+                        label='Paket Terpilih'
+                        value={
+                          <span className='px-3 py-1 bg-orange-100 text-orange-700 rounded-full font-bold text-xs'>
+                            {selectedAssessment.pilihanPaket}
+                          </span>
+                        }
+                      />
+                    )}
                     <DetailItem
                       label='Nama'
                       value={selectedAssessment?.namaLengkap}

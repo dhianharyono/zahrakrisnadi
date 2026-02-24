@@ -302,12 +302,7 @@ const Services: React.FC = () => {
 
                   <button
                     onClick={() =>
-                      window.open(
-                        CONTACT_INFO.whatsapp.url(
-                          `Halo Dietisienmu, saya tertarik dengan paket ${plan.name}.`,
-                        ),
-                        '_blank',
-                      )
+                      window.location.href = `/assessment?paket=${encodeURIComponent(plan.name)}`
                     }
                     className={`w-full py-4 rounded-xl font-bold flex items-center justify-center gap-2 transition-all cursor-pointer transform hover:scale-[1.02]
                       ${isHighlight
@@ -396,12 +391,7 @@ const Services: React.FC = () => {
 
                     <button
                       onClick={() =>
-                        window.open(
-                          CONTACT_INFO.whatsapp.url(
-                            `Halo Dietisienmu, saya tertarik dengan paket ${plan.name}.`,
-                          ),
-                          '_blank',
-                        )
+                        window.location.href = `/assessment?paket=${encodeURIComponent(plan.name)}`
                       }
                       className={`w-full py-3 rounded-xl font-bold flex items-center justify-center gap-2 text-sm cursor-pointer
                         ${isHighlight

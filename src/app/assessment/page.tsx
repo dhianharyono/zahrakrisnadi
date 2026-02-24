@@ -57,6 +57,7 @@ type FormData = {
   olahraga: string; // Ya/Tidak
   frekuensiOlahraga: string;
   jenisOlahraga: string;
+  pilihanPaket?: string;
 };
 
 const initialFormData: FormData = {
@@ -91,6 +92,7 @@ const initialFormData: FormData = {
   olahraga: '',
   frekuensiOlahraga: '',
   jenisOlahraga: '',
+  pilihanPaket: '',
 };
 
 const steps = [
@@ -110,7 +112,17 @@ export default function AssessmentPage() {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isUploadingFile, setIsUploadingFile] = useState(false);
 
-  // Scroll to top on step change
+  // Scroll to top on step change and handle query default
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const params = new URLSearchParams(window.location.search);
+      const paket = params.get('paket');
+      if (paket && !formData.pilihanPaket) {
+        setFormData(prev => ({ ...prev, pilihanPaket: paket }));
+      }
+    }
+  }, []);
+
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, [step]);
@@ -367,8 +379,25 @@ export default function AssessmentPage() {
 
           <form
             onSubmit={(e) => e.preventDefault()}
-            className='px-6 py-5 md:py-3 md:px-10 space-y-8'
+            className='px-6 py-5 md:py-3 md:px-10 space-y-8 relative'
           >
+            {/* Show Selected Package Treatment */}
+            {formData.pilihanPaket && (
+              <div className='mb-6 bg-gradient-to-r from-orange-50 to-orange-100 border border-orange-200 rounded-2xl p-4 md:p-5 flex items-start gap-4 shadow-sm animate-fade-in'>
+                <div className='w-10 h-10 rounded-full bg-orange-200 flex items-center justify-center shrink-0'>
+                  <CheckCircle className='w-6 h-6 text-orange-600' />
+                </div>
+                <div>
+                  <h3 className='text-sm md:text-base font-bold text-gray-900'>
+                    Paket Terpilih: <span className='text-orange-600'>{formData.pilihanPaket}</span>
+                  </h3>
+                  <p className='text-xs md:text-sm text-gray-600 mt-1 font-medium'>
+                    Silakan lengkapi assessment awal ini agar Dietisien dapat memberikan rencana dan penanganan sesuai paket yang Anda pilih.
+                  </p>
+                </div>
+              </div>
+            )}
+
             {/* Step 1: Identitas */}
             {step === 1 && (
               <div className='space-y-6 animate-fade-in text-xs md:text-sm'>
