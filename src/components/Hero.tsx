@@ -28,12 +28,9 @@ const Hero: React.FC = () => {
             <div className='flex flex-col-2 sm:flex-row gap-4 pt-4 justify-center lg:justify-start'>
               <button
                 onClick={() =>
-                  window.open(
-                    CONTACT_INFO.whatsapp.url(
-                      'Halo Dietisienmu, saya ingin mulai konsultasi.',
-                    ),
-                    '_blank',
-                  )
+                  document
+                    .getElementById('consultation')
+                    ?.scrollIntoView({ behavior: 'smooth' })
                 }
                 className='flex items-center justify-center gap-2 bg-primary hover:bg-orange-600 text-white px-6 py-3 lg:px-8 lg:py-4 rounded-full font-bold shadow-lg shadow-orange-200 hover:shadow-xl transform hover:-translate-y-1 transition-all w-full sm:w-auto cursor-pointer text-xs md:text-sm lg:text-base'
               >

@@ -31,7 +31,7 @@ const Services: React.FC = () => {
   return (
     <section
       id='services'
-      className='py-12 lg:py-20 bg-linear-to-b from-white to-orange-50/20 relative overflow-hidden'
+      className='py-12 lg:py-20 bg-linear-to-b from-white to-orange-50/20 relative overflow-clip'
     >
       {/* Background Decorations */}
       <div className='absolute top-0 right-0 w-1/3 h-full bg-orange-100/20 -skew-x-12 transform translate-x-1/2 -z-10 blur-3xl'></div>
@@ -60,11 +60,10 @@ const Services: React.FC = () => {
               <div
                 key={index}
                 className={`group relative rounded-3xl p-6 transition-all duration-500 ease-out hover:-translate-y-3 flex flex-col h-full transform hover:scale-105
-                                ${
-                                  isHighlight
-                                    ? 'bg-linear-to-br from-gray-900 to-gray-800 text-white shadow-2xl ring-4 scale-105 hover:scale-110 z-10'
-                                    : 'bg-white border border-gray-100 shadow-xl hover:shadow-2xl text-gray-900'
-                                }`}
+                                ${isHighlight
+                    ? 'bg-linear-to-br from-gray-900 to-gray-800 text-white shadow-2xl ring-4 scale-105 hover:scale-110 z-10'
+                    : 'bg-white border border-gray-100 shadow-xl hover:shadow-2xl text-gray-900'
+                  }`}
               >
                 <div
                   className={`relative h-64 lg:h-80 w-full aspect-4/3 rounded-2xl overflow-hidden mb-6 shadow-md transition-transform duration-500 group-hover:scale-[1.02] ${isHighlight ? 'ring-2 ring-white/20' : ''}`}
@@ -109,11 +108,10 @@ const Services: React.FC = () => {
                       )
                     }
                     className={`w-full text-sm mt-auto py-4 rounded-xl font-bold flex items-center justify-center gap-2 transition-all duration-300 transform group-hover:scale-[1.02] cursor-pointer
-                                        ${
-                                          isHighlight
-                                            ? 'bg-primary hover:bg-orange-600 text-white shadow-lg shadow-orange-900/20'
-                                            : 'bg-gray-50 hover:bg-gray-100 text-gray-900 border border-gray-200 hover:border-gray-300'
-                                        }`}
+                                        ${isHighlight
+                        ? 'bg-primary hover:bg-orange-600 text-white shadow-lg shadow-orange-900/20'
+                        : 'bg-gray-50 hover:bg-gray-100 text-gray-900 border border-gray-200 hover:border-gray-300'
+                      }`}
                   >
                     Daftar Sekarang
                   </button>
@@ -136,11 +134,10 @@ const Services: React.FC = () => {
               return (
                 <div
                   key={index}
-                  className={`relative rounded-3xl p-6 flex flex-col w-full max-w-sm mx-auto shadow-xl transition-all duration-300 ${
-                    isHighlight
-                      ? 'bg-linear-to-br from-gray-900 to-gray-800 text-white ring-4 ring-gray-800'
-                      : 'bg-white border border-gray-100 text-gray-900'
-                  }`}
+                  className={`relative rounded-3xl p-6 flex flex-col w-full max-w-sm mx-auto shadow-xl transition-all duration-300 ${isHighlight
+                    ? 'bg-linear-to-br from-gray-900 to-gray-800 text-white ring-4 ring-gray-800'
+                    : 'bg-white border border-gray-100 text-gray-900'
+                    }`}
                 >
                   <div
                     className={`relative h-64 w-full aspect-square rounded-2xl overflow-hidden mb-6 shadow-md`}
@@ -177,11 +174,10 @@ const Services: React.FC = () => {
                     <button
                       onClick={() => window.open('/assessment')}
                       className={`w-full py-3 rounded-xl font-bold flex items-center justify-center gap-2 cursor-pointer
-                                          ${
-                                            isHighlight
-                                              ? 'bg-primary hover:bg-orange-600 text-white'
-                                              : 'bg-gray-50 hover:bg-gray-100 text-gray-900 border border-gray-200'
-                                          }`}
+                                          ${isHighlight
+                          ? 'bg-primary hover:bg-orange-600 text-white'
+                          : 'bg-gray-50 hover:bg-gray-100 text-gray-900 border border-gray-200'
+                        }`}
                     >
                       Daftar Sekarang
                     </button>
@@ -213,16 +209,15 @@ const Services: React.FC = () => {
               <button
                 key={idx}
                 onClick={() => setActiveIndex(idx)}
-                className={`w-2 h-2 rounded-full transition-all ${
-                  idx === activeIndex ? 'bg-primary w-6' : 'bg-gray-300'
-                }`}
+                className={`w-2 h-2 rounded-full transition-all ${idx === activeIndex ? 'bg-primary w-6' : 'bg-gray-300'
+                  }`}
               />
             ))}
           </div>
         </div>
 
         {/* Pricing Section */}
-        <div className='mt-20 lg:mt-32'>
+        <div id='consultation' className='py-12 mt-20 lg:mt-32'>
           <div className='text-center max-w-2xl mx-auto mb-10 lg:mb-16'>
             <span className='text-primary italic text-sm md:text-lg mb-2 block'>
               Pilihan Paket
@@ -242,11 +237,10 @@ const Services: React.FC = () => {
               return (
                 <div
                   key={index}
-                  className={`relative rounded-3xl p-6 lg:p-8 flex flex-col transition-all duration-300 ${
-                    isHighlight
-                      ? 'bg-linear-to-br from-gray-900 to-gray-800 text-white shadow-2xl ring-4 ring-orange-500/50 scale-105 z-10'
-                      : 'bg-white text-gray-900 border border-gray-100 shadow-xl hover:shadow-2xl'
-                  }`}
+                  className={`relative rounded-3xl p-6 lg:p-8 flex flex-col transition-all duration-300 ${isHighlight
+                    ? 'bg-linear-to-br from-gray-900 to-gray-800 text-white shadow-2xl ring-4 ring-orange-500/50 scale-105 z-10'
+                    : 'bg-white text-gray-900 border border-gray-100 shadow-xl hover:shadow-2xl'
+                    }`}
                 >
                   {isHighlight && (
                     <div className='absolute top-0 right-0 bg-orange-500 text-white text-xs font-bold px-4 py-2 rounded-bl-xl rounded-tr-2xl shadow-lg'>
@@ -316,10 +310,9 @@ const Services: React.FC = () => {
                       )
                     }
                     className={`w-full py-4 rounded-xl font-bold flex items-center justify-center gap-2 transition-all cursor-pointer transform hover:scale-[1.02]
-                      ${
-                        isHighlight
-                          ? 'bg-primary hover:bg-orange-600 text-white shadow-lg shadow-orange-900/20'
-                          : 'bg-gray-50 hover:bg-gray-100 text-gray-900 border border-gray-200 hover:border-gray-300'
+                      ${isHighlight
+                        ? 'bg-primary hover:bg-orange-600 text-white shadow-lg shadow-orange-900/20'
+                        : 'bg-gray-50 hover:bg-gray-100 text-gray-900 border border-gray-200 hover:border-gray-300'
                       }`}
                   >
                     Pilih Paket {plan.name}
@@ -338,11 +331,10 @@ const Services: React.FC = () => {
                 return (
                   <div
                     key={index}
-                    className={`relative rounded-3xl p-5 flex flex-col w-full max-w-sm mx-auto shadow-xl transition-all duration-300 ${
-                      isHighlight
-                        ? 'bg-linear-to-br from-gray-900 to-gray-800 text-white ring-4 ring-gray-800'
-                        : 'bg-white border border-gray-100 text-gray-900'
-                    }`}
+                    className={`relative rounded-3xl p-5 flex flex-col w-full max-w-sm mx-auto shadow-xl transition-all duration-300 ${isHighlight
+                      ? 'bg-linear-to-br from-gray-900 to-gray-800 text-white ring-4 ring-gray-800'
+                      : 'bg-white border border-gray-100 text-gray-900'
+                      }`}
                   >
                     {isHighlight && (
                       <div className='absolute top-0 right-0 bg-orange-500 text-white text-[10px] font-bold px-3 py-1.5 rounded-bl-xl rounded-tr-2xl shadow-lg'>
@@ -412,10 +404,9 @@ const Services: React.FC = () => {
                         )
                       }
                       className={`w-full py-3 rounded-xl font-bold flex items-center justify-center gap-2 text-sm cursor-pointer
-                        ${
-                          isHighlight
-                            ? 'bg-primary hover:bg-orange-600 text-white'
-                            : 'bg-gray-50 hover:bg-gray-100 text-gray-900 border border-gray-200'
+                        ${isHighlight
+                          ? 'bg-primary hover:bg-orange-600 text-white'
+                          : 'bg-gray-50 hover:bg-gray-100 text-gray-900 border border-gray-200'
                         }`}
                     >
                       Pilih Paket {plan.name}
@@ -447,11 +438,10 @@ const Services: React.FC = () => {
                 <button
                   key={idx}
                   onClick={() => setActivePricingIndex(idx)}
-                  className={`w-2 h-2 rounded-full transition-all ${
-                    idx === activePricingIndex
-                      ? 'bg-primary w-6'
-                      : 'bg-gray-300'
-                  }`}
+                  className={`w-2 h-2 rounded-full transition-all ${idx === activePricingIndex
+                    ? 'bg-primary w-6'
+                    : 'bg-gray-300'
+                    }`}
                 />
               ))}
             </div>

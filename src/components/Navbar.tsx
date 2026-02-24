@@ -62,12 +62,9 @@ const Navbar: React.FC = () => {
             <div className='hidden md:flex'>
               <button
                 onClick={() =>
-                  window.open(
-                    CONTACT_INFO.whatsapp.url(
-                      'Halo Dietisienmu, saya tertarik untuk konsultasi.',
-                    ),
-                    '_blank',
-                  )
+                  document
+                    .getElementById('consultation')
+                    ?.scrollIntoView({ behavior: 'smooth' })
                 }
                 className='bg-primary hover:bg-orange-600 text-white px-6 py-2.5 rounded-full font-semibold transition-all shadow-md hover:shadow-lg transform hover:-translate-y-0.5 cursor-pointer'
               >
