@@ -12,7 +12,7 @@ const Features: React.FC = () => {
           <span className='text-primary font-serif italic text-sm md:text-lg mb-2 block'>
             Nilai Utama
           </span>
-          <h2 className='text-xl lg:text-4xl font-extrabold text-gray-900 mb-4 leading-tight'>
+          <h2 className='text-xl lg:text-4xl font-extrabold text-gray-900 mb-2 md:mb-4 leading-tight'>
             Mengapa Konsultasi dengan{' '}
             <span className='text-primary italic'>Dietisien</span>
           </h2>

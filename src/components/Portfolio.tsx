@@ -30,7 +30,7 @@ const Portfolio: React.FC = () => {
           <h2 className='text-xl lg:text-4xl font-extrabold text-gray-900 mb-2 md:mb-4 leading-tight'>
             Portofolio <span className='text-primary italic'>Kegiatan</span>
           </h2>
-          <p className='text-gray-600 max-w-2xl mx-auto text-sm md:text-lg'>
+          <p className='text-gray-600 text-sm max-w-2xl mx-auto'>
             Dokumentasi berbagai kegiatan seminar, workshop, dan konsultasi gizi
             yang telah dilaksanakan bersama berbagai mitra dan klien.
           </p>
