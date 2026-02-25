@@ -2,10 +2,11 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { Eye, Trash2, Search, X, MessageCircle, Edit } from 'lucide-react';
+import { Eye, Trash2, Search, X, Edit } from 'lucide-react';
 import { createPortal } from 'react-dom';
 import ConfirmModal from '@/components/ui/ConfirmModal';
 import toast from 'react-hot-toast';
+import { PRICING_PLANS } from '@/utils/constants';
 
 type Assessment = {
   _id: string; // From Mongo
@@ -178,6 +179,9 @@ export default function AdminAssessments() {
                 <th className='px-8 py-5 font-bold text-gray-600 text-xs uppercase tracking-wider'>
                   Tujuan
                 </th>
+                <th className='px-8 py-5 font-bold text-gray-600 text-xs uppercase tracking-wider'>
+                  Pembayaran
+                </th>
                 <th className='px-8 py-5 font-bold text-gray-600 text-xs uppercase tracking-wider text-right'>
                   Aksi
                 </th>
@@ -209,6 +213,26 @@ export default function AdminAssessments() {
                     </td>
                     <td className='px-8 py-5 text-sm text-gray-600 truncate max-w-[200px]'>
                       {item.targetKonsultasi}
+                    </td>
+                    <td className='px-8 py-5 text-sm text-gray-600'>
+                      <div className='flex flex-col gap-1.5 items-start'>
+                        {item.pilihanPaket ? (
+                          <span className='px-2 py-0.5 bg-orange-100 text-orange-700 rounded-md text-[10px] font-bold whitespace-nowrap'>
+                            {item.pilihanPaket}
+                          </span>
+                        ) : (
+                          <span className='text-[10px] text-gray-400'>-</span>
+                        )}
+                        {item.buktiPembayaran && item.buktiPembayaran !== 'Mengunggah file...' && item.buktiPembayaran !== 'Gagal unggah' ? (
+                          <span className='px-2 py-0.5 bg-green-100 text-green-700 rounded-md text-[10px] font-bold whitespace-nowrap'>
+                            Bukti Pembayaran
+                          </span>
+                        ) : (
+                          <span className='px-2 py-0.5 bg-yellow-100 text-yellow-700 rounded-md text-[10px] font-bold whitespace-nowrap'>
+                            Belum Ada File
+                          </span>
+                        )}
+                      </div>
                     </td>
                     <td className='px-8 py-5 text-right'>
                       <div className='flex items-center justify-end gap-3 opacity-80 group-hover:opacity-100 transition-opacity'>
@@ -290,16 +314,6 @@ export default function AdminAssessments() {
               <div className='p-8 overflow-y-auto font-sans custom-scrollbar'>
                 <div className='grid grid-cols-1 md:grid-cols-2 gap-8'>
                   <DetailGroup title='Identitas'>
-                    {selectedAssessment?.pilihanPaket && (
-                      <DetailItem
-                        label='Paket Terpilih'
-                        value={
-                          <span className='px-3 py-1 bg-orange-100 text-orange-700 rounded-full font-bold text-xs'>
-                            {selectedAssessment.pilihanPaket}
-                          </span>
-                        }
-                      />
-                    )}
                     <DetailItem
                       label='Nama'
                       value={selectedAssessment?.namaLengkap}
@@ -326,7 +340,7 @@ export default function AdminAssessments() {
                     />
                     <DetailItem
                       label='Target Konsultasi'
-                      value={selectedAssessment?.targetKonsultasi}
+                      value={selectedAssessment?.pilihanPaket || selectedAssessment?.targetKonsultasi}
                     />
                   </DetailGroup>
 
@@ -365,7 +379,11 @@ export default function AdminAssessments() {
                     <DetailItem
                       label='Dokumen Lab'
                       value={
-                        selectedAssessment?.pemeriksaanLabFile && selectedAssessment?.pemeriksaanLabFile !== 'Mengunggah file...' && selectedAssessment?.pemeriksaanLabFile !== 'Gagal unggah' ? (
+                        selectedAssessment?.pemeriksaanLabFile &&
+                          selectedAssessment?.pemeriksaanLabFile !==
+                          'Mengunggah file...' &&
+                          selectedAssessment?.pemeriksaanLabFile !==
+                          'Gagal unggah' ? (
                           <div className='flex items-center justify-end gap-2 mt-1 sm:mt-0'>
                             <span className='truncate max-w-[150px] md:max-w-[200px]'>
                               {selectedAssessment.pemeriksaanLabFile}
@@ -374,11 +392,14 @@ export default function AdminAssessments() {
                               href={`#`}
                               onClick={(e) => {
                                 e.preventDefault();
-                                window.open(`/api/uploads/${selectedAssessment.pemeriksaanLabFile}`, '_blank');
+                                window.open(
+                                  `/api/uploads/${selectedAssessment.pemeriksaanLabFile}`,
+                                  '_blank',
+                                );
                               }}
-                              className='bg-orange-100 hover:bg-orange-200 text-orange-700 px-3 py-1 rounded-md text-xs font-bold transition-colors shrink-0'
+                              className='bg-green-100 hover:bg-green-200 text-green-700 px-3 py-1 rounded-md text-xs font-bold transition-colors shrink-0 flex items-center gap-1'
                             >
-                              Lihat
+                              Lihat File
                             </a>
                           </div>
                         ) : null
@@ -488,6 +509,60 @@ export default function AdminAssessments() {
                       </>
                     )}
                   </DetailGroup>
+
+                  <DetailGroup title='Pembayaran' className='md:col-span-2'>
+                    {selectedAssessment?.pilihanPaket && (
+                      <DetailItem
+                        label='Paket Tagihan'
+                        value={
+                          <div className='flex gap-5 items-end sm:items-center '>
+                            <span className='px-3 py-1 bg-orange-100 text-orange-700 rounded-full font-bold text-xs w-fit'>
+                              {selectedAssessment.pilihanPaket}
+                            </span>
+                            {(() => {
+                              const plan = PRICING_PLANS.find(p => p.name === selectedAssessment.pilihanPaket);
+                              return plan ? (
+                                <span className='text-xs font-semibold text-gray-700 block mt-0.5'>
+                                  {plan.price} ({plan.duration})
+                                </span>
+                              ) : null;
+                            })()}
+                          </div>
+                        }
+                      />
+                    )}
+                    <DetailItem
+                      label='Bukti Pembayaran'
+                      value={
+                        selectedAssessment?.buktiPembayaran &&
+                          selectedAssessment?.buktiPembayaran !==
+                          'Mengunggah file...' &&
+                          selectedAssessment?.buktiPembayaran !==
+                          'Gagal unggah' ? (
+                          <div className='flex items-center justify-end gap-2 mt-1 sm:mt-0'>
+                            <span className='truncate max-w-[150px] md:max-w-[200px]'>
+                              {selectedAssessment.buktiPembayaran}
+                            </span>
+                            <a
+                              href={`#`}
+                              onClick={(e) => {
+                                e.preventDefault();
+                                window.open(
+                                  `/api/uploads/${selectedAssessment.buktiPembayaran}`,
+                                  '_blank',
+                                );
+                              }}
+                              className='bg-green-100 hover:bg-green-200 text-green-700 px-3 py-1 rounded-md text-xs font-bold transition-colors shrink-0 flex items-center gap-1'
+                            >
+                              Lihat File
+                            </a>
+                          </div>
+                        ) : (
+                          '-'
+                        )
+                      }
+                    />
+                  </DetailGroup>
                 </div>
               </div>
 
@@ -505,10 +580,12 @@ export default function AdminAssessments() {
             </div>
           </div>,
           document.body,
-        )}
+        )
+      }
 
       {/* Edit Modal */}
-      {editingAssessment &&
+      {
+        editingAssessment &&
         typeof document !== 'undefined' &&
         createPortal(
           <div className='fixed inset-0 bg-black/40 backdrop-blur-md z-[9999] flex items-center justify-center p-4'>
@@ -621,6 +698,62 @@ export default function AdminAssessments() {
                     </div>
                   </EditGroup>
 
+                  <EditGroup title='Pembayaran'>
+                    <div className='flex flex-col gap-1.5 md:col-span-2'>
+                      <label className='text-xs font-bold text-gray-500 uppercase tracking-wider'>
+                        Bukti Pembayaran
+                      </label>
+                      <div className='flex items-center gap-3'>
+                        <label className='cursor-pointer bg-white px-4 py-2 border border-gray-200 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-50 transition-all flex items-center justify-center'>
+                          Pilih File
+                          <input
+                            type='file'
+                            className='hidden'
+                            accept='image/*,.pdf'
+                            onChange={async (e) => {
+                              const file = e.target.files?.[0];
+                              if (file) {
+                                setIsUploadingFile(true);
+                                const fd = new FormData();
+                                fd.append('file', file);
+                                try {
+                                  const res = await fetch('/api/upload', {
+                                    method: 'POST',
+                                    body: fd,
+                                  });
+                                  const data = await res.json();
+                                  if (data.success) {
+                                    handleInputChange(
+                                      'buktiPembayaran',
+                                      data.fileName,
+                                    );
+                                  } else {
+                                    toast.error('Gagal unggah');
+                                  }
+                                } catch (err) {
+                                  toast.error('Gagal unggah');
+                                } finally {
+                                  setIsUploadingFile(false);
+                                }
+                              }
+                            }}
+                          />
+                        </label>
+                        <span className='text-sm text-gray-500 truncate max-w-[200px]'>
+                          {isUploadingFile
+                            ? 'Mengunggah file...'
+                            : editingAssessment.buktiPembayaran &&
+                              editingAssessment.buktiPembayaran !==
+                              'Mengunggah file...' &&
+                              editingAssessment.buktiPembayaran !==
+                              'Gagal unggah'
+                              ? editingAssessment.buktiPembayaran
+                              : 'Belum ada file'}
+                        </span>
+                      </div>
+                    </div>
+                  </EditGroup>
+
                   <EditGroup title='Data Fisik'>
                     <EditInput
                       label='Berat Badan (kg)'
@@ -678,7 +811,10 @@ export default function AdminAssessments() {
                                   });
                                   const data = await res.json();
                                   if (data.success) {
-                                    handleInputChange('pemeriksaanLabFile', data.fileName);
+                                    handleInputChange(
+                                      'pemeriksaanLabFile',
+                                      data.fileName,
+                                    );
                                   } else {
                                     toast.error('Gagal unggah');
                                   }
@@ -692,13 +828,15 @@ export default function AdminAssessments() {
                           />
                         </label>
                         <span className='text-sm text-gray-500 truncate max-w-[200px]'>
-                          {isUploadingFile ? 'Mengunggah file...' : (
-                            editingAssessment.pemeriksaanLabFile &&
-                              editingAssessment.pemeriksaanLabFile !== 'Mengunggah file...' &&
-                              editingAssessment.pemeriksaanLabFile !== 'Gagal unggah'
+                          {isUploadingFile
+                            ? 'Mengunggah file...'
+                            : editingAssessment.pemeriksaanLabFile &&
+                              editingAssessment.pemeriksaanLabFile !==
+                              'Mengunggah file...' &&
+                              editingAssessment.pemeriksaanLabFile !==
+                              'Gagal unggah'
                               ? editingAssessment.pemeriksaanLabFile
-                              : 'Belum ada file'
-                          )}
+                              : 'Belum ada file'}
                         </span>
                       </div>
                     </div>
@@ -858,7 +996,8 @@ export default function AdminAssessments() {
             </div>
           </div>,
           document.body,
-        )}
+        )
+      }
 
       {/* Delete Confirmation Modal */}
       <ConfirmModal
@@ -872,7 +1011,7 @@ export default function AdminAssessments() {
         onConfirm={performDelete}
         onCancel={() => setDeleteConfirmation({ isOpen: false, id: null })}
       />
-    </div>
+    </div >
   );
 }
 
@@ -945,7 +1084,9 @@ function DetailItem({ label, value }: { label: string; value: any }) {
   return (
     <div className='flex flex-col sm:flex-row sm:justify-between text-sm py-1 border-b border-gray-50/50 last:border-0 gap-1 sm:gap-4'>
       <span className='text-gray-500 font-medium shrink-0'>{label}:</span>
-      <span className='text-gray-800 sm:text-right font-medium break-words sm:max-w-xs md:max-w-sm'>{value}</span>
+      <span className='text-gray-800 sm:text-right font-medium break-words sm:max-w-xs md:max-w-sm'>
+        {value}
+      </span>
     </div>
   );
 }

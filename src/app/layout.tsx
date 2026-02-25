@@ -1,20 +1,21 @@
-import type { Metadata } from "next";
-import { Inter, Playfair_Display } from "next/font/google";
-import "./globals.css";
+import type { Metadata } from 'next';
+import { Inter, Playfair_Display } from 'next/font/google';
+import './globals.css';
 
 const inter = Inter({
-  subsets: ["latin"],
-  variable: "--font-sans",
+  subsets: ['latin'],
+  variable: '--font-sans',
 });
 
 const playfair = Playfair_Display({
-  subsets: ["latin"],
-  variable: "--font-serif",
+  subsets: ['latin'],
+  variable: '--font-serif',
 });
 
 export const metadata: Metadata = {
-  title: "Zahra Krisnadi | Ahli Gizi & Nutrisi Terpercaya",
-  description: "Wujudkan tubuh ideal dan kesehatan optimal bersama Zahra Krisnadi, Dietisien Tersertifikasi.",
+  title: 'Zahra Krisnadi | Ahli Gizi Terpercaya',
+  description:
+    'Wujudkan tubuh ideal dan kesehatan optimal bersama Zahra Krisnadi, Dietisien Tersertifikasi.',
 };
 
 export default function RootLayout({
@@ -23,7 +24,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="id">
+    <html lang='id'>
       <body className={`${inter.variable} ${playfair.variable} antialiased`}>
         {children}
       </body>

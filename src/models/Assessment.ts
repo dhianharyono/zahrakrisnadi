@@ -35,6 +35,7 @@ export interface IAssessment {
   frekuensiOlahraga?: string;
   jenisOlahraga?: string;
   pilihanPaket?: string;
+  buktiPembayaran?: string;
 
   createdAt: Date;
   status: string;
@@ -79,6 +80,7 @@ const AssessmentSchema = new Schema<IAssessment>(
     frekuensiOlahraga: { type: String },
     jenisOlahraga: { type: String },
     pilihanPaket: { type: String },
+    buktiPembayaran: { type: String },
 
     status: { type: String, default: 'new' }, // new, reviewed, archived
   },
