@@ -283,12 +283,20 @@ export default function AssessmentPage() {
 
       setIsSubmitted(true);
       setTimeout(() => {
-        window.location.href = waUrl;
+        const newWindow = window.open(waUrl, '_blank');
+        if (newWindow) {
+          window.location.href = '/';
+        } else {
+          window.location.href = waUrl;
+        }
       }, 2000);
     }
   };
 
   if (isSubmitted) {
+    const message = `Halo Admin Zahra Krisnadi, saya telah mengisi form assessment awal.%0A%0ANama: ${formData.namaLengkap}%0ATujuan: ${formData.targetKonsultasi}%0A%0AMohon info selanjutnya. Terima kasih.`;
+    const waUrl = `https://wa.me/6281234567890?text=${message}`;
+
     return (
       <div className='min-h-screen bg-[#FDFBF7] flex items-center justify-center p-4'>
         <div className='bg-white rounded-4xl shadow-xl p-8 max-w-md w-full text-center border border-orange-100 animate-fade-in'>
@@ -298,13 +306,26 @@ export default function AssessmentPage() {
           <h2 className='text-lg md:text-2xl font-serif font-bold text-gray-900 mb-1 md:mb-3'>
             Terima Kasih!
           </h2>
-          <p className='text-gray-600 mb-8 font-sans leading-relaxed text-xs md:text-sm'>
+          <p className='text-gray-600 mb-6 font-sans leading-relaxed text-xs md:text-sm'>
             Data assessment Anda telah kami terima. Kami sedang mengalihkan Anda
             ke WhatsApp admin untuk konfirmasi selanjutnya.
           </p>
-          <div className='w-full h-1.5 bg-gray-100 rounded-full overflow-hidden'>
+          <div className='w-full h-1.5 bg-gray-100 rounded-full overflow-hidden mb-6'>
             <div className='h-full bg-green-500 animate-[pulse_1s_ease-in-out_infinite] w-full'></div>
           </div>
+          <a
+            href={waUrl}
+            target='_blank'
+            rel='noopener noreferrer'
+            onClick={() => {
+              setTimeout(() => {
+                window.location.href = '/';
+              }, 500);
+            }}
+            className='inline-flex items-center justify-center w-full px-6 py-3 bg-green-500 hover:bg-green-600 text-white font-bold rounded-xl transition-colors text-sm shadow-lg shadow-green-200'
+          >
+            Lanjut ke WhatsApp Sekarang
+          </a>
         </div>
       </div>
     );
