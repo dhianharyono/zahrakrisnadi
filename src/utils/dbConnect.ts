@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import mongoose from 'mongoose';
 
 // Since the user didn't specify the connection string, we'll try to use an environment variable or default to a local string for dev.

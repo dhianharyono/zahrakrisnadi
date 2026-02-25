@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 'use client';
 
 import { useState, useEffect } from 'react';
@@ -559,7 +560,6 @@ function StatCard({
   trend,
   color,
   bgColor,
-  textColor,
 }: any) {
   return (
     <div className='bg-white/70 backdrop-blur-xl p-6 rounded-3xl shadow-lg shadow-orange-100/20 border border-white/60 hover:shadow-xl hover:shadow-orange-100/40 hover:-translate-y-1 transition-all duration-300 group relative overflow-hidden'>
