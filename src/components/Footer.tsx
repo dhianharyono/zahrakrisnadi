@@ -6,9 +6,9 @@ const Footer: React.FC = () => {
   return (
     <footer className='bg-dark text-white pt-10 pb-10'>
       <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
-        <div className='grid grid-cols-1 lg:grid-cols-4 p-4 gap-12 lg:gap-8 mb-5 border-b border-gray-800 pb-12'>
+        <div className='grid grid-cols-1 lg:grid-cols-3 p-4 gap-12 lg:gap-8 mb-5 border-b border-gray-800 pb-12'>
           {/* Brand */}
-          <div className='lg:col-span-2 space-y-3 md:space-y-4'>
+          <div className='space-y-3 md:space-y-4 w-fit'>
             <div className='flex items-center gap-2'>
               <div className='w-8 h-8 bg-primary rounded-lg flex items-center justify-center text-white font-bold'>
                 Z
@@ -31,9 +31,10 @@ const Footer: React.FC = () => {
           </div>
 
           {/* Navigation */}
-          <div>
+          <div className='ml-0 md:ml-20'>
             <h4 className='text-lg font-bold text-white mb-3 md:mb-6'>Menu</h4>
-            <ul className='space-y-3 text-sm text-gray-400'>
+            {/* jadikan 2 kolom untuk desktop, 1 kolom untuk mobile */}
+            <ul className='space-y-4 text-sm text-gray-400 columns-1 md:columns-2'>
               <li>
                 <a href='#' className='hover:text-primary transition-colors'>
                   Beranda
@@ -49,10 +50,34 @@ const Footer: React.FC = () => {
               </li>
               <li>
                 <a
+                  href='#tahap-layanan'
+                  className='hover:text-primary transition-colors'
+                >
+                  Tahap Layanan
+                </a>
+              </li>
+              <li>
+                <a
                   href='#services'
                   className='hover:text-primary transition-colors'
                 >
                   Layanan
+                </a>
+              </li>
+              <li>
+                <a
+                  href='#pilih-paket'
+                  className='hover:text-primary transition-colors'
+                >
+                  Pilih Paket
+                </a>
+              </li>
+              <li>
+                <a
+                  href='#kalkulator-bmi'
+                  className='hover:text-primary transition-colors'
+                >
+                  Kalkulator BMI
                 </a>
               </li>
               <li>
@@ -71,11 +96,19 @@ const Footer: React.FC = () => {
                   Kolaborasi
                 </a>
               </li>
+              <li>
+                <a
+                  href='#portofolio'
+                  className='hover:text-primary transition-colors'
+                >
+                  Portofolio
+                </a>
+              </li>
             </ul>
           </div>
 
           {/* Services (Optional or just Contact) - Let's use Contact as requested */}
-          <div>
+          <div className='ml-0 md:ml-20'>
             <h4 className='text-lg font-bold text-white mb-3 md:mb-6'>
               Kontak
             </h4>
@@ -97,7 +130,7 @@ const Footer: React.FC = () => {
                   target='_blank'
                   className='hover:text-primary'
                 >
-                  +62 851 8307 6503
+                  Whatsapp
                 </Link>
               </li>
               <li className='flex items-center gap-3'>
@@ -107,7 +140,7 @@ const Footer: React.FC = () => {
                   target='_blank'
                   className='hover:text-primary break-all'
                 >
-                  dietisienzahrakrisnadi@gmail.com
+                  Email
                 </Link>
               </li>
             </ul>
