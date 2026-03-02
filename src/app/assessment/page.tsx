@@ -1,7 +1,6 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { PRICING_PLANS } from '../../utils/constants';
 import {
   CheckCircle,
   ChevronLeft,
@@ -109,14 +108,37 @@ const steps = [
   { id: 6, label: 'Pembayaran', icon: CreditCard },
 ];
 
+type PackageBase = {
+  name: string;
+  description: string;
+  price: string;
+  duration: string;
+};
+
 export default function AssessmentPage() {
   const [step, setStep] = useState(1);
   const [formData, setFormData] = useState<FormData>(initialFormData);
+  const [pricingPlans, setPricingPlans] = useState<PackageBase[]>([]);
   const [errors, setErrors] = useState<Partial<Record<keyof FormData, string>>>(
     {},
   );
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isUploadingFile, setIsUploadingFile] = useState(false);
+
+  useEffect(() => {
+    const fetchPackages = async () => {
+      try {
+        const res = await fetch('/api/packages');
+        const json = await res.json();
+        if (json.success && Array.isArray(json.data)) {
+          setPricingPlans(json.data);
+        }
+      } catch (error) {
+        console.error('Failed to fetch packages', error);
+      }
+    };
+    fetchPackages();
+  }, []);
 
   // Scroll to top on step change and handle query default
   useEffect(() => {
@@ -1224,7 +1246,7 @@ export default function AssessmentPage() {
                       </p>
 
                       <div className='grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4'>
-                        {PRICING_PLANS.map((plan) => (
+                        {pricingPlans.map((plan) => (
                           <div
                             key={plan.name}
                             onClick={() =>
@@ -1281,7 +1303,7 @@ export default function AssessmentPage() {
 
                       {/* Tampilkan Tagihan */}
                       {(() => {
-                        const selectedPlan = PRICING_PLANS.find(
+                        const selectedPlan = pricingPlans.find(
                           (p) => p.name === formData.pilihanPaket,
                         );
                         return selectedPlan ? (

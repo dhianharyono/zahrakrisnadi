@@ -7,7 +7,6 @@ import { Eye, Trash2, Search, X, Edit } from 'lucide-react';
 import { createPortal } from 'react-dom';
 import ConfirmModal from '@/components/ui/ConfirmModal';
 import toast from 'react-hot-toast';
-import { PRICING_PLANS } from '@/utils/constants';
 
 type Assessment = {
   _id: string; // From Mongo
@@ -23,6 +22,7 @@ type Assessment = {
 export default function AdminAssessments() {
   const router = useRouter();
   const [assessments, setAssessments] = useState<Assessment[]>([]);
+  const [pricingPlans, setPricingPlans] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedAssessment, setSelectedAssessment] =
@@ -40,7 +40,22 @@ export default function AdminAssessments() {
 
   useEffect(() => {
     fetchAssessments();
+    fetchPackages();
   }, []);
+
+  const fetchPackages = async () => {
+    try {
+      const res = await fetch('/api/packages');
+      if (res.ok) {
+        const data = await res.json();
+        if (data.success) {
+          setPricingPlans(data.data);
+        }
+      }
+    } catch (error) {
+      console.error('Failed to fetch packages', error);
+    }
+  };
 
   const fetchAssessments = async () => {
     try {
@@ -521,7 +536,7 @@ export default function AdminAssessments() {
                               {selectedAssessment.pilihanPaket}
                             </span>
                             {(() => {
-                              const plan = PRICING_PLANS.find(p => p.name === selectedAssessment.pilihanPaket);
+                              const plan = pricingPlans.find(p => p.name === selectedAssessment.pilihanPaket);
                               return plan ? (
                                 <span className='text-xs font-semibold text-gray-700 block mt-0.5'>
                                   {plan.price} ({plan.duration})

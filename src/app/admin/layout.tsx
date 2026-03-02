@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
-import { LayoutDashboard, FileText, MessageSquare, LogOut, Menu, X } from 'lucide-react';
+import { LayoutDashboard, FileText, MessageSquare, LogOut, Menu, X, Image as ImageIcon, Package } from 'lucide-react';
 import ConfirmModal from '@/components/ui/ConfirmModal';
 import { Toaster } from 'react-hot-toast';
 
@@ -38,6 +38,8 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
         { name: 'Dashboard Analitik', href: '/admin/dashboard', icon: LayoutDashboard },
         { name: 'Data Assessment', href: '/admin/assessments', icon: FileText },
         { name: 'Testimonial', href: '/admin/testimonials', icon: MessageSquare },
+        { name: 'Portofolio', href: '/admin/portfolio', icon: ImageIcon },
+        { name: 'Kelola Paket', href: '/admin/packages', icon: Package },
     ];
 
     // If on login page, render without layout

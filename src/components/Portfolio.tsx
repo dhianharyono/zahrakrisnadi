@@ -1,12 +1,44 @@
 import React from 'react';
 import Image from 'next/image';
-import { PORTFOLIO_DATA } from '../utils/constants';
 import { X } from 'lucide-react';
 
+type PortfolioItem = {
+  _id: string;
+  title: string;
+  category: string;
+  description: string;
+  image: string;
+};
+
 const Portfolio: React.FC = () => {
-  const [selectedItem, setSelectedItem] = React.useState<
-    (typeof PORTFOLIO_DATA)[0] | null
-  >(null);
+  const [portfolioData, setPortfolioData] = React.useState<PortfolioItem[]>([]);
+  const [loading, setLoading] = React.useState(true);
+  const [selectedItem, setSelectedItem] = React.useState<PortfolioItem | null>(null);
+
+  React.useEffect(() => {
+    const fetchPortfolio = async () => {
+      try {
+        const res = await fetch('/api/portfolio');
+        const json = await res.json();
+        if (json.success && Array.isArray(json.data)) {
+          setPortfolioData(json.data);
+        }
+      } catch (error) {
+        console.error('Failed to fetch portfolio', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchPortfolio();
+  }, []);
+
+  const getImageUrl = (imagePath: string) => {
+    if (!imagePath) return '';
+    if (imagePath.startsWith('/') || imagePath.startsWith('http')) {
+      return imagePath;
+    }
+    return `/api/uploads/${imagePath}`;
+  };
 
   // Lock body scroll when modal is open
   React.useEffect(() => {
@@ -36,39 +68,45 @@ const Portfolio: React.FC = () => {
           </p>
         </div>
 
-        <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 p-4 md:p-0'>
-          {PORTFOLIO_DATA.map((item, index) => (
-            <div
-              key={index}
-              className='group relative overflow-hidden rounded-2xl shadow-lg cursor-pointer'
-              onClick={() => setSelectedItem(item)}
-            >
-              <div className='aspect-4/3 relative bg-gray-100'>
-                <Image
-                  src={item.image}
-                  alt={item.title}
-                  fill
-                  className='object-cover object-top transition-transform duration-700 group-hover:scale-110'
-                />
-                {/* Overlay: visible on hover */}
-                <div className='absolute inset-0 bg-linear-to-t from-black/90 via-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6'>
-                  <span className='bg-primary text-white text-[10px] font-bold tracking-wider uppercase px-3 py-1 rounded-full w-fit mb-3 shadow-md transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300 delay-75'>
-                    {item.category}
-                  </span>
-                  <h3 className='text-white text-xl font-bold mb-2 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300 delay-100 hidden md:block'>
-                    {item.title}
-                  </h3>
-                  <h3 className='text-white text-lg font-bold mb-2 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300 delay-100 md:hidden'>
-                    {item.title}
-                  </h3>
-                  <p className='text-gray-200 text-sm line-clamp-3 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300 delay-150'>
-                    Klik untuk melihat detail
-                  </p>
+        {loading ? (
+          <div className='flex justify-center items-center py-20'>
+            <div className='animate-spin rounded-full h-12 w-12 border-4 border-gray-200 border-t-primary'></div>
+          </div>
+        ) : (
+          <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 p-4 md:p-0'>
+            {portfolioData.map((item, index) => (
+              <div
+                key={item._id || index}
+                className='group relative overflow-hidden rounded-2xl shadow-lg cursor-pointer'
+                onClick={() => setSelectedItem(item)}
+              >
+                <div className='aspect-4/3 relative bg-gray-100'>
+                  <Image
+                    src={getImageUrl(item.image)}
+                    alt={item.title}
+                    fill
+                    className='object-cover object-top transition-transform duration-700 group-hover:scale-110'
+                  />
+                  {/* Overlay: visible on hover */}
+                  <div className='absolute inset-0 bg-linear-to-t from-black/90 via-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6'>
+                    <span className='bg-primary text-white text-[10px] font-bold tracking-wider uppercase px-3 py-1 rounded-full w-fit mb-3 shadow-md transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300 delay-75'>
+                      {item.category}
+                    </span>
+                    <h3 className='text-white text-xl font-bold mb-2 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300 delay-100 hidden md:block'>
+                      {item.title}
+                    </h3>
+                    <h3 className='text-white text-lg font-bold mb-2 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300 delay-100 md:hidden'>
+                      {item.title}
+                    </h3>
+                    <p className='text-gray-200 text-sm line-clamp-3 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300 delay-150'>
+                      Klik untuk melihat detail
+                    </p>
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
+        )}
       </div>
 
       {/* Modal Popup */}
@@ -103,7 +141,7 @@ const Portfolio: React.FC = () => {
             {/* Image Side */}
             <div className='w-full md:w-1/2 h-56 md:h-auto relative bg-gray-50 shrink-0'>
               <Image
-                src={selectedItem.image}
+                src={getImageUrl(selectedItem.image)}
                 alt={selectedItem.title}
                 fill
                 className='object-contain p-2 md:p-4'
@@ -142,8 +180,9 @@ const Portfolio: React.FC = () => {
             </div>
           </div>
         </div>
-      )}
-    </section>
+      )
+      }
+    </section >
   );
 };
 
