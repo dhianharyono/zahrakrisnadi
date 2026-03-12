@@ -69,8 +69,17 @@ const Portfolio: React.FC = () => {
         </div>
 
         {loading ? (
-          <div className='flex justify-center items-center py-20'>
-            <div className='animate-spin rounded-full h-12 w-12 border-4 border-gray-200 border-t-primary'></div>
+          <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 p-4 md:p-0'>
+            {[1, 2, 3, 4, 5, 6].map((i) => (
+              <div key={i} className='rounded-2xl shadow-lg bg-white overflow-hidden animate-pulse'>
+                <div className='aspect-4/3 bg-gray-200'></div>
+                <div className='p-6'>
+                  <div className='h-4 bg-gray-100 rounded w-1/4 mb-4'></div>
+                  <div className='h-6 bg-gray-200 rounded w-3/4 mb-2'></div>
+                  <div className='h-4 bg-gray-100 rounded w-full'></div>
+                </div>
+              </div>
+            ))}
           </div>
         ) : (
           <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 p-4 md:p-0'>

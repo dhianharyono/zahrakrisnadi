@@ -155,18 +155,41 @@ const Testimonials: React.FC = () => {
 
   if (loading) {
     return (
-      <section id='testimonials' className='py-12 lg:py-20 bg-white'>
+      <section id='testimonials' className='py-12 lg:py-20 bg-white overflow-hidden'>
         <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
           <div className='text-center mb-8 lg:mb-10'>
-            <span className='text-primary font-serif italic text-sm md:text-lg mb-2 block'>
+            <span className='text-primary font-serif italic text-sm md:text-lg mb-2 block animate-pulse'>
               Kisah Sukses
             </span>
             <h2 className='text-xl lg:text-4xl font-extrabold text-gray-900 mb-4 leading-tight'>
               Apa Kata <span className='text-primary italic'>Mereka</span>
             </h2>
           </div>
-          <div className='flex justify-center items-center py-20'>
-            <div className='animate-spin rounded-full h-12 w-12 border-4 border-gray-200 border-t-primary'></div>
+          <div className='flex gap-6 md:gap-8 overflow-x-auto pb-8 no-scrollbar items-stretch md:justify-center'>
+            {[1, 2, 3].map((i) => (
+              <div
+                key={i}
+                className='shrink-0 w-[85vw] md:w-[400px] bg-white rounded-3xl p-6 md:p-8 border border-orange-50 shadow-sm animate-pulse flex flex-col h-[300px] md:h-[350px]'
+              >
+                <div className='flex gap-1 mb-6'>
+                  {[1, 2, 3, 4, 5].map((j) => (
+                    <div key={j} className='w-4 h-4 bg-gray-100 rounded-full'></div>
+                  ))}
+                </div>
+                <div className='space-y-3 mb-8 grow'>
+                  <div className='h-4 bg-gray-50 rounded-lg w-full'></div>
+                  <div className='h-4 bg-gray-50 rounded-lg w-11/12'></div>
+                  <div className='h-4 bg-gray-50 rounded-lg w-4/5'></div>
+                </div>
+                <div className='flex items-center gap-4 mt-auto pt-6 border-t border-gray-50'>
+                  <div className='w-12 h-12 rounded-full bg-gray-100'></div>
+                  <div className='space-y-2'>
+                    <div className='h-4 bg-gray-100 rounded w-24'></div>
+                    <div className='h-3 bg-gray-50 rounded w-16'></div>
+                  </div>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </section>
