@@ -1,6 +1,9 @@
+'use client';
+
 import React, { useState } from 'react';
 import { Instagram, MapPinMinusInside, Menu, X } from 'lucide-react';
 import Link from 'next/link';
+import { motion, AnimatePresence } from 'framer-motion';
 import { CONTACT_INFO, NAV_LINKS } from '../utils/constants';
 
 const Navbar: React.FC = () => {
@@ -13,7 +16,11 @@ const Navbar: React.FC = () => {
   return (
     <nav className='fixed w-full z-50 top-0 left-0 right-0 flex flex-col'>
       {/* Top Bar */}
-      <div className='bg-primary text-white text-xs py-2 px-4'>
+      <motion.div
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        className='bg-primary text-white text-xs py-2 px-4'
+      >
         <div className='max-w-7xl mx-auto flex justify-between items-center sm:px-6 lg:px-8'>
           <div className='flex items-center gap-4'>
             <span className='flex items-center gap-2'>
@@ -38,9 +45,14 @@ const Navbar: React.FC = () => {
             </span>
           </div>
         </div>
-      </div>
+      </motion.div>
 
-      <div className='bg-white/90 backdrop-blur-md shadow-sm w-full'>
+      <motion.div
+        initial={{ opacity: 0, y: -10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.1 }}
+        className='bg-white/90 backdrop-blur-md shadow-sm w-full'
+      >
         <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
           <div className='flex justify-between items-center h-20'>
             <div className='shrink-0 flex items-center'>
@@ -50,26 +62,29 @@ const Navbar: React.FC = () => {
             </div>
             <div className='hidden md:flex space-x-8 items-center'>
               {NAV_LINKS.map((link) => (
-                <a
+                <motion.a
                   key={link.label}
                   href={link.href}
+                  whileHover={{ y: -2 }}
                   className='text-gray-700 hover:text-primary transition-colors font-medium text-sm'
                 >
                   {link.label}
-                </a>
+                </motion.a>
               ))}
             </div>
             <div className='hidden md:flex'>
-              <button
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
                 onClick={() =>
                   document
                     .getElementById('consultation')
                     ?.scrollIntoView({ behavior: 'smooth' })
                 }
-                className='bg-primary hover:bg-orange-600 text-white px-6 py-2.5 rounded-full font-semibold transition-all shadow-md hover:shadow-lg transform hover:-translate-y-0.5 cursor-pointer'
+                className='bg-primary hover:bg-orange-600 text-white px-6 py-2.5 rounded-full font-semibold transition-all shadow-md hover:shadow-lg transform cursor-pointer'
               >
                 Konsultasi
-              </button>
+              </motion.button>
             </div>
             <div className='md:hidden flex items-center'>
               <button
@@ -83,25 +98,31 @@ const Navbar: React.FC = () => {
         </div>
 
         {/* Mobile Menu */}
-        <div
-          className={`md:hidden bg-white shadow-lg absolute w-full left-0 overflow-hidden transition-all duration-300 ease-in-out ${
-            isOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
-          }`}
-        >
-          <div className='px-2 pt-2 pb-3'>
-            {NAV_LINKS.map((link) => (
-              <a
-                key={link.label}
-                href={link.href}
-                onClick={() => setIsOpen(false)}
-                className='block px-3 py-2 text-gray-700 hover:text-primary hover:bg-orange-50 rounded-md font-medium text-xs'
-              >
-                {link.label}
-              </a>
-            ))}
-          </div>
-        </div>
-      </div>
+        <AnimatePresence>
+          {isOpen && (
+            <motion.div
+              initial={{ height: 0, opacity: 0 }}
+              animate={{ height: 'auto', opacity: 1 }}
+              exit={{ height: 0, opacity: 0 }}
+              className='md:hidden bg-white shadow-lg absolute w-full left-0 overflow-hidden'
+            >
+              <div className='px-2 pt-2 pb-3'>
+                {NAV_LINKS.map((link) => (
+                  <motion.a
+                    key={link.label}
+                    href={link.href}
+                    onClick={() => setIsOpen(false)}
+                    whileTap={{ scale: 0.98 }}
+                    className='block px-3 py-2 text-gray-700 hover:text-primary hover:bg-orange-50 rounded-md font-medium text-xs'
+                  >
+                    {link.label}
+                  </motion.a>
+                ))}
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </motion.div>
     </nav>
   );
 };

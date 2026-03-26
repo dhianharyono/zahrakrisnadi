@@ -17,6 +17,21 @@ import {
 } from 'lucide-react';
 import Link from 'next/link';
 import toast from 'react-hot-toast';
+import { motion, AnimatePresence, Variants } from 'framer-motion';
+
+const fadeUpVariants: Variants = {
+  hidden: { opacity: 0, y: 30 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.5, ease: 'easeOut' },
+  },
+  exit: {
+    opacity: 0,
+    y: -30,
+    transition: { duration: 0.3 },
+  },
+};
 
 type FormData = {
   // Step 1: Identitas
@@ -482,31 +497,17 @@ export default function AssessmentPage() {
             onSubmit={(e) => e.preventDefault()}
             className='px-6 py-5 md:py-3 md:px-10 space-y-8 relative'
           >
-            {/* Show Selected Package Treatment */}
-            {formData.pilihanPaket && (
-              <div className='mb-6 bg-gradient-to-r from-orange-50 to-orange-100 border border-orange-200 rounded-2xl p-4 md:p-5 flex items-start gap-4 shadow-sm animate-fade-in'>
-                <div className='w-10 h-10 rounded-full bg-orange-200 flex items-center justify-center shrink-0'>
-                  <CheckCircle className='w-6 h-6 text-orange-600' />
-                </div>
-                <div>
-                  <h3 className='text-sm md:text-base font-bold text-gray-900'>
-                    Paket Terpilih:{' '}
-                    <span className='text-orange-600'>
-                      {formData.pilihanPaket}
-                    </span>
-                  </h3>
-                  <p className='text-xs md:text-sm text-gray-600 mt-1 font-medium'>
-                    Silakan lengkapi assessment awal ini agar Dietisien dapat
-                    memberikan rencana dan penanganan sesuai paket yang Anda
-                    pilih.
-                  </p>
-                </div>
-              </div>
-            )}
-
-            {/* Step 1: Identitas */}
-            {step === 1 && (
-              <div className='space-y-6 animate-fade-in text-xs md:text-sm'>
+            <AnimatePresence mode='wait'>
+              {/* Step 1: Identitas */}
+              {step === 1 && (
+                <motion.div
+                  key='step1'
+                  initial='hidden'
+                  animate='visible'
+                  exit='exit'
+                  variants={fadeUpVariants}
+                  className='space-y-6 text-xs md:text-sm'
+                >
                 <InputField
                   label='Nama Lengkap'
                   required
@@ -767,12 +768,19 @@ export default function AssessmentPage() {
                     />
                   </div>
                 </div>
-              </div>
-            )}
+                </motion.div>
+              )}
 
-            {/* Step 2: Riwayat Kesehatan */}
-            {step === 2 && (
-              <div className='space-y-6 animate-fade-in text-xs md:text-sm'>
+              {/* Step 2: Riwayat Kesehatan */}
+              {step === 2 && (
+                <motion.div
+                  key='step2'
+                  initial='hidden'
+                  animate='visible'
+                  exit='exit'
+                  variants={fadeUpVariants}
+                  className='space-y-6 text-xs md:text-sm'
+                >
                 <div className='space-y-3'>
                   <label className='text-sm font-semibold text-gray-700 block'>
                     Pemeriksaan Lab (jika ada)
@@ -943,12 +951,19 @@ export default function AssessmentPage() {
                   value={formData.suplemenKonsumsi}
                   onChange={(v) => handleChange('suplemenKonsumsi', v)}
                 />
-              </div>
-            )}
+                </motion.div>
+              )}
 
-            {/* Step 3: Pola Makan */}
-            {step === 3 && (
-              <div className='space-y-6 animate-fade-in text-xs md:text-sm'>
+              {/* Step 3: Pola Makan */}
+              {step === 3 && (
+                <motion.div
+                  key='step3'
+                  initial='hidden'
+                  animate='visible'
+                  exit='exit'
+                  variants={fadeUpVariants}
+                  className='space-y-6 text-xs md:text-sm'
+                >
                 <div className='bg-orange-50/50 p-6 rounded-2xl border border-orange-100/50'>
                   <label className='text-sm font-semibold text-gray-700 block mb-3'>
                     Frekuensi Makan Harian
@@ -1071,12 +1086,19 @@ export default function AssessmentPage() {
                     </div>
                   )}
                 </div>
-              </div>
-            )}
+                </motion.div>
+              )}
 
-            {/* Step 4: Food Recall */}
-            {step === 4 && (
-              <div className='space-y-8 animate-fade-in text-xs md:text-sm'>
+              {/* Step 4: Food Recall */}
+              {step === 4 && (
+                <motion.div
+                  key='step4'
+                  initial='hidden'
+                  animate='visible'
+                  exit='exit'
+                  variants={fadeUpVariants}
+                  className='space-y-8 text-xs md:text-sm'
+                >
                 <div className='flex items-start gap-3 md:gap-4 p-4 bg-orange-50 rounded-2xl border border-orange-200/60 shadow-inner'>
                   <div className='bg-orange-100/90 p-2 md:p-3 rounded-xl shrink-0 mt-0.5 shadow-sm'>
                     <Apple className='w-5 h-5 md:w-6 md:h-6 text-orange-600' />
@@ -1212,12 +1234,19 @@ export default function AssessmentPage() {
                     />
                   </div>
                 </div>
-              </div>
-            )}
+                </motion.div>
+              )}
 
-            {/* Step 5: Aktivitas Fisik */}
-            {step === 5 && (
-              <div className='space-y-6 animate-fade-in'>
+              {/* Step 5: Aktivitas Fisik */}
+              {step === 5 && (
+                <motion.div
+                  key='step5'
+                  initial='hidden'
+                  animate='visible'
+                  exit='exit'
+                  variants={fadeUpVariants}
+                  className='space-y-6'
+                >
                 <div className='bg-green-50/50 rounded-2xl p-6 border border-green-100/50'>
                   <label className='text-sm font-semibold text-gray-700 block mb-4'>
                     Apakah Anda rutin berolahraga?
@@ -1267,12 +1296,19 @@ export default function AssessmentPage() {
                     </div>
                   )}
                 </div>
-              </div>
-            )}
+                </motion.div>
+              )}
 
-            {/* Step 6: Pembayaran */}
-            {step === 6 && (
-              <div className='space-y-6 animate-fade-in text-xs md:text-sm'>
+              {/* Step 6: Pembayaran */}
+              {step === 6 && (
+                <motion.div
+                  key='step6'
+                  initial='hidden'
+                  animate='visible'
+                  exit='exit'
+                  variants={fadeUpVariants}
+                  className='space-y-6 text-xs md:text-sm'
+                >
                 <div className='bg-orange-50/50 p-6 rounded-2xl border border-orange-100/50'>
                   {!formData.pilihanPaket ? (
                     <div className='animate-fade-in'>
@@ -1490,8 +1526,9 @@ export default function AssessmentPage() {
                     </div>
                   )}
                 </div>
-              </div>
-            )}
+                </motion.div>
+              )}
+            </AnimatePresence>
 
             {/* Navigation Buttons */}
             <div className='flex items-center justify-between pt-8 border-t border-gray-100 mt-8'>

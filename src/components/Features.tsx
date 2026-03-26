@@ -1,14 +1,45 @@
+'use client';
+
 import React from 'react';
 import { FEATURES_DATA } from '../utils/constants';
+import { motion, Variants } from 'framer-motion';
 
 const Features: React.FC = () => {
+  const containerVariants: Variants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+      },
+    },
+  };
+
+  const itemVariants: Variants = {
+    hidden: { opacity: 0, y: 30 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.5,
+        ease: 'easeInOut',
+      },
+    },
+  };
+
   return (
     <section
       id='why-us'
       className='py-12 lg:py-20 bg-linear-to-b from-orange-50/30 to-white'
     >
       <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
-        <div className='text-center mb-10 lg:mb-20'>
+        <motion.div
+          initial='hidden'
+          whileInView='visible'
+          viewport={{ once: true, margin: '-100px' }}
+          variants={itemVariants}
+          className='text-center mb-10 lg:mb-20'
+        >
           <span className='text-primary font-serif italic text-sm md:text-lg mb-2 block'>
             Nilai Utama
           </span>
@@ -16,15 +47,23 @@ const Features: React.FC = () => {
             Mengapa Konsultasi dengan{' '}
             <span className='text-primary italic'>Dietisien</span>
           </h2>
-        </div>
+        </motion.div>
 
-        <div className='grid grid-cols-3 gap-3 md:gap-6 lg:gap-8'>
+        <motion.div
+          initial='hidden'
+          whileInView='visible'
+          viewport={{ once: true, margin: '-50px' }}
+          variants={containerVariants}
+          className='grid grid-cols-3 gap-3 md:gap-6 lg:gap-8'
+        >
           {FEATURES_DATA.map((feature, index) => {
             const Icon = feature.Icon;
             return (
-              <div
+              <motion.div
                 key={index}
-                className={`relative pt-12 pb-4 px-2 md:pt-16 md:pb-8 md:px-6 rounded-2xl md:rounded-3xl ${feature.bg} text-center group transition-all duration-300 hover:-translate-y-2 border-2 md:border-3 border-white h-full flex flex-col items-center`}
+                variants={itemVariants}
+                whileHover={{ y: -10 }}
+                className={`relative pt-12 pb-4 px-2 md:pt-16 md:pb-8 md:px-6 rounded-2xl md:rounded-3xl ${feature.bg} text-center group transition-shadow duration-300 border-2 md:border-3 border-white h-full flex flex-col items-center`}
               >
                 {/* Floating Icon Container */}
                 <div
@@ -44,10 +83,10 @@ const Features: React.FC = () => {
                     {feature.description}
                   </p>
                 </div>
-              </div>
+              </motion.div>
             );
           })}
-        </div>
+        </motion.div>
       </div>
     </section>
   );

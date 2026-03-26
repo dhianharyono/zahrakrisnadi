@@ -1,10 +1,20 @@
 import React, { useState } from 'react';
 import { RotateCcw, ChevronRight, Loader2 } from 'lucide-react';
+import { motion, AnimatePresence, Variants } from 'framer-motion';
 import {
   BMI_CATEGORIES,
   BMICategoryData,
   CONTACT_INFO,
 } from '../utils/constants';
+
+const itemVariants: Variants = {
+  hidden: { opacity: 0, y: 30 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.6, ease: 'easeOut' },
+  },
+};
 
 const BMICalculator: React.FC = () => {
   const [height, setHeight] = useState<string>('');
@@ -65,7 +75,13 @@ const BMICalculator: React.FC = () => {
       <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
         <div className='grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-start'>
           {/* Left Side: Text Content */}
-          <div className='space-y-3 md:space-y-6 p-4'>
+          <motion.div
+            initial='hidden'
+            whileInView='visible'
+            viewport={{ once: true, margin: '-100px' }}
+            variants={itemVariants}
+            className='space-y-3 md:space-y-6 p-4'
+          >
             <span className='text-primary font-serif italic text-sm md:text-lg mb-2 block'>
               Pantau Progressmu
             </span>
@@ -82,7 +98,9 @@ const BMICalculator: React.FC = () => {
                 <div className='w-6 h-6 rounded-full bg-orange-100 flex items-center justify-center text-orange-600'>
                   <ChevronRight size={16} />
                 </div>
-                <span className='text-gray-700 font-medium text-lg'>Hasil Instan</span>
+                <span className='text-gray-700 font-medium text-lg'>
+                  Hasil Instan
+                </span>
               </li>
               <li className='flex items-center gap-3'>
                 <div className='w-6 h-6 rounded-full bg-orange-100 flex items-center justify-center text-orange-600'>
@@ -93,266 +111,312 @@ const BMICalculator: React.FC = () => {
                 </span>
               </li>
             </ul>
-          </div>
+          </motion.div>
 
           {/* Right Reference: Form OR Result Card */}
-          <div className='bg-white mt-0 md:mt-8 lg:mt-10 rounded-3xl shadow-xl border border-gray-100 overflow-hidden relative transition-all duration-500 ease-in-out'>
-            {bmi === null ? (
-              // --- FORM STATE --- //
-              <div className='p-6 lg:p-10 space-y-6'>
-                <div className='grid grid-cols-1 sm:grid-cols-2 gap-6'>
-                  <div className='space-y-3'>
-                    <div className='flex justify-between items-end'>
-                      <label className='text-xs md:text-sm font-semibold text-gray-600'>
-                        Tinggi (cm)
-                      </label>
-                      <div className='flex items-center gap-1 bg-white px-3 py-1.5 rounded-lg border border-gray-200 shadow-sm focus-within:ring-2 focus-within:ring-primary focus-within:border-transparent transition-all'>
-                        <input
-                          type='number'
-                          value={height}
-                          onChange={(e) => setHeight(e.target.value)}
-                          className='w-12 text-right text-sm font-bold text-gray-900 outline-none bg-transparent'
-                          placeholder='170'
-                        />
-                        <span className='text-xs text-gray-500 select-none'>
-                          cm
-                        </span>
-                      </div>
-                    </div>
-                    <input
-                      type='range'
-                      min='100'
-                      max='220'
-                      value={height || 165}
-                      onChange={(e) => setHeight(e.target.value)}
-                      className='w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-primary'
-                    />
-                  </div>
-                  <div className='space-y-3'>
-                    <div className='flex justify-between items-end'>
-                      <label className='text-xs md:text-sm font-semibold text-gray-600'>
-                        Berat (kg)
-                      </label>
-                      <div className='flex items-center gap-1 bg-white px-3 py-1.5 rounded-lg border border-gray-200 shadow-sm focus-within:ring-2 focus-within:ring-primary focus-within:border-transparent transition-all'>
-                        <input
-                          type='number'
-                          value={weight}
-                          onChange={(e) => setWeight(e.target.value)}
-                          className='w-12 text-right text-sm font-bold text-gray-900 outline-none bg-transparent'
-                          placeholder='60'
-                        />
-                        <span className='text-xs text-gray-500 select-none'>
-                          kg
-                        </span>
-                      </div>
-                    </div>
-                    <input
-                      type='range'
-                      min='30'
-                      max='150'
-                      value={weight || 60}
-                      onChange={(e) => setWeight(e.target.value)}
-                      className='w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-primary'
-                    />
-                  </div>
-                </div>
-
-                <div className='space-y-3'>
-                  <div className='flex justify-between items-end'>
-                    <label className='text-xs md:text-sm font-semibold text-gray-600'>
-                      Usia (tahun)
-                    </label>
-                    <div className='flex items-center gap-1 bg-white px-3 py-1.5 rounded-lg border border-gray-200 shadow-sm focus-within:ring-2 focus-within:ring-primary focus-within:border-transparent transition-all'>
-                      <input
-                        type='number'
-                        value={age}
-                        onChange={(e) => setAge(e.target.value)}
-                        className='w-12 text-right text-sm font-bold text-gray-900 outline-none bg-transparent'
-                        placeholder='25'
-                      />
-                      <span className='text-xs text-gray-500 select-none'>
-                        th
-                      </span>
-                    </div>
-                  </div>
-                  <input
-                    type='range'
-                    min='20'
-                    max='100'
-                    value={age || 25}
-                    onChange={(e) => setAge(e.target.value)}
-                    className='w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-primary'
-                  />
-                  <p className='text-[10px] md:text-xs text-gray-400 italic mt-10'>
-                    *Kalkulator ini berlaku untuk usia 20 tahun ke atas.
-                  </p>
-                </div>
-
-                <button
-                  onClick={calculateBMI}
-                  disabled={loading}
-                  className='w-full text-xs md:text-sm bg-primary hover:bg-orange-600 text-white font-bold py-4 rounded-xl shadow-lg shadow-orange-200 transition-all active:scale-95 disabled:opacity-70 disabled:cursor-not-allowed flex justify-center items-center cursor-pointer'
+          <motion.div
+            initial='hidden'
+            whileInView='visible'
+            viewport={{ once: true, margin: '-50px' }}
+            variants={itemVariants}
+            className='bg-white mt-0 md:mt-8 lg:mt-10 rounded-3xl shadow-xl border border-gray-100 overflow-hidden relative transition-all duration-500 ease-in-out'
+          >
+            <AnimatePresence mode='wait'>
+              {bmi === null ? (
+                // --- FORM STATE --- //
+                <motion.div
+                  key='form'
+                  initial={{ opacity: 0, x: 20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: -20 }}
+                  transition={{ duration: 0.3 }}
+                  className='p-6 lg:p-10 space-y-6'
                 >
-                  {loading ? (
-                    <Loader2 className='animate-spin' />
-                  ) : (
-                    'Hitung Sekarang'
-                  )}
-                </button>
-              </div>
-            ) : (
-              // --- RESULT STATE --- //
-              <div className='p-8 lg:p-10 animate-fade-in'>
-                <div className='flex justify-between items-start mb-6'>
-                  <div>
-                    <h3 className='text-sm md:text-xl font-bold text-gray-900'>
-                      Hasil Anda:
-                    </h3>
-                    <p
-                      className={`text-lg md:text-2xl font-extrabold ${resultCategory?.textCurrent} mt-1`}
-                    >
-                      {resultCategory?.label}
-                    </p>
-                  </div>
-                  <button
-                    onClick={reset}
-                    className='p-2 hover:bg-gray-100 rounded-full text-gray-400 hover:text-primary transition-colors'
-                    title='Hitung Ulang'
-                  >
-                    <RotateCcw size={20} />
-                  </button>
-                </div>
-
-                {/* Gauge Bar */}
-                <div className='relative h-6 w-full rounded-full bg-gray-200 mb-8 overflow-hidden flex'>
-                  {/* Segments matching the logic visually */}
-                  <div
-                    className='bg-blue-500 h-full w-[17.5%]'
-                    title='Underweight'
-                  ></div>{' '}
-                  {/* < 18.5 */}
-                  <div
-                    className='bg-green-500 h-full w-[22%]'
-                    title='Normal'
-                  ></div>{' '}
-                  {/* 18.5 - 22.9 */}
-                  <div
-                    className='bg-yellow-500 h-full w-[10%]'
-                    title='Overweight'
-                  ></div>{' '}
-                  {/* 23 - 24.9 */}
-                  <div
-                    className='bg-orange-500 h-full w-[25%]'
-                    title='Obesity I'
-                  ></div>{' '}
-                  {/* 25 - 29.9 */}
-                  <div
-                    className='bg-red-500 h-full grow'
-                    title='Obesity II'
-                  ></div>{' '}
-                  {/* > 30 */}
-                  {/* Marker */}
-                  <div
-                    className='absolute top-0 bottom-0 w-1 bg-gray-900 shadow-xl z-10 transition-all duration-1000'
-                    style={{ left: `${getMarkerPosition(bmi)}%` }}
-                  ></div>
-                </div>
-
-                {/* Reference Table */}
-                <div className='mb-8'>
-                  <div className='grid grid-cols-2 text-xs font-bold text-gray-500 mb-2 uppercase tracking-wide'>
-                    <span>IMT (BMI)</span>
-                    <span>Klasifikasi</span>
-                  </div>
-                  <div className='space-y-3'>
-                    {BMI_CATEGORIES.map((cat, idx) => (
-                      <div
-                        key={idx}
-                        className={`flex items-center text-sm ${cat.label === resultCategory?.label ? 'font-bold bg-gray-50 -mx-2 px-2 py-1 rounded-lg' : 'text-gray-600'}`}
-                      >
-                        <div className='w-1/2 flex items-center gap-2'>
-                          <div
-                            className={`w-2.5 h-2.5 rounded-full ${cat.color}`}
-                          ></div>
-                          <span className='text-xs md:text-sm'>
-                            {cat.range}
+                  <div className='grid grid-cols-1 sm:grid-cols-2 gap-6'>
+                    <div className='space-y-3'>
+                      <div className='flex justify-between items-end'>
+                        <label className='text-xs md:text-sm font-semibold text-gray-600'>
+                          Tinggi (cm)
+                        </label>
+                        <div className='flex items-center gap-1 bg-white px-3 py-1.5 rounded-lg border border-gray-200 shadow-sm focus-within:ring-2 focus-within:ring-primary focus-within:border-transparent transition-all'>
+                          <input
+                            type='number'
+                            value={height}
+                            onChange={(e) => setHeight(e.target.value)}
+                            className='w-12 text-right text-sm font-bold text-gray-900 outline-none bg-transparent'
+                            placeholder='170'
+                          />
+                          <span className='text-xs text-gray-500 select-none'>
+                            cm
                           </span>
                         </div>
-                        <div className='w-1/2 text-xs md:text-sm'>
-                          {cat.label}
+                      </div>
+                      <input
+                        type='range'
+                        min='100'
+                        max='220'
+                        value={height || 165}
+                        onChange={(e) => setHeight(e.target.value)}
+                        className='w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-primary'
+                      />
+                    </div>
+                    <div className='space-y-3'>
+                      <div className='flex justify-between items-end'>
+                        <label className='text-xs md:text-sm font-semibold text-gray-600'>
+                          Berat (kg)
+                        </label>
+                        <div className='flex items-center gap-1 bg-white px-3 py-1.5 rounded-lg border border-gray-200 shadow-sm focus-within:ring-2 focus-within:ring-primary focus-within:border-transparent transition-all'>
+                          <input
+                            type='number'
+                            value={weight}
+                            onChange={(e) => setWeight(e.target.value)}
+                            className='w-12 text-right text-sm font-bold text-gray-900 outline-none bg-transparent'
+                            placeholder='60'
+                          />
+                          <span className='text-xs text-gray-500 select-none'>
+                            kg
+                          </span>
                         </div>
                       </div>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Explanation */}
-                <div className='mb-8 pt-6 border-t border-gray-100'>
-                  <h4 className='font-bold text-gray-900 mb-2 text-sm md:text-lg'>
-                    Apa maksudnya?
-                  </h4>
-                  {/* <p className='text-gray-600 text-xs md:text-sm leading-relaxed'>
-                    Memiliki IMT (BMI) <span className='font-bold'>{bmi}</span>{' '}
-                    berarti berat badan Anda{' '}
-                    <span>{resultCategory?.description}</span>
-                  </p> */}
-
-                  {(resultCategory?.label.includes('Obesitas') || resultCategory?.label === 'Berat badan lebih') && (
-                    <div className='mt-6 text-xs md:text-sm text-gray-700 space-y-3'>
-                      <p className='text-gray-600 text-xs md:text-sm leading-relaxed'>
-                        Memiliki IMT (BMI) <span className='font-bold'>{bmi}</span>{' '}
-                        berarti berat badan Anda{' '}
-                        <span>{resultCategory?.description}</span>
-                      </p>
-                      <p className='leading-relaxed text-gray-600'>
-                        Menurunkan berat badan dapat meningkatkan kesehatan dan mengurangi risiko komplikasi kesehatan lainnya. Hidup dengan kelebihan berat badan atau obesitas dikaitkan dengan peningkatan risiko kematian dan penyakit atau kondisi lainnya. Secara umum, semakin tinggi IMT (BMI) Anda, semakin besar kemungkinan untuk mengalami penyakit kronis yang terkait dengan obesitas, termasuk:
-                      </p>
-                      <ul className='list-disc pl-5 space-y-1.5 text-gray-600'>
-                        <li>Diabetes tipe II</li>
-                        <li>Penyakit kardiovaskular</li>
-                        <li>Stroke</li>
-                        <li>Tekanan darah tinggi</li>
-                        <li>Infertilitas</li>
-                        <li>Depresi dan kecemasan</li>
-                        <li>Penyakit jantung koroner</li>
-                        <li>Dislipidemia</li>
-                        <li>Metabolic Dysfunction-Associated Steatohepatitis (MASH)</li>
-                        <li>Gastroesophageal reflux disease (GERD)</li>
-                        <li>Metabolic syndrome (MetS)</li>
-                        <li>Inkontinensia urine</li>
-                        <li>Obstructive sleep apnea dan masalah pernapasan</li>
-                        <li>Penyakit ginjal kronis</li>
-                        <li>Berbagai jenis kanker: termasuk tetapi tidak terbatas pada - kanker payudara, kolon, endometrium, esofagus, ginjal, ovarium, dan pankreas</li>
-                        <li>Osteoartritis lutut</li>
-                        <li>Penyakit batu empedu</li>
-                        <li>Trombosis</li>
-                        <li>Asam urat</li>
-                        <li>Meningkatkan risiko kematian dibandingkan dengan orang IMT(BMI) sehat</li>
-                      </ul>
+                      <input
+                        type='range'
+                        min='30'
+                        max='150'
+                        value={weight || 60}
+                        onChange={(e) => setWeight(e.target.value)}
+                        className='w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-primary'
+                      />
                     </div>
-                  )}
-                </div>
+                  </div>
 
-                {/* CTAs */}
-                <div className='space-y-3'>
+                  <div className='space-y-3'>
+                    <div className='flex justify-between items-end'>
+                      <label className='text-xs md:text-sm font-semibold text-gray-600'>
+                        Usia (tahun)
+                      </label>
+                      <div className='flex items-center gap-1 bg-white px-3 py-1.5 rounded-lg border border-gray-200 shadow-sm focus-within:ring-2 focus-within:ring-primary focus-within:border-transparent transition-all'>
+                        <input
+                          type='number'
+                          value={age}
+                          onChange={(e) => setAge(e.target.value)}
+                          className='w-12 text-right text-sm font-bold text-gray-900 outline-none bg-transparent'
+                          placeholder='25'
+                        />
+                        <span className='text-xs text-gray-500 select-none'>
+                          th
+                        </span>
+                      </div>
+                    </div>
+                    <input
+                      type='range'
+                      min='20'
+                      max='100'
+                      value={age || 25}
+                      onChange={(e) => setAge(e.target.value)}
+                      className='w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-primary'
+                    />
+                    <p className='text-[10px] md:text-xs text-gray-400 italic mt-10'>
+                      *Kalkulator ini berlaku untuk usia 20 tahun ke atas.
+                    </p>
+                  </div>
+
                   <button
-                    onClick={() => {
-                      const message = `Halo Admin, saya sudah hitung BMI saya dan hasilnya ${bmi} (${resultCategory?.label}). Saya ingin konsultasi lebih lanjut dok.`;
-                      window.open(CONTACT_INFO.whatsapp.url(message), '_blank');
-                    }}
-                    className='w-full bg-[#0F766E] hover:bg-[#0d655e] text-white font-semibold py-3 px-4 rounded-xl shadow-md transition-all active:scale-95 block text-center text-xs md:text-sm'
+                    onClick={calculateBMI}
+                    disabled={loading}
+                    className='w-full text-xs md:text-sm bg-primary hover:bg-orange-600 text-white font-bold py-4 rounded-xl shadow-lg shadow-orange-200 transition-all active:scale-95 disabled:opacity-70 disabled:cursor-not-allowed flex justify-center items-center cursor-pointer'
                   >
-                    Konsultasi Ahli Gizi Online
+                    {loading ? (
+                      <Loader2 className='animate-spin' />
+                    ) : (
+                      'Hitung Sekarang'
+                    )}
                   </button>
-                </div>
+                </motion.div>
+              ) : (
+                // --- RESULT STATE --- //
+                <motion.div
+                  key='result'
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 1.05 }}
+                  transition={{ duration: 0.4 }}
+                  className='p-8 lg:p-10'
+                >
+                  <div className='flex justify-between items-start mb-6'>
+                    <div>
+                      <h3 className='text-sm md:text-xl font-bold text-gray-900'>
+                        Hasil Anda:
+                      </h3>
+                      <p
+                        className={`text-lg md:text-2xl font-extrabold ${resultCategory?.textCurrent} mt-1`}
+                      >
+                        {resultCategory?.label}
+                      </p>
+                    </div>
+                    <button
+                      onClick={reset}
+                      className='p-2 hover:bg-gray-100 rounded-full text-gray-400 hover:text-primary transition-colors'
+                      title='Hitung Ulang'
+                    >
+                      <RotateCcw size={20} />
+                    </button>
+                  </div>
 
-                <p className='text-[10px] text-gray-400 mt-4 text-center italic'>
-                  *Hasil ini hanyalah indikator awal. Silakan konsultasi dengan
-                  ahli untuk diagnosis medis.
-                </p>
-              </div>
-            )}
-          </div>
+                  {/* Gauge Bar */}
+                  <div className='relative h-6 w-full rounded-full bg-gray-200 mb-8 overflow-hidden flex'>
+                    {/* Segments matching the logic visually */}
+                    <div
+                      className='bg-blue-500 h-full w-[17.5%]'
+                      title='Underweight'
+                    ></div>{' '}
+                    {/* < 18.5 */}
+                    <div
+                      className='bg-green-500 h-full w-[22%]'
+                      title='Normal'
+                    ></div>{' '}
+                    {/* 18.5 - 22.9 */}
+                    <div
+                      className='bg-yellow-500 h-full w-[10%]'
+                      title='Overweight'
+                    ></div>{' '}
+                    {/* 23 - 24.9 */}
+                    <div
+                      className='bg-orange-500 h-full w-[25%]'
+                      title='Obesity I'
+                    ></div>{' '}
+                    {/* 25 - 29.9 */}
+                    <div
+                      className='bg-red-500 h-full grow'
+                      title='Obesity II'
+                    ></div>{' '}
+                    {/* > 30 */}
+                    {/* Marker */}
+                    <motion.div
+                      initial={{ left: '0%' }}
+                      animate={{ left: `${getMarkerPosition(bmi)}%` }}
+                      transition={{
+                        delay: 0.5,
+                        duration: 1.5,
+                        ease: 'easeOut',
+                      }}
+                      className='absolute top-0 bottom-0 w-1 bg-gray-900 shadow-xl z-10'
+                    ></motion.div>
+                  </div>
+
+                  {/* Reference Table */}
+                  <div className='mb-8'>
+                    <div className='grid grid-cols-2 text-xs font-bold text-gray-500 mb-2 uppercase tracking-wide'>
+                      <span>IMT (BMI)</span>
+                      <span>Klasifikasi</span>
+                    </div>
+                    <div className='space-y-3'>
+                      {BMI_CATEGORIES.map((cat, idx) => (
+                        <div
+                          key={idx}
+                          className={`flex items-center text-sm ${cat.label === resultCategory?.label ? 'font-bold bg-gray-50 -mx-2 px-2 py-1 rounded-lg' : 'text-gray-600'}`}
+                        >
+                          <div className='w-1/2 flex items-center gap-2'>
+                            <div
+                              className={`w-2.5 h-2.5 rounded-full ${cat.color}`}
+                            ></div>
+                            <span className='text-xs md:text-sm'>
+                              {cat.range}
+                            </span>
+                          </div>
+                          <div className='w-1/2 text-xs md:text-sm'>
+                            {cat.label}
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Explanation */}
+                  <div className='mb-8 pt-6 border-t border-gray-100'>
+                    <h4 className='font-bold text-gray-900 mb-2 text-sm md:text-lg'>
+                      Apa maksudnya?
+                    </h4>
+
+                    {(resultCategory?.label.includes('Obesitas') ||
+                      resultCategory?.label === 'Berat badan lebih') && (
+                      <div className='mt-6 text-xs md:text-sm text-gray-700 space-y-3'>
+                        <p className='text-gray-600 text-xs md:text-sm leading-relaxed'>
+                          Memiliki IMT (BMI){' '}
+                          <span className='font-bold'>{bmi}</span> berarti berat
+                          badan Anda <span>{resultCategory?.description}</span>
+                        </p>
+                        <p className='leading-relaxed text-gray-600'>
+                          Menurunkan berat badan dapat meningkatkan kesehatan
+                          dan mengurangi risiko komplikasi kesehatan lainnya.
+                          Hidup dengan kelebihan berat badan atau obesitas
+                          dikaitkan dengan peningkatan risiko kematian dan
+                          penyakit atau kondisi lainnya. Secara umum, semakin
+                          tinggi IMT (BMI) Anda, semakin besar kemungkinan untuk
+                          mengalami penyakit kronis yang terkait dengan
+                          obesitas, termasuk:
+                        </p>
+                        <ul className='list-disc pl-5 space-y-1.5 text-gray-600'>
+                          <li>Diabetes tipe II</li>
+                          <li>Penyakit kardiovaskular</li>
+                          <li>Stroke</li>
+                          <li>Tekanan darah tinggi</li>
+                          <li>Infertilitas</li>
+                          <li>Depresi dan kecemasan</li>
+                          <li>Penyakit jantung koroner</li>
+                          <li>Dislipidemia</li>
+                          <li>
+                            Metabolic Dysfunction-Associated Steatohepatitis
+                            (MASH)
+                          </li>
+                          <li>Gastroesophageal reflux disease (GERD)</li>
+                          <li>Metabolic syndrome (MetS)</li>
+                          <li>Inkontinensia urine</li>
+                          <li>
+                            Obstructive sleep apnea dan masalah pernapasan
+                          </li>
+                          <li>Penyakit ginjal kronis</li>
+                          <li>
+                            Berbagai jenis kanker: termasuk tetapi tidak
+                            terbatas pada - kanker payudara, kolon, endometrium,
+                            esofagus, ginjal, ovarium, dan pankreas
+                          </li>
+                          <li>Osteoartritis lutut</li>
+                          <li>Penyakit batu empedu</li>
+                          <li>Trombosis</li>
+                          <li>Asam urat</li>
+                          <li>
+                            Meningkatkan risiko kematian dibandingkan dengan
+                            orang IMT(BMI) sehat
+                          </li>
+                        </ul>
+                      </div>
+                    )}
+                  </div>
+
+                  {/* CTAs */}
+                  <div className='space-y-3'>
+                    <button
+                      onClick={() => {
+                        const message = `Halo Admin, saya sudah hitung BMI saya dan hasilnya ${bmi} (${resultCategory?.label}). Saya ingin konsultasi lebih lanjut dok.`;
+                        window.open(
+                          CONTACT_INFO.whatsapp.url(message),
+                          '_blank',
+                        );
+                      }}
+                      className='w-full bg-[#0F766E] hover:bg-[#0d655e] text-white font-semibold py-3 px-4 rounded-xl shadow-md transition-all active:scale-95 block text-center text-xs md:text-sm'
+                    >
+                      Konsultasi Ahli Gizi Online
+                    </button>
+                  </div>
+
+                  <p className='text-[10px] text-gray-400 mt-4 text-center italic'>
+                    *Hasil ini hanyalah indikator awal. Silakan konsultasi
+                    dengan ahli untuk diagnosis medis.
+                  </p>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </motion.div>
         </div>
       </div>
     </section>

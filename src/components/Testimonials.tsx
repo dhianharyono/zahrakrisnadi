@@ -2,6 +2,16 @@
 
 import React, { useState, useRef, useEffect } from 'react';
 import { Star, Quote } from 'lucide-react';
+import { motion, AnimatePresence, Variants } from 'framer-motion';
+
+const itemVariants: Variants = {
+  hidden: { opacity: 0, y: 30 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.6, ease: 'easeOut' },
+  },
+};
 
 type TestimonialData = {
   name: string;
@@ -48,16 +58,24 @@ const Testimonials: React.FC = () => {
         const res = await fetch('/api/testimonials?visible=true');
         const json = await res.json();
         if (json.success && Array.isArray(json.data)) {
-          const formattedData = json.data.map((t: { patientName: string; role?: string; message: string; rating: number; gender?: string }) => {
-            return {
-              name: t.patientName,
-              role: t.role || 'Client',
-              content: t.message,
-              rating: t.rating,
-              image: getAvatarUrl(t.patientName, t.gender),
-              gender: t.gender,
-            };
-          });
+          const formattedData = json.data.map(
+            (t: {
+              patientName: string;
+              role?: string;
+              message: string;
+              rating: number;
+              gender?: string;
+            }) => {
+              return {
+                name: t.patientName,
+                role: t.role || 'Client',
+                content: t.message,
+                rating: t.rating,
+                image: getAvatarUrl(t.patientName, t.gender),
+                gender: t.gender,
+              };
+            },
+          );
           setTestimonials(formattedData);
         }
       } catch (error) {
@@ -92,9 +110,10 @@ const Testimonials: React.FC = () => {
     const showReadMore = testimonial.content.length > 150;
 
     return (
-      <div
+      <motion.div
         key={index}
-        className={`${isMobile ? 'min-w-[85vw] snap-center' : 'w-100 shrink-0'} bg-white rounded-3xl p-6 md:p-8 border shadow-sm border-orange-100 hover:shadow-xl transition-all duration-300 relative group flex flex-col justify-between h-full min-h-[300px] md:min-h-[350px]`}
+        whileHover={isMobile ? {} : { y: -10, scale: 1.02 }}
+        className={`${isMobile ? 'min-w-[85vw] snap-center' : 'w-100 shrink-0'} bg-white rounded-3xl p-6 md:p-8 border shadow-sm border-orange-100 transition-all duration-300 relative group flex flex-col justify-between h-full min-h-[300px] md:min-h-[350px]`}
       >
         <div className='absolute top-6 left-6 opacity-10 transform -translate-x-2 -translate-y-2 group-hover:scale-110 transition-transform'>
           <Quote size={40} className='text-primary md:w-14 md:h-14' />
@@ -149,13 +168,16 @@ const Testimonials: React.FC = () => {
             </p>
           </div>
         </div>
-      </div>
+      </motion.div>
     );
   };
 
   if (loading) {
     return (
-      <section id='testimonials' className='py-12 lg:py-20 bg-white overflow-hidden'>
+      <section
+        id='testimonials'
+        className='py-12 lg:py-20 bg-white overflow-hidden'
+      >
         <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
           <div className='text-center mb-8 lg:mb-10'>
             <span className='text-primary font-serif italic text-sm md:text-lg mb-2 block animate-pulse'>
@@ -173,7 +195,10 @@ const Testimonials: React.FC = () => {
               >
                 <div className='flex gap-1 mb-6'>
                   {[1, 2, 3, 4, 5].map((j) => (
-                    <div key={j} className='w-4 h-4 bg-gray-100 rounded-full'></div>
+                    <div
+                      key={j}
+                      className='w-4 h-4 bg-gray-100 rounded-full'
+                    ></div>
                   ))}
                 </div>
                 <div className='space-y-3 mb-8 grow'>
@@ -203,14 +228,20 @@ const Testimonials: React.FC = () => {
   return (
     <section id='testimonials' className='py-12 lg:py-20 bg-white'>
       <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
-        <div className='text-center mb-8 lg:mb-10'>
+        <motion.div
+          initial='hidden'
+          whileInView='visible'
+          viewport={{ once: true, margin: '-100px' }}
+          variants={itemVariants}
+          className='text-center mb-8 lg:mb-10'
+        >
           <span className='text-primary font-serif italic text-sm md:text-lg mb-2 block'>
             Kisah Sukses
           </span>
           <h2 className='text-xl lg:text-4xl font-extrabold text-gray-900 mb-4 leading-tight'>
             Apa Kata <span className='text-primary italic'>Mereka</span>
           </h2>
-        </div>
+        </motion.div>
 
         {/* Global Styles */}
         <style jsx>{`
@@ -292,7 +323,13 @@ const Testimonials: React.FC = () => {
         </div>
 
         {/* Desktop View */}
-        <div className='hidden md:block relative overflow-hidden mask-gradient'>
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          transition={{ duration: 0.8 }}
+          viewport={{ once: true }}
+          className='hidden md:block relative overflow-hidden mask-gradient'
+        >
           <div
             className={`flex gap-8 py-8 items-stretch ${testimonials.length > 1 ? 'animate-marquee pause-on-hover' : 'justify-center'}`}
           >
@@ -304,7 +341,7 @@ const Testimonials: React.FC = () => {
               renderCard(testimonial, index, false),
             )}
           </div>
-        </div>
+        </motion.div>
       </div>
     </section>
   );

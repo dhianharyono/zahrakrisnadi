@@ -1,7 +1,10 @@
+'use client';
+
 import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { ChevronLeft, ChevronRight, Check } from 'lucide-react';
-import { SERVICES_DATA, CONTACT_INFO } from '../utils/constants';
+import { SERVICES_DATA } from '../utils/constants';
+import { motion, AnimatePresence, Variants } from 'framer-motion';
 
 type PackageFeature = {
   name: string;
@@ -23,6 +26,25 @@ const Services: React.FC = () => {
   const [activeIndex, React_setActiveIndex] = useState(1);
   const [pricingPlans, setPricingPlans] = useState<Package[]>([]);
   const [loading, setLoading] = useState(true);
+
+  const containerVariants: Variants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+      },
+    },
+  };
+
+  const itemVariants: Variants = {
+    hidden: { opacity: 0, y: 30 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.5, ease: 'easeOut' },
+    },
+  };
 
   useEffect(() => {
     const fetchPackages = async () => {
@@ -71,7 +93,13 @@ const Services: React.FC = () => {
       <div className='absolute bottom-0 left-0 w-1/4 h-1/2 bg-blue-100/20 rounded-full blur-3xl -translate-x-1/2 translate-y-1/2 -z-10'></div>
 
       <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
-        <div className='text-center max-w-2xl mx-auto mb-10 lg:mb-16'>
+        <motion.div
+          initial='hidden'
+          whileInView='visible'
+          viewport={{ once: true, margin: '-100px' }}
+          variants={itemVariants}
+          className='text-center max-w-2xl mx-auto mb-10 lg:mb-16'
+        >
           <span className='text-primary font-serif italic text-sm md:text-lg mb-2 block'>
             Layanan
           </span>
@@ -83,18 +111,26 @@ const Services: React.FC = () => {
             Pilih solusi kesehatan yang dirancang khusus untuk kebutuhan tubuh
             Anda.
           </p>
-        </div>
+        </motion.div>
 
         {/* Desktop View (Grid) */}
-        <div className='hidden md:grid md:grid-cols-3 gap-6 lg:gap-8 items-start'>
+        <motion.div
+          initial='hidden'
+          whileInView='visible'
+          viewport={{ once: true, margin: '-50px' }}
+          variants={containerVariants}
+          className='hidden md:grid md:grid-cols-3 gap-6 lg:gap-8 items-start'
+        >
           {SERVICES_DATA.map((service, index) => {
             const isHighlight = service.highlight;
             return (
-              <div
+              <motion.div
                 key={index}
-                className={`group relative rounded-3xl p-6 transition-all duration-500 ease-out hover:-translate-y-3 flex flex-col h-full transform hover:scale-105
+                variants={itemVariants}
+                whileHover={{ y: -10, scale: isHighlight ? 1.08 : 1.05 }}
+                className={`group relative rounded-3xl p-6 transition-all duration-300 flex flex-col h-full transform
                                 ${isHighlight
-                    ? 'bg-linear-to-br from-gray-900 to-gray-800 text-white shadow-2xl ring-4 scale-105 hover:scale-110 z-10'
+                    ? 'bg-linear-to-br from-gray-900 to-gray-800 text-white shadow-2xl ring-4 ring-orange-100 scale-105 z-10'
                     : 'bg-white border border-gray-100 shadow-xl hover:shadow-2xl text-gray-900'
                   }`}
               >
@@ -111,9 +147,14 @@ const Services: React.FC = () => {
                     className='object-cover transition-transform duration-700 group-hover:scale-110'
                   />
                   {isHighlight && (
-                    <div className='absolute top-4 right-4 z-20 bg-orange-500 text-white text-xs font-bold px-3 py-1 rounded-full shadow-lg'>
+                    <motion.div
+                      initial={{ opacity: 0, x: 20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: 0.5 }}
+                      className='absolute top-4 right-4 z-20 bg-orange-500 text-white text-xs font-bold px-3 py-1 rounded-full shadow-lg'
+                    >
                       POPULAR
-                    </div>
+                    </motion.div>
                   )}
                 </div>
 
@@ -143,76 +184,83 @@ const Services: React.FC = () => {
                     Daftar Sekarang
                   </button>
                 </div>
-              </div>
+              </motion.div>
             );
           })}
-        </div>
+        </motion.div>
 
         {/* Mobile View (Carousel) */}
         <div className='md:hidden relative px-4'>
-          <div className='flex items-center justify-center'>
-            {SERVICES_DATA.map((service, index) => {
-              if (index !== activeIndex) return null;
+          <AnimatePresence mode='wait'>
+            <motion.div
+              key={activeIndex}
+              initial={{ opacity: 0, x: 50 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -50 }}
+              transition={{ duration: 0.3 }}
+              className='flex items-center justify-center'
+            >
+              {SERVICES_DATA.map((service, index) => {
+                if (index !== activeIndex) return null;
 
-              const isHighlight = service.highlight; // Or force highlight style for clarity if needed, but let's stick to data
-              // The user wants the card enlarged. We can use the 'highlight' style or a robust style for all.
-              // Let's use a robust style for the active one.
+                const isHighlight = service.highlight;
 
-              return (
-                <div
-                  key={index}
-                  className={`relative rounded-3xl p-6 flex flex-col w-full max-w-sm mx-auto shadow-xl transition-all duration-300 ${isHighlight
-                    ? 'bg-linear-to-br from-gray-900 to-gray-800 text-white ring-4 ring-gray-800'
-                    : 'bg-white border border-gray-100 text-gray-900'
-                    }`}
-                >
+                return (
                   <div
-                    className={`relative h-64 w-full aspect-square rounded-2xl overflow-hidden mb-6 shadow-md`}
+                    key={index}
+                    className={`relative rounded-3xl p-6 flex flex-col w-full max-w-sm mx-auto shadow-xl transition-all duration-300 ${isHighlight
+                      ? 'bg-linear-to-br from-gray-900 to-gray-800 text-white ring-4 ring-gray-800'
+                      : 'bg-white border border-gray-100 text-gray-900'
+                      }`}
                   >
                     <div
-                      className={`absolute inset-0 z-10 ${isHighlight ? 'bg-black/10' : 'bg-transparent'}`}
-                    ></div>
-                    <Image
-                      src={service.image}
-                      alt={service.title}
-                      fill
-                      className='object-cover'
-                    />
-                    {isHighlight && (
-                      <div className='absolute top-4 right-4 z-20 bg-orange-500 text-white text-xs font-bold px-3 py-1 rounded-full shadow-lg'>
-                        POPULAR
-                      </div>
-                    )}
+                      className={`relative h-64 w-full aspect-square rounded-2xl overflow-hidden mb-6 shadow-md`}
+                    >
+                      <div
+                        className={`absolute inset-0 z-10 ${isHighlight ? 'bg-black/10' : 'bg-transparent'}`}
+                      ></div>
+                      <Image
+                        src={service.image}
+                        alt={service.title}
+                        fill
+                        className='object-cover'
+                      />
+                      {isHighlight && (
+                        <div className='absolute top-4 right-4 z-20 bg-orange-500 text-white text-xs font-bold px-3 py-1 rounded-full shadow-lg'>
+                          POPULAR
+                        </div>
+                      )}
+                    </div>
+
+                    <div className='flex flex-col grow text-center'>
+                      <h3
+                        className={`text-lg md:text-xl font-bold mb-3 ${isHighlight ? 'text-white' : 'text-gray-900'}`}
+                      >
+                        {service.title}
+                      </h3>
+
+                      <p
+                        className={`text-xs md:text-sm leading-relaxed mb-6 ${isHighlight ? 'text-gray-300' : 'text-gray-600'}`}
+                      >
+                        {service.description}
+                      </p>
+
+                      <button
+                        onClick={() => window.location.href = `/assessment?layanan=${encodeURIComponent(service.title)}`}
+                        className={`w-full py-3 rounded-xl font-bold flex items-center justify-center gap-2 cursor-pointer
+                                            ${isHighlight
+                            ? 'bg-primary hover:bg-orange-600 text-white'
+                            : 'bg-gray-50 hover:bg-gray-100 text-gray-900 border border-gray-200'
+                          }`}
+                      >
+                        Daftar Sekarang
+                      </button>
+                    </div>
                   </div>
-
-                  <div className='flex flex-col grow text-center'>
-                    <h3
-                      className={`text-lg md:text-xl font-bold mb-3 ${isHighlight ? 'text-white' : 'text-gray-900'}`}
-                    >
-                      {service.title}
-                    </h3>
-
-                    <p
-                      className={`text-xs md:text-sm leading-relaxed mb-6 ${isHighlight ? 'text-gray-300' : 'text-gray-600'}`}
-                    >
-                      {service.description}
-                    </p>
-
-                    <button
-                      onClick={() => window.location.href = `/assessment?layanan=${encodeURIComponent(service.title)}`}
-                      className={`w-full py-3 rounded-xl font-bold flex items-center justify-center gap-2 cursor-pointer
-                                          ${isHighlight
-                          ? 'bg-primary hover:bg-orange-600 text-white'
-                          : 'bg-gray-50 hover:bg-gray-100 text-gray-900 border border-gray-200'
-                        }`}
-                    >
-                      Daftar Sekarang
-                    </button>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
+                );
+              })}
+            </motion.div>
+          </AnimatePresence>
 
           {/* Navigation Arrows */}
           <button
@@ -245,7 +293,13 @@ const Services: React.FC = () => {
 
         {/* Pricing Section */}
         <div id='consultation' className='py-12 mt-20 lg:mt-32'>
-          <div className='text-center max-w-2xl mx-auto mb-10 lg:mb-16'>
+          <motion.div
+            initial='hidden'
+            whileInView='visible'
+            viewport={{ once: true, margin: '-100px' }}
+            variants={itemVariants}
+            className='text-center max-w-2xl mx-auto mb-10 lg:mb-16'
+          >
             <span className='text-primary italic text-sm md:text-lg mb-2 block'>
               Pilihan Paket
             </span>
@@ -255,7 +309,7 @@ const Services: React.FC = () => {
             <p className='text-gray-600 text-sm max-w-2xl mx-auto'>
               Sesuaikan dengan kebutuhan dan target kesehatanmu
             </p>
-          </div>
+          </motion.div>
 
           {/* Unified View (Horizontal Scroll) */}
           <style dangerouslySetInnerHTML={{
@@ -289,23 +343,31 @@ const Services: React.FC = () => {
             ) : (
               <>
                 {pricingPlans.length > 2 && (
-                  <button
+                  <motion.button
+                    whileHover={{ scale: 1.1 }}
+                    whileTap={{ scale: 0.9 }}
                     onClick={() => scrollPricingDesktop('left')}
-                    className='hidden md:flex absolute -left-2 lg:left-0 top-1/2 -translate-y-1/2 bg-white/95 p-3 rounded-full shadow-xl hover:bg-white text-gray-800 transition-all z-20 cursor-pointer opacity-0 group-hover:opacity-100 hover:scale-110 items-center justify-center'
+                    className='hidden md:flex absolute -left-2 lg:left-0 top-1/2 -translate-y-1/2 bg-white/95 p-3 rounded-full shadow-xl hover:bg-white text-gray-800 transition-all z-20 cursor-pointer opacity-0 group-hover:opacity-100 items-center justify-center'
                   >
                     <ChevronLeft size={28} />
-                  </button>
+                  </motion.button>
                 )}
 
-                <div
+                <motion.div
                   ref={pricingScrollRef}
+                  initial='hidden'
+                  whileInView='visible'
+                  viewport={{ once: true, margin: '-50px' }}
+                  variants={containerVariants}
                   className={`flex gap-6 md:gap-8 overflow-x-auto snap-x snap-mandatory py-8 px-6 md:px-4 no-scrollbar items-stretch ${pricingPlans.length <= 2 ? 'md:justify-center' : ''}`}
                 >
                   {pricingPlans.map((plan, index) => {
                     const isHighlight = plan.highlight;
                     return (
-                      <div
+                      <motion.div
                         key={index}
+                        variants={itemVariants}
+                        whileHover={{ y: -5 }}
                         className={`shrink-0 w-[85vw] md:w-[400px] snap-center relative rounded-4xl p-6 lg:p-8 flex flex-col transition-all duration-300 ${isHighlight
                           ? 'bg-linear-to-br from-gray-900 to-gray-800 text-white shadow-2xl ring-4 ring-orange-500/50 md:scale-105 z-10'
                           : 'bg-white text-gray-900 border border-gray-100 shadow-xl hover:shadow-2xl'
@@ -375,24 +437,26 @@ const Services: React.FC = () => {
                           }
                           className={`w-full py-3.5 md:py-4 rounded-xl font-bold flex items-center justify-center gap-2 transition-all cursor-pointer transform hover:scale-[1.02] text-sm md:text-base mt-auto
                         ${isHighlight
-                              ? 'bg-primary hover:bg-orange-600 text-white shadow-lg shadow-orange-900/20'
-                              : 'bg-gray-50 hover:bg-gray-100 text-gray-900 border border-gray-200 hover:border-gray-300'
-                            }`}
+                                ? 'bg-primary hover:bg-orange-600 text-white shadow-lg shadow-orange-900/20'
+                                : 'bg-gray-50 hover:bg-gray-100 text-gray-900 border border-gray-200 hover:border-gray-300'
+                              }`}
                         >
                           Pilih Paket {plan.name}
                         </button>
-                      </div>
+                      </motion.div>
                     );
                   })}
-                </div>
+                </motion.div>
 
                 {pricingPlans.length > 2 && (
-                  <button
+                  <motion.button
+                    whileHover={{ scale: 1.1 }}
+                    whileTap={{ scale: 0.9 }}
                     onClick={() => scrollPricingDesktop('right')}
-                    className='hidden md:flex absolute -right-2 lg:right-0 top-1/2 -translate-y-1/2 bg-white/95 p-3 rounded-full shadow-xl hover:bg-white text-gray-800 transition-all z-20 cursor-pointer opacity-0 group-hover:opacity-100 hover:scale-110 items-center justify-center'
+                    className='hidden md:flex absolute -right-2 lg:right-0 top-1/2 -translate-y-1/2 bg-white/95 p-3 rounded-full shadow-xl hover:bg-white text-gray-800 transition-all z-20 cursor-pointer opacity-0 group-hover:opacity-100 items-center justify-center'
                   >
                     <ChevronRight size={28} />
-                  </button>
+                  </motion.button>
                 )}
 
                 {/* Mobile Navigation Arrows */}
