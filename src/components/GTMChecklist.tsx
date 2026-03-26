@@ -106,7 +106,7 @@ const GTMChecklist: React.FC = () => {
             {/* Gambar 1: ICFQ */}
             <div
               className='w-full sm:w-1/2 relative group cursor-pointer rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 aspect-3/4'
-              onClick={() => setSelectedImage('/ICFQ.jpeg')}
+              onClick={() => setSelectedImage('/icfq.jpeg')}
             >
               <Image
                 src='/icfq.jpeg'
@@ -125,7 +125,7 @@ const GTMChecklist: React.FC = () => {
             {/* Gambar 2: Checklist Dokter / Ahli */}
             <div
               className='w-full sm:w-1/2 relative group cursor-pointer rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 aspect-3/4'
-              onClick={() => setSelectedImage('/GTM.jpeg')}
+              onClick={() => setSelectedImage('/gtm.jpeg')}
             >
               <Image
                 src='/gtm.jpeg'
