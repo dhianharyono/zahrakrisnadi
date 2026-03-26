@@ -19,7 +19,7 @@ const Hero: React.FC = () => {
               Here
             </h1>
             <p className='text-xs md:text-sm lg:text-lg text-gray-600 leading-relaxed max-w-lg mx-auto lg:mx-0 text-center lg:text-left mb-8 lg:mb-10'>
-              Kami hadir untuk membantu kamu menjadi versi diri yang paling
+              Kami hadir untuk membantu Anda menjadi versi diri yang paling
               sehat melalui pendekatan gizi berbasis ilmu. Dapatkan pendampingan
               personal lewat layanan konsultasi gizi online yang praktis, aman,
               dan sesuai dengan kebutuhan Anda.

@@ -853,7 +853,6 @@ export default function AssessmentPage() {
                     </label>
                   </div>
                 </div>
-
                 <div className='space-y-3'>
                   <label className='text-sm font-semibold text-gray-700 block'>
                     Keluhan yang dirasakan
@@ -881,7 +880,47 @@ export default function AssessmentPage() {
                         </button>
                       );
                     })}
+                    {/* Opsi Lainnya */}
+                    <button
+                      type='button'
+                      onClick={() => {
+                        const hasLainnya = formData.keluhan.some(k => !['Mual', 'Muntah', 'Alergi makanan', 'Pantangan makanan', 'Demam', 'Sariawan', 'Gangguan mengunyah'].includes(k));
+                        if (hasLainnya) {
+                          // Jika sudah ada keluhan custom, hapus semua yang bukan predefined
+                          const predefined = ['Mual', 'Muntah', 'Alergi makanan', 'Pantangan makanan', 'Demam', 'Sariawan', 'Gangguan mengunyah'];
+                          const cleaned = formData.keluhan.filter(k => predefined.includes(k));
+                          handleChange('keluhan', cleaned);
+                        } else {
+                          // Tambahkan placeholder untuk memicu input
+                          handleCheckboxChange('keluhan', '');
+                        }
+                      }}
+                      className={`px-4 py-3 rounded-xl text-xs md:text-sm font-medium transition-all duration-200 border-2
+                        ${formData.keluhan.some(k => !['Mual', 'Muntah', 'Alergi makanan', 'Pantangan makanan', 'Demam', 'Sariawan', 'Gangguan mengunyah'].includes(k)) 
+                          ? 'border-primary bg-primary/5 text-primary' 
+                          : 'border-gray-100 bg-gray-50 text-gray-500 hover:bg-gray-100'}`}
+                    >
+                      Lainnya
+                    </button>
                   </div>
+
+                  {/* Input untuk Keluhan Lainnya */}
+                  {formData.keluhan.some(k => k === '' || !['Mual', 'Muntah', 'Alergi makanan', 'Pantangan makanan', 'Demam', 'Sariawan', 'Gangguan mengunyah', ''].includes(k)) && (
+                    <div className='animate-slide-down mt-3'>
+                      <input
+                        type='text'
+                        placeholder='Sebutkan keluhan lainnya...'
+                        value={formData.keluhan.find(k => !['Mual', 'Muntah', 'Alergi makanan', 'Pantangan makanan', 'Demam', 'Sariawan', 'Gangguan mengunyah'].includes(k)) || ''}
+                        onChange={(e) => {
+                          const val = e.target.value;
+                          const predefined = ['Mual', 'Muntah', 'Alergi makanan', 'Pantangan makanan', 'Demam', 'Sariawan', 'Gangguan mengunyah'];
+                          const others = formData.keluhan.filter(k => predefined.includes(k));
+                          handleChange('keluhan', [...others, val]);
+                        }}
+                        className='w-full px-4 py-3 bg-white border border-gray-200 rounded-xl outline-none focus:border-primary focus:ring-4 focus:ring-orange-100 transition-all font-medium text-gray-700'
+                      />
+                    </div>
+                  )}
                 </div>
 
                 <TextAreaField

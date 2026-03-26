@@ -82,24 +82,14 @@ const BMICalculator: React.FC = () => {
                 <div className='w-6 h-6 rounded-full bg-orange-100 flex items-center justify-center text-orange-600'>
                   <ChevronRight size={16} />
                 </div>
-                <span className='text-gray-700 font-medium'>
-                  Hasil Instan & Akurat
-                </span>
+                <span className='text-gray-700 font-medium text-lg'>Hasil Instan</span>
               </li>
               <li className='flex items-center gap-3'>
                 <div className='w-6 h-6 rounded-full bg-orange-100 flex items-center justify-center text-orange-600'>
                   <ChevronRight size={16} />
                 </div>
-                <span className='text-gray-700 font-medium'>
-                  Saran gizi dasar terlampir
-                </span>
-              </li>
-              <li className='flex items-center gap-3'>
-                <div className='w-6 h-6 rounded-full bg-orange-100 flex items-center justify-center text-orange-600'>
-                  <ChevronRight size={16} />
-                </div>
-                <span className='text-gray-700 font-medium'>
-                  Standard BMI Asia Pasifik
+                <span className='text-gray-700 font-medium text-lg'>
+                  Standar BMI Asia Pasifik
                 </span>
               </li>
             </ul>
@@ -301,11 +291,46 @@ const BMICalculator: React.FC = () => {
                   <h4 className='font-bold text-gray-900 mb-2 text-sm md:text-lg'>
                     Apa maksudnya?
                   </h4>
-                  <p className='text-gray-600 text-xs md:text-sm leading-relaxed'>
+                  {/* <p className='text-gray-600 text-xs md:text-sm leading-relaxed'>
                     Memiliki IMT (BMI) <span className='font-bold'>{bmi}</span>{' '}
                     berarti berat badan Anda{' '}
                     <span>{resultCategory?.description}</span>
-                  </p>
+                  </p> */}
+
+                  {(resultCategory?.label.includes('Obesitas') || resultCategory?.label === 'Berat badan lebih') && (
+                    <div className='mt-6 text-xs md:text-sm text-gray-700 space-y-3'>
+                      <p className='text-gray-600 text-xs md:text-sm leading-relaxed'>
+                        Memiliki IMT (BMI) <span className='font-bold'>{bmi}</span>{' '}
+                        berarti berat badan Anda{' '}
+                        <span>{resultCategory?.description}</span>
+                      </p>
+                      <p className='leading-relaxed text-gray-600'>
+                        Menurunkan berat badan dapat meningkatkan kesehatan dan mengurangi risiko komplikasi kesehatan lainnya. Hidup dengan kelebihan berat badan atau obesitas dikaitkan dengan peningkatan risiko kematian dan penyakit atau kondisi lainnya. Secara umum, semakin tinggi IMT (BMI) Anda, semakin besar kemungkinan untuk mengalami penyakit kronis yang terkait dengan obesitas, termasuk:
+                      </p>
+                      <ul className='list-disc pl-5 space-y-1.5 text-gray-600'>
+                        <li>Diabetes tipe II</li>
+                        <li>Penyakit kardiovaskular</li>
+                        <li>Stroke</li>
+                        <li>Tekanan darah tinggi</li>
+                        <li>Infertilitas</li>
+                        <li>Depresi dan kecemasan</li>
+                        <li>Penyakit jantung koroner</li>
+                        <li>Dislipidemia</li>
+                        <li>Metabolic Dysfunction-Associated Steatohepatitis (MASH)</li>
+                        <li>Gastroesophageal reflux disease (GERD)</li>
+                        <li>Metabolic syndrome (MetS)</li>
+                        <li>Inkontinensia urine</li>
+                        <li>Obstructive sleep apnea dan masalah pernapasan</li>
+                        <li>Penyakit ginjal kronis</li>
+                        <li>Berbagai jenis kanker: termasuk tetapi tidak terbatas pada - kanker payudara, kolon, endometrium, esofagus, ginjal, ovarium, dan pankreas</li>
+                        <li>Osteoartritis lutut</li>
+                        <li>Penyakit batu empedu</li>
+                        <li>Trombosis</li>
+                        <li>Asam urat</li>
+                        <li>Meningkatkan risiko kematian dibandingkan dengan orang IMT(BMI) sehat</li>
+                      </ul>
+                    </div>
+                  )}
                 </div>
 
                 {/* CTAs */}

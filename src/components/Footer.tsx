@@ -24,9 +24,9 @@ const Footer: React.FC = () => {
               </span>
             </li>
             <p className='text-gray-400 text-sm leading-relaxed max-w-sm'>
-              Layanan gizi profesional bersetifikat STR. Berdedikasi pada
-              kesejahteraan berbasis sains dan perubahan gaya hidup
-              berkelanjutan.
+              Didukung oleh tenaga gizi profesional tersertifikasi, kami
+              menghadirkan layanan berbasis sains untuk membantu Anda mencapai
+              perubahan gaya hidup yang sehat, terarah, dan berkelanjutan.
             </p>
           </div>
 

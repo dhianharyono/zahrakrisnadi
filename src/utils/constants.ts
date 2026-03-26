@@ -90,7 +90,10 @@ export const PRICING_PLANS = [
     duration: '30 HARI',
     description: 'Cocok untuk pemula yang ingin mulai hidup sehat.',
     features: [
-      { name: 'Konseling 1on1 dengan Ahli Gizi (video call)', value: '1 kali' },
+      {
+        name: 'Konseling 1 on 1 dengan Ahli Gizi (video call)',
+        value: '1 kali',
+      },
       { name: 'Pemeriksaan kondisi gizi', value: true },
       { name: 'Personalized menu', value: true },
       { name: 'Personalized meal plan', value: '3 hari' },
@@ -104,7 +107,10 @@ export const PRICING_PLANS = [
     duration: '30 HARI',
     description: 'Pendampingan intensif untuk hasil yang maksimal.',
     features: [
-      { name: 'Konseling 1on1 dengan Ahli Gizi (video call)', value: '2 kali' },
+      {
+        name: 'Konseling 1 on 1 dengan Ahli Gizi (video call)',
+        value: '2 kali',
+      },
       { name: 'Pemeriksaan kondisi gizi', value: true },
       { name: 'Personalized menu', value: true },
       { name: 'Personalized meal plan', value: '10 hari' },
@@ -200,7 +206,7 @@ export const BMI_CATEGORIES: BMICategoryData[] = [
     bgCurrent: 'bg-orange-100',
     textCurrent: 'text-orange-700',
     description:
-      'menunjukkan obesitas tingkat I. Mengurangi berat badan dapat menurunkan risiko masalah kesehatan.',
+      'menunjukkan obesitas tingkat I.',
   },
   {
     label: 'Obesitas II',
@@ -209,7 +215,7 @@ export const BMI_CATEGORIES: BMICategoryData[] = [
     bgCurrent: 'bg-red-100',
     textCurrent: 'text-red-700',
     description:
-      'menunjukkan obesitas tingkat II. Sangat disarankan berkonsultasi dengan ahli gizi atau dokter.',
+      'menunjukkan obesitas tingkat II.',
   },
 ];
 

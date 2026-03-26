@@ -5,6 +5,7 @@ import Features from '../components/Features';
 import Services from '../components/Services';
 import ServiceSteps from '../components/ServiceSteps';
 import BMICalculator from '../components/BMICalculator';
+import GTMChecklist from '../components/GTMChecklist';
 import Testimonials from '../components/Testimonials';
 import Collaboration from '../components/Collaboration';
 import Portfolio from '../components/Portfolio';
@@ -19,6 +20,7 @@ export default function Home() {
       <ServiceSteps />
       <Services />
       <BMICalculator />
+      <GTMChecklist />
       <Testimonials />
       <Collaboration />
       <Portfolio />
