@@ -109,7 +109,7 @@ const GTMChecklist: React.FC = () => {
               onClick={() => setSelectedImage('/ICFQ.jpeg')}
             >
               <Image
-                src='/ICFQ.jpeg'
+                src='/icfq.jpeg'
                 alt='The Feeding Matters Infant and Child Feeding Questionnaire (ICFQ)'
                 fill
                 className='object-cover transition-transform duration-500 group-hover:scale-105'
@@ -128,7 +128,7 @@ const GTMChecklist: React.FC = () => {
               onClick={() => setSelectedImage('/GTM.jpeg')}
             >
               <Image
-                src='/GTM.jpeg'
+                src='/gtm.jpeg'
                 alt='Checklist Penyebab GTM by Expert'
                 fill
                 className='object-cover transition-transform duration-500 group-hover:scale-105'
