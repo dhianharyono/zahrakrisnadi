@@ -173,7 +173,9 @@ const Footer: React.FC = () => {
             reserved.
           </p>
           <div className='flex gap-6 mt-4 md:mt-0'>
-            <p>Designed with ❤️ for Health enthusiasts</p>
+            <p>Developed by
+              <Link href="https://cetha-tech.vercel.app/" target="_blank" className="hover:text-primary transition-colors ml-1 font-bold">Cetha Technology</Link>
+            </p>
           </div>
         </motion.div>
       </div>
