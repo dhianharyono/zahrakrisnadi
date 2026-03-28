@@ -23,7 +23,10 @@ const Footer: React.FC = () => {
           className='grid grid-cols-1 lg:grid-cols-3 p-4 gap-12 lg:gap-8 mb-5 border-b border-gray-800 pb-12'
         >
           {/* Brand */}
-          <motion.div variants={itemVariants} className='space-y-3 md:space-y-4 w-fit'>
+          <motion.div
+            variants={itemVariants}
+            className='space-y-3 md:space-y-4 w-fit'
+          >
             <div className='flex items-center gap-2'>
               <div className='w-8 h-8 bg-primary rounded-lg flex items-center justify-center text-white font-bold'>
                 Z
@@ -128,7 +131,10 @@ const Footer: React.FC = () => {
             </h4>
             <ul className='space-y-4 text-sm text-gray-400'>
               <li className='flex items-center gap-3 group'>
-                <Linkedin className='text-primary group-hover:scale-110 transition-transform shrink-0' size={18} />
+                <Linkedin
+                  className='text-primary group-hover:scale-110 transition-transform shrink-0'
+                  size={18}
+                />
                 <Link
                   href='https://www.linkedin.com/in/zahrakrisnadi'
                   target='_blank'
@@ -138,7 +144,10 @@ const Footer: React.FC = () => {
                 </Link>
               </li>
               <li className='flex items-center gap-3 group'>
-                <Phone className='text-primary group-hover:scale-110 transition-transform shrink-0' size={18} />
+                <Phone
+                  className='text-primary group-hover:scale-110 transition-transform shrink-0'
+                  size={18}
+                />
                 <Link
                   href='https://wa.me/6285183076503'
                   target='_blank'
@@ -148,7 +157,10 @@ const Footer: React.FC = () => {
                 </Link>
               </li>
               <li className='flex items-center gap-3 group'>
-                <Mail className='text-primary group-hover:scale-110 transition-transform shrink-0' size={18} />
+                <Mail
+                  className='text-primary group-hover:scale-110 transition-transform shrink-0'
+                  size={18}
+                />
                 <Link
                   href='mailto:dietisienzahrakrisnadi@gmail.com'
                   target='_blank'
@@ -172,9 +184,16 @@ const Footer: React.FC = () => {
             &copy; {new Date().getFullYear()} Zahra Krisnadi. All rights
             reserved.
           </p>
-          <div className='flex gap-6 mt-4 md:mt-0'>
-            <p>Developed by
-              <Link href="https://cetha-tech.vercel.app/" target="_blank" className="hover:text-primary transition-colors ml-1 font-bold">Cetha Technology</Link>
+          <div className='flex gap-6 mt-4 md:mt-0 text-slate-500'>
+            <p>
+              Developed by
+              <Link
+                href='https://cetha-tech.vercel.app/'
+                target='_blank'
+                className='hover:text-primary transition-colors ml-1 font-bold text-slate-300'
+              >
+                Cetha Technologies
+              </Link>
             </p>
           </div>
         </motion.div>
