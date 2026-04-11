@@ -50,9 +50,11 @@ const Services: React.FC = () => {
     const fetchPackages = async () => {
       try {
         const res = await fetch('/api/packages');
-        const json = await res.json();
-        if (json.success && Array.isArray(json.data)) {
-          setPricingPlans(json.data);
+        if (res.ok) {
+          const json = await res.json();
+          if (json.success && Array.isArray(json.data)) {
+            setPricingPlans(json.data);
+          }
         }
       } catch (error) {
         console.error('Failed to fetch packages', error);

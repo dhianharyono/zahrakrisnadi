@@ -27,13 +27,15 @@ const BMICalculator: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(false);
 
   const calculateBMI = () => {
-    if (height && weight) {
+    const hNum = parseFloat(height);
+    const wNum = parseFloat(weight);
+
+    if (hNum > 0 && wNum > 0) {
       setLoading(true);
 
       setTimeout(() => {
-        const h = parseFloat(height) / 100;
-        const w = parseFloat(weight);
-        const bmiValue = w / (h * h);
+        const hMeters = hNum / 100;
+        const bmiValue = wNum / (hMeters * hMeters);
         const roundedBmi = parseFloat(bmiValue.toFixed(1));
 
         setBmi(roundedBmi);

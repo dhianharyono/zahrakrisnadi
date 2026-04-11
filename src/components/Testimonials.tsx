@@ -56,27 +56,27 @@ const Testimonials: React.FC = () => {
       try {
         setLoading(true);
         const res = await fetch('/api/testimonials?visible=true');
-        const json = await res.json();
-        if (json.success && Array.isArray(json.data)) {
-          const formattedData = json.data.map(
-            (t: {
-              patientName: string;
-              role?: string;
-              message: string;
-              rating: number;
-              gender?: string;
-            }) => {
-              return {
+        if (res.ok) {
+          const json = await res.json();
+          if (json.success && Array.isArray(json.data)) {
+            const formattedData = json.data.map(
+              (t: {
+                patientName: string;
+                role?: string;
+                message: string;
+                rating: number;
+                gender?: string;
+              }) => ({
                 name: t.patientName,
                 role: t.role || 'Client',
                 content: t.message,
                 rating: t.rating,
                 image: getAvatarUrl(t.patientName, t.gender),
                 gender: t.gender,
-              };
-            },
-          );
-          setTestimonials(formattedData);
+              }),
+            );
+            setTestimonials(formattedData);
+          }
         }
       } catch (error) {
         console.error('Failed to fetch testimonials', error);
@@ -90,8 +90,7 @@ const Testimonials: React.FC = () => {
 
   const handleScroll = () => {
     if (scrollRef.current) {
-      const { scrollLeft } = scrollRef.current;
-      const scrollWidth = scrollRef.current.scrollWidth;
+      const { scrollLeft, scrollWidth } = scrollRef.current;
       const itemCount = testimonials.length;
       if (itemCount === 0) return;
 

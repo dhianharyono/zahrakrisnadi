@@ -4,34 +4,52 @@ import Assessment from '../../../models/Assessment';
 
 // GET ALL
 export async function GET() {
-    await dbConnect();
     try {
+        await dbConnect();
         const assessments = await Assessment.find({}).sort({ createdAt: -1 });
-        return NextResponse.json(assessments);
-    } catch (error) {
-        return NextResponse.json({ success: false, error }, { status: 400 });
+        return NextResponse.json({ success: true, data: assessments });
+    } catch (error: any) {
+        console.error('Assessment GET error:', error);
+        return NextResponse.json(
+            { success: false, message: 'Failed to fetch assessments' }, 
+            { status: 500 }
+        );
     }
 }
 
 // CREATE NEW
 export async function POST(request: Request) {
-    await dbConnect();
     try {
+        await dbConnect();
         const body = await request.json();
+        
+        // Basic validation
+        if (!body.namaLengkap) {
+            return NextResponse.json(
+                { success: false, message: 'Nama lengkap is required' },
+                { status: 400 }
+            );
+        }
+
         const assessment = await Assessment.create({
             ...body,
             status: 'new'
         });
-        return NextResponse.json(assessment, { status: 201 });
-    } catch (error) {
-        return NextResponse.json({ success: false, error }, { status: 400 });
+        
+        return NextResponse.json({ success: true, data: assessment }, { status: 201 });
+    } catch (error: any) {
+        console.error('Assessment POST error:', error);
+        return NextResponse.json(
+            { success: false, message: 'Failed to create assessment' }, 
+            { status: 400 }
+        );
     }
 }
 
 // UPDATE ONE
 export async function PUT(request: Request) {
-    await dbConnect();
     try {
+        await dbConnect();
         const body = await request.json();
         const { id, ...updateData } = body;
 
@@ -50,15 +68,19 @@ export async function PUT(request: Request) {
         }
 
         return NextResponse.json({ success: true, data: updatedAssessment });
-    } catch (error) {
-        return NextResponse.json({ success: false, error }, { status: 400 });
+    } catch (error: any) {
+        console.error('Assessment PUT error:', error);
+        return NextResponse.json(
+            { success: false, message: 'Failed to update assessment' }, 
+            { status: 400 }
+        );
     }
 }
 
 // DELETE ONE
 export async function DELETE(request: Request) {
-    await dbConnect();
     try {
+        await dbConnect();
         const { searchParams } = new URL(request.url);
         const id = searchParams.get('id');
 
@@ -69,11 +91,18 @@ export async function DELETE(request: Request) {
         const deletedAssessment = await Assessment.findByIdAndDelete(id);
 
         if (!deletedAssessment) {
-            return NextResponse.json({ success: false }, { status: 404 });
+            return NextResponse.json(
+                { success: false, message: "Assessment not found" }, 
+                { status: 404 }
+            );
         }
 
-        return NextResponse.json({ success: true, data: deletedAssessment });
-    } catch (error) {
-        return NextResponse.json({ success: false, error }, { status: 400 });
+        return NextResponse.json({ success: true, message: 'Assessment deleted successfully' });
+    } catch (error: any) {
+        console.error('Assessment DELETE error:', error);
+        return NextResponse.json(
+            { success: false, message: 'Failed to delete assessment' }, 
+            { status: 500 }
+        );
     }
 }

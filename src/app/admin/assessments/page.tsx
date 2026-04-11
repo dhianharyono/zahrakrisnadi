@@ -62,7 +62,7 @@ export default function AdminAssessments() {
       const res = await fetch('/api/assessments');
       if (res.ok) {
         const data = await res.json();
-        setAssessments(data);
+        setAssessments(data.data || []);
       }
     } catch (error) {
       console.error('Failed to fetch', error);

@@ -15,23 +15,28 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
     const router = useRouter();
 
     useEffect(() => {
-        // Protect admin routes
-        if (pathname !== '/admin/login') {
-            const token = document.cookie.split('; ').find(row => row.startsWith('admin_token='))?.split('=')[1];
-            if (token !== 'valid') { // Simple check matching the login logic
-                router.replace('/admin/login');
-            }
-        }
+        // Redirection is handled by middleware.ts
+        // This useEffect is no longer strictly necessary for protection
+        // but can be used for other client-side init if needed.
     }, [pathname, router]);
 
     const handleLogoutClick = () => {
         setShowLogoutModal(true);
     };
 
-    const performLogout = () => {
-        setShowLogoutModal(false);
-        document.cookie = "admin_token=; path=/; expires=Thu, 01 Jan 1970 00:00:01 GMT";
-        router.push('/admin/login');
+    const performLogout = async () => {
+        try {
+            const response = await fetch('/api/auth/logout', { method: 'POST' });
+            if (response.ok) {
+                setShowLogoutModal(false);
+                router.push('/admin/login');
+            }
+        } catch (error) {
+            console.error('Logout failed:', error);
+            // Fallback
+            setShowLogoutModal(false);
+            router.push('/admin/login');
+        }
     };
 
     const navItems = [

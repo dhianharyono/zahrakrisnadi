@@ -144,9 +144,11 @@ export default function AssessmentPage() {
     const fetchPackages = async () => {
       try {
         const res = await fetch('/api/packages');
-        const json = await res.json();
-        if (json.success && Array.isArray(json.data)) {
-          setPricingPlans(json.data);
+        if (res.ok) {
+          const json = await res.json();
+          if (json.success && Array.isArray(json.data)) {
+            setPricingPlans(json.data);
+          }
         }
       } catch (error) {
         console.error('Failed to fetch packages', error);
@@ -1499,12 +1501,16 @@ export default function AssessmentPage() {
                                     method: 'POST',
                                     body: fd,
                                   });
-                                  const data = await res.json();
-                                  if (data.success) {
-                                    handleChange(
-                                      'buktiPembayaran',
-                                      data.fileName,
-                                    );
+                                  if (res.ok) {
+                                    const data = await res.json();
+                                    if (data.success) {
+                                      handleChange(
+                                        'buktiPembayaran',
+                                        data.fileName,
+                                      );
+                                    } else {
+                                      toast.error('Gagal unggah file');
+                                    }
                                   } else {
                                     toast.error('Gagal unggah file');
                                   }

@@ -26,12 +26,20 @@ export default function AdminLogin() {
                 body: JSON.stringify({ username, password }),
             });
 
-            const data = await res.json();
-
-            if (res.ok && data.success) {
-                router.push('/admin/dashboard');
+            if (res.ok) {
+                const data = await res.json();
+                if (data.success) {
+                    router.push('/admin/dashboard');
+                } else {
+                    setError(data.message || 'Login gagal.');
+                }
             } else {
-                setError(data.message || 'Login gagal. Periksa kembali username dan password.');
+                let errorMsg = 'Login gagal. Periksa kembali username dan password.';
+                try {
+                    const data = await res.json();
+                    if (data.message) errorMsg = data.message;
+                } catch (e) { /* ignore parse error */ }
+                setError(errorMsg);
             }
         } catch (err) {
             setError('Terjadi kesalahan pada server.');

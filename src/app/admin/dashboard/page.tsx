@@ -53,11 +53,12 @@ export default function AdminDashboardAnalytics() {
     try {
       const res = await fetch('/api/assessments');
       if (res.ok) {
-        const data = await res.json();
+        const json = await res.json();
+        const data = json.data || [];
         const total = data.length;
-        const today = new Date().toISOString().split('T')[0];
+        const todayStr = new Date().toISOString().split('T')[0];
         const newToday = data.filter((item: any) =>
-          item.createdAt.startsWith(today),
+          item.createdAt && item.createdAt.toString().startsWith(todayStr),
         ).length;
 
         let totalAge = 0;
@@ -91,11 +92,11 @@ export default function AdminDashboardAnalytics() {
           // BMI
           if (item.beratBadan && item.tinggiBadan) {
             const h = item.tinggiBadan / 100;
-            const bmi = item.beratBadan / (h * h);
-            if (bmi < 18.5) bmiCounts.underweight++;
-            else if (bmi < 25) bmiCounts.normal++;
-            else if (bmi < 30) bmiCounts.overweight++;
-            else bmiCounts.obese++;
+            const bmiValue = item.beratBadan / (h * h);
+            if (bmiValue < 18.5) bmiCounts.underweight++;
+            else if (bmiValue <= 22.9) bmiCounts.normal++;
+            else if (bmiValue <= 24.9) bmiCounts.overweight++;
+            else bmiCounts.obese++; // Combines Obese I and II for the chart
           }
 
           // Goals
@@ -110,9 +111,11 @@ export default function AdminDashboardAnalytics() {
           }
 
           // Trend
-          const date = item.createdAt.split('T')[0];
-          if (trendMap[date] !== undefined) {
-            trendMap[date]++;
+          if (item.createdAt) {
+            const date = item.createdAt.toString().split('T')[0];
+            if (trendMap[date] !== undefined) {
+              trendMap[date]++;
+            }
           }
         });
 

@@ -41,9 +41,11 @@ const Portfolio: React.FC = () => {
     const fetchPortfolio = async () => {
       try {
         const res = await fetch('/api/portfolio');
-        const json = await res.json();
-        if (json.success && Array.isArray(json.data)) {
-          setPortfolioData(json.data);
+        if (res.ok) {
+          const json = await res.json();
+          if (json.success && Array.isArray(json.data)) {
+            setPortfolioData(json.data);
+          }
         }
       } catch (error) {
         console.error('Failed to fetch portfolio', error);

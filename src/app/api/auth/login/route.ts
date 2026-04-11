@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import dbConnect from '../../../../utils/dbConnect';
 import Admin from '../../../../models/Admin';
 import bcrypt from 'bcryptjs';
+import { signToken } from '../../../../utils/auth';
 
 export async function POST(request: Request) {
     await dbConnect();
@@ -9,12 +10,12 @@ export async function POST(request: Request) {
     try {
         const { username, password } = await request.json();
 
-        // Check if no admins exist, create default one
-        // const adminCount = await Admin.countDocuments();
-        // if (adminCount === 0) {
-        //     const hashedPassword = await bcrypt.hash('nutrisi2025', 10);
-        //     await Admin.create({ username: 'admin', password: hashedPassword });
-        // }
+        if (!username || !password) {
+            return NextResponse.json(
+                { success: false, message: 'Username and password are required' },
+                { status: 400 }
+            );
+        }
 
         const admin = await Admin.findOne({ username });
 
@@ -34,18 +35,29 @@ export async function POST(request: Request) {
             );
         }
 
-        // Set HttpOnly cookie for auth (Simplified for this context)
-        // In a real app, use JWT or Session
-        const response = NextResponse.json({ success: true });
-        response.cookies.set('admin_token', 'valid', {
-            httpOnly: false, // Accessible by JS for client-side check if needed
+        // Generate JWT Token
+        const token = await signToken({ 
+            id: admin._id, 
+            username: admin.username 
+        });
+
+        const response = NextResponse.json({ success: true, message: 'Login successful' });
+        
+        // Set HttpOnly cookie for auth
+        response.cookies.set('admin_token', token, {
+            httpOnly: true, // Prevent XSS
             secure: process.env.NODE_ENV === 'production',
+            sameSite: 'lax',
             maxAge: 60 * 60 * 24, // 1 day
             path: '/',
         });
 
         return response;
-    } catch (error) {
-        return NextResponse.json({ success: false, error }, { status: 500 });
+    } catch (error: any) {
+        console.error('Login error:', error);
+        return NextResponse.json(
+            { success: false, message: 'Internal server error' }, 
+            { status: 500 }
+        );
     }
 }

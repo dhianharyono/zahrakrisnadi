@@ -80,9 +80,7 @@ export default function AdminTestimonials() {
       const res = await fetch('/api/testimonials');
       if (res.ok) {
         const data = await res.json();
-        if (data.success) {
-          setTestimonials(data.data);
-        }
+        setTestimonials(data.data || []);
       }
     } catch (error) {
       console.error('Failed to fetch', error);
