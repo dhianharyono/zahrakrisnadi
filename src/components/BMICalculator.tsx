@@ -100,7 +100,7 @@ const BMICalculator: React.FC = () => {
                 <div className='w-6 h-6 rounded-full bg-orange-100 flex items-center justify-center text-orange-600'>
                   <ChevronRight size={16} />
                 </div>
-                <span className='text-gray-700 font-medium text-lg'>
+                <span className='text-gray-700 font-medium text-xs md:text-lg'>
                   Hasil Instan
                 </span>
               </li>
@@ -108,7 +108,7 @@ const BMICalculator: React.FC = () => {
                 <div className='w-6 h-6 rounded-full bg-orange-100 flex items-center justify-center text-orange-600'>
                   <ChevronRight size={16} />
                 </div>
-                <span className='text-gray-700 font-medium text-lg'>
+                <span className='text-gray-700 font-medium text-xs md:text-lg'>
                   Standar BMI Asia Pasifik
                 </span>
               </li>
