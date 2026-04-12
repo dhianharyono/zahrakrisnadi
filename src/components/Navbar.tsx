@@ -66,7 +66,7 @@ const Navbar: React.FC = () => {
                   key={link.label}
                   href={link.href}
                   whileHover={{ y: -2 }}
-                  className='text-gray-700 hover:text-primary transition-colors font-medium text-sm'
+                  className='text-gray-700 hover:text-primary transition-colors font-medium text-xs'
                 >
                   {link.label}
                 </motion.a>

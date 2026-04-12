@@ -21,6 +21,7 @@ export const CONTACT_INFO = {
 export const NAV_LINKS = [
   { label: 'Layanan', href: '#services' },
   { label: 'Kalkulator BMI', href: '#bmi-calculator' },
+  { label: 'Checklist GTM', href: '#gtm-checklist' },
   { label: 'Testimoni', href: '#testimonials' },
   { label: 'Kolaborasi', href: '#collaboration' },
   { label: 'Portofolio', href: '#portfolio' },
@@ -205,8 +206,7 @@ export const BMI_CATEGORIES: BMICategoryData[] = [
     color: 'bg-orange-500',
     bgCurrent: 'bg-orange-100',
     textCurrent: 'text-orange-700',
-    description:
-      'menunjukkan obesitas tingkat I.',
+    description: 'menunjukkan obesitas tingkat I.',
   },
   {
     label: 'Obesitas II',
@@ -214,8 +214,7 @@ export const BMI_CATEGORIES: BMICategoryData[] = [
     color: 'bg-red-500',
     bgCurrent: 'bg-red-100',
     textCurrent: 'text-red-700',
-    description:
-      'menunjukkan obesitas tingkat II.',
+    description: 'menunjukkan obesitas tingkat II.',
   },
 ];
 
