@@ -284,7 +284,7 @@ export default function AdminDashboardAnalytics() {
           <Link
             href='/'
             target='_blank'
-            className='flex items-center gap-2 bg-white px-4 py-2.5 rounded-xl text-sm font-bold text-gray-700 border border-gray-200 shadow-sm hover:shadow-md hover:text-primary hover:border-primary/20 transition-all group'
+            className='cursor-pointer flex items-center gap-2 bg-white px-4 py-2.5 rounded-xl text-sm font-bold text-gray-700 border border-gray-200 shadow-sm hover:shadow-md hover:text-primary hover:border-primary/20 transition-all group'
           >
             <ExternalLink className='w-4 h-4 text-gray-400 group-hover:text-primary transition-colors' />
             <span className='hidden sm:inline'>Lihat Landing Page</span>
