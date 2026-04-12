@@ -180,32 +180,28 @@ const GTMChecklist: React.FC = () => {
               </p>
             </motion.div>
 
-            {/* Download Button Component */}
+            {/* Download Button Component - Minimalist Version */}
             <motion.div
               variants={itemVariants}
-              className='p-10 rounded-[2.5rem] bg-gray-900 text-white shadow-2xl relative overflow-hidden group'
+              className='p-6 rounded-3xl bg-slate-50 border border-slate-200 shadow-sm relative overflow-hidden group'
             >
-              <div className='absolute -right-10 -top-10 w-40 h-40 bg-primary/20 rounded-full blur-3xl group-hover:bg-primary/30 transition-all'></div>
-              <div className='relative z-10'>
-                <div className='flex items-center gap-3 mb-6'>
-                  <div className='p-2 bg-white/10 rounded-lg'>
-                    <FileText className='text-orange-400 w-5 h-5' />
+              <div className='relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-4'>
+                <div className='flex gap-4 items-center'>
+                  <div className='p-3 bg-white rounded-2xl shadow-sm text-orange-500'>
+                    <FileText className='w-6 h-6' />
                   </div>
-                  <span className='text-xs font-bold uppercase tracking-wider text-orange-200'>Edisi Lengkap</span>
+                  <div>
+                    <h4 className='text-base font-bold text-slate-900 leading-tight'>Checklist Lengkap GTM</h4>
+                    <p className='text-slate-500 text-xs mt-1'>Edisi PDF Premium untuk AyBun</p>
+                  </div>
                 </div>
-                <h4 className='text-xl font-extrabold mb-4'>Dapatkan PDF Checklist Lengkap Penyebab GTM</h4>
-                <p className='text-gray-400 text-sm mb-8 leading-relaxed'>
-                  Simpan panduan lengkap kami untuk membimbing AyBun dalam menghadapi setiap fase pertumbuhan si Kecil.
-                </p>
-                <div className='flex items-center justify-center'>
-                  <a
-                    href='/file/Checklist Penyebab GTM.pdf'
-                    download
-                    className='inline-flex text-center gap-3 bg-primary hover:bg-orange-600 text-white px-8 py-4 rounded-2xl font-black transition-all duration-300 hover:scale-105 active:scale-95 shadow-lg shadow-primary/20 cursor-pointer'
-                  >
-                    Download PDF
-                  </a>
-                </div>
+                <a
+                  href='/file/Checklist Penyebab GTM.pdf'
+                  download
+                  className='inline-flex items-center justify-center gap-2 bg-slate-900 hover:bg-slate-800 text-white px-5 py-2.5 rounded-xl font-bold text-xs transition-all duration-300 cursor-pointer shadow-md'
+                >
+                  Download PDF
+                </a>
               </div>
             </motion.div>
           </motion.div>
