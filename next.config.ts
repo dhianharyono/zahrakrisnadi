@@ -19,17 +19,29 @@ const securityHeaders = [
   },
   {
     key: 'Permissions-Policy',
-    value: 'camera=(), microphone=(), geolocation=(), browsing-topics=()',
+    value: 'camera=(), microphone=(), geolocation=(), browsing-topics=(), payment=(), autoplay=()',
   },
   {
     key: 'X-XSS-Protection',
     value: '1; mode=block',
   },
   {
+    key: 'Cross-Origin-Opener-Policy',
+    value: 'same-origin',
+  },
+  {
+    key: 'Cross-Origin-Resource-Policy',
+    value: 'same-origin',
+  },
+  {
+    key: 'X-Permitted-Cross-Domain-Policies',
+    value: 'none',
+  },
+  {
     key: 'Content-Security-Policy',
     value: [
       "default-src 'self'",
-      "script-src 'self' 'unsafe-inline' 'unsafe-eval'",
+      "script-src 'self'",
       "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
       "img-src 'self' data: blob: https://images.unsplash.com https://i.pravatar.cc https://api.dicebear.com",
       "font-src 'self' data: https://fonts.gstatic.com",
