@@ -1,15 +1,6 @@
 import { NextResponse } from 'next/server';
-import mongoose from 'mongoose';
+import dbConnect from '@/utils/dbConnect';
 import Package from '@/models/Package';
-
-const MONGODB_URI = process.env.MONGODB_URI!;
-
-async function connectDB() {
-    if (mongoose.connection.readyState >= 1) {
-        return;
-    }
-    await mongoose.connect(MONGODB_URI);
-}
 
 export async function PUT(
     request: Request,
@@ -17,7 +8,7 @@ export async function PUT(
 ) {
     try {
         const { id } = await params;
-        await connectDB();
+        await dbConnect();
         const body = await request.json();
         const pkg = await Package.findByIdAndUpdate(id, body, {
             new: true,
@@ -44,7 +35,7 @@ export async function DELETE(
 ) {
     try {
         const { id } = await params;
-        await connectDB();
+        await dbConnect();
         const pkg = await Package.findByIdAndDelete(id);
         if (!pkg) {
             return NextResponse.json(

@@ -1,20 +1,11 @@
 import { NextResponse } from 'next/server';
-import mongoose from 'mongoose';
+import dbConnect from '@/utils/dbConnect';
 import Portfolio from '@/models/Portfolio';
 import { PORTFOLIO_DATA } from '@/utils/constants';
 
-const MONGODB_URI = process.env.MONGODB_URI!;
-
-async function connectDB() {
-    if (mongoose.connection.readyState >= 1) {
-        return;
-    }
-    await mongoose.connect(MONGODB_URI);
-}
-
 export async function GET() {
     try {
-        await connectDB();
+        await dbConnect();
         const portfolio = await Portfolio.find().sort({ createdAt: -1 });
 
         // Seed if empty
@@ -35,7 +26,7 @@ export async function GET() {
 
 export async function POST(request: Request) {
     try {
-        await connectDB();
+        await dbConnect();
         const body = await request.json();
         const portfolio = await Portfolio.create(body);
         return NextResponse.json({ success: true, data: portfolio });

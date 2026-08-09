@@ -1,20 +1,11 @@
 import { NextResponse } from 'next/server';
-import mongoose from 'mongoose';
+import dbConnect from '@/utils/dbConnect';
 import Package from '@/models/Package';
 import { PRICING_PLANS } from '@/utils/constants';
 
-const MONGODB_URI = process.env.MONGODB_URI!;
-
-async function connectDB() {
-    if (mongoose.connection.readyState >= 1) {
-        return;
-    }
-    await mongoose.connect(MONGODB_URI);
-}
-
 export async function GET() {
     try {
-        await connectDB();
+        await dbConnect();
         const packages = await Package.find().sort({ order: 1, createdAt: 1 });
 
         if (packages.length === 0) {
@@ -36,7 +27,7 @@ export async function GET() {
 
 export async function POST(request: Request) {
     try {
-        await connectDB();
+        await dbConnect();
         const body = await request.json();
         const pkg = await Package.create(body);
         return NextResponse.json({ success: true, data: pkg });
