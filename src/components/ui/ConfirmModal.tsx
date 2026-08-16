@@ -29,7 +29,7 @@ export default function ConfirmModal({
   if (!isOpen || typeof document === 'undefined') return null;
 
   return createPortal(
-    <div className='fixed inset-0 bg-black/40 backdrop-blur-md z-9999 flex items-center justify-center p-4'>
+    <div className='fixed inset-0 bg-black/40 backdrop-blur-md z-[100] flex items-center justify-center p-4'>
       <div className='bg-white/95 backdrop-blur-2xl rounded-3xl shadow-2xl shadow-orange-100/50 border border-white/50 w-full max-w-md overflow-hidden flex flex-col transform transition-all scale-100 animate-slide-up'>
         <div className='p-6 text-center'>
           <div

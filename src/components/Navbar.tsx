@@ -26,7 +26,7 @@ const Navbar: React.FC = () => {
   }, []);
 
   return (
-    <header className="fixed inset-x-0 top-0 z-50 transition-all duration-500 py-3 sm:py-4">
+    <header className="fixed inset-x-0 top-0 z-40 transition-all duration-500 py-3 sm:py-4">
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
         <nav
           className={`flex items-center justify-between rounded-full px-4 py-2.5 transition-all duration-700 ease-in-out sm:px-5 border ${

@@ -34,7 +34,7 @@ const ScrollToTop: React.FC = () => {
           whileTap={{ scale: 0.95 }}
           aria-label="Chat dengan kami"
           title="Chat dengan kami via WhatsApp"
-          className="fixed bottom-5 right-5 sm:bottom-7 sm:right-7 z-50 group flex items-center h-14 p-3.5 bg-[#25D366] hover:bg-[#20bd5a] text-white rounded-full shadow-lg hover:shadow-emerald-500/40 transition-all duration-500 ease-in-out cursor-pointer border border-white/30 focus:outline-none ring-4 ring-emerald-500/20 active:scale-95"
+          className="fixed bottom-5 right-5 sm:bottom-7 sm:right-7 z-40 group flex items-center h-14 p-3.5 bg-[#25D366] hover:bg-[#20bd5a] text-white rounded-full shadow-lg hover:shadow-emerald-500/40 transition-all duration-500 ease-in-out cursor-pointer border border-white/30 focus:outline-none ring-4 ring-emerald-500/20 active:scale-95"
         >
           <svg
             className="w-7 h-7 fill-current shrink-0 transition-transform duration-300 group-hover:scale-110"

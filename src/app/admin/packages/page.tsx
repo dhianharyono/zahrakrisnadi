@@ -300,7 +300,7 @@ export default function AdminPackages() {
       {isAddModalOpen &&
         typeof document !== 'undefined' &&
         createPortal(
-          <div className='fixed inset-0 bg-black/40 backdrop-blur-md z-9999 flex items-center justify-center p-4'>
+          <div className='fixed inset-0 bg-black/40 backdrop-blur-md z-[100] flex items-center justify-center p-4'>
             <div className='bg-white/95 backdrop-blur-2xl rounded-3xl shadow-2xl shadow-orange-100/50 border border-white/50 w-full max-w-2xl overflow-hidden flex flex-col transform transition-all scale-100 animate-slide-up max-h-[95vh]'>
               <div className='p-6 border-b border-gray-100 bg-linear-to-r from-orange-50/80 to-white'>
                 <h3 className='text-xl font-bold font-serif text-gray-800'>
@@ -523,7 +523,7 @@ export default function AdminPackages() {
       {selectedPackage &&
         typeof document !== 'undefined' &&
         createPortal(
-          <div className='fixed inset-0 bg-black/40 backdrop-blur-md z-9999 flex items-center justify-center p-4'>
+          <div className='fixed inset-0 bg-black/40 backdrop-blur-md z-[100] flex items-center justify-center p-4'>
             <div className='bg-white/95 backdrop-blur-2xl rounded-3xl shadow-2xl shadow-orange-100/50 border border-white/50 w-full max-w-lg overflow-hidden flex flex-col transform transition-all scale-100 animate-slide-up relative'>
               <div className='p-6 border-b border-gray-100 bg-linear-to-r from-orange-50/80 to-white flex justify-between items-center relative overflow-hidden'>
                 <h3 className='text-xl font-serif font-bold text-gray-800 relative z-10'>
