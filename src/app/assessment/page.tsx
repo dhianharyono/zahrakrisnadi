@@ -18,6 +18,8 @@ import {
 import Link from 'next/link';
 import toast from 'react-hot-toast';
 import { motion, AnimatePresence, Variants } from 'framer-motion';
+import Navbar from '../../components/Navbar';
+import Footer from '../../components/Footer';
 
 const fadeUpVariants: Variants = {
   hidden: { opacity: 0, y: 30 },
@@ -337,35 +339,38 @@ export default function AssessmentPage() {
     const waUrl = `https://wa.me/6281234567890?text=${message}`;
 
     return (
-      <div className='min-h-screen bg-[#FDFBF7] flex items-center justify-center p-4'>
-        <div className='bg-white rounded-4xl shadow-xl p-8 max-w-md w-full text-center border border-orange-100 animate-fade-in'>
-          <div className='w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6'>
-            <CheckCircle className='w-10 h-10 text-green-600' />
+      <div className='min-h-screen bg-slate-50/60 flex flex-col font-sans text-slate-800 relative selection:bg-amber-500/20 selection:text-amber-600'>
+        <Navbar />
+        <main className='flex-1 flex items-center justify-center p-4 pt-28 sm:pt-36 pb-16 sm:pb-24 relative z-10'>
+          <div className='bg-white rounded-3xl shadow-xs ring-1 ring-slate-200/80 p-8 sm:p-12 max-w-md w-full text-center'>
+            <div className='w-16 h-16 bg-amber-100/80 text-amber-600 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-xs ring-1 ring-amber-200/60'>
+              <CheckCircle className='w-8 h-8' />
+            </div>
+            <h2 className='text-xl sm:text-2xl font-serif font-semibold text-slate-900 mb-2'>
+              Terima Kasih!
+            </h2>
+            <p className='text-slate-600 mb-6 font-sans leading-relaxed text-xs sm:text-sm'>
+              Data assessment Anda telah kami terima. Kami sedang mengalihkan Anda ke WhatsApp admin untuk konfirmasi selanjutnya.
+            </p>
+            <div className='w-full h-1.5 bg-slate-100 rounded-full overflow-hidden mb-6'>
+              <div className='h-full bg-amber-500 animate-[pulse_1s_ease-in-out_infinite] w-full'></div>
+            </div>
+            <a
+              href={waUrl}
+              target='_blank'
+              rel='noopener noreferrer'
+              onClick={() => {
+                setTimeout(() => {
+                  window.location.href = '/';
+                }, 500);
+              }}
+              className='inline-flex items-center justify-center w-full px-6 py-3.5 bg-amber-500 hover:bg-amber-600 text-white font-bold rounded-full transition-colors text-sm shadow-xs hover:shadow-md'
+            >
+              Lanjut ke WhatsApp Sekarang
+            </a>
           </div>
-          <h2 className='text-lg md:text-2xl font-serif font-bold text-gray-900 mb-1 md:mb-3'>
-            Terima Kasih!
-          </h2>
-          <p className='text-gray-600 mb-6 font-sans leading-relaxed text-xs md:text-sm'>
-            Data assessment Anda telah kami terima. Kami sedang mengalihkan Anda
-            ke WhatsApp admin untuk konfirmasi selanjutnya.
-          </p>
-          <div className='w-full h-1.5 bg-gray-100 rounded-full overflow-hidden mb-6'>
-            <div className='h-full bg-green-500 animate-[pulse_1s_ease-in-out_infinite] w-full'></div>
-          </div>
-          <a
-            href={waUrl}
-            target='_blank'
-            rel='noopener noreferrer'
-            onClick={() => {
-              setTimeout(() => {
-                window.location.href = '/';
-              }, 500);
-            }}
-            className='inline-flex items-center justify-center w-full px-6 py-3 bg-green-500 hover:bg-green-600 text-white font-bold rounded-xl transition-colors text-sm shadow-lg shadow-green-200'
-          >
-            Lanjut ke WhatsApp Sekarang
-          </a>
-        </div>
+        </main>
+        <Footer />
       </div>
     );
   }
@@ -373,125 +378,113 @@ export default function AssessmentPage() {
   const CurrentStepIcon = steps[step - 1].icon;
 
   return (
-    <div className='min-h-screen bg-white font-sans text-gray-800 relative selection:bg-primary/20 selection:text-primary pb-20'>
-      {/* Background Ambience */}
-      <div className='fixed top-0 left-0 w-full h-full pointer-events-none overflow-hidden z-0'>
-        <div className='absolute top-[-20%] right-[-10%] w-150 h-150 bg-orange-200/20 rounded-full blur-[100px] opacity-60' />
-        <div className='absolute bottom-[-10%] left-[-10%]w-125 h-125 bg-green-200/20 rounded-full blur-[100px] opacity-60' />
-      </div>
+    <div className='min-h-screen bg-slate-50/60 flex flex-col font-sans text-slate-800 relative selection:bg-amber-500/20 selection:text-amber-600'>
+      <Navbar />
 
-      {/* Header */}
-      <header className='sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-orange-50/50 shadow-sm transition-all duration-300'>
-        <div className='max-w-5xl mx-auto px-4 sm:px-6 h-16 md:h-20 flex items-center justify-between '>
-          <Link href='/' className='flex items-center gap-2 group'>
-            <div className='bg-primary/10 p-2 rounded-xl group-hover:bg-primary/20 transition-colors'>
-              <ChevronLeft className='w-5 h-5 text-primary' />
-            </div>
-            <span className='font-bold text-gray-900 hidden sm:block'>
-              Kembali ke Beranda
-            </span>
-          </Link>
+      <main className='flex-1 pt-28 sm:pt-36 pb-16 sm:pb-24 relative z-10 max-w-4xl mx-auto px-4 sm:px-6 w-full'>
+        {/* Section Header */}
+        <div className='text-center max-w-2xl mx-auto mb-8 sm:mb-12'>
+          <span className='inline-flex items-center rounded-full bg-amber-100/80 px-4 py-1.5 text-xs font-bold uppercase tracking-wider text-amber-800 ring-1 ring-amber-200/60 mb-3 sm:mb-4'>
+            Form Assessment
+          </span>
+          <h1 className='font-serif text-2xl sm:text-3xl lg:text-3xl font-semibold text-slate-900 tracking-tight leading-tight'>
+            Form Assessment & Consultation
+          </h1>
+          <p className='text-slate-600 text-sm sm:text-base mt-3 leading-relaxed'>
+            Lengkapi data diri dan kebiasaan gizi Anda (Langkah {step} dari {steps.length})
+          </p>
+        </div>
+        {/* Progress Stepper Visual (Desktop) */}
+        <div className='hidden md:block mb-10 sm:mb-12'>
+          <div className='flex items-center justify-between relative px-2'>
+            {steps.map((s, idx) => {
+              const isActive = s.id === step;
+              const isCompleted = s.id < step;
+              const Icon = s.icon;
 
-          <div className='flex items-center gap-4'>
-            <div className='text-right hidden sm:block'>
-              <p className='text-xs font-bold text-primary uppercase tracking-widest'>
-                Assessment Awal
-              </p>
-              <p className='text-sm text-gray-500 font-serif'>
-                Langkah {step} dari {steps.length}
-              </p>
-            </div>
-            <div className='relative w-10 h-10 md:w-12 md:h-12 flex items-center justify-center'>
-              <svg className='w-full h-full -rotate-90' viewBox='0 0 36 36'>
-                <path
-                  d='M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831'
-                  fill='none'
-                  stroke='#FED7AA'
-                  strokeWidth='3'
-                />
-                <path
-                  d='M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831'
-                  fill='none'
-                  stroke='#F97316'
-                  strokeWidth='3'
-                  strokeDasharray={`${(step / steps.length) * 100}, 100`}
-                  className='transition-all duration-500 ease-out'
-                  strokeLinecap='round'
-                />
-              </svg>
-              <span className='absolute text-[10px] md:text-xs font-bold text-primary'>
-                {Math.round((step / steps.length) * 100)}%
-              </span>
-            </div>
+              return (
+                <div key={s.id} className='flex-1 flex items-center relative'>
+                  {/* Connector Line to next step */}
+                  {idx > 0 && (
+                    <div className='flex-1 h-0.5 mx-2 bg-slate-200 overflow-hidden rounded-full'>
+                      <div
+                        className='h-full bg-amber-500 transition-all duration-500'
+                        style={{ width: isCompleted || isActive ? '100%' : '0%' }}
+                      ></div>
+                    </div>
+                  )}
+
+                  {/* Step Icon Button & Label */}
+                  <div
+                    className='flex flex-col items-center gap-2 cursor-pointer select-none mx-auto'
+                    onClick={() => isCompleted && setStep(s.id)}
+                  >
+                    <div
+                      className={`w-11 h-11 rounded-full flex items-center justify-center transition-all duration-300 ${isActive
+                          ? 'bg-amber-500 text-white shadow-sm ring-4 ring-amber-100 scale-105 font-bold'
+                          : isCompleted
+                            ? 'bg-amber-500 text-white'
+                            : 'bg-white border border-slate-200 text-slate-400 hover:border-slate-300'
+                        }`}
+                    >
+                      {isCompleted ? (
+                        <CheckCircle className='w-5 h-5 text-white' />
+                      ) : (
+                        <Icon className='w-5 h-5' />
+                      )}
+                    </div>
+                    <span
+                      className={`text-[11px] font-bold uppercase tracking-wider text-center transition-colors duration-300 ${isActive
+                          ? 'text-amber-800'
+                          : isCompleted
+                            ? 'text-slate-700'
+                            : 'text-slate-400'
+                        }`}
+                    >
+                      {s.label}
+                    </span>
+                  </div>
+                </div>
+              );
+            })}
           </div>
         </div>
-      </header>
 
-      <main className='relative z-10 max-w-3xl mx-auto px-4 mt-8 md:mt-12'>
-        {/* Progress Stepper Visual (Desktop) */}
-        <div className='hidden md:flex justify-between items-center mb-12 relative px-4'>
-          <div className='absolute top-1/3 w-162.5 h-0.5 bg-gray-200 -z-10 -translate-y-1/2 rounded-full'></div>
-          <div
-            className='absolute top-1/3 w-162.5 h-0.5 bg-primary -z-10 -translate-y-1/2 rounded-full'
-            style={{
-              width:
-                step >= 5
-                  ? `${((step - 1) / (steps.length - 0)) * 100}%`
-                  : `${((step - 1) / (steps.length - 1)) * 100}%`,
-            }}
-          ></div>
-
-          {steps.map((s) => {
-            const isActive = s.id === step;
-            const isCompleted = s.id < step;
-            const Icon = s.icon;
-
-            return (
-              <div
-                key={s.id}
-                className='flex flex-col items-center gap-2 bg-white px-2'
-              >
-                <div
-                  className={`w-10 h-10 rounded-full flex items-center justify-center transition-all duration-500 border-2
-                    ${isActive
-                      ? 'bg-primary border-primary text-white shadow-lg shadow-orange-200 scale-110'
-                      : isCompleted
-                        ? 'bg-primary border-primary text-white'
-                        : 'bg-white border-gray-200 text-gray-400'
-                    }`}
-                >
-                  {isCompleted ? (
-                    <CheckCircle className='w-5 h-5' />
-                  ) : (
-                    <Icon className='w-5 h-5' />
-                  )}
-                </div>
-                <span
-                  className={`text-[10px] font-bold uppercase tracking-wider transition-colors duration-300 ${isActive ? 'text-primary' : 'text-gray-400'}`}
-                >
-                  {s.label}
-                </span>
-              </div>
-            );
-          })}
+        {/* Mobile Progress Bar */}
+        <div className='md:hidden mb-8 bg-white rounded-2xl p-4 shadow-xs ring-1 ring-slate-200/80'>
+          <div className='flex items-center justify-between mb-2 text-xs font-bold text-slate-700'>
+            <span>Langkah {step} dari {steps.length}: {steps[step - 1].label}</span>
+            <span className='text-amber-600'>{Math.round((step / steps.length) * 100)}%</span>
+          </div>
+          <div className='w-full h-2 bg-slate-100 rounded-full overflow-hidden'>
+            <div
+              className='h-full bg-amber-500 transition-all duration-500 rounded-full'
+              style={{ width: `${(step / steps.length) * 100}%` }}
+            ></div>
+          </div>
         </div>
 
         {/* Form Card */}
-        <div className='bg-white rounded-4xl shadow-xl shadow-orange-100/50 border border-orange-50/50 overflow-hidden'>
+        <div className='bg-white rounded-3xl shadow-xs ring-1 ring-slate-200/80 overflow-hidden'>
           {/* Form Header Inside Card */}
-          <div className='bg-linear-to-b from-orange-200 to-white px-3 py-3 md:px-10 md:py-10'>
-            <div className='flex items-center gap-4 mb-2'>
-              <div className='w-8 h-8 md:w-12 md:h-12 rounded-lg md:rounded-2xl bg-white shadow-md flex items-center justify-center text-primary'>
-                <CurrentStepIcon className='w-3 h-3 md:w-6 md:h-6' />
+          <div className='bg-amber-50/70 border-b border-amber-200/60 p-6 sm:p-8 flex items-center justify-between'>
+            <div className='flex items-center gap-4'>
+              <div className='w-12 h-12 rounded-2xl bg-amber-100/80 text-amber-700 ring-1 ring-amber-200/60 flex items-center justify-center font-bold shrink-0'>
+                <CurrentStepIcon className='w-6 h-6' />
               </div>
               <div>
-                <h1 className='text-sm md:text-xl font-serif font-bold text-gray-900'>
+                <h2 className='text-lg sm:text-xl font-bold text-slate-900'>
                   {steps[step - 1].label}
-                </h1>
-                <p className='text-gray-500 text-[10px] text-xs md:text-sm'>
+                </h2>
+                <p className='text-slate-600 text-xs sm:text-sm mt-0.5'>
                   Lengkapi data berikut untuk melanjutkan.
                 </p>
               </div>
+            </div>
+            <div className='hidden sm:block text-right'>
+              <span className='text-xs font-bold text-amber-800 bg-amber-100/80 px-3.5 py-1.5 rounded-full ring-1 ring-amber-200/60'>
+                Langkah {step} / {steps.length}
+              </span>
             </div>
           </div>
 
@@ -510,136 +503,187 @@ export default function AssessmentPage() {
                   variants={fadeUpVariants}
                   className='space-y-6 text-xs md:text-sm'
                 >
-                <InputField
-                  label='Nama Lengkap'
-                  required
-                  value={formData.namaLengkap}
-                  onChange={(v) => handleChange('namaLengkap', v)}
-                  error={errors.namaLengkap}
-                  placeholder='Contoh: Budi Santoso'
-                  icon={<User className='w-5 h-5 text-gray-400' />}
-                />
+                  <InputField
+                    label='Nama Lengkap'
+                    required
+                    value={formData.namaLengkap}
+                    onChange={(v) => handleChange('namaLengkap', v)}
+                    error={errors.namaLengkap}
+                    placeholder='Contoh: Budi Santoso'
+                    icon={<User className='w-5 h-5 text-gray-400' />}
+                  />
 
-                <div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
+                  <div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
+                    <div className='space-y-2'>
+                      <label className='text-sm font-semibold text-gray-700 block'>
+                        Tanggal Lahir <span className='text-red-500'>*</span>
+                      </label>
+                      <div className='relative group'>
+                        <Calendar className='absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400 group-focus-within:text-primary transition-colors pointer-events-none' />
+                        <input
+                          type='date'
+                          value={formData.tanggalLahir}
+                          onChange={(e) =>
+                            handleChange('tanggalLahir', e.target.value)
+                          }
+                          className={`w-full pl-12 pr-4 py-3.5 bg-gray-50 border rounded-xl outline-none transition-all duration-200 font-medium
+                           ${errors.tanggalLahir
+                              ? 'border-red-300 bg-red-50 focus:border-red-500 focus:ring-4 focus:ring-red-100'
+                              : 'border-transparent focus:bg-white focus:border-primary focus:ring-4 focus:ring-orange-100 placeholder:text-gray-400'
+                            }`}
+                        />
+                      </div>
+                      {errors.tanggalLahir && (
+                        <p className='text-xs text-red-500 font-medium mt-1'>
+                          {errors.tanggalLahir}
+                        </p>
+                      )}
+                    </div>
+
+                    <InputField
+                      label='Usia (Tahun)'
+                      type='number'
+                      placeholder='Contoh: 25'
+                      required
+                      value={formData.usia}
+                      onChange={(v) => handleChange('usia', v)}
+                      error={errors.usia}
+                    />
+                  </div>
+
+                  <div className='space-y-4'>
+                    <label className='text-sm font-semibold text-gray-700 block'>
+                      Jenis Kelamin
+                    </label>
+                    <div className='grid grid-cols-2 gap-4'>
+                      {['Laki-laki', 'Perempuan'].map((gender) => (
+                        <div
+                          key={gender}
+                          onClick={() => handleChange('jenisKelamin', gender)}
+                          className={`cursor-pointer rounded-xl p-4 border-2 flex items-center gap-3 transition-all duration-200
+                          ${formData.jenisKelamin === gender ? 'border-primary bg-orange-50/50' : 'border-gray-100 hover:border-gray-200 bg-gray-50'}`}
+                        >
+                          <div
+                            className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${formData.jenisKelamin === gender ? 'border-primary' : 'border-gray-300'}`}
+                          >
+                            {formData.jenisKelamin === gender && (
+                              <div className='w-2.5 h-2.5 rounded-full bg-primary' />
+                            )}
+                          </div>
+                          <span
+                            className={`font-medium ${formData.jenisKelamin === gender ? 'text-gray-900' : 'text-gray-500'}`}
+                          >
+                            {gender}
+                          </span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
                   <div className='space-y-2'>
                     <label className='text-sm font-semibold text-gray-700 block'>
-                      Tanggal Lahir <span className='text-red-500'>*</span>
+                      Pendidikan Terakhir
                     </label>
-                    <div className='relative group'>
-                      <Calendar className='absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400 group-focus-within:text-primary transition-colors pointer-events-none' />
-                      <input
-                        type='date'
-                        value={formData.tanggalLahir}
-                        onChange={(e) =>
-                          handleChange('tanggalLahir', e.target.value)
-                        }
-                        className={`w-full pl-12 pr-4 py-3.5 bg-gray-50 border rounded-xl outline-none transition-all duration-200 font-medium
-                           ${errors.tanggalLahir
-                            ? 'border-red-300 bg-red-50 focus:border-red-500 focus:ring-4 focus:ring-red-100'
-                            : 'border-transparent focus:bg-white focus:border-primary focus:ring-4 focus:ring-orange-100 placeholder:text-gray-400'
-                          }`}
-                      />
+                    <select
+                      value={formData.pendidikan}
+                      onChange={(e) => handleChange('pendidikan', e.target.value)}
+                      className='w-full px-4 py-3.5 bg-gray-50 border border-transparent rounded-xl outline-none focus:bg-white focus:border-primary focus:ring-4 focus:ring-orange-100 transition-all font-medium text-gray-700 cursor-pointer appearance-none'
+                    >
+                      <option value=''>Pilih Pendidikan</option>
+                      {[
+                        'Tidak tamat SD',
+                        'SD',
+                        'SMP',
+                        'SMA/SMK',
+                        'Diploma',
+                        'Sarjana',
+                        'Pascasarjana',
+                      ].map((opt) => (
+                        <option key={opt} value={opt}>
+                          {opt}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+
+                  <div className='space-y-4'>
+                    <label className='text-sm font-semibold text-gray-700 block'>
+                      Target Konsultasi <span className='text-red-500'>*</span>
+                    </label>
+                    <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
+                      {[
+                        {
+                          title: 'Body Goals',
+                          desc: 'Capai berat badan idealmu! Paket ini juga didesain untuk mendukung promil, kesuburan dan menurunkan kadar lemak tubuh.',
+                        },
+                        {
+                          title: 'Clinic Care',
+                          desc: 'Program diet untuk penderita penyakit diabetes mellitus, asam urat, kolesterol, jantung, hipertensi, pencernaan, infeksi, dan masih banyak lagi.',
+                        },
+                        {
+                          title: "Women's Health",
+                          desc: 'Program untuk mencapai gizi optimal bagi BUMIL dan BUSUI ASI eksklusif.',
+                        },
+                        {
+                          title: 'Body for Baby',
+                          desc: 'Program untuk membantu orang tua mengatur pola, menu dan porsi makan ANAK.',
+                        },
+                        {
+                          title: 'Lainnya',
+                          desc: 'Tuliskan sendiri tujuan konsultasi Anda secara spesifik.',
+                        },
+                      ].map((target) => {
+                        const predefined = [
+                          'Body Goals',
+                          'Clinic Care',
+                          "Women's Health",
+                          'Body for Baby',
+                        ];
+                        const isCustom =
+                          formData.targetKonsultasi !== '' &&
+                          !predefined.includes(formData.targetKonsultasi);
+                        const isSelected =
+                          target.title === 'Lainnya'
+                            ? isCustom || formData.targetKonsultasi === 'Lainnya'
+                            : formData.targetKonsultasi === target.title;
+
+                        return (
+                          <div
+                            key={target.title}
+                            onClick={() =>
+                              handleChange(
+                                'targetKonsultasi',
+                                target.title === 'Lainnya'
+                                  ? 'Lainnya'
+                                  : target.title,
+                              )
+                            }
+                            className={`cursor-pointer rounded-2xl p-4 md:p-5 border-2 transition-all duration-200 text-left flex items-start gap-3
+                            ${isSelected ? 'border-primary bg-orange-50/50 shadow-md shadow-orange-100' : 'border-gray-100 hover:border-gray-200 bg-gray-50'}`}
+                          >
+                            <div
+                              className={`mt-0.5 w-5 h-5 rounded-full border-2 flex items-center justify-center shrink-0 transition-colors ${isSelected ? 'border-primary' : 'border-gray-300'}`}
+                            >
+                              {isSelected && (
+                                <div className='w-2.5 h-2.5 rounded-full bg-primary' />
+                              )}
+                            </div>
+                            <div>
+                              <h4
+                                className={`font-bold text-sm md:text-base mb-1 ${isSelected ? 'text-gray-900' : 'text-gray-700'}`}
+                              >
+                                {target.title}
+                              </h4>
+                              <p className='text-xs text-gray-500 leading-relaxed font-medium'>
+                                {target.desc}
+                              </p>
+                            </div>
+                          </div>
+                        );
+                      })}
                     </div>
-                    {errors.tanggalLahir && (
-                      <p className='text-xs text-red-500 font-medium mt-1'>
-                        {errors.tanggalLahir}
-                      </p>
-                    )}
-                  </div>
 
-                  <InputField
-                    label='Usia (Tahun)'
-                    type='number'
-                    placeholder='Contoh: 25'
-                    required
-                    value={formData.usia}
-                    onChange={(v) => handleChange('usia', v)}
-                    error={errors.usia}
-                  />
-                </div>
-
-                <div className='space-y-4'>
-                  <label className='text-sm font-semibold text-gray-700 block'>
-                    Jenis Kelamin
-                  </label>
-                  <div className='grid grid-cols-2 gap-4'>
-                    {['Laki-laki', 'Perempuan'].map((gender) => (
-                      <div
-                        key={gender}
-                        onClick={() => handleChange('jenisKelamin', gender)}
-                        className={`cursor-pointer rounded-xl p-4 border-2 flex items-center gap-3 transition-all duration-200
-                          ${formData.jenisKelamin === gender ? 'border-primary bg-orange-50/50' : 'border-gray-100 hover:border-gray-200 bg-gray-50'}`}
-                      >
-                        <div
-                          className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${formData.jenisKelamin === gender ? 'border-primary' : 'border-gray-300'}`}
-                        >
-                          {formData.jenisKelamin === gender && (
-                            <div className='w-2.5 h-2.5 rounded-full bg-primary' />
-                          )}
-                        </div>
-                        <span
-                          className={`font-medium ${formData.jenisKelamin === gender ? 'text-gray-900' : 'text-gray-500'}`}
-                        >
-                          {gender}
-                        </span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
-                <div className='space-y-2'>
-                  <label className='text-sm font-semibold text-gray-700 block'>
-                    Pendidikan Terakhir
-                  </label>
-                  <select
-                    value={formData.pendidikan}
-                    onChange={(e) => handleChange('pendidikan', e.target.value)}
-                    className='w-full px-4 py-3.5 bg-gray-50 border border-transparent rounded-xl outline-none focus:bg-white focus:border-primary focus:ring-4 focus:ring-orange-100 transition-all font-medium text-gray-700 cursor-pointer appearance-none'
-                  >
-                    <option value=''>Pilih Pendidikan</option>
-                    {[
-                      'Tidak tamat SD',
-                      'SD',
-                      'SMP',
-                      'SMA/SMK',
-                      'Diploma',
-                      'Sarjana',
-                      'Pascasarjana',
-                    ].map((opt) => (
-                      <option key={opt} value={opt}>
-                        {opt}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-
-                <div className='space-y-4'>
-                  <label className='text-sm font-semibold text-gray-700 block'>
-                    Target Konsultasi <span className='text-red-500'>*</span>
-                  </label>
-                  <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
-                    {[
-                      {
-                        title: 'Body Goals',
-                        desc: 'Capai berat badan idealmu! Paket ini juga didesain untuk mendukung promil, kesuburan dan menurunkan kadar lemak tubuh.',
-                      },
-                      {
-                        title: 'Clinic Care',
-                        desc: 'Program diet untuk penderita penyakit diabetes mellitus, asam urat, kolesterol, jantung, hipertensi, pencernaan, infeksi, dan masih banyak lagi.',
-                      },
-                      {
-                        title: "Women's Health",
-                        desc: 'Program untuk mencapai gizi optimal bagi BUMIL dan BUSUI ASI eksklusif.',
-                      },
-                      {
-                        title: 'Body for Baby',
-                        desc: 'Program untuk membantu orang tua mengatur pola, menu dan porsi makan ANAK.',
-                      },
-                      {
-                        title: 'Lainnya',
-                        desc: 'Tuliskan sendiri tujuan konsultasi Anda secara spesifik.',
-                      },
-                    ].map((target) => {
+                    {(() => {
                       const predefined = [
                         'Body Goals',
                         'Clinic Care',
@@ -649,127 +693,76 @@ export default function AssessmentPage() {
                       const isCustom =
                         formData.targetKonsultasi !== '' &&
                         !predefined.includes(formData.targetKonsultasi);
-                      const isSelected =
-                        target.title === 'Lainnya'
-                          ? isCustom || formData.targetKonsultasi === 'Lainnya'
-                          : formData.targetKonsultasi === target.title;
 
-                      return (
-                        <div
-                          key={target.title}
-                          onClick={() =>
-                            handleChange(
-                              'targetKonsultasi',
-                              target.title === 'Lainnya'
-                                ? 'Lainnya'
-                                : target.title,
-                            )
-                          }
-                          className={`cursor-pointer rounded-2xl p-4 md:p-5 border-2 transition-all duration-200 text-left flex items-start gap-3
-                            ${isSelected ? 'border-primary bg-orange-50/50 shadow-md shadow-orange-100' : 'border-gray-100 hover:border-gray-200 bg-gray-50'}`}
-                        >
-                          <div
-                            className={`mt-0.5 w-5 h-5 rounded-full border-2 flex items-center justify-center shrink-0 transition-colors ${isSelected ? 'border-primary' : 'border-gray-300'}`}
-                          >
-                            {isSelected && (
-                              <div className='w-2.5 h-2.5 rounded-full bg-primary' />
+                      if (isCustom || formData.targetKonsultasi === 'Lainnya') {
+                        return (
+                          <div className='animate-slide-down mt-4'>
+                            <textarea
+                              placeholder='Tuliskan target konsultasi Anda secara detail...'
+                              value={
+                                formData.targetKonsultasi === 'Lainnya'
+                                  ? ''
+                                  : formData.targetKonsultasi
+                              }
+                              onChange={(e) =>
+                                handleChange(
+                                  'targetKonsultasi',
+                                  e.target.value.trim() === ''
+                                    ? 'Lainnya'
+                                    : e.target.value,
+                                )
+                              }
+                              className={`w-full px-4 py-3.5 bg-gray-50 border rounded-xl outline-none transition-all duration-200 font-medium min-h-[100px]
+                               ${errors.targetKonsultasi ? 'border-red-300 bg-red-50 focus:border-red-500 focus:ring-4 focus:ring-red-100' : 'border-transparent focus:bg-white focus:border-primary focus:ring-4 focus:ring-orange-100 placeholder:text-gray-400'}`}
+                            />
+                            {errors.targetKonsultasi && (
+                              <p className='text-xs text-red-500 font-medium mt-1'>
+                                {errors.targetKonsultasi}
+                              </p>
                             )}
                           </div>
-                          <div>
-                            <h4
-                              className={`font-bold text-sm md:text-base mb-1 ${isSelected ? 'text-gray-900' : 'text-gray-700'}`}
-                            >
-                              {target.title}
-                            </h4>
-                            <p className='text-xs text-gray-500 leading-relaxed font-medium'>
-                              {target.desc}
-                            </p>
-                          </div>
-                        </div>
-                      );
-                    })}
+                        );
+                      }
+
+                      if (errors.targetKonsultasi) {
+                        return (
+                          <p className='text-xs text-red-500 font-medium mt-1'>
+                            {errors.targetKonsultasi}
+                          </p>
+                        );
+                      }
+                      return null;
+                    })()}
                   </div>
 
-                  {(() => {
-                    const predefined = [
-                      'Body Goals',
-                      'Clinic Care',
-                      "Women's Health",
-                      'Body for Baby',
-                    ];
-                    const isCustom =
-                      formData.targetKonsultasi !== '' &&
-                      !predefined.includes(formData.targetKonsultasi);
-
-                    if (isCustom || formData.targetKonsultasi === 'Lainnya') {
-                      return (
-                        <div className='animate-slide-down mt-4'>
-                          <textarea
-                            placeholder='Tuliskan target konsultasi Anda secara detail...'
-                            value={
-                              formData.targetKonsultasi === 'Lainnya'
-                                ? ''
-                                : formData.targetKonsultasi
-                            }
-                            onChange={(e) =>
-                              handleChange(
-                                'targetKonsultasi',
-                                e.target.value.trim() === ''
-                                  ? 'Lainnya'
-                                  : e.target.value,
-                              )
-                            }
-                            className={`w-full px-4 py-3.5 bg-gray-50 border rounded-xl outline-none transition-all duration-200 font-medium min-h-[100px]
-                               ${errors.targetKonsultasi ? 'border-red-300 bg-red-50 focus:border-red-500 focus:ring-4 focus:ring-red-100' : 'border-transparent focus:bg-white focus:border-primary focus:ring-4 focus:ring-orange-100 placeholder:text-gray-400'}`}
-                          />
-                          {errors.targetKonsultasi && (
-                            <p className='text-xs text-red-500 font-medium mt-1'>
-                              {errors.targetKonsultasi}
-                            </p>
-                          )}
-                        </div>
-                      );
-                    }
-
-                    if (errors.targetKonsultasi) {
-                      return (
-                        <p className='text-xs text-red-500 font-medium mt-1'>
-                          {errors.targetKonsultasi}
-                        </p>
-                      );
-                    }
-                    return null;
-                  })()}
-                </div>
-
-                <div className='pt-6 border-t border-dashed border-gray-200'>
-                  <h3 className='text-sm md:text-lg font-bold text-gray-900 mb-4'>
-                    Metrik Tubuh Awal
-                  </h3>
-                  <div className='grid grid-cols-1 md:grid-cols-3 gap-4'>
-                    <InputField
-                      label='Tinggi Badan (cm)'
-                      type='number'
-                      value={formData.tinggiBadan}
-                      onChange={(v) => handleChange('tinggiBadan', v)}
-                      placeholder='170'
-                    />
-                    <InputField
-                      label='Berat Badan (kg)'
-                      type='number'
-                      value={formData.beratBadan}
-                      onChange={(v) => handleChange('beratBadan', v)}
-                      placeholder='65'
-                    />
-                    <InputField
-                      label='Lingkar Lengan Atas (cm)'
-                      type='number'
-                      placeholder='Opsional'
-                      value={formData.lila}
-                      onChange={(v) => handleChange('lila', v)}
-                    />
+                  <div className='pt-6 border-t border-dashed border-gray-200'>
+                    <h3 className='text-sm md:text-lg font-bold text-gray-900 mb-4'>
+                      Metrik Tubuh Awal
+                    </h3>
+                    <div className='grid grid-cols-1 md:grid-cols-3 gap-4'>
+                      <InputField
+                        label='Tinggi Badan (cm)'
+                        type='number'
+                        value={formData.tinggiBadan}
+                        onChange={(v) => handleChange('tinggiBadan', v)}
+                        placeholder='170'
+                      />
+                      <InputField
+                        label='Berat Badan (kg)'
+                        type='number'
+                        value={formData.beratBadan}
+                        onChange={(v) => handleChange('beratBadan', v)}
+                        placeholder='65'
+                      />
+                      <InputField
+                        label='Lingkar Lengan Atas (cm)'
+                        type='number'
+                        placeholder='Opsional'
+                        value={formData.lila}
+                        onChange={(v) => handleChange('lila', v)}
+                      />
+                    </div>
                   </div>
-                </div>
                 </motion.div>
               )}
 
@@ -783,176 +776,176 @@ export default function AssessmentPage() {
                   variants={fadeUpVariants}
                   className='space-y-6 text-xs md:text-sm'
                 >
-                <div className='space-y-3'>
-                  <label className='text-sm font-semibold text-gray-700 block'>
-                    Pemeriksaan Lab (jika ada)
-                  </label>
-                  <textarea
-                    placeholder='Sebutkan hasil lab terakhir (Kolesterol, Gula Darah, Asam Urat, dll)...'
-                    value={formData.pemeriksaanLab}
-                    onChange={(e) =>
-                      handleChange('pemeriksaanLab', e.target.value)
-                    }
-                    className='w-full px-4 py-3.5 bg-gray-50 border border-transparent rounded-xl outline-none focus:bg-white focus:border-primary focus:ring-4 focus:ring-orange-100 transition-all font-medium text-gray-700 placeholder:text-gray-400 min-h-[100px]'
-                  />
-                  <div className='mt-2'>
-                    <label className='flex items-center justify-center w-full px-4 py-5 bg-orange-50/30 border-2 border-dashed border-orange-200 rounded-xl cursor-pointer hover:bg-orange-50/80 transition-all group overflow-hidden'>
-                      <div className='flex flex-col items-center gap-2 group cursor-pointer relative'>
-                        {isUploadingFile ? (
-                          <>
-                            <div className='w-6 h-6 border-2 border-orange-300 border-t-primary rounded-full animate-spin'></div>
-                            <span className='text-xs md:text-sm font-medium text-primary'>
-                              Mengunggah file...
-                            </span>
-                          </>
-                        ) : (
-                          <>
-                            <Upload
-                              className={`w-6 h-6 transition-colors ${formData.pemeriksaanLabFile ? 'text-primary' : 'text-orange-300 group-hover:text-primary'}`}
-                            />
-                            <span className='text-xs md:text-sm font-medium text-orange-900/70 group-hover:text-orange-900 transition-colors'>
-                              {formData.pemeriksaanLabFile
-                                ? 'Ganti File/Dokumen'
-                                : 'Lampirkan Foto/Dokumen Lab'}
-                            </span>
-                            {formData.pemeriksaanLabFile && (
-                              <span className='text-xs text-primary bg-primary/10 px-3 py-1 rounded-full text-center truncate max-w-[200px] md:max-w-[300px] font-bold border border-primary/20'>
-                                {formData.pemeriksaanLabFile}
+                  <div className='space-y-3'>
+                    <label className='text-sm font-semibold text-gray-700 block'>
+                      Pemeriksaan Lab (jika ada)
+                    </label>
+                    <textarea
+                      placeholder='Sebutkan hasil lab terakhir (Kolesterol, Gula Darah, Asam Urat, dll)...'
+                      value={formData.pemeriksaanLab}
+                      onChange={(e) =>
+                        handleChange('pemeriksaanLab', e.target.value)
+                      }
+                      className='w-full px-4 py-3.5 bg-gray-50 border border-transparent rounded-xl outline-none focus:bg-white focus:border-primary focus:ring-4 focus:ring-orange-100 transition-all font-medium text-gray-700 placeholder:text-gray-400 min-h-[100px]'
+                    />
+                    <div className='mt-2'>
+                      <label className='flex items-center justify-center w-full px-4 py-5 bg-orange-50/30 border-2 border-dashed border-orange-200 rounded-xl cursor-pointer hover:bg-orange-50/80 transition-all group overflow-hidden'>
+                        <div className='flex flex-col items-center gap-2 group cursor-pointer relative'>
+                          {isUploadingFile ? (
+                            <>
+                              <div className='w-6 h-6 border-2 border-orange-300 border-t-primary rounded-full animate-spin'></div>
+                              <span className='text-xs md:text-sm font-medium text-primary'>
+                                Mengunggah file...
                               </span>
-                            )}
-                            {!formData.pemeriksaanLabFile && (
-                              <span className='text-[10px] text-gray-400 font-medium'>
-                                Maks. 5MB (JPG, PNG, PDF)
+                            </>
+                          ) : (
+                            <>
+                              <Upload
+                                className={`w-6 h-6 transition-colors ${formData.pemeriksaanLabFile ? 'text-primary' : 'text-orange-300 group-hover:text-primary'}`}
+                              />
+                              <span className='text-xs md:text-sm font-medium text-orange-900/70 group-hover:text-orange-900 transition-colors'>
+                                {formData.pemeriksaanLabFile
+                                  ? 'Ganti File/Dokumen'
+                                  : 'Lampirkan Foto/Dokumen Lab'}
                               </span>
-                            )}
-                          </>
-                        )}
-                      </div>
-                      <input
-                        type='file'
-                        className='hidden'
-                        accept='image/*,.pdf,.doc,.docx'
-                        onChange={async (e) => {
-                          const file = e.target.files?.[0];
-                          if (file) {
-                            setIsUploadingFile(true);
-                            const fd = new FormData();
-                            fd.append('file', file);
-                            try {
-                              const res = await fetch('/api/upload', {
-                                method: 'POST',
-                                body: fd,
-                              });
-                              const data = await res.json();
-                              if (data.success) {
-                                handleChange(
-                                  'pemeriksaanLabFile',
-                                  data.fileName,
-                                );
-                              } else {
+                              {formData.pemeriksaanLabFile && (
+                                <span className='text-xs text-primary bg-primary/10 px-3 py-1 rounded-full text-center truncate max-w-[200px] md:max-w-[300px] font-bold border border-primary/20'>
+                                  {formData.pemeriksaanLabFile}
+                                </span>
+                              )}
+                              {!formData.pemeriksaanLabFile && (
+                                <span className='text-[10px] text-gray-400 font-medium'>
+                                  Maks. 5MB (JPG, PNG, PDF)
+                                </span>
+                              )}
+                            </>
+                          )}
+                        </div>
+                        <input
+                          type='file'
+                          className='hidden'
+                          accept='image/*,.pdf,.doc,.docx'
+                          onChange={async (e) => {
+                            const file = e.target.files?.[0];
+                            if (file) {
+                              setIsUploadingFile(true);
+                              const fd = new FormData();
+                              fd.append('file', file);
+                              try {
+                                const res = await fetch('/api/upload', {
+                                  method: 'POST',
+                                  body: fd,
+                                });
+                                const data = await res.json();
+                                if (data.success) {
+                                  handleChange(
+                                    'pemeriksaanLabFile',
+                                    data.fileName,
+                                  );
+                                } else {
+                                  toast.error('Gagal unggah file');
+                                }
+                              } catch (err) {
                                 toast.error('Gagal unggah file');
+                              } finally {
+                                setIsUploadingFile(false);
                               }
-                            } catch (err) {
-                              toast.error('Gagal unggah file');
-                            } finally {
-                              setIsUploadingFile(false);
                             }
+                          }}
+                        />
+                      </label>
+                    </div>
+                  </div>
+                  <div className='space-y-3'>
+                    <label className='text-sm font-semibold text-gray-700 block'>
+                      Keluhan yang dirasakan
+                    </label>
+                    <div className='grid grid-cols-2 md:grid-cols-3 gap-3'>
+                      {[
+                        'Mual',
+                        'Muntah',
+                        'Alergi makanan',
+                        'Pantangan makanan',
+                        'Demam',
+                        'Sariawan',
+                        'Gangguan mengunyah',
+                      ].map((item) => {
+                        const isSelected = formData.keluhan.includes(item);
+                        return (
+                          <button
+                            type='button'
+                            key={item}
+                            onClick={() => handleCheckboxChange('keluhan', item)}
+                            className={`px-4 py-3 rounded-xl text-xs md:text-sm font-medium transition-all duration-200 border-2
+                               ${isSelected ? 'border-primary bg-primary/5 text-primary' : 'border-gray-100 bg-gray-50 text-gray-500 hover:bg-gray-100'}`}
+                          >
+                            {item}
+                          </button>
+                        );
+                      })}
+                      {/* Opsi Lainnya */}
+                      <button
+                        type='button'
+                        onClick={() => {
+                          const hasLainnya = formData.keluhan.some(k => !['Mual', 'Muntah', 'Alergi makanan', 'Pantangan makanan', 'Demam', 'Sariawan', 'Gangguan mengunyah'].includes(k));
+                          if (hasLainnya) {
+                            // Jika sudah ada keluhan custom, hapus semua yang bukan predefined
+                            const predefined = ['Mual', 'Muntah', 'Alergi makanan', 'Pantangan makanan', 'Demam', 'Sariawan', 'Gangguan mengunyah'];
+                            const cleaned = formData.keluhan.filter(k => predefined.includes(k));
+                            handleChange('keluhan', cleaned);
+                          } else {
+                            // Tambahkan placeholder untuk memicu input
+                            handleCheckboxChange('keluhan', '');
                           }
                         }}
-                      />
-                    </label>
-                  </div>
-                </div>
-                <div className='space-y-3'>
-                  <label className='text-sm font-semibold text-gray-700 block'>
-                    Keluhan yang dirasakan
-                  </label>
-                  <div className='grid grid-cols-2 md:grid-cols-3 gap-3'>
-                    {[
-                      'Mual',
-                      'Muntah',
-                      'Alergi makanan',
-                      'Pantangan makanan',
-                      'Demam',
-                      'Sariawan',
-                      'Gangguan mengunyah',
-                    ].map((item) => {
-                      const isSelected = formData.keluhan.includes(item);
-                      return (
-                        <button
-                          type='button'
-                          key={item}
-                          onClick={() => handleCheckboxChange('keluhan', item)}
-                          className={`px-4 py-3 rounded-xl text-xs md:text-sm font-medium transition-all duration-200 border-2
-                               ${isSelected ? 'border-primary bg-primary/5 text-primary' : 'border-gray-100 bg-gray-50 text-gray-500 hover:bg-gray-100'}`}
-                        >
-                          {item}
-                        </button>
-                      );
-                    })}
-                    {/* Opsi Lainnya */}
-                    <button
-                      type='button'
-                      onClick={() => {
-                        const hasLainnya = formData.keluhan.some(k => !['Mual', 'Muntah', 'Alergi makanan', 'Pantangan makanan', 'Demam', 'Sariawan', 'Gangguan mengunyah'].includes(k));
-                        if (hasLainnya) {
-                          // Jika sudah ada keluhan custom, hapus semua yang bukan predefined
-                          const predefined = ['Mual', 'Muntah', 'Alergi makanan', 'Pantangan makanan', 'Demam', 'Sariawan', 'Gangguan mengunyah'];
-                          const cleaned = formData.keluhan.filter(k => predefined.includes(k));
-                          handleChange('keluhan', cleaned);
-                        } else {
-                          // Tambahkan placeholder untuk memicu input
-                          handleCheckboxChange('keluhan', '');
-                        }
-                      }}
-                      className={`px-4 py-3 rounded-xl text-xs md:text-sm font-medium transition-all duration-200 border-2
-                        ${formData.keluhan.some(k => !['Mual', 'Muntah', 'Alergi makanan', 'Pantangan makanan', 'Demam', 'Sariawan', 'Gangguan mengunyah'].includes(k)) 
-                          ? 'border-primary bg-primary/5 text-primary' 
-                          : 'border-gray-100 bg-gray-50 text-gray-500 hover:bg-gray-100'}`}
-                    >
-                      Lainnya
-                    </button>
-                  </div>
-
-                  {/* Input untuk Keluhan Lainnya */}
-                  {formData.keluhan.some(k => k === '' || !['Mual', 'Muntah', 'Alergi makanan', 'Pantangan makanan', 'Demam', 'Sariawan', 'Gangguan mengunyah', ''].includes(k)) && (
-                    <div className='animate-slide-down mt-3'>
-                      <input
-                        type='text'
-                        placeholder='Sebutkan keluhan lainnya...'
-                        value={formData.keluhan.find(k => !['Mual', 'Muntah', 'Alergi makanan', 'Pantangan makanan', 'Demam', 'Sariawan', 'Gangguan mengunyah'].includes(k)) || ''}
-                        onChange={(e) => {
-                          const val = e.target.value;
-                          const predefined = ['Mual', 'Muntah', 'Alergi makanan', 'Pantangan makanan', 'Demam', 'Sariawan', 'Gangguan mengunyah'];
-                          const others = formData.keluhan.filter(k => predefined.includes(k));
-                          handleChange('keluhan', [...others, val]);
-                        }}
-                        className='w-full px-4 py-3 bg-white border border-gray-200 rounded-xl outline-none focus:border-primary focus:ring-4 focus:ring-orange-100 transition-all font-medium text-gray-700'
-                      />
+                        className={`px-4 py-3 rounded-xl text-xs md:text-sm font-medium transition-all duration-200 border-2
+                        ${formData.keluhan.some(k => !['Mual', 'Muntah', 'Alergi makanan', 'Pantangan makanan', 'Demam', 'Sariawan', 'Gangguan mengunyah'].includes(k))
+                            ? 'border-primary bg-primary/5 text-primary'
+                            : 'border-gray-100 bg-gray-50 text-gray-500 hover:bg-gray-100'}`}
+                      >
+                        Lainnya
+                      </button>
                     </div>
-                  )}
-                </div>
 
-                <TextAreaField
-                  label='Riwayat Penyakit'
-                  placeholder='Deskripsikan riwayat penyakit dahulu atau keluarga...'
-                  value={formData.riwayatPenyakit}
-                  onChange={(v) => handleChange('riwayatPenyakit', v)}
-                />
+                    {/* Input untuk Keluhan Lainnya */}
+                    {formData.keluhan.some(k => k === '' || !['Mual', 'Muntah', 'Alergi makanan', 'Pantangan makanan', 'Demam', 'Sariawan', 'Gangguan mengunyah', ''].includes(k)) && (
+                      <div className='animate-slide-down mt-3'>
+                        <input
+                          type='text'
+                          placeholder='Sebutkan keluhan lainnya...'
+                          value={formData.keluhan.find(k => !['Mual', 'Muntah', 'Alergi makanan', 'Pantangan makanan', 'Demam', 'Sariawan', 'Gangguan mengunyah'].includes(k)) || ''}
+                          onChange={(e) => {
+                            const val = e.target.value;
+                            const predefined = ['Mual', 'Muntah', 'Alergi makanan', 'Pantangan makanan', 'Demam', 'Sariawan', 'Gangguan mengunyah'];
+                            const others = formData.keluhan.filter(k => predefined.includes(k));
+                            handleChange('keluhan', [...others, val]);
+                          }}
+                          className='w-full px-4 py-3 bg-white border border-gray-200 rounded-xl outline-none focus:border-primary focus:ring-4 focus:ring-orange-100 transition-all font-medium text-gray-700'
+                        />
+                      </div>
+                    )}
+                  </div>
 
-                <TextAreaField
-                  label='Obat yang dikonsumsi'
-                  placeholder='Nama obat, dosis, frekuensi...'
-                  value={formData.obatKonsumsi}
-                  onChange={(v) => handleChange('obatKonsumsi', v)}
-                />
+                  <TextAreaField
+                    label='Riwayat Penyakit'
+                    placeholder='Deskripsikan riwayat penyakit dahulu atau keluarga...'
+                    value={formData.riwayatPenyakit}
+                    onChange={(v) => handleChange('riwayatPenyakit', v)}
+                  />
 
-                <TextAreaField
-                  label='Suplemen/Vitamin yang dikonsumsi'
-                  placeholder='Nama vitamin, merk, dosis...'
-                  value={formData.suplemenKonsumsi}
-                  onChange={(v) => handleChange('suplemenKonsumsi', v)}
-                />
+                  <TextAreaField
+                    label='Obat yang dikonsumsi'
+                    placeholder='Nama obat, dosis, frekuensi...'
+                    value={formData.obatKonsumsi}
+                    onChange={(v) => handleChange('obatKonsumsi', v)}
+                  />
+
+                  <TextAreaField
+                    label='Suplemen/Vitamin yang dikonsumsi'
+                    placeholder='Nama vitamin, merk, dosis...'
+                    value={formData.suplemenKonsumsi}
+                    onChange={(v) => handleChange('suplemenKonsumsi', v)}
+                  />
                 </motion.div>
               )}
 
@@ -966,128 +959,128 @@ export default function AssessmentPage() {
                   variants={fadeUpVariants}
                   className='space-y-6 text-xs md:text-sm'
                 >
-                <div className='bg-orange-50/50 p-6 rounded-2xl border border-orange-100/50'>
-                  <label className='text-sm font-semibold text-gray-700 block mb-3'>
-                    Frekuensi Makan Harian
-                  </label>
-                  <div className='flex flex-wrap gap-3'>
-                    {['1x', '2x', '3x'].map((opt) => (
-                      <button
-                        key={opt}
-                        type='button'
-                        onClick={() => {
-                          handleChange('frekuensiMakan', opt);
-                          handleChange('frekuensiMakanLainnya', '');
-                        }}
-                        className={`w-14 h-14 rounded-full border-2 text-sm font-bold transition-all duration-200 flex items-center justify-center
+                  <div className='bg-orange-50/50 p-6 rounded-2xl border border-orange-100/50'>
+                    <label className='text-sm font-semibold text-gray-700 block mb-3'>
+                      Frekuensi Makan Harian
+                    </label>
+                    <div className='flex flex-wrap gap-3'>
+                      {['1x', '2x', '3x'].map((opt) => (
+                        <button
+                          key={opt}
+                          type='button'
+                          onClick={() => {
+                            handleChange('frekuensiMakan', opt);
+                            handleChange('frekuensiMakanLainnya', '');
+                          }}
+                          className={`w-14 h-14 rounded-full border-2 text-sm font-bold transition-all duration-200 flex items-center justify-center
                             ${formData.frekuensiMakan === opt
-                            ? 'bg-primary border-primary text-white shadow-lg shadow-orange-200 scale-105'
-                            : 'bg-white text-gray-500 border-gray-200 hover:border-gray-300'
-                          }`}
-                      >
-                        {opt}
-                      </button>
-                    ))}
-                    <div className='flex-1 min-w-30'>
-                      <input
-                        type='text'
-                        placeholder='Lainnya...'
-                        value={formData.frekuensiMakanLainnya}
-                        onChange={(e) => {
-                          handleChange('frekuensiMakanLainnya', e.target.value);
-                          handleChange('frekuensiMakan', 'Lainnya');
-                        }}
-                        className={`w-full px-5 py-3.5 rounded-2xl border bg-white outline-none font-medium transition-all
-                             ${formData.frekuensiMakan === 'Lainnya'
-                            ? 'border-primary ring-2 ring-orange-100'
-                            : 'border-gray-200 text-gray-500'
-                          }`}
-                      />
-                    </div>
-                  </div>
-                </div>
-
-                <div className='space-y-3'>
-                  <label className='text-sm font-semibold text-gray-700 block'>
-                    Waktu Makan & Pola
-                  </label>
-                  <div className='grid grid-cols-2 gap-3 mb-4'>
-                    {['Sarapan', 'Makan Siang', 'Makan Malam', 'Cemilan'].map(
-                      (item) => {
-                        const isSelected = formData.polaMakan.includes(item);
-                        return (
-                          <div
-                            key={item}
-                            onClick={() =>
-                              handleCheckboxChange('polaMakan', item)
-                            }
-                            className={`text-xs md:text-sm cursor-pointer p-4 rounded-xl border flex items-center justify-between transition-all
-                                ${isSelected ? 'bg-primary text-white border-primary shadow-md shadow-orange-200' : 'bg-gray-50 border-transparent text-gray-500 hover:bg-gray-100'}`}
-                          >
-                            <span className='font-medium text-xs md:text-sm'>
-                              {item}
-                            </span>
-                            {isSelected && (
-                              <CheckCircle className='w-3 h-3 md:w-4 md:h-4' />
-                            )}
-                          </div>
-                        );
-                      },
-                    )}
-                  </div>
-                  <InputField
-                    label='Detail Waktu Makan'
-                    placeholder='Contoh: Sarapan jam 7, Makan Siang jam 12...'
-                    value={formData.waktuMakan}
-                    onChange={(v) => handleChange('waktuMakan', v)}
-                  />
-                </div>
-
-                <div className='p-6 bg-gray-50 rounded-2xl border border-gray-100'>
-                  <label className='text-sm font-semibold text-gray-700 block mb-3'>
-                    Apakah sedang menjalani diet tertentu?
-                  </label>
-                  <div className='flex flex-wrap gap-4 mb-4'>
-                    {['Ya', 'Tidak', 'Lainnya'].map((opt) => (
-                      <label
-                        key={opt}
-                        className='flex items-center gap-2 cursor-pointer group'
-                      >
-                        <div
-                          className={`w-5 h-5 rounded-full border-2 flex items-center justify-center transition-colors ${formData.riwayatDiet === opt ? 'border-primary' : 'border-gray-300 group-hover:border-primary'}`}
-                        >
-                          {formData.riwayatDiet === opt && (
-                            <div className='w-2.5 h-2.5 bg-primary rounded-full' />
-                          )}
-                        </div>
-                        <input
-                          type='radio'
-                          value={opt}
-                          checked={formData.riwayatDiet === opt}
-                          onChange={() => handleChange('riwayatDiet', opt)}
-                          className='hidden'
-                        />
-                        <span
-                          className={`text-sm font-medium ${formData.riwayatDiet === opt ? 'text-gray-900' : 'text-gray-500'}`}
+                              ? 'bg-primary border-primary text-white shadow-lg shadow-orange-200 scale-105'
+                              : 'bg-white text-gray-500 border-gray-200 hover:border-gray-300'
+                            }`}
                         >
                           {opt}
-                        </span>
-                      </label>
-                    ))}
+                        </button>
+                      ))}
+                      <div className='flex-1 min-w-30'>
+                        <input
+                          type='text'
+                          placeholder='Lainnya...'
+                          value={formData.frekuensiMakanLainnya}
+                          onChange={(e) => {
+                            handleChange('frekuensiMakanLainnya', e.target.value);
+                            handleChange('frekuensiMakan', 'Lainnya');
+                          }}
+                          className={`w-full px-5 py-3.5 rounded-2xl border bg-white outline-none font-medium transition-all
+                             ${formData.frekuensiMakan === 'Lainnya'
+                              ? 'border-primary ring-2 ring-orange-100'
+                              : 'border-gray-200 text-gray-500'
+                            }`}
+                        />
+                      </div>
+                    </div>
                   </div>
 
-                  {formData.riwayatDiet === 'Ya' && (
-                    <div className='animate-slide-down'>
-                      <InputField
-                        label='Alasan berhenti / deskripsi singkat diet'
-                        placeholder='Ceritakan pengalaman diet Anda...'
-                        value={formData.alasanBerhentiDiet}
-                        onChange={(v) => handleChange('alasanBerhentiDiet', v)}
-                        className='bg-white'
-                      />
+                  <div className='space-y-3'>
+                    <label className='text-sm font-semibold text-gray-700 block'>
+                      Waktu Makan & Pola
+                    </label>
+                    <div className='grid grid-cols-2 gap-3 mb-4'>
+                      {['Sarapan', 'Makan Siang', 'Makan Malam', 'Cemilan'].map(
+                        (item) => {
+                          const isSelected = formData.polaMakan.includes(item);
+                          return (
+                            <div
+                              key={item}
+                              onClick={() =>
+                                handleCheckboxChange('polaMakan', item)
+                              }
+                              className={`text-xs md:text-sm cursor-pointer p-4 rounded-xl border flex items-center justify-between transition-all
+                                ${isSelected ? 'bg-primary text-white border-primary shadow-md shadow-orange-200' : 'bg-gray-50 border-transparent text-gray-500 hover:bg-gray-100'}`}
+                            >
+                              <span className='font-medium text-xs md:text-sm'>
+                                {item}
+                              </span>
+                              {isSelected && (
+                                <CheckCircle className='w-3 h-3 md:w-4 md:h-4' />
+                              )}
+                            </div>
+                          );
+                        },
+                      )}
                     </div>
-                  )}
-                </div>
+                    <InputField
+                      label='Detail Waktu Makan'
+                      placeholder='Contoh: Sarapan jam 7, Makan Siang jam 12...'
+                      value={formData.waktuMakan}
+                      onChange={(v) => handleChange('waktuMakan', v)}
+                    />
+                  </div>
+
+                  <div className='p-6 bg-gray-50 rounded-2xl border border-gray-100'>
+                    <label className='text-sm font-semibold text-gray-700 block mb-3'>
+                      Apakah sedang menjalani diet tertentu?
+                    </label>
+                    <div className='flex flex-wrap gap-4 mb-4'>
+                      {['Ya', 'Tidak', 'Lainnya'].map((opt) => (
+                        <label
+                          key={opt}
+                          className='flex items-center gap-2 cursor-pointer group'
+                        >
+                          <div
+                            className={`w-5 h-5 rounded-full border-2 flex items-center justify-center transition-colors ${formData.riwayatDiet === opt ? 'border-primary' : 'border-gray-300 group-hover:border-primary'}`}
+                          >
+                            {formData.riwayatDiet === opt && (
+                              <div className='w-2.5 h-2.5 bg-primary rounded-full' />
+                            )}
+                          </div>
+                          <input
+                            type='radio'
+                            value={opt}
+                            checked={formData.riwayatDiet === opt}
+                            onChange={() => handleChange('riwayatDiet', opt)}
+                            className='hidden'
+                          />
+                          <span
+                            className={`text-sm font-medium ${formData.riwayatDiet === opt ? 'text-gray-900' : 'text-gray-500'}`}
+                          >
+                            {opt}
+                          </span>
+                        </label>
+                      ))}
+                    </div>
+
+                    {formData.riwayatDiet === 'Ya' && (
+                      <div className='animate-slide-down'>
+                        <InputField
+                          label='Alasan berhenti / deskripsi singkat diet'
+                          placeholder='Ceritakan pengalaman diet Anda...'
+                          value={formData.alasanBerhentiDiet}
+                          onChange={(v) => handleChange('alasanBerhentiDiet', v)}
+                          className='bg-white'
+                        />
+                      </div>
+                    )}
+                  </div>
                 </motion.div>
               )}
 
@@ -1101,141 +1094,141 @@ export default function AssessmentPage() {
                   variants={fadeUpVariants}
                   className='space-y-8 text-xs md:text-sm'
                 >
-                <div className='flex items-start gap-3 md:gap-4 p-4 bg-orange-50 rounded-2xl border border-orange-200/60 shadow-inner'>
-                  <div className='bg-orange-100/90 p-2 md:p-3 rounded-xl shrink-0 mt-0.5 shadow-sm'>
-                    <Apple className='w-5 h-5 md:w-6 md:h-6 text-orange-600' />
-                  </div>
-                  <div className='space-y-3 text-xs md:text-sm text-orange-900 leading-relaxed pr-1 md:pr-2 w-full'>
-                    <div>
-                      <p className='font-bold text-orange-950 text-sm md:text-base'>
-                        Panduan Pengisian Konsumsi
-                      </p>
-                      <p className='opacity-90 mt-0.5'>
-                        Mohon <strong>jawab lengkap</strong> dengan menyebutkan
-                        bahan, porsi, frekuensi, dan cara memasaknya! Semakin
-                        lengkap pengisiannya, semakin mempermudah assessment
-                        gizi awal Anda.
-                      </p>
+                  <div className='flex items-start gap-3 md:gap-4 p-4 bg-orange-50 rounded-2xl border border-orange-200/60 shadow-inner'>
+                    <div className='bg-orange-100/90 p-2 md:p-3 rounded-xl shrink-0 mt-0.5 shadow-sm'>
+                      <Apple className='w-5 h-5 md:w-6 md:h-6 text-orange-600' />
                     </div>
-
-                    <div className='bg-white/70 rounded-xl p-3.5 md:p-5 border border-orange-100 space-y-3.5'>
-                      <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
-                        <div>
-                          <p className='font-bold text-orange-800 text-[10px] md:text-xs uppercase tracking-wider mb-1.5 flex items-center gap-1'>
-                            <span className='w-1.5 h-1.5 rounded-full bg-orange-400'></span>{' '}
-                            Frekuensi
-                          </p>
-                          <p className='text-orange-950/80 text-[11px] md:text-xs font-medium'>
-                            Tidak pernah, 1-3x/hari, 4-6x/hari, 1-3x/minggu,
-                            4-6x/minggu, atau 1-3x/bulan
-                          </p>
-                        </div>
-                        <div>
-                          <p className='font-bold text-orange-800 text-[10px] md:text-xs uppercase tracking-wider mb-1.5 flex items-center gap-1'>
-                            <span className='w-1.5 h-1.5 rounded-full bg-orange-400'></span>{' '}
-                            Ukuran Porsi
-                          </p>
-                          <p className='text-orange-950/80 text-[11px] md:text-xs font-medium'>
-                            1 potong, 1 mangkuk, 1 gelas, 1 centong, 1 sendok
-                            sayur / makan / teh
-                          </p>
-                        </div>
-                        <div className='md:col-span-2'>
-                          <p className='font-bold text-orange-800 text-[10px] md:text-xs uppercase tracking-wider mb-1.5 flex items-center gap-1'>
-                            <span className='w-1.5 h-1.5 rounded-full bg-orange-400'></span>{' '}
-                            Cara Memasak
-                          </p>
-                          <p className='text-orange-950/80 text-[11px] md:text-xs font-medium'>
-                            Goreng, rebus, tumis, bakar, panggang, menggunakan
-                            santan, dll
-                          </p>
-                        </div>
-                      </div>
-
-                      <div className='pt-3.5 mt-2 border-t border-orange-200/50 bg-orange-50/50 -mx-3.5 -mb-3.5 md:-mx-5 md:-mb-5 p-3.5 md:p-5 rounded-b-xl'>
-                        <p className='text-[11px] md:text-xs italic text-orange-800/90 leading-relaxed'>
-                          <span className='font-bold text-orange-900 not-italic inline-block bg-orange-200/50 px-2 py-0.5 rounded mr-1.5 border border-orange-200'>
-                            Contoh:
-                          </span>
-                          Nasi putih 2 centong 3x/hari, ayam goreng 1 potong
-                          5x/minggu, telur dadar 1 butir 4-6x/minggu, tempe
-                          bacem 1 potong 4x/minggu, sayur sop 1 sendok sayur
-                          3x/minggu, jus apel 1 gelas 1x/minggu, dll.
+                    <div className='space-y-3 text-xs md:text-sm text-orange-900 leading-relaxed pr-1 md:pr-2 w-full'>
+                      <div>
+                        <p className='font-bold text-orange-950 text-sm md:text-base'>
+                          Panduan Pengisian Konsumsi
+                        </p>
+                        <p className='opacity-90 mt-0.5'>
+                          Mohon <strong>jawab lengkap</strong> dengan menyebutkan
+                          bahan, porsi, frekuensi, dan cara memasaknya! Semakin
+                          lengkap pengisiannya, semakin mempermudah assessment
+                          gizi awal Anda.
                         </p>
                       </div>
+
+                      <div className='bg-white/70 rounded-xl p-3.5 md:p-5 border border-orange-100 space-y-3.5'>
+                        <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
+                          <div>
+                            <p className='font-bold text-orange-800 text-[10px] md:text-xs uppercase tracking-wider mb-1.5 flex items-center gap-1'>
+                              <span className='w-1.5 h-1.5 rounded-full bg-orange-400'></span>{' '}
+                              Frekuensi
+                            </p>
+                            <p className='text-orange-950/80 text-[11px] md:text-xs font-medium'>
+                              Tidak pernah, 1-3x/hari, 4-6x/hari, 1-3x/minggu,
+                              4-6x/minggu, atau 1-3x/bulan
+                            </p>
+                          </div>
+                          <div>
+                            <p className='font-bold text-orange-800 text-[10px] md:text-xs uppercase tracking-wider mb-1.5 flex items-center gap-1'>
+                              <span className='w-1.5 h-1.5 rounded-full bg-orange-400'></span>{' '}
+                              Ukuran Porsi
+                            </p>
+                            <p className='text-orange-950/80 text-[11px] md:text-xs font-medium'>
+                              1 potong, 1 mangkuk, 1 gelas, 1 centong, 1 sendok
+                              sayur / makan / teh
+                            </p>
+                          </div>
+                          <div className='md:col-span-2'>
+                            <p className='font-bold text-orange-800 text-[10px] md:text-xs uppercase tracking-wider mb-1.5 flex items-center gap-1'>
+                              <span className='w-1.5 h-1.5 rounded-full bg-orange-400'></span>{' '}
+                              Cara Memasak
+                            </p>
+                            <p className='text-orange-950/80 text-[11px] md:text-xs font-medium'>
+                              Goreng, rebus, tumis, bakar, panggang, menggunakan
+                              santan, dll
+                            </p>
+                          </div>
+                        </div>
+
+                        <div className='pt-3.5 mt-2 border-t border-orange-200/50 bg-orange-50/50 -mx-3.5 -mb-3.5 md:-mx-5 md:-mb-5 p-3.5 md:p-5 rounded-b-xl'>
+                          <p className='text-[11px] md:text-xs italic text-orange-800/90 leading-relaxed'>
+                            <span className='font-bold text-orange-900 not-italic inline-block bg-orange-200/50 px-2 py-0.5 rounded mr-1.5 border border-orange-200'>
+                              Contoh:
+                            </span>
+                            Nasi putih 2 centong 3x/hari, ayam goreng 1 potong
+                            5x/minggu, telur dadar 1 butir 4-6x/minggu, tempe
+                            bacem 1 potong 4x/minggu, sayur sop 1 sendok sayur
+                            3x/minggu, jus apel 1 gelas 1x/minggu, dll.
+                          </p>
+                        </div>
+                      </div>
                     </div>
                   </div>
-                </div>
 
-                <div className='grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-5'>
-                  <FoodCategoryCard
-                    label='Sumber Karbohidrat'
-                    emoji='🍚'
-                    description='Nasi, Roti, Kentang, Mie, Pasta, Singkong, dll.'
-                    placeholder='Cth: Nasi putih 2 centong 3x/hari'
-                    value={formData.sumberKarbohidrat}
-                    onChange={(v: string) =>
-                      handleChange('sumberKarbohidrat', v)
-                    }
-                    error={errors.sumberKarbohidrat}
-                  />
-                  <FoodCategoryCard
-                    label='Lauk Hewani'
-                    emoji='🍗'
-                    description='Ayam, Daging sapi, Telur, Ikan, Seafood, dll.'
-                    placeholder='Cth: Ayam goreng 1 potong 5x/minggu'
-                    value={formData.laukHewani}
-                    onChange={(v: string) => handleChange('laukHewani', v)}
-                    error={errors.laukHewani}
-                  />
-                  <FoodCategoryCard
-                    label='Lauk Nabati'
-                    emoji='🥜'
-                    description='Tahu, Tempe, Kacang hijau, Kacang merah, dll.'
-                    placeholder='Cth: Tempe bacem manis 1 potong 4x/minggu'
-                    value={formData.laukNabati}
-                    onChange={(v: string) => handleChange('laukNabati', v)}
-                    error={errors.laukNabati}
-                  />
-                  <FoodCategoryCard
-                    label='Sayuran'
-                    emoji='🥗'
-                    description='Bayam, Kangkung, Sawi, Wortel, Brokoli, dll.'
-                    placeholder='Cth: Sayur sop bening 1 sendok sayur 3x/minggu'
-                    value={formData.sayuran}
-                    onChange={(v: string) => handleChange('sayuran', v)}
-                    error={errors.sayuran}
-                  />
-                  <FoodCategoryCard
-                    label='Buah-buahan'
-                    emoji='🍎'
-                    description='Pisang, Pepaya, Apel, Jeruk, Mangga, Sirsak, dll.'
-                    placeholder='Cth: Pisang ambon 1 buah 2x/minggu'
-                    value={formData.buahbuahan}
-                    onChange={(v: string) => handleChange('buahbuahan', v)}
-                    error={errors.buahbuahan}
-                  />
-                  <FoodCategoryCard
-                    label='Minuman (Selain Air Putih)'
-                    emoji='🥤'
-                    description='Kopi gula, Teh manis, Susu, Jus, Boba, dll.'
-                    placeholder='Cth: Es teh manis pinggir jalan 1 gelas 1-3x/hari'
-                    value={formData.minuman}
-                    onChange={(v: string) => handleChange('minuman', v)}
-                    error={errors.minuman}
-                  />
-                  <div className='md:col-span-2'>
+                  <div className='grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-5'>
                     <FoodCategoryCard
-                      label='Cemilan / Snack'
-                      emoji='🍪'
-                      description='Gorengan, Keripik, Roti manis, Coklat, Kue basah, dll.'
-                      placeholder='Cth: Gorengan bakwan 2 buah 1-3x/minggu, Keripik kentang 1 bungkus 3x/bulan'
-                      value={formData.cemilan}
-                      onChange={(v: string) => handleChange('cemilan', v)}
-                      error={errors.cemilan}
+                      label='Sumber Karbohidrat'
+                      emoji='🍚'
+                      description='Nasi, Roti, Kentang, Mie, Pasta, Singkong, dll.'
+                      placeholder='Cth: Nasi putih 2 centong 3x/hari'
+                      value={formData.sumberKarbohidrat}
+                      onChange={(v: string) =>
+                        handleChange('sumberKarbohidrat', v)
+                      }
+                      error={errors.sumberKarbohidrat}
                     />
+                    <FoodCategoryCard
+                      label='Lauk Hewani'
+                      emoji='🍗'
+                      description='Ayam, Daging sapi, Telur, Ikan, Seafood, dll.'
+                      placeholder='Cth: Ayam goreng 1 potong 5x/minggu'
+                      value={formData.laukHewani}
+                      onChange={(v: string) => handleChange('laukHewani', v)}
+                      error={errors.laukHewani}
+                    />
+                    <FoodCategoryCard
+                      label='Lauk Nabati'
+                      emoji='🥜'
+                      description='Tahu, Tempe, Kacang hijau, Kacang merah, dll.'
+                      placeholder='Cth: Tempe bacem manis 1 potong 4x/minggu'
+                      value={formData.laukNabati}
+                      onChange={(v: string) => handleChange('laukNabati', v)}
+                      error={errors.laukNabati}
+                    />
+                    <FoodCategoryCard
+                      label='Sayuran'
+                      emoji='🥗'
+                      description='Bayam, Kangkung, Sawi, Wortel, Brokoli, dll.'
+                      placeholder='Cth: Sayur sop bening 1 sendok sayur 3x/minggu'
+                      value={formData.sayuran}
+                      onChange={(v: string) => handleChange('sayuran', v)}
+                      error={errors.sayuran}
+                    />
+                    <FoodCategoryCard
+                      label='Buah-buahan'
+                      emoji='🍎'
+                      description='Pisang, Pepaya, Apel, Jeruk, Mangga, Sirsak, dll.'
+                      placeholder='Cth: Pisang ambon 1 buah 2x/minggu'
+                      value={formData.buahbuahan}
+                      onChange={(v: string) => handleChange('buahbuahan', v)}
+                      error={errors.buahbuahan}
+                    />
+                    <FoodCategoryCard
+                      label='Minuman (Selain Air Putih)'
+                      emoji='🥤'
+                      description='Kopi gula, Teh manis, Susu, Jus, Boba, dll.'
+                      placeholder='Cth: Es teh manis pinggir jalan 1 gelas 1-3x/hari'
+                      value={formData.minuman}
+                      onChange={(v: string) => handleChange('minuman', v)}
+                      error={errors.minuman}
+                    />
+                    <div className='md:col-span-2'>
+                      <FoodCategoryCard
+                        label='Cemilan / Snack'
+                        emoji='🍪'
+                        description='Gorengan, Keripik, Roti manis, Coklat, Kue basah, dll.'
+                        placeholder='Cth: Gorengan bakwan 2 buah 1-3x/minggu, Keripik kentang 1 bungkus 3x/bulan'
+                        value={formData.cemilan}
+                        onChange={(v: string) => handleChange('cemilan', v)}
+                        error={errors.cemilan}
+                      />
+                    </div>
                   </div>
-                </div>
                 </motion.div>
               )}
 
@@ -1249,55 +1242,55 @@ export default function AssessmentPage() {
                   variants={fadeUpVariants}
                   className='space-y-6'
                 >
-                <div className='bg-green-50/50 rounded-2xl p-6 border border-green-100/50'>
-                  <label className='text-sm font-semibold text-gray-700 block mb-4'>
-                    Apakah Anda rutin berolahraga?
-                  </label>
-                  <div className='grid grid-cols-2 gap-4'>
-                    {['Ya', 'Tidak'].map((opt) => (
-                      <button
-                        key={opt}
-                        type='button'
-                        onClick={() => handleChange('olahraga', opt)}
-                        className={`py-3 rounded-xl font-bold text-sm transition-all border-2
+                  <div className='bg-green-50/50 rounded-2xl p-6 border border-green-100/50'>
+                    <label className='text-sm font-semibold text-gray-700 block mb-4'>
+                      Apakah Anda rutin berolahraga?
+                    </label>
+                    <div className='grid grid-cols-2 gap-4'>
+                      {['Ya', 'Tidak'].map((opt) => (
+                        <button
+                          key={opt}
+                          type='button'
+                          onClick={() => handleChange('olahraga', opt)}
+                          className={`py-3 rounded-xl font-bold text-sm transition-all border-2
                              ${formData.olahraga === opt ? 'bg-green-600 border-green-600 text-white shadow-lg shadow-green-200' : 'bg-white border-gray-100 text-gray-400 hover:border-gray-300'}`}
-                      >
-                        {opt}
-                      </button>
-                    ))}
-                  </div>
-
-                  {formData.olahraga === 'Ya' && (
-                    <div className='mt-8 space-y-6 animate-slide-down'>
-                      <div className='space-y-2 md:space-y-3'>
-                        <label className='text-xs md:text-sm font-semibold text-gray-700 block'>
-                          Frekuensi Mingguan
-                        </label>
-                        <div className='flex flex-wrap gap-3'>
-                          {['1-2x', '3-4x', 'Lebih dari 4x'].map((opt) => (
-                            <button
-                              key={opt}
-                              type='button'
-                              onClick={() =>
-                                handleChange('frekuensiOlahraga', opt)
-                              }
-                              className={`px-4 md:px-6 py-2 md:py-2.5 rounded-full text-xs md:text-sm font-medium transition-all border
-                                      ${formData.frekuensiOlahraga === opt ? 'bg-green-100 border-green-200 text-green-800' : 'bg-white border-gray-200 text-gray-500 hover:bg-gray-50'}`}
-                            >
-                              {opt}
-                            </button>
-                          ))}
-                        </div>
-                      </div>
-                      <InputField
-                        label='Jenis Olahraga'
-                        placeholder='Contoh: Lari, Renang, Gym...'
-                        value={formData.jenisOlahraga}
-                        onChange={(v) => handleChange('jenisOlahraga', v)}
-                      />
+                        >
+                          {opt}
+                        </button>
+                      ))}
                     </div>
-                  )}
-                </div>
+
+                    {formData.olahraga === 'Ya' && (
+                      <div className='mt-8 space-y-6 animate-slide-down'>
+                        <div className='space-y-2 md:space-y-3'>
+                          <label className='text-xs md:text-sm font-semibold text-gray-700 block'>
+                            Frekuensi Mingguan
+                          </label>
+                          <div className='flex flex-wrap gap-3'>
+                            {['1-2x', '3-4x', 'Lebih dari 4x'].map((opt) => (
+                              <button
+                                key={opt}
+                                type='button'
+                                onClick={() =>
+                                  handleChange('frekuensiOlahraga', opt)
+                                }
+                                className={`px-4 md:px-6 py-2 md:py-2.5 rounded-full text-xs md:text-sm font-medium transition-all border
+                                      ${formData.frekuensiOlahraga === opt ? 'bg-green-100 border-green-200 text-green-800' : 'bg-white border-gray-200 text-gray-500 hover:bg-gray-50'}`}
+                              >
+                                {opt}
+                              </button>
+                            ))}
+                          </div>
+                        </div>
+                        <InputField
+                          label='Jenis Olahraga'
+                          placeholder='Contoh: Lari, Renang, Gym...'
+                          value={formData.jenisOlahraga}
+                          onChange={(v) => handleChange('jenisOlahraga', v)}
+                        />
+                      </div>
+                    )}
+                  </div>
                 </motion.div>
               )}
 
@@ -1311,269 +1304,264 @@ export default function AssessmentPage() {
                   variants={fadeUpVariants}
                   className='space-y-6 text-xs md:text-sm'
                 >
-                <div className='bg-orange-50/50 p-6 rounded-2xl border border-orange-100/50'>
-                  {!formData.pilihanPaket ? (
-                    <div className='animate-fade-in'>
-                      <h3 className='text-base md:text-lg font-bold text-gray-900 mb-2'>
-                        Pilih Paket Konsultasi
-                      </h3>
-                      <p className='text-gray-600 mb-6 text-sm leading-relaxed'>
-                        Silakan pilih paket konsultasi terlebih dahulu sebelum
-                        melanjutkan ke pembayaran:
-                      </p>
-
-                      <div className='grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4'>
-                        {pricingPlans.map((plan) => (
-                          <div
-                            key={plan.name}
-                            onClick={() =>
-                              handleChange('pilihanPaket', plan.name)
-                            }
-                            className='bg-white border-2 border-gray-200 hover:border-primary rounded-xl p-5 cursor-pointer transition-all flex flex-col h-full shadow-sm hover:shadow-md'
-                          >
-                            <h4 className='font-bold text-gray-900 text-base mb-1'>
-                              {plan.name}
-                            </h4>
-                            <p className='text-xs text-gray-500 mb-4 flex-1 line-clamp-2'>
-                              {plan.description}
-                            </p>
-                            <div className='mt-auto flex items-end justify-between border-t border-gray-50 pt-3'>
-                              <span className='font-bold text-primary text-lg'>
-                                {plan.price}
-                              </span>
-                              <span className='text-[10px] text-gray-400 font-medium'>
-                                /{plan.duration}
-                              </span>
-                            </div>
-                          </div>
-                        ))}
-                      </div>
-
-                      {errors.pilihanPaket && (
-                        <p className='text-xs text-red-500 font-bold mt-2'>
-                          {errors.pilihanPaket}
+                  <div className='bg-orange-50/50 p-6 rounded-2xl border border-orange-100/50'>
+                    {!formData.pilihanPaket ? (
+                      <div className='animate-fade-in'>
+                        <h3 className='text-base md:text-lg font-bold text-gray-900 mb-2'>
+                          Pilih Paket Konsultasi
+                        </h3>
+                        <p className='text-gray-600 mb-6 text-sm leading-relaxed'>
+                          Silakan pilih paket konsultasi terlebih dahulu sebelum
+                          melanjutkan ke pembayaran:
                         </p>
-                      )}
-                    </div>
-                  ) : (
-                    <div className='animate-fade-in'>
-                      <div className='flex items-center justify-between mb-4 pb-4 border-b border-orange-200/50'>
-                        <div>
-                          <h3 className='text-base md:text-lg font-bold text-gray-900'>
-                            Instruksi Pembayaran
-                          </h3>
-                          <p className='text-gray-600 mt-1 text-sm leading-relaxed'>
-                            Silahkan lakukan pembayaran untuk menyelesaikan
-                            pendaftaran. Rekening tujuan:
-                          </p>
-                        </div>
-                        <button
-                          onClick={() => {
-                            handleChange('pilihanPaket', '');
-                            handleChange('buktiPembayaran', '');
-                          }}
-                          className='text-xs text-primary font-bold hover:bg-orange-200 px-3 py-1.5 bg-orange-100 rounded-lg transition-colors cursor-pointer shrink-0 ml-4'
-                        >
-                          Ganti Paket
-                        </button>
-                      </div>
 
-                      {/* Tampilkan Tagihan */}
-                      {(() => {
-                        const selectedPlan = pricingPlans.find(
-                          (p) => p.name === formData.pilihanPaket,
-                        );
-                        return selectedPlan ? (
-                          <div className='bg-white p-5 rounded-xl border border-gray-200 mb-6 shadow-sm flex flex-col gap-3'>
-                            <div className='flex justify-between items-center'>
-                              <span className='text-sm text-gray-500 font-medium'>
-                                Paket Terpilih:
-                              </span>
-                              <span className='font-bold text-gray-900 text-sm'>
-                                {selectedPlan.name}
-                              </span>
-                            </div>
-                            <div className='flex justify-between items-center'>
-                              <span className='text-sm text-gray-500 font-medium'>
-                                Durasi:
-                              </span>
-                              <span className='font-bold text-gray-900 text-sm'>
-                                {selectedPlan.duration}
-                              </span>
-                            </div>
-                            <div className='pt-3 mt-1 border-t border-dashed border-gray-200 flex justify-between items-center'>
-                              <span className='text-sm font-bold text-gray-700'>
-                                Total Tagihan:
-                              </span>
-                              <span className='font-bold text-primary text-xl'>
-                                {selectedPlan.price}
-                              </span>
-                            </div>
-                          </div>
-                        ) : null;
-                      })()}
-
-                      <div className='bg-white p-5 rounded-xl border border-gray-200 mb-6 shadow-sm'>
-                        <div className='flex items-center gap-3 mb-2'>
-                          <div className='w-10 h-10 bg-blue-50 text-blue-600 rounded-full flex items-center justify-center font-bold'>
-                            BCA
-                          </div>
-                          <div>
-                            <p className='font-bold text-gray-900 text-sm md:text-base'>
-                              Bank BCA
-                            </p>
-                          </div>
-                        </div>
-                        <div className='mt-4 pt-4 border-t border-dashed border-gray-200'>
-                          <p className='text-xs text-gray-500 mb-1'>
-                            Nomor Rekening
-                          </p>
-                          <div className='flex gap-2'>
-                            <p className='font-bold text-gray-900 text-lg tracking-wider'>
-                              6872452296
-                            </p>
-                            {/* copy nomer rekerinng */}
-                            <button
+                        <div className='grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4'>
+                          {pricingPlans.map((plan) => (
+                            <div
+                              key={plan.name}
                               onClick={() =>
-                                navigator.clipboard.writeText('6872452296')
+                                handleChange('pilihanPaket', plan.name)
                               }
-                              className='text-xs text-gray-500 hover:text-primary cursor-pointer'
+                              className='bg-white border-2 border-gray-200 hover:border-primary rounded-xl p-5 cursor-pointer transition-all flex flex-col h-full shadow-sm hover:shadow-md'
                             >
-                              <CopyIcon className='w-4 h-4' />
-                            </button>
-                          </div>
-                          <p className='text-sm text-gray-600 font-medium mt-1'>
-                            a.n Zahra Hidayati Krisnadi
-                          </p>
+                              <h4 className='font-bold text-gray-900 text-base mb-1'>
+                                {plan.name}
+                              </h4>
+                              <p className='text-xs text-gray-500 mb-4 flex-1 line-clamp-2'>
+                                {plan.description}
+                              </p>
+                              <div className='mt-auto flex items-end justify-between border-t border-gray-50 pt-3'>
+                                <span className='font-bold text-primary text-lg'>
+                                  {plan.price}
+                                </span>
+                                <span className='text-[10px] text-gray-400 font-medium'>
+                                  /{plan.duration}
+                                </span>
+                              </div>
+                            </div>
+                          ))}
                         </div>
-                      </div>
 
-                      <div className='space-y-3 mt-8'>
-                        <label className='text-sm font-semibold text-gray-700 block'>
-                          Unggah Bukti Pembayaran{' '}
-                          <span className='text-red-500'>*</span>
-                        </label>
-                        <label className='flex items-center justify-center w-full px-4 py-8 bg-white border-2 border-dashed border-orange-200 rounded-xl cursor-pointer hover:bg-orange-50/50 hover:border-primary transition-all group overflow-hidden'>
-                          <div className='flex flex-col items-center gap-3 group cursor-pointer relative'>
-                            {isUploadingFile ? (
-                              <>
-                                <div className='w-8 h-8 border-2 border-orange-300 border-t-primary rounded-full animate-spin'></div>
-                                <span className='text-xs md:text-sm font-medium text-primary'>
-                                  Mengunggah file...
-                                </span>
-                              </>
-                            ) : (
-                              <>
-                                <Upload
-                                  className={`w-8 h-8 transition-colors ${formData.buktiPembayaran ? 'text-primary' : 'text-orange-300 group-hover:text-primary'}`}
-                                />
-                                <span className='text-xs md:text-sm font-medium text-gray-700 group-hover:text-primary transition-colors'>
-                                  {formData.buktiPembayaran
-                                    ? 'Ganti Bukti Pembayaran'
-                                    : 'Pilih/Potret Bukti Pembayaran'}
-                                </span>
-                                {formData.buktiPembayaran ? (
-                                  <span className='text-xs text-primary bg-primary/10 px-4 py-1.5 rounded-full text-center truncate max-w-[200px] md:max-w-[300px] font-bold border border-primary/20'>
-                                    {formData.buktiPembayaran}
-                                  </span>
-                                ) : (
-                                  <div className='text-center space-y-1'>
-                                    <p className='text-[10px] text-gray-400 font-medium'>
-                                      Maks. 5MB (JPG, PNG, PDF)
-                                    </p>
-                                  </div>
-                                )}
-                              </>
-                            )}
-                          </div>
-                          <input
-                            type='file'
-                            className='hidden'
-                            accept='image/*,.pdf'
-                            onChange={async (e) => {
-                              const file = e.target.files?.[0];
-                              if (file) {
-                                setIsUploadingFile(true);
-                                const fd = new FormData();
-                                fd.append('file', file);
-                                try {
-                                  const res = await fetch('/api/upload', {
-                                    method: 'POST',
-                                    body: fd,
-                                  });
-                                  if (res.ok) {
-                                    const data = await res.json();
-                                    if (data.success) {
-                                      handleChange(
-                                        'buktiPembayaran',
-                                        data.fileName,
-                                      );
-                                    } else {
-                                      toast.error('Gagal unggah file');
-                                    }
-                                  } else {
-                                    toast.error('Gagal unggah file');
-                                  }
-                                } catch (err) {
-                                  toast.error('Gagal unggah file');
-                                } finally {
-                                  setIsUploadingFile(false);
-                                }
-                              }
-                            }}
-                          />
-                        </label>
-                        {errors.buktiPembayaran && (
-                          <p className='text-xs text-red-500 font-bold mt-2 text-center md:text-left'>
-                            {errors.buktiPembayaran}
+                        {errors.pilihanPaket && (
+                          <p className='text-xs text-red-500 font-bold mt-2'>
+                            {errors.pilihanPaket}
                           </p>
                         )}
                       </div>
-                    </div>
-                  )}
-                </div>
+                    ) : (
+                      <div className='animate-fade-in'>
+                        <div className='flex items-center justify-between mb-4 pb-4 border-b border-orange-200/50'>
+                          <div>
+                            <h3 className='text-base md:text-lg font-bold text-gray-900'>
+                              Instruksi Pembayaran
+                            </h3>
+                            <p className='text-gray-600 mt-1 text-sm leading-relaxed'>
+                              Silahkan lakukan pembayaran untuk menyelesaikan
+                              pendaftaran. Rekening tujuan:
+                            </p>
+                          </div>
+                          <button
+                            onClick={() => {
+                              handleChange('pilihanPaket', '');
+                              handleChange('buktiPembayaran', '');
+                            }}
+                            className='text-xs text-primary font-bold hover:bg-orange-200 px-3 py-1.5 bg-orange-100 rounded-lg transition-colors cursor-pointer shrink-0 ml-4'
+                          >
+                            Ganti Paket
+                          </button>
+                        </div>
+
+                        {/* Tampilkan Tagihan */}
+                        {(() => {
+                          const selectedPlan = pricingPlans.find(
+                            (p) => p.name === formData.pilihanPaket,
+                          );
+                          return selectedPlan ? (
+                            <div className='bg-white p-5 rounded-xl border border-gray-200 mb-6 shadow-sm flex flex-col gap-3'>
+                              <div className='flex justify-between items-center'>
+                                <span className='text-sm text-gray-500 font-medium'>
+                                  Paket Terpilih:
+                                </span>
+                                <span className='font-bold text-gray-900 text-sm'>
+                                  {selectedPlan.name}
+                                </span>
+                              </div>
+                              <div className='flex justify-between items-center'>
+                                <span className='text-sm text-gray-500 font-medium'>
+                                  Durasi:
+                                </span>
+                                <span className='font-bold text-gray-900 text-sm'>
+                                  {selectedPlan.duration}
+                                </span>
+                              </div>
+                              <div className='pt-3 mt-1 border-t border-dashed border-gray-200 flex justify-between items-center'>
+                                <span className='text-sm font-bold text-gray-700'>
+                                  Total Tagihan:
+                                </span>
+                                <span className='font-bold text-primary text-xl'>
+                                  {selectedPlan.price}
+                                </span>
+                              </div>
+                            </div>
+                          ) : null;
+                        })()}
+
+                        <div className='bg-white p-5 rounded-xl border border-gray-200 mb-6 shadow-sm'>
+                          <div className='flex items-center gap-3 mb-2'>
+                            <div className='w-10 h-10 bg-blue-50 text-blue-600 rounded-full flex items-center justify-center font-bold'>
+                              BCA
+                            </div>
+                            <div>
+                              <p className='font-bold text-gray-900 text-sm md:text-base'>
+                                Bank BCA
+                              </p>
+                            </div>
+                          </div>
+                          <div className='mt-4 pt-4 border-t border-dashed border-gray-200'>
+                            <p className='text-xs text-gray-500 mb-1'>
+                              Nomor Rekening
+                            </p>
+                            <div className='flex gap-2'>
+                              <p className='font-bold text-gray-900 text-lg tracking-wider'>
+                                6872452296
+                              </p>
+                              {/* copy nomer rekerinng */}
+                              <button
+                                onClick={() =>
+                                  navigator.clipboard.writeText('6872452296')
+                                }
+                                className='text-xs text-gray-500 hover:text-primary cursor-pointer'
+                              >
+                                <CopyIcon className='w-4 h-4' />
+                              </button>
+                            </div>
+                            <p className='text-sm text-gray-600 font-medium mt-1'>
+                              a.n Zahra Hidayati Krisnadi
+                            </p>
+                          </div>
+                        </div>
+
+                        <div className='space-y-3 mt-8'>
+                          <label className='text-sm font-semibold text-gray-700 block'>
+                            Unggah Bukti Pembayaran{' '}
+                            <span className='text-red-500'>*</span>
+                          </label>
+                          <label className='flex items-center justify-center w-full px-4 py-8 bg-white border-2 border-dashed border-orange-200 rounded-xl cursor-pointer hover:bg-orange-50/50 hover:border-primary transition-all group overflow-hidden'>
+                            <div className='flex flex-col items-center gap-3 group cursor-pointer relative'>
+                              {isUploadingFile ? (
+                                <>
+                                  <div className='w-8 h-8 border-2 border-orange-300 border-t-primary rounded-full animate-spin'></div>
+                                  <span className='text-xs md:text-sm font-medium text-primary'>
+                                    Mengunggah file...
+                                  </span>
+                                </>
+                              ) : (
+                                <>
+                                  <Upload
+                                    className={`w-8 h-8 transition-colors ${formData.buktiPembayaran ? 'text-primary' : 'text-orange-300 group-hover:text-primary'}`}
+                                  />
+                                  <span className='text-xs md:text-sm font-medium text-gray-700 group-hover:text-primary transition-colors'>
+                                    {formData.buktiPembayaran
+                                      ? 'Ganti Bukti Pembayaran'
+                                      : 'Pilih/Potret Bukti Pembayaran'}
+                                  </span>
+                                  {formData.buktiPembayaran ? (
+                                    <span className='text-xs text-primary bg-primary/10 px-4 py-1.5 rounded-full text-center truncate max-w-[200px] md:max-w-[300px] font-bold border border-primary/20'>
+                                      {formData.buktiPembayaran}
+                                    </span>
+                                  ) : (
+                                    <div className='text-center space-y-1'>
+                                      <p className='text-[10px] text-gray-400 font-medium'>
+                                        Maks. 5MB (JPG, PNG, PDF)
+                                      </p>
+                                    </div>
+                                  )}
+                                </>
+                              )}
+                            </div>
+                            <input
+                              type='file'
+                              className='hidden'
+                              accept='image/*,.pdf'
+                              onChange={async (e) => {
+                                const file = e.target.files?.[0];
+                                if (file) {
+                                  setIsUploadingFile(true);
+                                  const fd = new FormData();
+                                  fd.append('file', file);
+                                  try {
+                                    const res = await fetch('/api/upload', {
+                                      method: 'POST',
+                                      body: fd,
+                                    });
+                                    if (res.ok) {
+                                      const data = await res.json();
+                                      if (data.success) {
+                                        handleChange(
+                                          'buktiPembayaran',
+                                          data.fileName,
+                                        );
+                                      } else {
+                                        toast.error('Gagal unggah file');
+                                      }
+                                    } else {
+                                      toast.error('Gagal unggah file');
+                                    }
+                                  } catch (err) {
+                                    toast.error('Gagal unggah file');
+                                  } finally {
+                                    setIsUploadingFile(false);
+                                  }
+                                }
+                              }}
+                            />
+                          </label>
+                          {errors.buktiPembayaran && (
+                            <p className='text-xs text-red-500 font-bold mt-2 text-center md:text-left'>
+                              {errors.buktiPembayaran}
+                            </p>
+                          )}
+                        </div>
+                      </div>
+                    )}
+                  </div>
                 </motion.div>
               )}
             </AnimatePresence>
 
             {/* Navigation Buttons */}
-            <div className='flex items-center justify-between pt-8 border-t border-gray-100 mt-8'>
+            <div className='flex items-center justify-between pt-8 border-t border-slate-100 mt-8'>
               <button
                 type='button'
                 onClick={handleBack}
                 disabled={step === 1}
-                className={`flex text-xs md:text-sm items-center gap-2 px-8 md:px-8 py-2 md:py-4 rounded-full font-medium transition-all cursor-pointer
-                  ${step === 1
-                    ? 'text-gray-300 cursor-not-allowed'
-                    : 'text-gray-600 bg-gray-100 hover:bg-gray-100 hover:text-gray-900'
+                className={`flex text-xs sm:text-sm items-center gap-2 px-6 py-3 rounded-full font-bold transition-all cursor-pointer ${step === 1
+                    ? 'text-slate-300 bg-slate-50 cursor-not-allowed border border-slate-200/50'
+                    : 'text-slate-700 bg-slate-100 hover:bg-slate-200 border border-slate-200/80'
                   }`}
               >
-                <ChevronLeft className='w-5 h-5' />
+                <ChevronLeft className='w-4 h-4' />
                 Kembali
               </button>
 
               <button
                 type='button'
                 onClick={step === steps.length ? handleSubmit : handleNext}
-                className='cursor-pointer flex text-xs md:text-sm items-center gap-2 px-8 md:px-8 py-2 md:py-4 rounded-full bg-primary text-white font-bold tracking-wide hover:shadow-xl hover:shadow-orange-200 hover:-translate-y-1 transition-all duration-300'
+                className='cursor-pointer flex text-xs sm:text-sm items-center gap-2 px-7 py-3 rounded-full bg-amber-500 hover:bg-amber-600 text-white font-bold shadow-xs hover:shadow-md transition-all'
               >
                 {step === steps.length ? 'Kirim Assessment' : 'Lanjut'}
                 {step === steps.length ? (
-                  <CheckCircle className='w-5 h-5' />
+                  <CheckCircle className='w-4 h-4' />
                 ) : (
-                  <ChevronRight className='w-5 h-5' />
+                  <ChevronRight className='w-4 h-4' />
                 )}
               </button>
             </div>
           </form>
         </div>
 
-        {/* Footer info */}
-        <p className='text-center text-gray-400 text-xs mt-8 pb-10'>
-          &copy; {new Date().getFullYear()} Zahra Krisnadi Dietisien. All rights
-          reserved.
-        </p>
       </main>
+      <Footer />
     </div>
   );
 }

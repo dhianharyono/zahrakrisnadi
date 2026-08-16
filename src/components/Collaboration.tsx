@@ -17,59 +17,39 @@ const itemVariants: Variants = {
 
 const Collaboration: React.FC = () => {
   return (
-    <section id='collaboration' className='py-12 lg:py-20 bg-orange-50/50'>
-      <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
+    <section
+      id='collaboration'
+      className='py-16 sm:py-24 bg-slate-50/60 relative overflow-hidden'
+    >
+      <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10'>
         <motion.div
           initial='hidden'
           whileInView='visible'
           viewport={{ once: true, margin: '-100px' }}
           variants={itemVariants}
-          className='relative rounded-[3rem] overflow-hidden bg-white shadow-2xl p-6 lg:p-16 flex flex-col md:flex-row items-center gap-8 lg:gap-12 border border-gray-100'
+          className='relative rounded-3xl sm:rounded-[2.5rem] bg-white shadow-xs ring-1 ring-slate-200/80 p-8 sm:p-12 lg:p-16 flex flex-col md:flex-row items-center gap-8 lg:gap-12 overflow-hidden'
         >
-          {/* Decorative Elements */}
-          <motion.div
-            animate={{
-              scale: [1, 1.2, 1],
-              opacity: [0.2, 0.4, 0.2],
-            }}
-            transition={{
-              duration: 8,
-              repeat: Infinity,
-              ease: 'easeInOut',
-            }}
-            className='absolute top-0 right-0 w-32 h-32 lg:w-64 lg:h-64 bg-orange-100/30 rounded-full blur-3xl -z-10 translate-x-1/3 -translate-y-1/3'
-          />
-          <motion.div
-            animate={{
-              scale: [1, 1.1, 1],
-              opacity: [0.2, 0.3, 0.2],
-            }}
-            transition={{
-              duration: 10,
-              repeat: Infinity,
-              ease: 'easeInOut',
-              delay: 1,
-            }}
-            className='absolute bottom-0 left-0 w-32 h-32 lg:w-48 lg:h-48 bg-green-100/30 rounded-full blur-3xl -z-10 -translate-x-1/3 translate-y-1/3'
-          />
+          {/* Ambient Glow Accents */}
+          <div className='pointer-events-none absolute -right-20 -top-20 h-64 w-64 rounded-full bg-amber-100/60 blur-3xl'></div>
+          <div className='pointer-events-none absolute -left-20 -bottom-20 h-64 w-64 rounded-full bg-amber-200/40 blur-3xl'></div>
 
-          <div className='flex-1 space-y-4 lg:space-y-6 text-center md:text-left'>
-            <span className='text-primary font-serif italic text-sm md:text-lg mb-2 block'>
-              Partnership
+          <div className='flex-1 text-center md:text-left space-y-4 sm:space-y-6 relative z-10'>
+            <span className='inline-flex items-center rounded-full bg-amber-100/80 px-4 py-1.5 text-xs font-bold uppercase tracking-wider text-amber-800 ring-1 ring-amber-200/60 mb-3 sm:mb-4'>
+              Partnership & Kolaborasi
             </span>
-            <h2 className='text-xl lg:text-5xl font-extrabold text-gray-900'>
-              Mari Berkolaborasi
+            <h2 className='font-serif text-2xl sm:text-3xl lg:text-3xl font-semibold text-slate-900 tracking-tight leading-tight'>
+              Mari Berkolaborasi Bersama
             </h2>
-            <p className='text-xs md:text-base lg:text-lg text-gray-600 leading-relaxed max-w-xl mx-auto md:mx-0'>
-              Terbuka untuk kerjasama kemitraan, pembicara seminar kesehatan,
-              atau narasumber artikel gizi berkualitas. Mari bersama membangun
-              masyarakat yang lebih sehat.
+            <p className='text-sm sm:text-base text-slate-600 leading-relaxed max-w-xl mx-auto md:mx-0'>
+              Terbuka untuk kerjasama kemitraan instansi, pembicara seminar
+              kesehatan, webinar edukasi, maupun narasumber konten gizi
+              profesional. Mari bersama membangun masyarakat yang lebih sehat.
             </p>
 
-            <div className='flex flex-col sm:flex-row gap-4 justify-center md:justify-start pt-4'>
+            <div className='flex flex-col sm:flex-row gap-4 justify-center md:justify-start pt-2'>
               <motion.button
-                whileHover={{ scale: 1.05, translateY: -2 }}
-                whileTap={{ scale: 0.95 }}
+                whileHover={{ scale: 1.03 }}
+                whileTap={{ scale: 0.97 }}
                 onClick={() =>
                   window.open(
                     CONTACT_INFO.whatsapp.url(
@@ -78,24 +58,24 @@ const Collaboration: React.FC = () => {
                     '_blank',
                   )
                 }
-                className='bg-primary hover:bg-orange-600 text-white px-6 py-3 lg:px-8 lg:py-4 rounded-full font-bold shadow-lg shadow-orange-200 transition-all hover:shadow-xl flex items-center justify-center gap-2 cursor-pointer text-sm lg:text-base'
+                className='bg-amber-500 hover:bg-amber-600 text-white px-7 py-3.5 rounded-full font-bold shadow-sm hover:shadow-md transition-all flex items-center justify-center gap-2 cursor-pointer text-sm shrink-0'
               >
-                <Mail size={20} />
-                Hubungi Saya
+                <Mail size={18} />
+                Hubungi Kami
               </motion.button>
             </div>
           </div>
 
-          <div className='flex-1 w-full max-w-sm relative p-4 md:p-0'>
+          <div className='flex-1 w-full max-w-sm relative z-10'>
             <motion.div
-              whileHover={{ rotate: 0, scale: 1.05 }}
-              className='relative aspect-square bg-gray-50 rounded-2xl overflow-hidden border-4 border-white shadow-xl transform rotate-3 transition-all duration-500'
+              whileHover={{ scale: 1.02 }}
+              className='relative aspect-square bg-slate-100 rounded-3xl overflow-hidden ring-1 ring-slate-200/80 shadow-md transition-transform duration-300'
             >
               <Image
                 src='/collaboration.jpg'
                 alt='Collaboration'
                 fill
-                className='object-cover opacity-90 transition-opacity'
+                className='object-cover opacity-95 transition-opacity'
               />
             </motion.div>
           </div>

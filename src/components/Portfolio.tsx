@@ -77,39 +77,38 @@ const Portfolio: React.FC = () => {
   }, [selectedItem]);
 
   return (
-    <section id='portfolio' className='py-15 bg-white relative'>
-      <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
+    <section id='portfolio' className='py-16 sm:py-24 bg-white relative overflow-hidden'>
+      <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10'>
         <motion.div
           initial='hidden'
           whileInView='visible'
           viewport={{ once: true, margin: '-100px' }}
           variants={itemVariants}
-          className='text-center mb-5 md:mb-16'
+          className='text-center max-w-2xl mx-auto mb-12 sm:mb-16'
         >
-          <span className='text-primary font-serif italic text-sm md:text-lg mb-2 block'>
-            Galeri
+          <span className='inline-flex items-center rounded-full bg-amber-100/80 px-4 py-1.5 text-xs font-bold uppercase tracking-wider text-amber-800 ring-1 ring-amber-200/60 mb-3 sm:mb-4'>
+            Galeri & Aktivitas
           </span>
-          <h2 className='text-xl lg:text-4xl font-extrabold text-gray-900 mb-2 md:mb-4 leading-tight'>
-            Portofolio <span className='text-primary italic'>Kegiatan</span>
+          <h2 className='font-serif text-2xl sm:text-3xl lg:text-3xl font-semibold text-slate-900 tracking-tight leading-tight'>
+            Portofolio Kegiatan
           </h2>
-          <p className='text-gray-600 text-sm max-w-2xl mx-auto'>
-            Dokumentasi berbagai kegiatan seminar, workshop, dan konsultasi gizi
-            yang telah dilaksanakan bersama berbagai mitra dan klien.
+          <p className='text-slate-600 text-sm sm:text-base mt-3 sm:mt-4 leading-relaxed max-w-2xl mx-auto'>
+            Dokumentasi berbagai kegiatan seminar, workshop, edukasi gizi, dan konsultasi bersama mitra dan klien.
           </p>
         </motion.div>
 
         {loading ? (
-          <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 p-4 md:p-0'>
+          <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8'>
             {[1, 2, 3, 4, 5, 6].map((i) => (
               <div
                 key={i}
-                className='rounded-2xl shadow-lg bg-white overflow-hidden animate-pulse'
+                className='rounded-3xl shadow-xs bg-white border border-slate-200/80 overflow-hidden animate-pulse'
               >
-                <div className='aspect-4/3 bg-gray-200'></div>
+                <div className='aspect-4/3 bg-slate-100'></div>
                 <div className='p-6'>
-                  <div className='h-4 bg-gray-100 rounded w-1/4 mb-4'></div>
-                  <div className='h-6 bg-gray-200 rounded w-3/4 mb-2'></div>
-                  <div className='h-4 bg-gray-100 rounded w-full'></div>
+                  <div className='h-4 bg-slate-100 rounded-lg w-1/4 mb-3'></div>
+                  <div className='h-6 bg-slate-200 rounded-lg w-3/4 mb-2'></div>
+                  <div className='h-4 bg-slate-100 rounded-lg w-full'></div>
                 </div>
               </div>
             ))}
@@ -120,39 +119,32 @@ const Portfolio: React.FC = () => {
             whileInView='visible'
             viewport={{ once: true, margin: '-50px' }}
             variants={containerVariants}
-            className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 p-4 md:p-0'
+            className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8'
           >
             {portfolioData.map((item, index) => (
               <motion.div
                 key={item._id || index}
                 variants={itemVariants}
-                whileHover={{ y: -10 }}
-                className='group relative overflow-hidden rounded-2xl shadow-lg cursor-pointer'
+                whileHover={{ y: -6 }}
+                className='group relative overflow-hidden rounded-3xl bg-white shadow-xs ring-1 ring-slate-200/80 hover:ring-amber-300/60 hover:shadow-md transition-all duration-300 cursor-pointer'
                 onClick={() => setSelectedItem(item)}
               >
-                <div className='aspect-4/3 relative bg-gray-100'>
+                <div className='aspect-4/3 relative bg-slate-100 overflow-hidden'>
                   <Image
                     src={getImageUrl(item.image)}
                     alt={item.title}
                     fill
-                    className='object-cover object-top transition-transform duration-700 group-hover:scale-110'
+                    className='object-cover object-top transition-transform duration-700 group-hover:scale-105'
                   />
                   {/* Overlay: visible on hover */}
-                  <div className='absolute inset-0 bg-linear-to-t from-black/90 via-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6'>
-                    <motion.span
-                      initial={{ opacity: 0, y: 10 }}
-                      whileHover={{ opacity: 1, y: 0 }}
-                      className='bg-primary text-white text-[10px] font-bold tracking-wider uppercase px-3 py-1 rounded-full w-fit mb-3 shadow-md transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300 delay-75'
-                    >
+                  <div className='absolute inset-0 bg-gradient-to-t from-slate-950/80 via-slate-900/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6'>
+                    <span className='bg-amber-500 text-white text-[11px] font-bold tracking-wider uppercase px-3 py-1 rounded-full w-fit mb-2 shadow-xs'>
                       {item.category}
-                    </motion.span>
-                    <h3 className='text-white text-xl font-bold mb-2 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300 delay-100 hidden md:block'>
+                    </span>
+                    <h3 className='text-white text-lg font-bold leading-snug mb-1'>
                       {item.title}
                     </h3>
-                    <h3 className='text-white text-lg font-bold mb-2 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300 delay-100 md:hidden'>
-                      {item.title}
-                    </h3>
-                    <p className='text-gray-200 text-sm line-clamp-3 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300 delay-150'>
+                    <p className='text-slate-300 text-xs font-medium'>
                       Klik untuk melihat detail
                     </p>
                   </div>
@@ -176,86 +168,64 @@ const Portfolio: React.FC = () => {
           >
             {/* Backdrop */}
             <div
-              className='absolute inset-0 bg-black/70 backdrop-blur-sm'
+              className='absolute inset-0 bg-slate-900/60 backdrop-blur-md'
               onClick={() => setSelectedItem(null)}
             ></div>
 
             {/* Modal Content */}
             <motion.div
-              initial={{ scale: 0.9, opacity: 0, y: 20 }}
+              initial={{ scale: 0.95, opacity: 0, y: 15 }}
               animate={{ scale: 1, opacity: 1, y: 0 }}
-              exit={{ scale: 0.9, opacity: 0, y: 20 }}
+              exit={{ scale: 0.95, opacity: 0, y: 15 }}
               transition={{ type: 'spring', damping: 25, stiffness: 300 }}
-              className='relative bg-white rounded-2xl md:rounded-3xl shadow-2xl w-full max-w-4xl max-h-[85vh] overflow-y-auto flex flex-col md:flex-row overflow-hidden'
+              className='relative bg-white rounded-3xl shadow-2xl w-full max-w-3xl max-h-[85vh] overflow-y-auto flex flex-col md:flex-row overflow-hidden ring-1 ring-slate-200'
             >
               {/* Close Button */}
               <button
                 onClick={() => setSelectedItem(null)}
-                className='absolute top-3 right-3 z-10 md:hidden bg-white/80 p-1.5 rounded-full text-gray-800 hover:bg-white transition-colors shadow-sm'
+                className='absolute top-4 right-4 z-20 bg-slate-100 hover:bg-slate-200 p-2 rounded-full text-slate-700 transition-colors shadow-xs cursor-pointer'
               >
-                <X size={20} />
-              </button>
-              <button
-                onClick={() => setSelectedItem(null)}
-                className='absolute top-4 right-4 z-10 hidden md:block bg-black/50 hover:bg-black/70 p-2 rounded-full text-white transition-colors'
-              >
-                <X size={24} />
+                <X size={18} />
               </button>
 
               {/* Image Side */}
-              <motion.div
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.2 }}
-                className='w-full md:w-1/2 h-56 md:h-auto relative bg-gray-50 shrink-0'
-              >
+              <div className='w-full md:w-1/2 h-60 md:h-auto relative bg-slate-50 shrink-0'>
                 <Image
                   src={getImageUrl(selectedItem.image)}
                   alt={selectedItem.title}
                   fill
-                  className='object-contain p-2 md:p-4'
+                  className='object-contain p-4'
                 />
-              </motion.div>
+              </div>
 
               {/* Content Side */}
-              <motion.div
-                initial={{ opacity: 0, x: 20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.3 }}
-                className='w-full md:w-1/2 p-6 md:p-10 flex flex-col justify-center bg-white'
-              >
-                <span className='text-primary font-bold tracking-wider uppercase text-[10px] md:text-xs mb-2 md:mb-3'>
+              <div className='w-full md:w-1/2 p-6 sm:p-8 flex flex-col justify-center bg-white'>
+                <span className='inline-flex items-center rounded-full bg-amber-100/80 px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-amber-800 ring-1 ring-amber-200/60 mb-3 w-fit'>
                   {selectedItem.category}
                 </span>
-                <h3 className='text-lg md:text-3xl font-extrabold text-gray-900 mb-3 md:mb-6 leading-tight'>
+                <h3 className='text-xl sm:text-2xl font-bold text-slate-900 mb-3 leading-tight'>
                   {selectedItem.title}
                 </h3>
-                <div className='prose prose-sm md:prose-blue text-gray-600 mb-6 md:mb-8'>
-                  <p className='leading-relaxed text-sm md:text-lg'>
-                    {selectedItem.description}
-                  </p>
+                <div className='text-slate-600 text-xs sm:text-sm leading-relaxed mb-6'>
+                  <p>{selectedItem.description}</p>
                 </div>
 
-                <div className='flex gap-3 md:gap-4 mt-auto'>
-                  <motion.button
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
+                <div className='flex gap-3 mt-auto pt-2'>
+                  <button
                     onClick={() => setSelectedItem(null)}
-                    className='flex-1 md:flex-none px-4 py-2 md:px-6 md:py-3 bg-gray-100 hover:bg-gray-200 text-gray-900 font-semibold rounded-lg md:rounded-xl transition-colors cursor-pointer text-xs md:text-sm'
+                    className='flex-1 px-4 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-800 font-bold rounded-full transition-colors cursor-pointer text-xs'
                   >
                     Tutup
-                  </motion.button>
-                  <motion.a
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
+                  </button>
+                  <a
                     href='#collaboration'
                     onClick={() => setSelectedItem(null)}
-                    className='flex-1 md:flex-none text-center px-4 py-2 md:px-6 md:py-3 bg-primary hover:bg-primary/90 text-xs md:text-sm text-white font-semibold rounded-lg md:rounded-xl transition-colors cursor-pointer'
+                    className='flex-1 text-center px-4 py-2.5 bg-amber-500 hover:bg-amber-600 text-white font-bold rounded-full transition-colors cursor-pointer text-xs shadow-xs'
                   >
                     Hubungi Kami
-                  </motion.a>
+                  </a>
                 </div>
-              </motion.div>
+              </div>
             </motion.div>
           </motion.div>
         )}

@@ -1,95 +1,75 @@
 'use client';
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Quote } from 'lucide-react';
 import { FEATURES_DATA } from '../utils/constants';
-import { motion, Variants } from 'framer-motion';
 
 const Features: React.FC = () => {
-  const containerVariants: Variants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1,
-      },
-    },
-  };
+  const [currentIndex, setCurrentIndex] = useState(0);
 
-  const itemVariants: Variants = {
-    hidden: { opacity: 0, y: 30 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.5,
-        ease: 'easeInOut',
-      },
-    },
-  };
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentIndex((prev) => (prev + 1) % FEATURES_DATA.length);
+    }, 5000);
+    return () => clearInterval(timer);
+  }, []);
+
+  const currentFeature = FEATURES_DATA[currentIndex];
 
   return (
     <section
-      id='why-us'
-      className='py-12 lg:py-20 bg-linear-to-b from-orange-50/30 to-white'
+      id="why-us"
+      className="py-16 sm:py-24 bg-slate-50/60 relative overflow-hidden"
     >
-      <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
-        <motion.div
-          initial='hidden'
-          whileInView='visible'
-          viewport={{ once: true, margin: '-100px' }}
-          variants={itemVariants}
-          className='text-center mb-10 lg:mb-20'
-        >
-          <span className='text-primary font-serif italic text-sm md:text-lg mb-2 block'>
-            Nilai Utama
-          </span>
-          <h2 className='text-xl lg:text-4xl font-extrabold text-gray-900 mb-2 md:mb-4 leading-tight'>
-            Mengapa Konsultasi dengan{' '}
-            <span className='text-primary italic'>Dietisien</span>
-          </h2>
-        </motion.div>
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Seamless Quote Container */}
+        <div className="relative max-w-3xl mx-auto min-h-[260px] flex flex-col items-center justify-center text-center">
+          {/* Decorative Quote Icon Matching Soulae.id */}
+          <div className="mb-6 flex justify-center">
+            <Quote className="w-10 h-10 md:w-12 md:h-12 text-amber-400 fill-amber-400 rotate-180 stroke-none" />
+          </div>
 
-        <motion.div
-          initial='hidden'
-          whileInView='visible'
-          viewport={{ once: true, margin: '-50px' }}
-          variants={containerVariants}
-          className='grid grid-cols-3 gap-3 md:gap-6 lg:gap-8'
-        >
-          {FEATURES_DATA.map((feature, index) => {
-            const Icon = feature.Icon;
-            return (
+          {/* Animated Slide Content */}
+          <div className="w-full relative min-h-[160px] flex items-center justify-center">
+            <AnimatePresence mode="wait">
               <motion.div
-                key={index}
-                variants={itemVariants}
-                whileHover={{ y: -10 }}
-                className={`relative pt-12 pb-4 px-2 md:pt-16 md:pb-8 md:px-6 rounded-2xl md:rounded-3xl ${feature.bg} text-center group transition-shadow duration-300 border-2 md:border-3 border-white h-full flex flex-col items-center`}
+                key={currentIndex}
+                initial={{ opacity: 0, y: 12 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -12 }}
+                transition={{ duration: 0.4, ease: 'easeInOut' }}
+                className="max-w-2xl mx-auto space-y-4"
               >
-                {/* Floating Icon Container */}
-                <div
-                  className={`absolute -top-6 md:-top-12 left-1/2 transform -translate-x-1/2 w-12 h-12 md:w-20 md:h-20 lg:w-24 lg:h-24 rounded-full ${feature.bgColor} flex items-center justify-center shadow-md md:shadow-lg transition-transform duration-500 group-hover:scale-110 group-hover:shadow-xl border-2 md:border-4 border-white`}
-                >
-                  <Icon
-                    className={`${feature.color} w-6 h-6 md:w-10 md:h-10 lg:w-10 lg:h-10`}
-                  />
-                </div>
-
-                {/* Content */}
-                <div className='relative z-10 mt-0 md:mt-6 flex-1 flex flex-col justify-start w-full'>
-                  <div className='text-[10px] sm:text-xs md:text-lg lg:text-xl font-bold text-gray-900 mb-2 md:mb-3 leading-tight px-1'>
-                    {feature.title}
-                  </div>
-                  <p className='text-gray-600 leading-relaxed text-[9px] sm:text-[10px] md:text-sm lg:text-sm px-1'>
-                    {feature.description}
-                  </p>
-                </div>
+                <h2 className="font-serif text-2xl sm:text-3xl lg:text-3xl font-semibold text-slate-900 tracking-tight leading-tight">
+                  {currentFeature.title}
+                </h2>
+                <p className="text-slate-600 text-sm sm:text-base md:text-lg leading-relaxed max-w-xl mx-auto">
+                  {currentFeature.description}
+                </p>
               </motion.div>
-            );
-          })}
-        </motion.div>
+            </AnimatePresence>
+          </div>
+        </div>
+
+        {/* Dot Pagination Indicators */}
+        <div className="flex items-center justify-center gap-2.5 mt-8">
+          {FEATURES_DATA.map((_, idx) => (
+            <button
+              key={idx}
+              onClick={() => setCurrentIndex(idx)}
+              aria-label={`Go to slide ${idx + 1}`}
+              className={`h-2.5 rounded-full transition-all duration-500 cursor-pointer ${currentIndex === idx
+                  ? 'w-8 bg-amber-500'
+                  : 'w-2.5 bg-slate-300 hover:bg-slate-400'
+                }`}
+            />
+          ))}
+        </div>
       </div>
     </section>
   );
 };
 
 export default Features;
+

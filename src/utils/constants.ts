@@ -19,12 +19,12 @@ export const CONTACT_INFO = {
 };
 
 export const NAV_LINKS = [
-  { label: 'Layanan', href: '#services' },
-  { label: 'Kalkulator BMI', href: '#bmi-calculator' },
-  { label: 'Checklist GTM', href: '#gtm-checklist' },
-  { label: 'Testimoni', href: '#testimonials' },
-  { label: 'Kolaborasi', href: '#collaboration' },
-  { label: 'Portofolio', href: '#portfolio' },
+  { label: 'Layanan', href: '/services' },
+  { label: 'Kalkulator BMI', href: '/bmi-calculator' },
+  { label: 'Checklist GTM', href: '/gtm-checklist' },
+  { label: 'Testimoni', href: '/testimonials' },
+  { label: 'Kolaborasi', href: '/collaboration' },
+  { label: 'Portofolio', href: '/portfolio' },
 ];
 
 export const FEATURES_DATA = [

@@ -111,6 +111,8 @@ const jsonLd = {
     'Zahra Krisnadi, S.Tr.Gz, RD adalah Dietisien Tersertifikasi & Ahli Gizi Terpercaya yang menyediakan layanan konsultasi gizi online, meal plan personal, dan edukasi pola makan sehat.',
 };
 
+import ScrollToTop from '../components/ScrollToTop';
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -126,6 +128,7 @@ export default function RootLayout({
       </head>
       <body className={`${inter.variable} ${playfair.variable} antialiased`}>
         {children}
+        <ScrollToTop />
       </body>
     </html>
   );

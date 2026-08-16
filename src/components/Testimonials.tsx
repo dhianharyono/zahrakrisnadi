@@ -111,11 +111,11 @@ const Testimonials: React.FC = () => {
     return (
       <motion.div
         key={index}
-        whileHover={isMobile ? {} : { y: -10, scale: 1.02 }}
-        className={`${isMobile ? 'min-w-[85vw] snap-center' : 'w-100 shrink-0'} bg-white rounded-3xl p-6 md:p-8 border shadow-sm border-orange-100 transition-all duration-300 relative group flex flex-col justify-between h-full min-h-[300px] md:min-h-[350px]`}
+        whileHover={isMobile ? {} : { y: -6 }}
+        className={`${isMobile ? 'min-w-[85vw] snap-center' : 'w-96 shrink-0'} bg-white rounded-3xl p-7 sm:p-8 shadow-xs ring-1 ring-slate-200/80 hover:ring-amber-300/60 hover:shadow-md transition-all duration-300 relative group flex flex-col justify-between h-full min-h-[300px] md:min-h-[340px]`}
       >
-        <div className='absolute top-6 left-6 opacity-10 transform -translate-x-2 -translate-y-2 group-hover:scale-110 transition-transform'>
-          <Quote size={40} className='text-primary md:w-14 md:h-14' />
+        <div className='absolute top-6 right-6 opacity-10 group-hover:opacity-20 transition-opacity'>
+          <Quote size={36} className='text-amber-600' />
         </div>
 
         <div className='relative mb-6'>
@@ -123,25 +123,25 @@ const Testimonials: React.FC = () => {
             {[...Array(testimonial.rating)].map((_, i) => (
               <Star
                 key={i}
-                size={18}
-                className='fill-current text-yellow-400'
+                size={16}
+                className='fill-amber-400 text-amber-400'
                 strokeWidth={0}
               />
             ))}
           </div>
           <div className='relative'>
             <p
-              className={`text-gray-600 leading-relaxed italic z-10 relative text-xs md:text-sm lg:text-base ${isExpanded ? '' : 'line-clamp-4'}`}
+              className={`text-slate-600 leading-relaxed z-10 relative text-xs sm:text-sm ${isExpanded ? '' : 'line-clamp-4'}`}
             >
               &quot;{testimonial.content}&quot;
             </p>
             {showReadMore && (
               <button
                 onClick={(e) => {
-                  e.stopPropagation(); // Prevent card clicks if any
+                  e.stopPropagation();
                   toggleExpand(index);
                 }}
-                className='text-primary text-xs font-bold mt-2 hover:underline focus:outline-none'
+                className='text-amber-600 font-bold text-xs mt-2 hover:underline focus:outline-none'
               >
                 {isExpanded ? 'Sembunyikan' : 'Lihat Selengkapnya'}
               </button>
@@ -149,8 +149,8 @@ const Testimonials: React.FC = () => {
           </div>
         </div>
 
-        <div className='flex items-center gap-4 mt-auto border-t border-gray-50 pt-6'>
-          <div className='w-12 h-12 rounded-full overflow-hidden border-2 border-orange-100 shrink-0 bg-gray-50'>
+        <div className='flex items-center gap-3.5 mt-auto border-t border-slate-100 pt-5'>
+          <div className='w-11 h-11 rounded-full overflow-hidden ring-2 ring-amber-200/80 shrink-0 bg-slate-50'>
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src={testimonial.image}
@@ -159,10 +159,10 @@ const Testimonials: React.FC = () => {
             />
           </div>
           <div>
-            <h4 className='font-bold text-gray-900 text-xs md:text-sm'>
+            <h4 className='font-bold text-slate-900 text-xs sm:text-sm'>
               {testimonial.name}
             </h4>
-            <p className='text-xs text-gray-400 font-medium uppercase tracking-wide'>
+            <p className='text-[11px] text-amber-800 font-semibold uppercase tracking-wider'>
               {testimonial.role}
             </p>
           </div>
@@ -175,41 +175,41 @@ const Testimonials: React.FC = () => {
     return (
       <section
         id='testimonials'
-        className='py-12 lg:py-20 bg-white overflow-hidden'
+        className='py-16 sm:py-24 bg-slate-50/60 overflow-hidden'
       >
         <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
-          <div className='text-center mb-8 lg:mb-10'>
-            <span className='text-primary font-serif italic text-sm md:text-lg mb-2 block animate-pulse'>
+          <div className='text-center max-w-2xl mx-auto mb-12'>
+            <span className='inline-flex items-center rounded-full bg-amber-100/80 px-4 py-1.5 text-xs font-bold uppercase tracking-wider text-amber-800 ring-1 ring-amber-200/60 mb-4 animate-pulse'>
               Kisah Sukses
             </span>
-            <h2 className='text-xl lg:text-4xl font-extrabold text-gray-900 mb-4 leading-tight'>
-              Apa Kata <span className='text-primary italic'>Mereka</span>
+            <h2 className='font-serif text-2xl sm:text-4xl font-semibold text-slate-900 tracking-tight leading-tight'>
+              Apa Kata Mereka
             </h2>
           </div>
-          <div className='flex gap-6 md:gap-8 overflow-x-auto pb-8 no-scrollbar items-stretch md:justify-center'>
+          <div className='flex gap-6 overflow-x-auto pb-8 no-scrollbar items-stretch md:justify-center'>
             {[1, 2, 3].map((i) => (
               <div
                 key={i}
-                className='shrink-0 w-[85vw] md:w-[400px] bg-white rounded-3xl p-6 md:p-8 border border-orange-50 shadow-sm animate-pulse flex flex-col h-[300px] md:h-[350px]'
+                className='shrink-0 w-[85vw] md:w-[360px] bg-white rounded-3xl p-7 border border-slate-200/80 shadow-xs animate-pulse flex flex-col h-[300px]'
               >
                 <div className='flex gap-1 mb-6'>
                   {[1, 2, 3, 4, 5].map((j) => (
                     <div
                       key={j}
-                      className='w-4 h-4 bg-gray-100 rounded-full'
+                      className='w-4 h-4 bg-slate-100 rounded-full'
                     ></div>
                   ))}
                 </div>
                 <div className='space-y-3 mb-8 grow'>
-                  <div className='h-4 bg-gray-50 rounded-lg w-full'></div>
-                  <div className='h-4 bg-gray-50 rounded-lg w-11/12'></div>
-                  <div className='h-4 bg-gray-50 rounded-lg w-4/5'></div>
+                  <div className='h-4 bg-slate-100 rounded-lg w-full'></div>
+                  <div className='h-4 bg-slate-100 rounded-lg w-11/12'></div>
+                  <div className='h-4 bg-slate-100 rounded-lg w-4/5'></div>
                 </div>
-                <div className='flex items-center gap-4 mt-auto pt-6 border-t border-gray-50'>
-                  <div className='w-12 h-12 rounded-full bg-gray-100'></div>
+                <div className='flex items-center gap-4 mt-auto pt-6 border-t border-slate-100'>
+                  <div className='w-11 h-11 rounded-full bg-slate-100'></div>
                   <div className='space-y-2'>
-                    <div className='h-4 bg-gray-100 rounded w-24'></div>
-                    <div className='h-3 bg-gray-50 rounded w-16'></div>
+                    <div className='h-4 bg-slate-100 rounded w-24'></div>
+                    <div className='h-3 bg-slate-100 rounded w-16'></div>
                   </div>
                 </div>
               </div>
@@ -221,25 +221,28 @@ const Testimonials: React.FC = () => {
   }
 
   if (testimonials.length === 0) {
-    return null; // Don't render if no testimonials
+    return null;
   }
 
   return (
-    <section id='testimonials' className='py-12 lg:py-20 bg-white'>
-      <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
+    <section id='testimonials' className='py-16 sm:py-24 bg-slate-50/60 relative overflow-hidden'>
+      <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10'>
         <motion.div
           initial='hidden'
           whileInView='visible'
           viewport={{ once: true, margin: '-100px' }}
           variants={itemVariants}
-          className='text-center mb-8 lg:mb-10'
+          className='text-center max-w-2xl mx-auto mb-12 sm:mb-16'
         >
-          <span className='text-primary font-serif italic text-sm md:text-lg mb-2 block'>
+          <span className='inline-flex items-center rounded-full bg-amber-100/80 px-4 py-1.5 text-xs font-bold uppercase tracking-wider text-amber-800 ring-1 ring-amber-200/60 mb-3 sm:mb-4'>
             Kisah Sukses
           </span>
-          <h2 className='text-xl lg:text-4xl font-extrabold text-gray-900 mb-4 leading-tight'>
-            Apa Kata <span className='text-primary italic'>Mereka</span>
+          <h2 className='font-serif text-2xl sm:text-3xl lg:text-3xl font-semibold text-slate-900 tracking-tight leading-tight'>
+            Apa Kata Klien
           </h2>
+          <p className='text-slate-600 text-sm sm:text-base mt-3 sm:mt-4 leading-relaxed max-w-2xl mx-auto'>
+            Pengalaman nyata dalam mendampingi tumbuh kembang dan kesehatan gizi keluarga.
+          </p>
         </motion.div>
 
         {/* Global Styles */}
@@ -313,7 +316,7 @@ const Testimonials: React.FC = () => {
                     });
                   }
                 }}
-                className={`h-2 rounded-full transition-all duration-300 ${idx === activeIndex ? 'bg-primary w-6' : 'bg-gray-300 w-2'
+                className={`h-2 rounded-full transition-all duration-300 ${idx === activeIndex ? 'bg-amber-500 w-6' : 'bg-slate-300 w-2'
                   }`}
                 aria-label={`Go to slide ${idx + 1}`}
               />
@@ -330,9 +333,11 @@ const Testimonials: React.FC = () => {
           className='hidden md:block relative overflow-hidden mask-gradient'
         >
           <div
-            className={`flex gap-8 py-8 items-stretch ${testimonials.length > 1 ? 'animate-marquee pause-on-hover' : 'justify-center'}`}
+            className={`flex gap-6 py-6 items-stretch ${testimonials.length > 1
+              ? 'animate-marquee pause-on-hover'
+              : 'justify-center'
+              }`}
           >
-            {/* Duplicate for infinite scroll only if more than 1 item */}
             {(testimonials.length > 1
               ? [...testimonials, ...testimonials]
               : testimonials

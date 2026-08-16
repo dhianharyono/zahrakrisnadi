@@ -1,205 +1,148 @@
 import React from 'react';
-import { Mail, Phone, MapPin, Linkedin } from 'lucide-react';
+import { Mail, Phone, Linkedin, Instagram } from 'lucide-react';
 import Link from 'next/link';
-import { motion, Variants } from 'framer-motion';
-
-const itemVariants: Variants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.5, ease: 'easeOut' },
-  },
-};
+import { motion } from 'framer-motion';
+import { CONTACT_INFO, NAV_LINKS } from '../utils/constants';
 
 const Footer: React.FC = () => {
   return (
-    <footer className='bg-dark text-white pt-10 pb-10'>
-      <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
+    <footer className="bg-slate-50 border-t border-slate-200/80 text-slate-600 pt-16 pb-10">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
-          initial='hidden'
-          whileInView='visible'
-          viewport={{ once: true, margin: '-50px' }}
-          className='grid grid-cols-1 lg:grid-cols-3 p-4 gap-12 lg:gap-8 mb-5 border-b border-gray-800 pb-12'
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 lg:gap-8 pb-10"
         >
-          {/* Brand */}
-          <motion.div
-            variants={itemVariants}
-            className='space-y-3 md:space-y-4 w-fit'
-          >
-            <div className='flex items-center gap-2'>
-              <div className='w-8 h-8 bg-primary rounded-lg flex items-center justify-center text-white font-bold'>
+          {/* Brand Identity & Social Links */}
+          <div className="lg:col-span-5 space-y-4">
+            <div className="flex items-center gap-2.5">
+              <div className="w-9 h-9 bg-primary rounded-lg flex items-center justify-center text-white font-bold text-lg shadow-xs shrink-0">
                 Z
               </div>
-              <span className='text-lg md:text-xl font-bold text-white tracking-tight'>
+              <span className="text-xl font-bold tracking-tight text-slate-900">
                 Zahra Krisnadi
               </span>
             </div>
-            <div className='flex items-center gap-4'>
-              <MapPin className='text-primary shrink-0' size={15} />
-              <span className='text-sm text-gray-400'>
-                Bekasi, Jawa Barat, Indonesia
+            <p className="text-sm text-slate-600 leading-relaxed max-w-md">
+              Ruang konseling gizi online yang hangat dan tanpa menghakimi.
+              Bersama ahli gizi tersertifikasi, kami menemani perjalananmu untuk
+              hidup sehat, seimbang, dan bertumbuh.
+            </p>
+            <div>
+              <span className="inline-flex items-center rounded-full bg-amber-100/80 px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-amber-800 ring-1 ring-amber-200/60">
+                Berdiri sejak 2024
               </span>
             </div>
-            <p className='text-gray-400 text-sm leading-relaxed max-w-sm'>
-              Didukung oleh tenaga gizi profesional tersertifikasi, kami
-              menghadirkan layanan berbasis sains untuk membantu Anda mencapai
-              perubahan gaya hidup yang sehat, terarah, dan berkelanjutan.
-            </p>
-          </motion.div>
-
-          {/* Navigation */}
-          <motion.div variants={itemVariants} className='ml-0 md:ml-20'>
-            <h4 className='text-lg font-bold text-white mb-3 md:mb-6'>Menu</h4>
-            <ul className='space-y-4 text-sm text-gray-400 columns-1 md:columns-2'>
-              <li>
-                <a href='#' className='hover:text-primary transition-colors'>
-                  Beranda
-                </a>
-              </li>
-              <li>
-                <a
-                  href='#why-us'
-                  className='hover:text-primary transition-colors'
-                >
-                  Mengapa Kami
-                </a>
-              </li>
-              <li>
-                <a
-                  href='#tahap-layanan'
-                  className='hover:text-primary transition-colors'
-                >
-                  Tahap Layanan
-                </a>
-              </li>
-              <li>
-                <a
-                  href='#services'
-                  className='hover:text-primary transition-colors'
-                >
-                  Layanan
-                </a>
-              </li>
-              <li>
-                <a
-                  href='#pilih-paket'
-                  className='hover:text-primary transition-colors'
-                >
-                  Pilih Paket
-                </a>
-              </li>
-              <li>
-                <a
-                  href='#kalkulator-bmi'
-                  className='hover:text-primary transition-colors'
-                >
-                  Kalkulator BMI
-                </a>
-              </li>
-              <li>
-                <a
-                  href='#testimonials'
-                  className='hover:text-primary transition-colors'
-                >
-                  Testimoni
-                </a>
-              </li>
-              <li>
-                <a
-                  href='#collaboration'
-                  className='hover:text-primary transition-colors'
-                >
-                  Kolaborasi
-                </a>
-              </li>
-              <li>
-                <a
-                  href='#portofolio'
-                  className='hover:text-primary transition-colors'
-                >
-                  Portofolio
-                </a>
-              </li>
-            </ul>
-          </motion.div>
-
-          {/* Contact */}
-          <motion.div variants={itemVariants} className='ml-0 md:ml-20'>
-            <h4 className='text-lg font-bold text-white mb-3 md:mb-6'>
-              Kontak
-            </h4>
-            <ul className='space-y-4 text-sm text-gray-400'>
-              <li className='flex items-center gap-3 group'>
-                <Linkedin
-                  className='text-primary group-hover:scale-110 transition-transform shrink-0'
-                  size={18}
-                />
-                <Link
-                  href='https://www.linkedin.com/in/zahrakrisnadi'
-                  target='_blank'
-                  className='hover:text-primary break-all'
-                >
-                  Zahra Krisnadi
-                </Link>
-              </li>
-              <li className='flex items-center gap-3 group'>
-                <Phone
-                  className='text-primary group-hover:scale-110 transition-transform shrink-0'
-                  size={18}
-                />
-                <Link
-                  href='https://wa.me/6285183076503'
-                  target='_blank'
-                  className='hover:text-primary'
-                >
-                  Whatsapp
-                </Link>
-              </li>
-              <li className='flex items-center gap-3 group'>
-                <Mail
-                  className='text-primary group-hover:scale-110 transition-transform shrink-0'
-                  size={18}
-                />
-                <Link
-                  href='mailto:dietisienzahrakrisnadi@gmail.com'
-                  target='_blank'
-                  className='hover:text-primary break-all'
-                >
-                  Email
-                </Link>
-              </li>
-            </ul>
-          </motion.div>
-        </motion.div>
-
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          transition={{ delay: 0.5 }}
-          viewport={{ once: true }}
-          className='flex flex-col md:flex-row justify-between items-center text-xs text-gray-600'
-        >
-          <p>
-            &copy; {new Date().getFullYear()} Zahra Krisnadi. All rights
-            reserved.
-          </p>
-          <div className='flex gap-6 mt-4 md:mt-0 text-slate-500'>
-            <p>
-              Developed by
-              <Link
-                href='https://cetha-tech.vercel.app/'
-                target='_blank'
-                className='hover:text-primary transition-colors ml-1 font-bold text-slate-300'
+            {/* Social Buttons */}
+            <div className="flex items-center gap-3 pt-2">
+              <a
+                href={CONTACT_INFO.whatsapp.url()}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="WhatsApp"
+                className="flex h-10 w-10 items-center justify-center rounded-full bg-slate-200/60 text-slate-700 transition-all hover:bg-emerald-500 hover:text-white hover:shadow-xs"
               >
-                Cetha Technologies
-              </Link>
-            </p>
+                <Phone className="h-4 w-4" />
+              </a>
+              <a
+                href={CONTACT_INFO.instagram.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Instagram"
+                className="flex h-10 w-10 items-center justify-center rounded-full bg-slate-200/60 text-slate-700 transition-all hover:bg-amber-500 hover:text-white hover:shadow-xs"
+              >
+                <Instagram className="h-4 w-4" />
+              </a>
+              <a
+                href={CONTACT_INFO.linkedin.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="LinkedIn"
+                className="flex h-10 w-10 items-center justify-center rounded-full bg-slate-200/60 text-slate-700 transition-all hover:bg-blue-600 hover:text-white hover:shadow-xs"
+              >
+                <Linkedin className="h-4 w-4" />
+              </a>
+              <a
+                href={`mailto:${CONTACT_INFO.email}`}
+                aria-label="Email"
+                className="flex h-10 w-10 items-center justify-center rounded-full bg-slate-200/60 text-slate-700 transition-all hover:bg-amber-600 hover:text-white hover:shadow-xs"
+              >
+                <Mail className="h-4 w-4" />
+              </a>
+            </div>
+          </div>
+
+          {/* Jelajahi Navigation Links */}
+          <div className="lg:col-span-3 space-y-4 md:pl-4 lg:pl-8">
+            <h4 className="text-xs font-bold uppercase tracking-wider text-slate-800">
+              Jelajahi
+            </h4>
+            <ul className="space-y-2.5 text-sm font-medium text-slate-600">
+              {NAV_LINKS.map((link) => (
+                <li key={link.href}>
+                  <Link
+                    href={link.href}
+                    className="transition-colors hover:text-amber-600"
+                  >
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Contact & Hours */}
+          <div className="lg:col-span-4 space-y-6 md:pl-4 lg:pl-8">
+            <div>
+              <h4 className="text-xs font-bold uppercase tracking-wider text-slate-800 mb-3">
+                Kontak
+              </h4>
+              <ul className="space-y-2 text-sm text-slate-600 font-medium">
+                <li>
+                  <a
+                    href={`mailto:${CONTACT_INFO.email}`}
+                    className="transition-colors hover:text-amber-600 break-all"
+                  >
+                    {CONTACT_INFO.email}
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href={CONTACT_INFO.whatsapp.url()}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="transition-colors hover:text-amber-600"
+                  >
+                    {CONTACT_INFO.whatsapp.display}
+                  </a>
+                </li>
+                <li className="text-slate-500">@dietisienmu_</li>
+                <li className="text-slate-500">{CONTACT_INFO.location}</li>
+              </ul>
+            </div>
           </div>
         </motion.div>
+
+        {/* Copyright Footer Row */}
+        <div className="mt-8 pt-6 border-t border-slate-200 flex flex-col sm:flex-row justify-between items-center text-xs text-slate-500 gap-3 w-full">
+          <p>© {new Date().getFullYear()} Zahra Krisnadi. Hak cipta dilindungi.</p>
+          <p>
+            Developed by{' '}
+            <Link
+              href="https://cetha-tech.vercel.app/"
+              target="_blank"
+              className="font-semibold text-slate-700 hover:text-amber-600 transition-colors"
+            >
+              Cetha Technologies
+            </Link>
+          </p>
+        </div>
       </div>
     </footer>
   );
 };
 
 export default Footer;
+

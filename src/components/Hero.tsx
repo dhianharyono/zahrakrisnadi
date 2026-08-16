@@ -2,6 +2,7 @@
 
 import React from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import { BadgeCheck } from 'lucide-react';
 import { motion, Variants } from 'framer-motion';
 
@@ -63,32 +64,26 @@ const Hero: React.FC = () => {
 
             <motion.div
               variants={itemVariants}
-              className='flex flex-col-2 sm:flex-row gap-4 pt-4 justify-center lg:justify-start'
+              className='flex flex-col sm:flex-row items-center gap-4 pt-2'
             >
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                onClick={() =>
-                  document
-                    .getElementById('consultation')
-                    ?.scrollIntoView({ behavior: 'smooth' })
-                }
-                className='flex items-center justify-center gap-2 bg-primary hover:bg-orange-600 text-white px-6 py-3 lg:px-8 lg:py-4 rounded-full font-bold shadow-lg shadow-orange-200 hover:shadow-xl transform transition-all w-full sm:w-auto cursor-pointer text-xs md:text-sm lg:text-base'
-              >
-                Mulai Konsultasi
-              </motion.button>
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                onClick={() =>
-                  document
-                    .getElementById('services')
-                    ?.scrollIntoView({ behavior: 'smooth' })
-                }
-                className='flex items-center justify-center gap-2 bg-white hover:bg-gray-50 text-gray-800 px-6 py-3 lg:px-8 lg:py-4 rounded-full font-bold border border-gray-200 shadow-sm hover:shadow-md transition-all w-full sm:w-auto cursor-pointer text-xs md:text-sm lg:text-base'
-              >
-                Lihat Layanan
-              </motion.button>
+              <Link href='/assessment' className='w-full sm:w-auto'>
+                <motion.button
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  className='flex items-center justify-center gap-2 bg-amber-500 hover:bg-amber-600 text-white px-6 py-3 lg:px-8 lg:py-4 rounded-full font-bold shadow-sm hover:shadow-md transition-all w-full sm:w-auto cursor-pointer text-xs md:text-sm lg:text-base'
+                >
+                  Mulai Konsultasi
+                </motion.button>
+              </Link>
+              <Link href='/services' className='w-full sm:w-auto'>
+                <motion.button
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  className='flex items-center justify-center gap-2 bg-white hover:bg-slate-50 text-slate-800 px-6 py-3 lg:px-8 lg:py-4 rounded-full font-bold border border-slate-200/80 shadow-xs hover:shadow-md transition-all w-full sm:w-auto cursor-pointer text-xs md:text-sm lg:text-base'
+                >
+                  Lihat Layanan
+                </motion.button>
+              </Link>
             </motion.div>
 
             <motion.div
