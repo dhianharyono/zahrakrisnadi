@@ -238,7 +238,7 @@ const Testimonials: React.FC = () => {
             Kisah Sukses
           </span>
           <h2 className='font-serif text-2xl sm:text-3xl lg:text-3xl font-semibold text-slate-900 tracking-tight leading-tight'>
-            Apa Kata Klien
+            Apa Kata Mereka
           </h2>
           <p className='text-slate-600 text-sm sm:text-base mt-3 sm:mt-4 leading-relaxed max-w-2xl mx-auto'>
             Pengalaman nyata dalam mendampingi tumbuh kembang dan kesehatan gizi keluarga.
