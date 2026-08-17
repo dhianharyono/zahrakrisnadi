@@ -341,7 +341,7 @@ export default function AssessmentPage() {
     return (
       <div className='min-h-screen bg-slate-50/60 flex flex-col font-sans text-slate-800 relative selection:bg-amber-500/20 selection:text-amber-600'>
         <Navbar />
-        <main className='flex-1 flex items-center justify-center p-4 pt-28 sm:pt-36 pb-16 sm:pb-24 relative z-10'>
+        <main className='flex-1 flex items-center justify-center p-4 pt-24 sm:pt-32 pb-16 sm:pb-24 relative z-10'>
           <div className='bg-white rounded-3xl shadow-xs ring-1 ring-slate-200/80 p-8 sm:p-12 max-w-md w-full text-center'>
             <div className='w-16 h-16 bg-amber-100/80 text-amber-600 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-xs ring-1 ring-amber-200/60'>
               <CheckCircle className='w-8 h-8' />
@@ -381,14 +381,14 @@ export default function AssessmentPage() {
     <div className='min-h-screen bg-slate-50/60 flex flex-col font-sans text-slate-800 relative selection:bg-amber-500/20 selection:text-amber-600'>
       <Navbar />
 
-      <main className='flex-1 pt-28 sm:pt-36 pb-16 sm:pb-24 relative z-10 max-w-4xl mx-auto px-4 sm:px-6 w-full'>
+      <main className='flex-1 pt-24 sm:pt-32 pb-16 sm:pb-24 relative z-10 max-w-4xl mx-auto px-4 sm:px-6 w-full'>
         {/* Section Header */}
         <div className='text-center max-w-2xl mx-auto mb-8 sm:mb-12'>
           <span className='inline-flex items-center rounded-full bg-amber-100/80 px-4 py-1.5 text-xs font-bold uppercase tracking-wider text-amber-800 ring-1 ring-amber-200/60 mb-3 sm:mb-4'>
             Form Assessment
           </span>
           <h1 className='font-serif text-2xl sm:text-3xl lg:text-3xl font-semibold text-slate-900 tracking-tight leading-tight'>
-            Form Assessment & Consultation
+            Lengkapi Data Diri Anda
           </h1>
           <p className='text-slate-600 text-sm sm:text-base mt-3 leading-relaxed'>
             Lengkapi data diri dan kebiasaan gizi Anda (Langkah {step} dari {steps.length})
@@ -421,10 +421,10 @@ export default function AssessmentPage() {
                   >
                     <div
                       className={`w-11 h-11 rounded-full flex items-center justify-center transition-all duration-300 ${isActive
-                          ? 'bg-amber-500 text-white shadow-sm ring-4 ring-amber-100 scale-105 font-bold'
-                          : isCompleted
-                            ? 'bg-amber-500 text-white'
-                            : 'bg-white border border-slate-200 text-slate-400 hover:border-slate-300'
+                        ? 'bg-amber-500 text-white shadow-sm ring-4 ring-amber-100 scale-105 font-bold'
+                        : isCompleted
+                          ? 'bg-amber-500 text-white'
+                          : 'bg-white border border-slate-200 text-slate-400 hover:border-slate-300'
                         }`}
                     >
                       {isCompleted ? (
@@ -435,10 +435,10 @@ export default function AssessmentPage() {
                     </div>
                     <span
                       className={`text-[11px] font-bold uppercase tracking-wider text-center transition-colors duration-300 ${isActive
-                          ? 'text-amber-800'
-                          : isCompleted
-                            ? 'text-slate-700'
-                            : 'text-slate-400'
+                        ? 'text-amber-800'
+                        : isCompleted
+                          ? 'text-slate-700'
+                          : 'text-slate-400'
                         }`}
                     >
                       {s.label}
@@ -1536,8 +1536,8 @@ export default function AssessmentPage() {
                 onClick={handleBack}
                 disabled={step === 1}
                 className={`flex text-xs sm:text-sm items-center gap-2 px-6 py-3 rounded-full font-bold transition-all cursor-pointer ${step === 1
-                    ? 'text-slate-300 bg-slate-50 cursor-not-allowed border border-slate-200/50'
-                    : 'text-slate-700 bg-slate-100 hover:bg-slate-200 border border-slate-200/80'
+                  ? 'text-slate-300 bg-slate-50 cursor-not-allowed border border-slate-200/50'
+                  : 'text-slate-700 bg-slate-100 hover:bg-slate-200 border border-slate-200/80'
                   }`}
               >
                 <ChevronLeft className='w-4 h-4' />

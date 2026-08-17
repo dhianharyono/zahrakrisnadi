@@ -20,18 +20,18 @@ const Features: React.FC = () => {
   return (
     <section
       id="why-us"
-      className="py-16 sm:py-24 bg-slate-50/60 relative overflow-hidden"
+      className="py-12 sm:py-20 bg-slate-50/60 relative overflow-hidden"
     >
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Seamless Quote Container */}
-        <div className="relative max-w-3xl mx-auto min-h-[260px] flex flex-col items-center justify-center text-center">
-          {/* Decorative Quote Icon Matching Soulae.id */}
-          <div className="mb-6 flex justify-center">
-            <Quote className="w-10 h-10 md:w-12 md:h-12 text-amber-400 fill-amber-400 rotate-180 stroke-none" />
+        <div className="relative max-w-3xl mx-auto min-h-[220px] sm:min-h-[250px] flex flex-col items-center justify-center text-center">
+          {/* Decorative Quote Icon */}
+          <div className="mb-4 sm:mb-6 flex justify-center">
+            <Quote className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 text-amber-400 fill-amber-400 rotate-180 stroke-none" />
           </div>
 
           {/* Animated Slide Content */}
-          <div className="w-full relative min-h-[160px] flex items-center justify-center">
+          <div className="w-full relative min-h-[140px] sm:min-h-[160px] flex items-center justify-center">
             <AnimatePresence mode="wait">
               <motion.div
                 key={currentIndex}
@@ -39,12 +39,12 @@ const Features: React.FC = () => {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -12 }}
                 transition={{ duration: 0.4, ease: 'easeInOut' }}
-                className="max-w-2xl mx-auto space-y-4"
+                className="max-w-2xl mx-auto space-y-2.5 sm:space-y-4"
               >
-                <h2 className="font-serif text-2xl sm:text-3xl lg:text-3xl font-semibold text-slate-900 tracking-tight leading-tight">
+                <h2 className="font-serif text-xl sm:text-2xl md:text-3xl font-semibold text-slate-900 tracking-tight leading-tight">
                   {currentFeature.title}
                 </h2>
-                <p className="text-slate-600 text-sm sm:text-base md:text-lg leading-relaxed max-w-xl mx-auto">
+                <p className="text-slate-600 text-xs sm:text-sm md:text-base leading-relaxed max-w-xl mx-auto">
                   {currentFeature.description}
                 </p>
               </motion.div>
@@ -53,16 +53,17 @@ const Features: React.FC = () => {
         </div>
 
         {/* Dot Pagination Indicators */}
-        <div className="flex items-center justify-center gap-2.5 mt-8">
+        <div className="flex items-center justify-center gap-2 sm:gap-2.5 mt-6 sm:mt-8">
           {FEATURES_DATA.map((_, idx) => (
             <button
               key={idx}
               onClick={() => setCurrentIndex(idx)}
               aria-label={`Go to slide ${idx + 1}`}
-              className={`h-2.5 rounded-full transition-all duration-500 cursor-pointer ${currentIndex === idx
-                  ? 'w-8 bg-amber-500'
-                  : 'w-2.5 bg-slate-300 hover:bg-slate-400'
-                }`}
+              className={`h-2 sm:h-2.5 rounded-full transition-all duration-500 cursor-pointer ${
+                currentIndex === idx
+                  ? 'w-6 sm:w-8 bg-amber-500'
+                  : 'w-2 sm:w-2.5 bg-slate-300 hover:bg-slate-400'
+              }`}
             />
           ))}
         </div>

@@ -36,7 +36,7 @@ const Hero: React.FC = () => {
             initial='hidden'
             animate='visible'
             variants={containerVariants}
-            className='space-y-3 lg:space-y-8 mt-15 lg:mt-0'
+            className='space-y-3 lg:space-y-8 mt-4 lg:mt-0'
           >
             <motion.span
               variants={itemVariants}
