@@ -40,7 +40,7 @@ const Hero: React.FC = () => {
           >
             <motion.span
               variants={itemVariants}
-              className='text-primary font-serif italic text-sm md:text-lg block text-center lg:text-left'
+              className='text-primary font-semibold text-sm md:text-lg block text-center lg:text-left'
             >
               Think Healthier
             </motion.span>

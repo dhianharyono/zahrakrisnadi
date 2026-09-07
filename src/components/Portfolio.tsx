@@ -101,7 +101,7 @@ const Portfolio: React.FC = () => {
           <span className='inline-flex items-center rounded-full bg-amber-100/80 px-4 py-1.5 text-xs font-bold uppercase tracking-wider text-amber-800 ring-1 ring-amber-200/60 mb-3 sm:mb-4'>
             Galeri & Aktivitas
           </span>
-          <h2 className='font-serif text-2xl sm:text-3xl lg:text-3xl font-semibold text-slate-900 tracking-tight leading-tight'>
+          <h2 className='text-2xl sm:text-3xl lg:text-3xl font-bold text-slate-900 tracking-tight leading-tight'>
             Portofolio Kegiatan
           </h2>
           <p className='text-slate-600 text-sm sm:text-base mt-3 sm:mt-4 leading-relaxed max-w-2xl mx-auto'>

@@ -72,7 +72,7 @@ const ServiceSteps: React.FC = () => {
             <span className="inline-flex items-center rounded-full bg-amber-100/80 px-3.5 py-1 text-[11px] sm:text-xs font-bold uppercase tracking-wider text-amber-800 ring-1 ring-amber-200/60 mb-2.5 sm:mb-4">
               Bagaimana Caranya
             </span>
-            <h2 className="font-serif text-xl sm:text-2xl lg:text-3xl font-semibold text-slate-900 tracking-tight leading-tight">
+            <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold text-slate-900 tracking-tight leading-tight">
               Empat langkah mudah mulai hidup sehat
             </h2>
           </motion.div>
@@ -103,7 +103,7 @@ const ServiceSteps: React.FC = () => {
                     </div>
 
                     {/* Step Title */}
-                    <h3 className="font-serif text-base sm:text-xl font-bold text-slate-900 mt-3 sm:mt-6 mb-1.5 sm:mb-3 text-center">
+                    <h3 className="text-base sm:text-xl font-bold text-slate-900 mt-3 sm:mt-6 mb-1.5 sm:mb-3 text-center">
                       {step.title}
                     </h3>
                     <p className="text-xs sm:text-sm text-slate-600 leading-relaxed text-center max-w-xs">

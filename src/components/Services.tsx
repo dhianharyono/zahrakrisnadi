@@ -122,7 +122,7 @@ const Services: React.FC<ServicesProps> = ({ showPricing = true }) => {
           <span className='inline-flex items-center rounded-full bg-amber-100/80 px-3.5 py-1 text-[11px] sm:text-xs font-bold uppercase tracking-wider text-amber-800 ring-1 ring-amber-200/60 mb-2.5 sm:mb-4'>
             Layanan
           </span>
-          <h2 className='font-serif text-xl sm:text-2xl lg:text-3xl font-semibold text-slate-900 tracking-tight leading-tight'>
+          <h2 className='text-xl sm:text-2xl lg:text-3xl font-bold text-slate-900 tracking-tight leading-tight'>
             Program Layanan Unggulan
           </h2>
           <p className='text-slate-600 text-xs sm:text-sm md:text-base mt-2 sm:mt-4 leading-relaxed max-w-2xl mx-auto'>
@@ -284,7 +284,7 @@ const Services: React.FC<ServicesProps> = ({ showPricing = true }) => {
               <span className='inline-flex items-center rounded-full bg-amber-100/80 px-3.5 py-1 text-[11px] sm:text-xs font-bold uppercase tracking-wider text-amber-800 ring-1 ring-amber-200/60 mb-2.5 sm:mb-4'>
                 Pilihan Paket
               </span>
-              <h2 className='font-serif text-xl sm:text-2xl lg:text-3xl font-semibold text-slate-900 tracking-tight leading-tight'>
+              <h2 className='text-xl sm:text-2xl lg:text-3xl font-bold text-slate-900 tracking-tight leading-tight'>
                 Paket Konsultasi Gizi
               </h2>
               <p className='text-slate-600 text-xs sm:text-sm md:text-base mt-2 sm:mt-4 leading-relaxed max-w-2xl mx-auto'>

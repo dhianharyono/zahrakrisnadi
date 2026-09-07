@@ -37,7 +37,7 @@ const Collaboration: React.FC = () => {
             <span className='inline-flex items-center rounded-full bg-amber-100/80 px-4 py-1.5 text-xs font-bold uppercase tracking-wider text-amber-800 ring-1 ring-amber-200/60 mb-3 sm:mb-4'>
               Partnership & Kolaborasi
             </span>
-            <h2 className='font-serif text-2xl sm:text-3xl lg:text-3xl font-semibold text-slate-900 tracking-tight leading-tight'>
+            <h2 className='text-2xl sm:text-3xl lg:text-3xl font-bold text-slate-900 tracking-tight leading-tight'>
               Mari Berkolaborasi Bersama
             </h2>
             <p className='text-sm sm:text-base text-slate-600 leading-relaxed max-w-xl mx-auto md:mx-0'>

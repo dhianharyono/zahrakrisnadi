@@ -37,7 +37,7 @@ export default function ConfirmModal({
           >
             <AlertTriangle className='w-8 h-8' />
           </div>
-          <h3 className='text-xl font-serif font-bold text-gray-800 mb-2'>
+          <h3 className='text-xl font-bold text-gray-800 mb-2'>
             {title}
           </h3>
           <p className='text-gray-600 mb-6'>{message}</p>

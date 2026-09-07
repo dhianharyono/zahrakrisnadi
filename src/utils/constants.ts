@@ -49,7 +49,7 @@ export const FEATURES_DATA = [
   },
   {
     id: '03',
-    title: 'Dietisien/Ahli Gizi Terferifikasi',
+    title: 'Dietisien/Ahli Gizi Terverifikasi',
     description:
       'Berpengalaman dan teregistrasi oleh KKI (Konsil Kesehatan Indonesia)',
     Icon: Award,

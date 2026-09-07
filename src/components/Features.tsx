@@ -41,7 +41,7 @@ const Features: React.FC = () => {
                 transition={{ duration: 0.4, ease: 'easeInOut' }}
                 className="max-w-2xl mx-auto space-y-2.5 sm:space-y-4"
               >
-                <h2 className="font-serif text-xl sm:text-2xl md:text-3xl font-semibold text-slate-900 tracking-tight leading-tight">
+                <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-slate-900 tracking-tight leading-tight">
                   {currentFeature.title}
                 </h2>
                 <p className="text-slate-600 text-xs sm:text-sm md:text-base leading-relaxed max-w-xl mx-auto">

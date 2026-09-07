@@ -115,7 +115,7 @@ const GTMChecklist: React.FC = () => {
             <Stethoscope size={15} />
             Edukasi Kesehatan
           </span>
-          <h2 className='font-serif text-2xl sm:text-3xl lg:text-3xl font-semibold text-slate-900 tracking-tight leading-tight'>
+          <h2 className='text-2xl sm:text-3xl lg:text-3xl font-bold text-slate-900 tracking-tight leading-tight'>
             Checklist Penyebab GTM (Gerakan Tutup Mulut)
           </h2>
           <p className='text-slate-600 text-sm sm:text-base mt-3 sm:mt-4 leading-relaxed max-w-2xl mx-auto'>
@@ -209,7 +209,7 @@ const GTMChecklist: React.FC = () => {
           >
             <div className='bg-amber-50/70 p-6 sm:p-8 rounded-3xl border border-amber-200/80'>
               <div className='text-center mb-8'>
-                <h3 className='font-serif text-base sm:text-lg font-bold text-slate-900 mb-2 leading-tight uppercase tracking-wide'>
+                <h3 className='text-base sm:text-lg font-bold text-slate-900 mb-2 leading-tight uppercase tracking-wide'>
                   Infant and Child Feeding Questionnaire (ICFQ)©
                 </h3>
                 <p className='text-slate-700 font-medium text-xs sm:text-sm'>

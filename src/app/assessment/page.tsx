@@ -346,7 +346,7 @@ export default function AssessmentPage() {
             <div className='w-16 h-16 bg-amber-100/80 text-amber-600 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-xs ring-1 ring-amber-200/60'>
               <CheckCircle className='w-8 h-8' />
             </div>
-            <h2 className='text-xl sm:text-2xl font-serif font-semibold text-slate-900 mb-2'>
+            <h2 className='text-xl sm:text-2xl font-bold text-slate-900 mb-2'>
               Terima Kasih!
             </h2>
             <p className='text-slate-600 mb-6 font-sans leading-relaxed text-xs sm:text-sm'>
@@ -387,7 +387,7 @@ export default function AssessmentPage() {
           <span className='inline-flex items-center rounded-full bg-amber-100/80 px-4 py-1.5 text-xs font-bold uppercase tracking-wider text-amber-800 ring-1 ring-amber-200/60 mb-3 sm:mb-4'>
             Form Assessment
           </span>
-          <h1 className='font-serif text-2xl sm:text-3xl lg:text-3xl font-semibold text-slate-900 tracking-tight leading-tight'>
+          <h1 className='text-2xl sm:text-3xl lg:text-3xl font-bold text-slate-900 tracking-tight leading-tight'>
             Lengkapi Data Diri Anda
           </h1>
           <p className='text-slate-600 text-sm sm:text-base mt-3 leading-relaxed'>
