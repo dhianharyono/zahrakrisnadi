@@ -1,7 +1,7 @@
 'use client';
 
 import { createPortal } from 'react-dom';
-import { AlertTriangle } from 'lucide-react';
+import { AlertTriangle, X } from 'lucide-react';
 
 interface ConfirmModalProps {
   isOpen: boolean;
@@ -30,8 +30,15 @@ export default function ConfirmModal({
 
   return createPortal(
     <div className='fixed inset-0 bg-black/40 backdrop-blur-md z-[100] flex items-center justify-center p-4'>
-      <div className='bg-white/95 backdrop-blur-2xl rounded-3xl shadow-2xl shadow-orange-100/50 border border-white/50 w-full max-w-md overflow-hidden flex flex-col transform transition-all scale-100 animate-slide-up'>
-        <div className='p-6 text-center'>
+      <div className='bg-white/95 backdrop-blur-2xl rounded-3xl shadow-2xl shadow-orange-100/50 border border-white/50 w-full max-w-md overflow-hidden flex flex-col transform transition-all scale-100 animate-slide-up relative'>
+        <button
+          onClick={onCancel}
+          disabled={isLoading}
+          className='absolute top-4 right-4 p-2 hover:bg-gray-100 hover:text-gray-700 rounded-full transition-colors text-gray-400 cursor-pointer'
+        >
+          <X className='w-5 h-5' />
+        </button>
+        <div className='p-6 text-center pt-8'>
           <div
             className={`mx-auto w-16 h-16 rounded-full flex items-center justify-center mb-4 ${isDanger ? 'bg-red-100 text-red-500' : 'bg-orange-100 text-primary'}`}
           >

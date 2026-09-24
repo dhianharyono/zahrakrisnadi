@@ -408,7 +408,7 @@ export default function AssessmentPage() {
                   {idx > 0 && (
                     <div className='flex-1 h-0.5 mx-2 bg-slate-200 overflow-hidden rounded-full'>
                       <div
-                        className='h-full bg-amber-500 transition-all duration-500'
+                        className='h-full bg-primary transition-all duration-500'
                         style={{ width: isCompleted || isActive ? '100%' : '0%' }}
                       ></div>
                     </div>
@@ -421,9 +421,9 @@ export default function AssessmentPage() {
                   >
                     <div
                       className={`w-11 h-11 rounded-full flex items-center justify-center transition-all duration-300 ${isActive
-                        ? 'bg-amber-500 text-white shadow-sm ring-4 ring-amber-100 scale-105 font-bold'
+                        ? 'bg-primary text-white shadow-md scale-105 font-bold'
                         : isCompleted
-                          ? 'bg-amber-500 text-white'
+                          ? 'bg-primary text-white'
                           : 'bg-white border border-slate-200 text-slate-400 hover:border-slate-300'
                         }`}
                     >
@@ -435,7 +435,7 @@ export default function AssessmentPage() {
                     </div>
                     <span
                       className={`text-[11px] font-bold uppercase tracking-wider text-center transition-colors duration-300 ${isActive
-                        ? 'text-amber-800'
+                        ? 'text-primary'
                         : isCompleted
                           ? 'text-slate-700'
                           : 'text-slate-400'
@@ -454,11 +454,11 @@ export default function AssessmentPage() {
         <div className='md:hidden mb-8 bg-white rounded-2xl p-4 shadow-xs ring-1 ring-slate-200/80'>
           <div className='flex items-center justify-between mb-2 text-xs font-bold text-slate-700'>
             <span>Langkah {step} dari {steps.length}: {steps[step - 1].label}</span>
-            <span className='text-amber-600'>{Math.round((step / steps.length) * 100)}%</span>
+            <span className='text-primary'>{Math.round((step / steps.length) * 100)}%</span>
           </div>
           <div className='w-full h-2 bg-slate-100 rounded-full overflow-hidden'>
             <div
-              className='h-full bg-amber-500 transition-all duration-500 rounded-full'
+              className='h-full bg-primary transition-all duration-500 rounded-full'
               style={{ width: `${(step / steps.length) * 100}%` }}
             ></div>
           </div>
@@ -467,9 +467,9 @@ export default function AssessmentPage() {
         {/* Form Card */}
         <div className='bg-white rounded-3xl shadow-xs ring-1 ring-slate-200/80 overflow-hidden'>
           {/* Form Header Inside Card */}
-          <div className='bg-amber-50/70 border-b border-amber-200/60 p-6 sm:p-8 flex items-center justify-between'>
+          <div className='bg-slate-50 border-b border-slate-200 p-6 sm:p-8 flex items-center justify-between'>
             <div className='flex items-center gap-4'>
-              <div className='w-12 h-12 rounded-2xl bg-amber-100/80 text-amber-700 ring-1 ring-amber-200/60 flex items-center justify-center font-bold shrink-0'>
+              <div className='w-12 h-12 rounded-2xl bg-slate-100 text-slate-700 ring-1 ring-slate-200 flex items-center justify-center font-bold shrink-0'>
                 <CurrentStepIcon className='w-6 h-6' />
               </div>
               <div>
@@ -482,7 +482,7 @@ export default function AssessmentPage() {
               </div>
             </div>
             <div className='hidden sm:block text-right'>
-              <span className='text-xs font-bold text-amber-800 bg-amber-100/80 px-3.5 py-1.5 rounded-full ring-1 ring-amber-200/60'>
+              <span className='text-xs font-bold text-slate-700 bg-slate-100 px-3.5 py-1.5 rounded-full ring-1 ring-slate-200'>
                 Langkah {step} / {steps.length}
               </span>
             </div>

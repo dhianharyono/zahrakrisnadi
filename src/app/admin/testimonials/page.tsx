@@ -235,7 +235,7 @@ export default function AdminTestimonials() {
         </div>
         <button
           onClick={openAddModal}
-          className='bg-linear-to-r from-primary to-orange-600 text-white px-6 py-3 rounded-2xl font-bold hover:shadow-lg hover:shadow-orange-200 hover:-translate-y-0.5 transition-all flex items-center gap-2 cursor-pointer'
+          className='bg-linear-to-r from-primary to-orange-600 text-white px-4 py-2 rounded-xl text-sm font-semibold hover:shadow-md hover:shadow-orange-200 hover:-translate-y-0.5 transition-all flex items-center gap-2 cursor-pointer'
         >
           + Tambah Testimonial
         </button>
@@ -244,30 +244,30 @@ export default function AdminTestimonials() {
       <div className='bg-white/60 backdrop-blur-xl rounded-3xl shadow-xl shadow-gray-100/50 border border-white/60 overflow-hidden'>
         <div className='overflow-x-auto'>
           <table className='w-full text-left border-collapse'>
-            <thead className='bg-orange-50/50 border-b border-orange-100'>
+            <thead className='bg-gray-50 border-b border-gray-100'>
               <tr>
-                <th className='px-8 py-5 font-bold text-gray-600 text-xs uppercase tracking-wider'>
+                <th className='px-6 py-3 font-bold text-gray-600 text-xs uppercase tracking-wider'>
                   Nama
                 </th>
-                <th className='px-8 py-5 font-bold text-gray-600 text-xs uppercase tracking-wider'>
+                <th className='px-6 py-3 font-bold text-gray-600 text-xs uppercase tracking-wider'>
                   Gender
                 </th>
-                <th className='px-8 py-5 font-bold text-gray-600 text-xs uppercase tracking-wider'>
+                <th className='px-6 py-3 font-bold text-gray-600 text-xs uppercase tracking-wider'>
                   Role
                 </th>
-                <th className='px-8 py-5 font-bold text-gray-600 text-xs uppercase tracking-wider'>
+                <th className='px-6 py-3 font-bold text-gray-600 text-xs uppercase tracking-wider'>
                   Program
                 </th>
-                <th className='px-8 py-5 font-bold text-gray-600 text-xs uppercase tracking-wider'>
+                <th className='px-6 py-3 font-bold text-gray-600 text-xs uppercase tracking-wider'>
                   Rating
                 </th>
-                <th className='px-8 py-5 font-bold text-gray-600 text-xs uppercase tracking-wider'>
+                <th className='px-6 py-3 font-bold text-gray-600 text-xs uppercase tracking-wider'>
                   Pesan
                 </th>
-                <th className='px-8 py-5 font-bold text-gray-600 text-xs uppercase tracking-wider'>
+                <th className='px-6 py-3 font-bold text-gray-600 text-xs uppercase tracking-wider'>
                   Status
                 </th>
-                <th className='px-8 py-5 font-bold text-gray-600 text-xs uppercase tracking-wider text-right'>
+                <th className='px-6 py-3 font-bold text-gray-600 text-xs uppercase tracking-wider text-right'>
                   Aksi
                 </th>
               </tr>
@@ -279,21 +279,21 @@ export default function AdminTestimonials() {
                     key={item._id}
                     className='hover:bg-white/80 transition-all duration-200 group'
                   >
-                    <td className='px-8 py-5 text-sm font-semibold text-gray-800 group-hover:text-primary transition-colors'>
+                    <td className='px-6 py-3 text-sm font-semibold text-gray-800 group-hover:text-primary transition-colors'>
                       {item.patientName}
                     </td>
-                    <td className='px-8 py-5 text-sm font-semibold text-gray-600'>
+                    <td className='px-6 py-3 text-sm font-semibold text-gray-600'>
                       {item.gender === 'l' ? 'L' : item.gender === 'p' ? 'P' : '-'}
                     </td>
-                    <td className='px-8 py-5 text-sm text-gray-600'>
+                    <td className='px-6 py-3 text-sm text-gray-600'>
                       {item.role}
                     </td>
-                    <td className='px-8 py-5 text-sm text-gray-600'>
+                    <td className='px-6 py-3 text-sm text-gray-600'>
                       <span className={`px-3 py-1 rounded-full text-xs font-bold ${getProgramBadgeStyle(item.program)}`}>
                         {item.program}
                       </span>
                     </td>
-                    <td className='px-8 py-5 text-sm font-bold text-yellow-500'>
+                    <td className='px-6 py-3 text-sm font-bold text-yellow-500'>
                       <div className='flex gap-0.5 w-fit'>
                         {'★'.repeat(item.rating)}
                         <span className='text-gray-300'>
@@ -301,54 +301,51 @@ export default function AdminTestimonials() {
                         </span>
                       </div>
                     </td>
-                    <td className='px-8 py-5 text-sm text-gray-600 truncate max-w-50 italic'>
+                    <td className='px-6 py-3 text-sm text-gray-600 truncate max-w-50 italic'>
                       "{item.message}"
                     </td>
-                    <td className='px-8 py-5 text-sm'>
+                    <td className='px-6 py-3 text-sm'>
                       <span
                         className={`px-3 py-1 rounded-full text-xs font-bold border ${item.isVisible ? 'bg-green-100 text-green-700 border-green-200' : 'bg-gray-100 text-gray-600 border-gray-200'}`}
                       >
                         {item.isVisible ? 'Tampil' : 'Sembunyi'}
                       </span>
                     </td>
-                    <td className='px-8 py-5 text-right'>
+                    <td className='px-6 py-3 text-right'>
                       <div className='flex items-center justify-end gap-2 opacity-80 group-hover:opacity-100 transition-opacity'>
                         <button
                           onClick={() => setSelectedTestimonial(item)}
-                          className='p-2 rounded-xl text-blue-600 bg-blue-50 hover:bg-blue-100 hover:scale-110 transition-all shadow-sm cursor-pointer'
+                          className='p-1.5 rounded-lg text-gray-600 bg-gray-50 border border-gray-100 hover:bg-gray-100 hover:scale-110 transition-all shadow-sm cursor-pointer'
                           title='Lihat Detail'
                         >
-                          <Eye className='w-4 h-4' />
+                          <Eye className='w-3.5 h-3.5' />
                         </button>
                         <button
                           onClick={() => handleEdit(item)}
-                          className='p-2 rounded-xl text-yellow-600 bg-yellow-50 hover:bg-yellow-100 hover:scale-110 transition-all shadow-sm cursor-pointer'
+                          className='p-1.5 rounded-lg text-gray-600 bg-gray-50 border border-gray-100 hover:bg-gray-100 hover:scale-110 transition-all shadow-sm cursor-pointer'
                           title='Edit'
                         >
-                          <Pencil className='w-4 h-4' />
+                          <Pencil className='w-3.5 h-3.5' />
                         </button>
                         <button
                           onClick={() =>
                             handleToggleVisibility(item._id, item.isVisible)
                           }
-                          className={`p-2 rounded-xl transition-all shadow-sm hover:scale-110 cursor-pointer ${item.isVisible
-                            ? 'text-gray-500 bg-gray-50 hover:bg-gray-100'
-                            : 'text-green-600 bg-green-50 hover:bg-green-100'
-                            }`}
+                          className={`p-1.5 rounded-lg transition-all shadow-sm border border-gray-100 hover:scale-110 cursor-pointer text-gray-600 bg-gray-50 hover:bg-gray-100`}
                           title={item.isVisible ? 'Sembunyikan' : 'Tampilkan'}
                         >
                           {item.isVisible ? (
-                            <EyeOff className='w-4 h-4' />
+                            <EyeOff className='w-3.5 h-3.5' />
                           ) : (
-                            <Eye className='w-4 h-4' />
+                            <Eye className='w-3.5 h-3.5' />
                           )}
                         </button>
                         <button
                           onClick={() => handleDeleteClick(item._id)}
-                          className='p-2 rounded-xl text-red-600 bg-red-50 hover:bg-red-100 hover:scale-110 transition-all shadow-sm cursor-pointer'
+                          className='p-1.5 rounded-lg text-gray-600 bg-gray-50 border border-gray-100 hover:bg-red-50 hover:text-red-600 hover:scale-110 transition-all shadow-sm cursor-pointer'
                           title='Hapus'
                         >
-                          <Trash2 className='w-4 h-4' />
+                          <Trash2 className='w-3.5 h-3.5' />
                         </button>
                       </div>
                     </td>
@@ -358,7 +355,7 @@ export default function AdminTestimonials() {
                 <tr>
                   <td
                     colSpan={8}
-                    className='px-8 py-16 text-center text-gray-400'
+                    className='px-6 py-10 text-center text-gray-400'
                   >
                     <div className='flex flex-col items-center gap-3'>
                       <div className='w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center'>
@@ -380,10 +377,17 @@ export default function AdminTestimonials() {
         createPortal(
           <div className='fixed inset-0 bg-black/40 backdrop-blur-md z-[100] flex items-center justify-center p-4'>
             <div className='bg-white/95 backdrop-blur-2xl rounded-3xl shadow-2xl shadow-orange-100/50 border border-white/50 w-full max-w-lg overflow-hidden flex flex-col transform transition-all scale-100 animate-slide-up max-h-[90vh]'>
-              <div className='p-6 border-b border-gray-100 bg-linear-to-r from-orange-50/80 to-white'>
+              <div className='flex items-center justify-between p-6 border-b border-gray-100 bg-linear-to-r from-orange-50/80 to-white'>
                 <h3 className='text-xl font-bold font-serif text-gray-800'>
                   {editingId ? 'Edit Testimonial' : 'Tambah Testimonial'}
                 </h3>
+                <button
+                  type="button"
+                  onClick={() => setIsAddModalOpen(false)}
+                  className='p-2 hover:bg-red-50 hover:text-red-500 rounded-full transition-colors text-gray-400 cursor-pointer'
+                >
+                  <X className='w-5 h-5' />
+                </button>
               </div>
 
               <div className='p-6 overflow-y-auto'>
@@ -649,11 +653,11 @@ export default function AdminTestimonials() {
 
                 <div className='flex justify-between items-center pt-4 border-t border-gray-100'>
                   <div className='flex flex-col'>
-                    <span className='text-xs text-gray-400 font-bold uppercase tracking-wider mb-1'>
+                    <span className='text-[10px] text-gray-400 font-bold uppercase tracking-wider mb-1'>
                       Status
                     </span>
                     <span
-                      className={`px-3 py-1 rounded-full text-xs font-bold border w-fit ${selectedTestimonial.isVisible ? 'bg-green-100 text-green-700 border-green-200' : 'bg-gray-100 text-gray-600 border-gray-200'}`}
+                      className={`px-2 py-0.5 rounded-full text-[10px] font-bold border w-fit ${selectedTestimonial.isVisible ? 'bg-green-100 text-green-700 border-green-200' : 'bg-gray-100 text-gray-600 border-gray-200'}`}
                     >
                       {selectedTestimonial.isVisible
                         ? 'Ditampilkan'
@@ -661,10 +665,10 @@ export default function AdminTestimonials() {
                     </span>
                   </div>
                   <div className='flex flex-col items-end'>
-                    <span className='text-xs text-gray-400 font-bold uppercase tracking-wider mb-1'>
+                    <span className='text-[10px] text-gray-400 font-bold uppercase tracking-wider mb-1'>
                       Tanggal
                     </span>
-                    <span className='text-sm font-medium text-gray-600'>
+                    <span className='text-xs font-medium text-gray-600'>
                       {new Date(
                         selectedTestimonial.createdAt,
                       ).toLocaleDateString('id-ID', {

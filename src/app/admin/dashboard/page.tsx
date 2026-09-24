@@ -11,7 +11,6 @@ import {
   Activity,
   AlertCircle,
   Clock,
-  ExternalLink,
 } from 'lucide-react';
 import {
   PieChart,
@@ -57,8 +56,9 @@ export default function AdminDashboardAnalytics() {
         const data = json.data || [];
         const total = data.length;
         const todayStr = new Date().toISOString().split('T')[0];
-        const newToday = data.filter((item: any) =>
-          item.createdAt && item.createdAt.toString().startsWith(todayStr),
+        const newToday = data.filter(
+          (item: any) =>
+            item.createdAt && item.createdAt.toString().startsWith(todayStr),
         ).length;
 
         let totalAge = 0;
@@ -270,10 +270,10 @@ export default function AdminDashboardAnalytics() {
     );
 
   return (
-    <div className='space-y-8 animate-fade-in pb-10'>
+    <div className='space-y-6 animate-fade-in pb-8'>
       <header className='flex flex-col md:flex-row md:items-center justify-between gap-4'>
         <div>
-          <h1 className='text-2xl font-bold text-gray-800 tracking-tight'>
+          <h1 className='text-xl font-bold text-gray-800 tracking-tight'>
             Dashboard Analitik
           </h1>
           <p className='text-gray-500 mt-1 text-sm'>
@@ -284,12 +284,11 @@ export default function AdminDashboardAnalytics() {
           <Link
             href='/'
             target='_blank'
-            className='cursor-pointer flex items-center gap-2 bg-white px-4 py-2.5 rounded-xl text-sm font-bold text-gray-700 border border-gray-200 shadow-sm hover:shadow-md hover:text-primary hover:border-primary/20 transition-all group'
+            className='cursor-pointer flex items-center gap-2 bg-white px-3 py-2 rounded-xl text-xs font-bold text-gray-700 border border-gray-200 shadow-sm hover:shadow-md hover:text-primary hover:border-primary/20 transition-all group'
           >
-            <ExternalLink className='w-4 h-4 text-gray-400 group-hover:text-primary transition-colors' />
             <span className='hidden sm:inline'>Lihat Landing Page</span>
           </Link>
-          <div className='hidden md:block bg-white/50 px-4 py-2.5 rounded-xl text-sm font-medium text-gray-600 border border-white/50 shadow-sm backdrop-blur-sm'>
+          <div className='hidden md:block bg-white/50 px-3 py-2 rounded-xl text-xs font-medium text-gray-600 border border-white/50 shadow-sm backdrop-blur-sm'>
             {new Date().toLocaleDateString('id-ID', {
               weekday: 'long',
               year: 'numeric',
@@ -301,7 +300,7 @@ export default function AdminDashboardAnalytics() {
       </header>
 
       {/* Stats Cards */}
-      <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6'>
+      <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4'>
         <StatCard
           title='Total Pasien'
           value={stats.totalAssessments}
@@ -338,9 +337,9 @@ export default function AdminDashboardAnalytics() {
       </div>
 
       {/* Charts Section */}
-      <div className='grid grid-cols-1 lg:grid-cols-3 gap-8'>
+      <div className='grid grid-cols-1 lg:grid-cols-3 gap-4'>
         {/* BMI Distribution */}
-        <div className='bg-white/60 backdrop-blur-xl p-6 rounded-3xl shadow-xl shadow-gray-100/50 border border-white/60 relative overflow-hidden flex flex-col'>
+        <div className='bg-white/60 backdrop-blur-xl p-5 rounded-2xl shadow-sm border border-white/60 relative overflow-hidden flex flex-col'>
           <h3 className='text-lg font-bold text-gray-800 mb-2 flex items-center gap-2'>
             <Activity className='w-5 h-5 text-gray-400' /> Distribusi BMI
           </h3>
@@ -373,7 +372,7 @@ export default function AdminDashboardAnalytics() {
         </div>
 
         {/* Trend Chart */}
-        <div className='lg:col-span-2 bg-white/60 backdrop-blur-xl p-6 rounded-3xl shadow-xl shadow-gray-100/50 border border-white/60 relative overflow-hidden flex flex-col'>
+        <div className='lg:col-span-2 bg-white/60 backdrop-blur-xl p-5 rounded-2xl shadow-sm border border-white/60 relative overflow-hidden flex flex-col'>
           <h3 className='text-lg font-bold text-gray-800 mb-4 flex items-center gap-2'>
             <BarChartIcon className='w-5 h-5 text-gray-400' /> Tren Assessment
             (30 Hari)
@@ -431,7 +430,7 @@ export default function AdminDashboardAnalytics() {
         </div>
 
         {/* Consultation Goals */}
-        <div className='lg:col-span-2 bg-white/60 backdrop-blur-xl p-6 rounded-3xl shadow-xl shadow-gray-100/50 border border-white/60 relative overflow-hidden'>
+        <div className='lg:col-span-2 bg-white/60 backdrop-blur-xl p-5 rounded-2xl shadow-sm border border-white/60 relative overflow-hidden'>
           <h3 className='text-lg font-bold text-gray-800 mb-4 flex items-center gap-2'>
             <Users className='w-5 h-5 text-gray-400' /> Tujuan Assessment
             Teratas
@@ -480,9 +479,9 @@ export default function AdminDashboardAnalytics() {
         </div>
 
         {/* Top Complaints & Recent Activity */}
-        <div className='space-y-6'>
+        <div className='space-y-4'>
           {/* Complaints */}
-          <div className='bg-white/60 backdrop-blur-xl p-6 rounded-3xl shadow-xl shadow-gray-100/50 border border-white/60'>
+          <div className='bg-white/60 backdrop-blur-xl p-5 rounded-2xl shadow-sm border border-white/60'>
             <h3 className='text-lg font-bold text-gray-800 mb-4 flex items-center gap-2'>
               <AlertCircle className='w-5 h-5 text-gray-400' /> Keluhan Utama
             </h3>
@@ -516,7 +515,7 @@ export default function AdminDashboardAnalytics() {
           </div>
 
           {/* Recent Activity */}
-          <div className='bg-white/60 backdrop-blur-xl p-6 rounded-3xl shadow-xl shadow-gray-100/50 border border-white/60'>
+          <div className='bg-white/60 backdrop-blur-xl p-5 rounded-2xl shadow-sm border border-white/60'>
             <h3 className='text-lg font-bold text-gray-800 mb-4 flex items-center gap-2'>
               <Clock className='w-5 h-5 text-gray-400' /> Aktivitas Terbaru
             </h3>
@@ -556,34 +555,27 @@ export default function AdminDashboardAnalytics() {
   );
 }
 
-function StatCard({
-  title,
-  value,
-  icon: Icon,
-  trend,
-  color,
-  bgColor,
-}: any) {
+function StatCard({ title, value, icon: Icon, trend, color, bgColor }: any) {
   return (
-    <div className='bg-white/70 backdrop-blur-xl p-6 rounded-3xl shadow-lg shadow-orange-100/20 border border-white/60 hover:shadow-xl hover:shadow-orange-100/40 hover:-translate-y-1 transition-all duration-300 group relative overflow-hidden'>
+    <div className='bg-white/70 backdrop-blur-xl p-5 rounded-2xl shadow-sm border border-white/60 hover:shadow-md hover:-translate-y-1 transition-all duration-300 group relative overflow-hidden'>
       <div
-        className={`absolute top-0 right-0 w-24 h-24 ${bgColor} rounded-bl-full -mr-8 -mt-8 opacity-50 group-hover:scale-110 transition-transform duration-500`}
+        className={`absolute top-0 right-0 w-20 h-20 ${bgColor} rounded-bl-full -mr-8 -mt-8 opacity-50 group-hover:scale-110 transition-transform duration-500`}
       ></div>
 
       <div className='flex justify-between items-start relative z-10'>
         <div>
           <div
-            className={`w-12 h-12 rounded-2xl flex items-center justify-center bg-linear-to-br ${color} text-white shadow-lg mb-4 group-hover:rotate-6 transition-transform duration-300`}
+            className={`w-10 h-10 rounded-xl flex items-center justify-center bg-linear-to-br ${color} text-white shadow-sm mb-3 group-hover:rotate-6 transition-transform duration-300`}
           >
-            <Icon className='w-6 h-6' />
+            <Icon className='w-5 h-5' />
           </div>
-          <p className='text-sm text-gray-500 font-medium mb-1'>{title}</p>
-          <h2 className='text-3xl font-bold text-gray-800 tracking-tight'>
+          <p className='text-xs text-gray-500 font-medium mb-1'>{title}</p>
+          <h2 className='text-2xl font-bold text-gray-800 tracking-tight'>
             {value}
           </h2>
         </div>
         {trend && (
-          <span className='px-3 py-1 rounded-full text-xs font-bold bg-green-100 text-green-700 border border-green-200 shadow-sm animate-pulse-slow'>
+          <span className='px-2.5 py-1 rounded-full text-[10px] font-bold bg-green-100 text-green-700 border border-green-200 shadow-sm'>
             {trend}
           </span>
         )}

@@ -210,9 +210,9 @@ export default function AdminPackages() {
         </div>
         <button
           onClick={openAddModal}
-          className='bg-linear-to-r from-primary to-orange-600 text-white px-6 py-3 rounded-2xl font-bold hover:shadow-lg hover:shadow-orange-200 hover:-translate-y-0.5 transition-all flex items-center gap-2 cursor-pointer'
+          className='bg-linear-to-r from-primary to-orange-600 text-white px-4 py-2 rounded-xl text-sm font-semibold hover:shadow-md hover:shadow-orange-200 hover:-translate-y-0.5 transition-all flex items-center gap-2 cursor-pointer'
         >
-          <Plus size={18} /> Tambah Paket
+          <Plus size={16} /> Tambah Paket
         </button>
       </div>
 
@@ -270,19 +270,19 @@ export default function AdminPackages() {
               <div className='flex items-center gap-2 mt-auto pt-4 border-t border-gray-50'>
                 <button
                   onClick={() => setSelectedPackage(pkg)}
-                  className='flex-1 py-2 text-center rounded-xl text-blue-600 bg-blue-50 text-xs font-bold hover:bg-blue-100 transition-colors cursor-pointer'
+                  className='flex-1 py-2 text-center rounded-xl text-gray-700 bg-gray-50 border border-gray-100 hover:bg-gray-100 text-xs font-bold transition-colors cursor-pointer shadow-sm'
                 >
                   Detail
                 </button>
                 <button
                   onClick={() => handleEdit(pkg)}
-                  className='p-2 rounded-xl text-yellow-600 bg-yellow-50 hover:bg-yellow-100 transition-colors cursor-pointer'
+                  className='p-2 rounded-xl text-gray-600 bg-gray-50 border border-gray-100 hover:bg-gray-100 transition-colors cursor-pointer shadow-sm'
                 >
                   <Pencil className='w-4 h-4' />
                 </button>
                 <button
                   onClick={() => handleDeleteClick(pkg._id)}
-                  className='p-2 rounded-xl text-red-600 bg-red-50 hover:bg-red-100 transition-colors cursor-pointer'
+                  className='p-2 rounded-xl text-gray-600 bg-gray-50 border border-gray-100 hover:bg-red-50 hover:text-red-600 transition-colors cursor-pointer shadow-sm'
                 >
                   <Trash2 className='w-4 h-4' />
                 </button>
@@ -302,12 +302,19 @@ export default function AdminPackages() {
         createPortal(
           <div className='fixed inset-0 bg-black/40 backdrop-blur-md z-[100] flex items-center justify-center p-4'>
             <div className='bg-white/95 backdrop-blur-2xl rounded-3xl shadow-2xl shadow-orange-100/50 border border-white/50 w-full max-w-2xl overflow-hidden flex flex-col transform transition-all scale-100 animate-slide-up max-h-[95vh]'>
-              <div className='p-6 border-b border-gray-100 bg-linear-to-r from-orange-50/80 to-white'>
+              <div className='flex items-center justify-between p-6 border-b border-gray-100 bg-linear-to-r from-orange-50/80 to-white'>
                 <h3 className='text-xl font-bold font-serif text-gray-800'>
                   {editingId
                     ? 'Edit Paket Konsultasi'
                     : 'Tambah Paket Konsultasi'}
                 </h3>
+                <button
+                  type="button"
+                  onClick={() => setIsAddModalOpen(false)}
+                  className='p-2 hover:bg-red-50 hover:text-red-500 rounded-full transition-colors text-gray-400 cursor-pointer'
+                >
+                  <X className='w-5 h-5' />
+                </button>
               </div>
 
               <div className='p-6 overflow-y-auto'>

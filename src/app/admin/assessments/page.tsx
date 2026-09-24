@@ -181,24 +181,24 @@ export default function AdminAssessments() {
       <div className='bg-white/60 backdrop-blur-xl rounded-3xl shadow-xl shadow-gray-100/50 border border-white/60 overflow-hidden'>
         <div className='overflow-x-auto'>
           <table className='w-full text-left border-collapse'>
-            <thead className='bg-orange-50/50 border-b border-orange-100'>
+            <thead className='bg-gray-50 border-b border-gray-100'>
               <tr>
-                <th className='px-8 py-5 font-bold text-gray-600 text-xs uppercase tracking-wider'>
+                <th className='px-6 py-3 font-bold text-gray-600 text-xs uppercase tracking-wider'>
                   Tanggal
                 </th>
-                <th className='px-8 py-5 font-bold text-gray-600 text-xs uppercase tracking-wider'>
+                <th className='px-6 py-3 font-bold text-gray-600 text-xs uppercase tracking-wider'>
                   Nama Lengkap
                 </th>
-                <th className='px-8 py-5 font-bold text-gray-600 text-xs uppercase tracking-wider'>
+                <th className='px-6 py-3 font-bold text-gray-600 text-xs uppercase tracking-wider'>
                   Usia
                 </th>
-                <th className='px-8 py-5 font-bold text-gray-600 text-xs uppercase tracking-wider'>
+                <th className='px-6 py-3 font-bold text-gray-600 text-xs uppercase tracking-wider'>
                   Tujuan
                 </th>
-                <th className='px-8 py-5 font-bold text-gray-600 text-xs uppercase tracking-wider'>
+                <th className='px-6 py-3 font-bold text-gray-600 text-xs uppercase tracking-wider'>
                   Pembayaran
                 </th>
-                <th className='px-8 py-5 font-bold text-gray-600 text-xs uppercase tracking-wider text-right'>
+                <th className='px-6 py-3 font-bold text-gray-600 text-xs uppercase tracking-wider text-right'>
                   Aksi
                 </th>
               </tr>
@@ -210,7 +210,7 @@ export default function AdminAssessments() {
                     key={item._id}
                     className='hover:bg-white/80 transition-all duration-200 group'
                   >
-                    <td className='px-8 py-5 text-sm text-gray-500 whitespace-nowrap font-medium'>
+                    <td className='px-6 py-3 text-sm text-gray-500 whitespace-nowrap font-medium'>
                       {new Date(item.createdAt).toLocaleDateString('id-ID', {
                         day: 'numeric',
                         month: 'short',
@@ -219,18 +219,18 @@ export default function AdminAssessments() {
                         minute: '2-digit',
                       })}
                     </td>
-                    <td className='px-8 py-5 text-sm font-semibold text-gray-800 group-hover:text-primary transition-colors'>
+                    <td className='px-6 py-3 text-sm font-semibold text-gray-800 group-hover:text-primary transition-colors'>
                       {item.namaLengkap}
                     </td>
-                    <td className='px-8 py-5 text-sm text-gray-600'>
+                    <td className='px-6 py-3 text-sm text-gray-600'>
                       <span className='px-3 py-1 bg-gray-100 rounded-full text-xs font-bold text-gray-600'>
                         {item.usia} th
                       </span>
                     </td>
-                    <td className='px-8 py-5 text-sm text-gray-600 truncate max-w-[200px]'>
+                    <td className='px-6 py-3 text-sm text-gray-600 truncate max-w-[200px]'>
                       {item.targetKonsultasi}
                     </td>
-                    <td className='px-8 py-5 text-sm text-gray-600'>
+                    <td className='px-6 py-3 text-sm text-gray-600'>
                       <div className='flex flex-col gap-1.5 items-start'>
                         {item.pilihanPaket ? (
                           <span className='px-2 py-0.5 bg-orange-100 text-orange-700 rounded-md text-[10px] font-bold whitespace-nowrap'>
@@ -250,37 +250,28 @@ export default function AdminAssessments() {
                         )}
                       </div>
                     </td>
-                    <td className='px-8 py-5 text-right'>
-                      <div className='flex items-center justify-end gap-3 opacity-80 group-hover:opacity-100 transition-opacity'>
+                    <td className='px-6 py-3 text-right'>
+                      <div className='flex items-center justify-end gap-2 opacity-80 group-hover:opacity-100 transition-opacity'>
                         <button
                           onClick={() => setSelectedAssessment(item)}
-                          className='cursor-pointer p-2 rounded-xl text-blue-600 bg-blue-50 hover:bg-blue-100 hover:scale-110 transition-all shadow-sm'
+                          className='cursor-pointer p-1.5 rounded-lg text-gray-600 bg-gray-50 border border-gray-100 hover:bg-gray-100 hover:scale-110 transition-all shadow-sm'
                           title='Lihat Detail'
                         >
-                          <Eye className='w-4 h-4' />
+                          <Eye className='w-3.5 h-3.5' />
                         </button>
-                        {/* <a
-                          href={`https://wa.me/6281234567890?text=Halo ${item.namaLengkap}, terkait hasil assessment awal...`}
-                          target='_blank'
-                          rel='noreferrer'
-                          className='cursor-pointer p-2 rounded-xl text-green-600 bg-green-50 hover:bg-green-100 hover:scale-110 transition-all shadow-sm'
-                          title='Hubungi via WA'
-                        >
-                          <MessageCircle className='w-4 h-4' />
-                        </a> */}
                         <button
                           onClick={() => handleEditClick(item)}
-                          className='cursor-pointer p-2 rounded-xl text-yellow-600 bg-yellow-50 hover:bg-yellow-100 hover:scale-110 transition-all shadow-sm'
+                          className='cursor-pointer p-1.5 rounded-lg text-gray-600 bg-gray-50 border border-gray-100 hover:bg-gray-100 hover:scale-110 transition-all shadow-sm'
                           title='Edit'
                         >
-                          <Edit className='w-4 h-4' />
+                          <Edit className='w-3.5 h-3.5' />
                         </button>
                         <button
                           onClick={() => handleDeleteClick(item._id)}
-                          className='cursor-pointer p-2 rounded-xl text-red-600 bg-red-50 hover:bg-red-100 hover:scale-110 transition-all shadow-sm'
+                          className='cursor-pointer p-1.5 rounded-lg text-gray-600 bg-gray-50 border border-gray-100 hover:bg-red-50 hover:text-red-600 hover:scale-110 transition-all shadow-sm'
                           title='Hapus'
                         >
-                          <Trash2 className='w-4 h-4' />
+                          <Trash2 className='w-3.5 h-3.5' />
                         </button>
                       </div>
                     </td>

@@ -89,7 +89,10 @@ const Portfolio: React.FC = () => {
   };
 
   return (
-    <section id='portfolio' className='py-16 sm:py-24 bg-white relative overflow-hidden'>
+    <section
+      id='portfolio'
+      className='py-16 sm:py-24 bg-white relative overflow-hidden'
+    >
       <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10'>
         <motion.div
           initial='hidden'
@@ -105,7 +108,8 @@ const Portfolio: React.FC = () => {
             Portofolio Kegiatan
           </h2>
           <p className='text-slate-600 text-sm sm:text-base mt-3 sm:mt-4 leading-relaxed max-w-2xl mx-auto'>
-            Dokumentasi berbagai kegiatan seminar, workshop, edukasi gizi, dan konsultasi bersama mitra dan klien.
+            Dokumentasi berbagai kegiatan seminar, workshop, edukasi gizi, dan
+            konsultasi bersama mitra dan klien.
           </p>
         </motion.div>
 
@@ -219,20 +223,15 @@ const Portfolio: React.FC = () => {
                         className='object-contain p-2 sm:p-4 transition-transform duration-300 group-hover:scale-102'
                         priority
                       />
-                      {/* Zoom Badge */}
-                      <div className='absolute bottom-4 left-4 bg-slate-900/80 backdrop-blur-md text-white text-xs font-semibold px-3 py-1.5 rounded-full flex items-center gap-1.5 shadow-md group-hover:bg-amber-600 transition-colors'>
-                        <ZoomIn size={14} />
-                        <span>Klik untuk perbesar gambar</span>
-                      </div>
                     </div>
 
                     {/* Content Side */}
                     <div className='w-full md:w-2/5 p-6 sm:p-8 flex flex-col justify-between bg-white overflow-y-auto max-h-[50vh] md:max-h-none'>
                       <div>
-                        <span className='inline-flex items-center rounded-full bg-amber-100/80 px-3.5 py-1 text-xs font-bold uppercase tracking-wider text-amber-800 ring-1 ring-amber-200/60 mb-4 w-fit'>
+                        <span className='inline-flex items-center rounded-full bg-amber-100/80 px-3.5 py-1 text-[10px] font-bold uppercase tracking-wider text-amber-800 ring-1 ring-amber-200/60 mb-4 w-fit'>
                           {selectedItem.category}
                         </span>
-                        <h3 className='text-xl sm:text-2xl lg:text-3xl font-bold text-slate-900 mb-4 leading-tight'>
+                        <h3 className='text-lg sm:text-2xl font-bold text-slate-900 mb-4 leading-tight'>
                           {selectedItem.title}
                         </h3>
                         <div className='text-slate-600 text-xs sm:text-sm leading-relaxed mb-6 space-y-2 whitespace-pre-line'>
@@ -241,13 +240,6 @@ const Portfolio: React.FC = () => {
                       </div>
 
                       <div className='flex flex-col sm:flex-row gap-3 pt-4 border-t border-slate-100 mt-auto'>
-                        <button
-                          onClick={() => setIsZoomed(true)}
-                          className='px-4 py-2.5 bg-amber-50 hover:bg-amber-100 text-amber-800 font-bold rounded-full transition-colors cursor-pointer text-xs flex items-center justify-center gap-1.5 border border-amber-200/60'
-                        >
-                          <ZoomIn size={14} />
-                          Lihat Gambar Penuh
-                        </button>
                         <a
                           href='#collaboration'
                           onClick={closeModal}
@@ -297,7 +289,7 @@ const Portfolio: React.FC = () => {
               )}
             </AnimatePresence>
           </>,
-          document.body
+          document.body,
         )}
     </section>
   );
