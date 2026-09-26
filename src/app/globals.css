@@ -62,6 +62,7 @@ html {
   animation: slideDown 0.3s ease-out forwards;
 }
 
+
 /* Hide scrollbar for Chrome, Safari and Opera */
 .no-scrollbar::-webkit-scrollbar,
 .scrollbar-hide::-webkit-scrollbar {

@@ -2,7 +2,15 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { Lock, User, Eye, EyeOff, ShieldCheck } from 'lucide-react';
+import {
+  Lock,
+  User,
+  Eye,
+  EyeOff,
+  ShieldCheck,
+  Loader2,
+  AlertCircle,
+} from 'lucide-react';
 import Link from 'next/link';
 
 export default function AdminLogin() {
@@ -11,11 +19,15 @@ export default function AdminLogin() {
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [isRedirecting, setIsRedirecting] = useState(false);
   const router = useRouter();
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (isLoading || isRedirecting) return;
+
     setIsLoading(true);
+    setIsRedirecting(false);
     setError('');
 
     try {
@@ -28,23 +40,30 @@ export default function AdminLogin() {
       if (res.ok) {
         const data = await res.json();
         if (data.success) {
+          setIsRedirecting(true);
+          router.refresh();
           router.push('/admin/dashboard');
+          return;
         } else {
-          setError(data.message || 'Login gagal.');
+          setError(
+            data.message ||
+              'Login gagal. Periksa kembali username dan password.',
+          );
+          setIsLoading(false);
         }
       } else {
         let errorMsg = 'Login gagal. Periksa kembali username dan password.';
         try {
           const data = await res.json();
           if (data.message) errorMsg = data.message;
-        } catch (e) {
+        } catch {
           /* ignore parse error */
         }
         setError(errorMsg);
+        setIsLoading(false);
       }
-    } catch (err) {
-      setError('Terjadi kesalahan pada server.');
-    } finally {
+    } catch {
+      setError('Terjadi kesalahan pada server. Silakan coba lagi.');
       setIsLoading(false);
     }
   };
@@ -73,7 +92,7 @@ export default function AdminLogin() {
           <h1 className='text-5xl font-bold leading-tight mb-6'>
             Selamat Datang kembali di{' '}
             <span className='text-transparent bg-clip-text bg-gradient-to-r from-white to-orange-200'>
-              Admin Portal
+              Admin Dashboard
             </span>
           </h1>
           <p className='text-orange-50 text-lg leading-relaxed mb-8'>
@@ -93,8 +112,7 @@ export default function AdminLogin() {
         </div>
 
         <div className='relative z-10 text-sm text-orange-200'>
-          &copy; {new Date().getFullYear()} Dietisien System • All Rights
-          Reserved
+          &copy; {new Date().getFullYear()} Zahra Krisnadi • All Rights Reserved
         </div>
       </div>
 
@@ -104,9 +122,9 @@ export default function AdminLogin() {
         <div className='absolute top-0 right-0 w-96 h-96 bg-orange-300/20 rounded-full blur-[80px] -translate-y-1/2 translate-x-1/2'></div>
         <div className='absolute bottom-0 left-0 w-96 h-96 bg-primary/10 rounded-full blur-[80px] translate-y-1/2 -translate-x-1/2'></div>
         <div className='w-full max-w-md space-y-8 bg-white/80 backdrop-blur-xl p-8 rounded-3xl shadow-2xl shadow-orange-100/50 border border-white relative z-10'>
-          <div className='text-center lg:text-left'>
-            <h2 className='text-2xl font-bold text-gray-900 tracking-tight mb-2 font-serif'>
-              Login Akun
+          <div className='text-center'>
+            <h2 className='text-2xl font-bold text-gray-900 tracking-tight mb-2'>
+              Admin Dashboard
             </h2>
             <p className='text-gray-500 text-sm'>
               Masukkan kredensial Anda untuk mengakses dashboard.
@@ -126,7 +144,8 @@ export default function AdminLogin() {
                   type='text'
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
-                  className='block w-full pl-11 pr-4 text-sm py-4 bg-white/60 border border-orange-100 rounded-2xl focus:bg-white focus:ring-4 focus:ring-primary/10 focus:border-primary transition-all outline-none font-medium placeholder:text-gray-400 text-gray-900'
+                  disabled={isLoading || isRedirecting}
+                  className='block w-full pl-11 pr-4 text-sm py-4 bg-white/60 border border-orange-100 rounded-2xl focus:bg-white focus:ring-4 focus:ring-primary/10 focus:border-primary transition-all outline-none font-medium placeholder:text-gray-400 text-gray-900 disabled:opacity-60 disabled:cursor-not-allowed'
                   placeholder='Masukkan username Anda'
                   required
                 />
@@ -145,14 +164,16 @@ export default function AdminLogin() {
                   type={showPassword ? 'text' : 'password'}
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className='block w-full pl-11 text-sm pr-12 py-4 bg-white/60 border border-orange-100 rounded-2xl focus:bg-white focus:ring-4 focus:ring-primary/10 focus:border-primary transition-all outline-none font-medium placeholder:text-gray-400 text-gray-900'
+                  disabled={isLoading || isRedirecting}
+                  className='block w-full pl-11 text-sm pr-12 py-4 bg-white/60 border border-orange-100 rounded-2xl focus:bg-white focus:ring-4 focus:ring-primary/10 focus:border-primary transition-all outline-none font-medium placeholder:text-gray-400 text-gray-900 disabled:opacity-60 disabled:cursor-not-allowed'
                   placeholder='Masukkan Password Anda'
                   required
                 />
                 <button
                   type='button'
                   onClick={() => setShowPassword(!showPassword)}
-                  className='absolute inset-y-0 right-0 pr-4 flex items-center text-gray-400 hover:text-gray-600 transition-colors focus:outline-none'
+                  disabled={isLoading || isRedirecting}
+                  className='absolute inset-y-0 right-0 pr-4 flex items-center text-gray-400 hover:text-gray-600 transition-colors focus:outline-none disabled:opacity-50'
                 >
                   {showPassword ? (
                     <EyeOff className='h-5 w-5' />
@@ -164,20 +185,25 @@ export default function AdminLogin() {
             </div>
 
             {error && (
-              <div className='flex items-center gap-2 text-red-600 text-sm bg-red-50 p-4 rounded-xl border border-red-100 animate-pulse'>
-                <ShieldCheck className='w-5 h-5 flex-shrink-0' />
-                {error}
+              <div className='flex items-center gap-2 text-red-600 text-sm bg-red-50 p-4 rounded-xl border border-red-100 animate-slide-down'>
+                <AlertCircle className='w-5 h-5 flex-shrink-0' />
+                <span>{error}</span>
               </div>
             )}
 
             <button
               type='submit'
-              disabled={isLoading}
-              className='w-full cursor-pointer flex text-sm items-center justify-center gap-2 bg-primary hover:bg-orange-600 text-white py-4 rounded-2xl font-bold shadow-lg shadow-primary/25 hover:shadow-xl hover:shadow-primary/40 hover:-translate-y-1 active:scale-[0.98] transition-all duration-300 disabled:opacity-70 disabled:cursor-not-allowed group'
+              disabled={isLoading || isRedirecting}
+              className='w-full cursor-pointer flex text-sm items-center justify-center gap-2 bg-primary hover:bg-orange-600 text-white py-4 rounded-2xl font-bold shadow-lg shadow-primary/25 hover:shadow-xl hover:shadow-primary/40 hover:-translate-y-0.5 active:scale-[0.98] transition-all duration-300 disabled:opacity-70 disabled:cursor-not-allowed disabled:hover:translate-y-0'
             >
-              {isLoading ? (
+              {isRedirecting ? (
                 <>
-                  <div className='w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin'></div>
+                  <Loader2 className='w-5 h-5 animate-spin' />
+                  <span>Mengalihkan...</span>
+                </>
+              ) : isLoading ? (
+                <>
+                  <Loader2 className='w-5 h-5 animate-spin' />
                   <span>Memproses...</span>
                 </>
               ) : (

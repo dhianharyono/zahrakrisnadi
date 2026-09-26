@@ -188,7 +188,7 @@ export default function AdminLayout({
         isOpen={showLogoutModal}
         title='Konfirmasi Keluar'
         message='Apakah Anda yakin ingin keluar dari halaman admin?'
-        confirmLabel='Ya, Keluar'
+        confirmLabel='Keluar'
         cancelLabel='Batal'
         isDanger={true}
         onConfirm={performLogout}
