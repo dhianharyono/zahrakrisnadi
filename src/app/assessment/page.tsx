@@ -15,24 +15,52 @@ import {
   CreditCard,
   CopyIcon,
 } from 'lucide-react';
-import Link from 'next/link';
 import toast from 'react-hot-toast';
 import { motion, AnimatePresence, Variants } from 'framer-motion';
 import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
 
-const fadeUpVariants: Variants = {
-  hidden: { opacity: 0, y: 30 },
+const headerContainerVariants: Variants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1,
+      delayChildren: 0.05,
+    },
+  },
+};
+
+const itemVariants: Variants = {
+  hidden: { opacity: 0, y: 20 },
   visible: {
     opacity: 1,
     y: 0,
     transition: { duration: 0.5, ease: 'easeOut' },
   },
-  exit: {
+};
+
+const stepSlideVariants: Variants = {
+  enter: (dir: number) => ({
+    x: dir > 0 ? 25 : -25,
     opacity: 0,
-    y: -30,
-    transition: { duration: 0.3 },
+  }),
+  center: {
+    x: 0,
+    opacity: 1,
+    transition: {
+      duration: 0.35,
+      ease: [0.25, 1, 0.5, 1],
+    },
   },
+  exit: (dir: number) => ({
+    x: dir > 0 ? -25 : 25,
+    opacity: 0,
+    transition: {
+      duration: 0.25,
+      ease: [0.5, 0, 0.75, 0],
+    },
+  }),
 };
 
 type FormData = {
@@ -134,6 +162,7 @@ type PackageBase = {
 
 export default function AssessmentPage() {
   const [step, setStep] = useState(1);
+  const [direction, setDirection] = useState(1);
   const [formData, setFormData] = useState<FormData>(initialFormData);
   const [pricingPlans, setPricingPlans] = useState<PackageBase[]>([]);
   const [errors, setErrors] = useState<Partial<Record<keyof FormData, string>>>(
@@ -166,27 +195,33 @@ export default function AssessmentPage() {
       const paket = params.get('paket');
       const layanan = params.get('layanan');
 
-      if (paket && !formData.pilihanPaket) {
-        let targetKonsultasi = '';
-        if (paket === 'Basic') targetKonsultasi = 'Body Goals';
-        else if (paket === 'Advance') targetKonsultasi = 'Clinic Care';
+      if (paket || layanan) {
+        setFormData((prev) => {
+          const updates: Partial<FormData> = {};
 
-        setFormData((prev) => ({
-          ...prev,
-          pilihanPaket: paket,
-          ...(targetKonsultasi && !prev.targetKonsultasi ? { targetKonsultasi } : {}),
-        }));
-      }
+          if (paket && !prev.pilihanPaket) {
+            updates.pilihanPaket = paket;
+            if (paket === 'Basic' && !prev.targetKonsultasi) {
+              updates.targetKonsultasi = 'Body Goals';
+            } else if (paket === 'Advance' && !prev.targetKonsultasi) {
+              updates.targetKonsultasi = 'Clinic Care';
+            }
+          }
 
-      if (layanan && !formData.targetKonsultasi) {
-        let targetKonsultasi = '';
-        if (layanan === 'Blooming Motherhood') targetKonsultasi = "Women's Health";
-        else if (layanan === 'Fit & Healthy Body') targetKonsultasi = 'Body Goals';
-        else if (layanan === 'Complete Nutrition Care') targetKonsultasi = 'Clinic Care';
+          if (layanan && !prev.targetKonsultasi && !updates.targetKonsultasi) {
+            if (layanan === 'Blooming Motherhood') {
+              updates.targetKonsultasi = "Women's Health";
+            } else if (layanan === 'Fit & Healthy Body') {
+              updates.targetKonsultasi = 'Body Goals';
+            } else if (layanan === 'Complete Nutrition Care') {
+              updates.targetKonsultasi = 'Clinic Care';
+            }
+          }
 
-        if (targetKonsultasi) {
-          setFormData((prev) => ({ ...prev, targetKonsultasi }));
-        }
+          return Object.keys(updates).length > 0
+            ? { ...prev, ...updates }
+            : prev;
+        });
       }
     }
   }, []);
@@ -206,8 +241,11 @@ export default function AssessmentPage() {
         if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
           age--;
         }
-        if (age >= 0 && formData.usia !== age.toString()) {
-          setFormData((prev) => ({ ...prev, usia: age.toString() }));
+        if (age >= 0) {
+          const ageStr = age.toString();
+          setFormData((prev) =>
+            prev.usia !== ageStr ? { ...prev, usia: ageStr } : prev,
+          );
         }
       }
     }
@@ -293,11 +331,13 @@ export default function AssessmentPage() {
 
   const handleNext = () => {
     if (validateStep(step)) {
+      setDirection(1);
       setStep((prev) => Math.min(prev + 1, steps.length));
     }
   };
 
   const handleBack = () => {
+    setDirection(-1);
     setStep((prev) => Math.max(prev - 1, 1));
   };
 
@@ -339,26 +379,74 @@ export default function AssessmentPage() {
     const waUrl = `https://wa.me/6281234567890?text=${message}`;
 
     return (
-      <div className='min-h-screen bg-slate-50/60 flex flex-col font-sans text-slate-800 relative selection:bg-amber-500/20 selection:text-amber-600'>
+      <div className='min-h-screen bg-slate-50/60 flex flex-col font-sans text-slate-800 relative selection:bg-amber-500/20 selection:text-amber-600 overflow-hidden'>
         <Navbar />
+
+        {/* Decorative Background Elements */}
+        <div className='absolute inset-0 pointer-events-none overflow-hidden'>
+          <motion.div
+            animate={{
+              scale: [1, 1.15, 1],
+              opacity: [0.2, 0.35, 0.2],
+            }}
+            transition={{
+              duration: 8,
+              repeat: Infinity,
+              ease: 'easeInOut',
+            }}
+            className='absolute -top-24 -right-24 w-96 h-96 rounded-full bg-amber-200/40 blur-3xl mix-blend-multiply'
+          />
+          <motion.div
+            animate={{
+              scale: [1, 1.2, 1],
+              opacity: [0.15, 0.25, 0.15],
+            }}
+            transition={{
+              duration: 10,
+              repeat: Infinity,
+              ease: 'easeInOut',
+              delay: 1,
+            }}
+            className='absolute -bottom-24 -left-24 w-96 h-96 rounded-full bg-orange-200/35 blur-3xl mix-blend-multiply'
+          />
+        </div>
+
         <main className='flex-1 flex items-center justify-center p-4 pt-24 sm:pt-32 pb-16 sm:pb-24 relative z-10'>
-          <div className='bg-white rounded-3xl shadow-xs ring-1 ring-slate-200/80 p-8 sm:p-12 max-w-md w-full text-center'>
-            <div className='w-16 h-16 bg-amber-100/80 text-amber-600 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-xs ring-1 ring-amber-200/60'>
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95, y: 20 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            transition={{ duration: 0.5, ease: 'easeOut' }}
+            className='bg-white rounded-3xl shadow-xs ring-1 ring-slate-200/80 p-8 sm:p-12 max-w-md w-full text-center'
+          >
+            <motion.div
+              initial={{ scale: 0, rotate: -20 }}
+              animate={{ scale: 1, rotate: 0 }}
+              transition={{
+                type: 'spring',
+                stiffness: 300,
+                damping: 20,
+                delay: 0.15,
+              }}
+              className='w-16 h-16 bg-amber-100/80 text-amber-600 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-xs ring-1 ring-amber-200/60'
+            >
               <CheckCircle className='w-8 h-8' />
-            </div>
+            </motion.div>
             <h2 className='text-xl sm:text-2xl font-bold text-slate-900 mb-2'>
               Terima Kasih!
             </h2>
             <p className='text-slate-600 mb-6 font-sans leading-relaxed text-xs sm:text-sm'>
-              Data assessment Anda telah kami terima. Kami sedang mengalihkan Anda ke WhatsApp admin untuk konfirmasi selanjutnya.
+              Data assessment Anda telah kami terima. Kami sedang mengalihkan
+              Anda ke WhatsApp admin untuk konfirmasi selanjutnya.
             </p>
             <div className='w-full h-1.5 bg-slate-100 rounded-full overflow-hidden mb-6'>
               <div className='h-full bg-amber-500 animate-[pulse_1s_ease-in-out_infinite] w-full'></div>
             </div>
-            <a
+            <motion.a
               href={waUrl}
               target='_blank'
               rel='noopener noreferrer'
+              whileHover={{ scale: 1.03 }}
+              whileTap={{ scale: 0.97 }}
               onClick={() => {
                 setTimeout(() => {
                   window.location.href = '/';
@@ -367,8 +455,8 @@ export default function AssessmentPage() {
               className='inline-flex items-center justify-center w-full px-6 py-3.5 bg-amber-500 hover:bg-amber-600 text-white font-bold rounded-full transition-colors text-sm shadow-xs hover:shadow-md'
             >
               Lanjut ke WhatsApp Sekarang
-            </a>
-          </div>
+            </motion.a>
+          </motion.div>
         </main>
         <Footer />
       </div>
@@ -378,24 +466,91 @@ export default function AssessmentPage() {
   const CurrentStepIcon = steps[step - 1].icon;
 
   return (
-    <div className='min-h-screen bg-slate-50/60 flex flex-col font-sans text-slate-800 relative selection:bg-amber-500/20 selection:text-amber-600'>
+    <div className='min-h-screen bg-slate-50/60 flex flex-col font-sans text-slate-800 relative selection:bg-amber-500/20 selection:text-amber-600 overflow-hidden'>
       <Navbar />
+
+      {/* Decorative Background Elements */}
+      <div className='absolute inset-0 pointer-events-none overflow-hidden'>
+        <motion.div
+          animate={{
+            scale: [1, 1.15, 1],
+            opacity: [0.2, 0.35, 0.2],
+            x: [0, 20, 0],
+            y: [0, -15, 0],
+          }}
+          transition={{
+            duration: 10,
+            repeat: Infinity,
+            ease: 'easeInOut',
+          }}
+          className='absolute -top-24 -right-24 w-96 h-96 rounded-full bg-amber-200/40 blur-3xl mix-blend-multiply'
+        />
+        <motion.div
+          animate={{
+            scale: [1, 1.2, 1],
+            opacity: [0.15, 0.25, 0.15],
+            x: [0, -20, 0],
+            y: [0, 20, 0],
+          }}
+          transition={{
+            duration: 12,
+            repeat: Infinity,
+            ease: 'easeInOut',
+            delay: 1,
+          }}
+          className='absolute top-1/3 -left-32 w-80 h-80 rounded-full bg-orange-200/35 blur-3xl mix-blend-multiply'
+        />
+        <motion.div
+          animate={{
+            scale: [1, 1.1, 1],
+            opacity: [0.1, 0.2, 0.1],
+          }}
+          transition={{
+            duration: 14,
+            repeat: Infinity,
+            ease: 'easeInOut',
+            delay: 2,
+          }}
+          className='absolute -bottom-24 right-1/4 w-88 h-88 rounded-full bg-amber-100/50 blur-3xl mix-blend-multiply'
+        />
+      </div>
 
       <main className='flex-1 pt-24 sm:pt-32 pb-16 sm:pb-24 relative z-10 max-w-4xl mx-auto px-4 sm:px-6 w-full'>
         {/* Section Header */}
-        <div className='text-center max-w-2xl mx-auto mb-8 sm:mb-12'>
-          <span className='inline-flex items-center rounded-full bg-amber-100/80 px-4 py-1.5 text-xs font-bold uppercase tracking-wider text-amber-800 ring-1 ring-amber-200/60 mb-3 sm:mb-4'>
+        <motion.div
+          initial='hidden'
+          animate='visible'
+          variants={headerContainerVariants}
+          className='text-center max-w-2xl mx-auto mb-8 sm:mb-12'
+        >
+          <motion.span
+            variants={itemVariants}
+            className='inline-flex items-center rounded-full bg-amber-100/80 px-4 py-1.5 text-xs font-bold uppercase tracking-wider text-amber-800 ring-1 ring-amber-200/60 mb-3 sm:mb-4'
+          >
             Form Assessment
-          </span>
-          <h1 className='text-2xl sm:text-3xl lg:text-3xl font-bold text-slate-900 tracking-tight leading-tight'>
+          </motion.span>
+          <motion.h1
+            variants={itemVariants}
+            className='text-2xl sm:text-3xl lg:text-3xl font-bold text-slate-900 tracking-tight leading-tight'
+          >
             Lengkapi Data Diri Anda
-          </h1>
-          <p className='text-slate-600 text-sm sm:text-base mt-3 leading-relaxed'>
-            Lengkapi data diri dan kebiasaan gizi Anda (Langkah {step} dari {steps.length})
-          </p>
-        </div>
+          </motion.h1>
+          <motion.p
+            variants={itemVariants}
+            className='text-slate-600 text-sm sm:text-base mt-3 leading-relaxed'
+          >
+            Silakan isi form berikut dengan data yang sebenar-benarnya agar kami
+            dapat memberikan rekomendasi yang sesuai dengan kebutuhan Anda.
+          </motion.p>
+        </motion.div>
+
         {/* Progress Stepper Visual (Desktop) */}
-        <div className='hidden md:block mb-10 sm:mb-12'>
+        <motion.div
+          initial='hidden'
+          animate='visible'
+          variants={itemVariants}
+          className='hidden md:block mb-10 sm:mb-12'
+        >
           <div className='flex items-center justify-between relative px-2'>
             {steps.map((s, idx) => {
               const isActive = s.id === step;
@@ -407,100 +562,153 @@ export default function AssessmentPage() {
                   {/* Connector Line to next step */}
                   {idx > 0 && (
                     <div className='flex-1 h-0.5 mx-2 bg-slate-200 overflow-hidden rounded-full'>
-                      <div
-                        className='h-full bg-primary transition-all duration-500'
-                        style={{ width: isCompleted || isActive ? '100%' : '0%' }}
-                      ></div>
+                      <motion.div
+                        className='h-full bg-primary rounded-full'
+                        initial={false}
+                        animate={{
+                          width: isCompleted || isActive ? '100%' : '0%',
+                        }}
+                        transition={{ duration: 0.5, ease: 'easeInOut' }}
+                      />
                     </div>
                   )}
 
                   {/* Step Icon Button & Label */}
-                  <div
+                  <motion.div
                     className='flex flex-col items-center gap-2 cursor-pointer select-none mx-auto'
-                    onClick={() => isCompleted && setStep(s.id)}
+                    onClick={() => {
+                      if (isCompleted) {
+                        setDirection(s.id > step ? 1 : -1);
+                        setStep(s.id);
+                      }
+                    }}
+                    whileHover={isCompleted ? { scale: 1.08 } : undefined}
+                    whileTap={isCompleted ? { scale: 0.95 } : undefined}
                   >
-                    <div
-                      className={`w-11 h-11 rounded-full flex items-center justify-center transition-all duration-300 ${isActive
-                        ? 'bg-primary text-white shadow-md scale-105 font-bold'
-                        : isCompleted
-                          ? 'bg-primary text-white'
-                          : 'bg-white border border-slate-200 text-slate-400 hover:border-slate-300'
-                        }`}
+                    <motion.div
+                      animate={{
+                        scale: isActive ? 1.08 : 1,
+                      }}
+                      transition={{
+                        type: 'spring',
+                        stiffness: 400,
+                        damping: 25,
+                      }}
+                      className={`w-11 h-11 rounded-full flex items-center justify-center transition-colors duration-300 relative ${
+                        isActive
+                          ? 'bg-primary text-white shadow-md font-bold ring-4 ring-amber-500/20'
+                          : isCompleted
+                            ? 'bg-primary text-white'
+                            : 'bg-white border border-slate-200 text-slate-400 hover:border-slate-300'
+                      }`}
                     >
                       {isCompleted ? (
                         <CheckCircle className='w-5 h-5 text-white' />
                       ) : (
                         <Icon className='w-5 h-5' />
                       )}
-                    </div>
+                    </motion.div>
                     <span
-                      className={`text-[11px] font-bold uppercase tracking-wider text-center transition-colors duration-300 ${isActive
-                        ? 'text-primary'
-                        : isCompleted
-                          ? 'text-slate-700'
-                          : 'text-slate-400'
-                        }`}
+                      className={`text-[11px] font-bold uppercase tracking-wider text-center transition-colors duration-300 ${
+                        isActive
+                          ? 'text-primary'
+                          : isCompleted
+                            ? 'text-slate-700'
+                            : 'text-slate-400'
+                      }`}
                     >
                       {s.label}
                     </span>
-                  </div>
+                  </motion.div>
                 </div>
               );
             })}
           </div>
-        </div>
+        </motion.div>
 
         {/* Mobile Progress Bar */}
-        <div className='md:hidden mb-8 bg-white rounded-2xl p-4 shadow-xs ring-1 ring-slate-200/80'>
+        <motion.div
+          initial='hidden'
+          animate='visible'
+          variants={itemVariants}
+          className='md:hidden mb-8 bg-white rounded-2xl p-4 shadow-xs ring-1 ring-slate-200/80'
+        >
           <div className='flex items-center justify-between mb-2 text-xs font-bold text-slate-700'>
-            <span>Langkah {step} dari {steps.length}: {steps[step - 1].label}</span>
-            <span className='text-primary'>{Math.round((step / steps.length) * 100)}%</span>
+            <span>
+              Langkah {step} dari {steps.length}: {steps[step - 1].label}
+            </span>
+            <span className='text-primary'>
+              {Math.round((step / steps.length) * 100)}%
+            </span>
           </div>
           <div className='w-full h-2 bg-slate-100 rounded-full overflow-hidden'>
-            <div
-              className='h-full bg-primary transition-all duration-500 rounded-full'
-              style={{ width: `${(step / steps.length) * 100}%` }}
-            ></div>
+            <motion.div
+              className='h-full bg-primary rounded-full'
+              initial={false}
+              animate={{ width: `${(step / steps.length) * 100}%` }}
+              transition={{ duration: 0.5, ease: 'easeInOut' }}
+            />
           </div>
-        </div>
+        </motion.div>
 
         {/* Form Card */}
-        <div className='bg-white rounded-3xl shadow-xs ring-1 ring-slate-200/80 overflow-hidden'>
+        <motion.div
+          initial='hidden'
+          animate='visible'
+          variants={itemVariants}
+          className='bg-white rounded-3xl shadow-xs ring-1 ring-slate-200/80 overflow-hidden'
+        >
           {/* Form Header Inside Card */}
-          <div className='bg-slate-50 border-b border-slate-200 p-6 sm:p-8 flex items-center justify-between'>
-            <div className='flex items-center gap-4'>
-              <div className='w-12 h-12 rounded-2xl bg-slate-100 text-slate-700 ring-1 ring-slate-200 flex items-center justify-center font-bold shrink-0'>
-                <CurrentStepIcon className='w-6 h-6' />
-              </div>
-              <div>
-                <h2 className='text-lg sm:text-xl font-bold text-slate-900'>
-                  {steps[step - 1].label}
-                </h2>
-                <p className='text-slate-600 text-xs sm:text-sm mt-0.5'>
-                  Lengkapi data berikut untuk melanjutkan.
-                </p>
-              </div>
-            </div>
+          <div className='bg-slate-50 border-b border-slate-200 p-6 sm:p-8 flex items-center justify-between overflow-hidden'>
+            <AnimatePresence mode='wait'>
+              <motion.div
+                key={`header-${step}`}
+                initial={{ opacity: 0, x: -10 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: 10 }}
+                transition={{ duration: 0.25 }}
+                className='flex items-center gap-4'
+              >
+                <div className='w-12 h-12 rounded-2xl bg-slate-100 text-slate-700 ring-1 ring-slate-200 flex items-center justify-center font-bold shrink-0'>
+                  <CurrentStepIcon className='w-6 h-6' />
+                </div>
+                <div>
+                  <h2 className='text-lg sm:text-xl font-bold text-slate-900'>
+                    {steps[step - 1].label}
+                  </h2>
+                  <p className='text-slate-600 text-xs sm:text-sm mt-0.5'>
+                    Lengkapi data berikut untuk melanjutkan.
+                  </p>
+                </div>
+              </motion.div>
+            </AnimatePresence>
             <div className='hidden sm:block text-right'>
-              <span className='text-xs font-bold text-slate-700 bg-slate-100 px-3.5 py-1.5 rounded-full ring-1 ring-slate-200'>
+              <motion.span
+                key={`badge-${step}`}
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.25 }}
+                className='text-xs font-bold text-slate-700 bg-slate-100 px-3.5 py-1.5 rounded-full ring-1 ring-slate-200 inline-block'
+              >
                 Langkah {step} / {steps.length}
-              </span>
+              </motion.span>
             </div>
           </div>
 
           <form
             onSubmit={(e) => e.preventDefault()}
-            className='px-6 py-5 md:py-3 md:px-10 space-y-8 relative'
+            className='px-6 py-5 md:py-3 md:px-10 space-y-8 relative overflow-hidden'
           >
-            <AnimatePresence mode='wait'>
+            <AnimatePresence mode='wait' custom={direction}>
               {/* Step 1: Identitas */}
               {step === 1 && (
                 <motion.div
                   key='step1'
-                  initial='hidden'
-                  animate='visible'
+                  custom={direction}
+                  variants={stepSlideVariants}
+                  initial='enter'
+                  animate='center'
                   exit='exit'
-                  variants={fadeUpVariants}
                   className='space-y-6 text-xs md:text-sm'
                 >
                   <InputField
@@ -527,10 +735,11 @@ export default function AssessmentPage() {
                             handleChange('tanggalLahir', e.target.value)
                           }
                           className={`w-full pl-12 pr-4 py-3.5 bg-gray-50 border rounded-xl outline-none transition-all duration-200 font-medium
-                           ${errors.tanggalLahir
-                              ? 'border-red-300 bg-red-50 focus:border-red-500 focus:ring-4 focus:ring-red-100'
-                              : 'border-transparent focus:bg-white focus:border-primary focus:ring-4 focus:ring-orange-100 placeholder:text-gray-400'
-                            }`}
+                           ${
+                             errors.tanggalLahir
+                               ? 'border-red-300 bg-red-50 focus:border-red-500 focus:ring-4 focus:ring-red-100'
+                               : 'border-transparent focus:bg-white focus:border-primary focus:ring-4 focus:ring-orange-100 placeholder:text-gray-400'
+                           }`}
                         />
                       </div>
                       {errors.tanggalLahir && (
@@ -557,8 +766,10 @@ export default function AssessmentPage() {
                     </label>
                     <div className='grid grid-cols-2 gap-4'>
                       {['Laki-laki', 'Perempuan'].map((gender) => (
-                        <div
+                        <motion.div
                           key={gender}
+                          whileHover={{ scale: 1.02 }}
+                          whileTap={{ scale: 0.98 }}
                           onClick={() => handleChange('jenisKelamin', gender)}
                           className={`cursor-pointer rounded-xl p-4 border-2 flex items-center gap-3 transition-all duration-200
                           ${formData.jenisKelamin === gender ? 'border-primary bg-orange-50/50' : 'border-gray-100 hover:border-gray-200 bg-gray-50'}`}
@@ -575,7 +786,7 @@ export default function AssessmentPage() {
                           >
                             {gender}
                           </span>
-                        </div>
+                        </motion.div>
                       ))}
                     </div>
                   </div>
@@ -586,7 +797,9 @@ export default function AssessmentPage() {
                     </label>
                     <select
                       value={formData.pendidikan}
-                      onChange={(e) => handleChange('pendidikan', e.target.value)}
+                      onChange={(e) =>
+                        handleChange('pendidikan', e.target.value)
+                      }
                       className='w-full px-4 py-3.5 bg-gray-50 border border-transparent rounded-xl outline-none focus:bg-white focus:border-primary focus:ring-4 focus:ring-orange-100 transition-all font-medium text-gray-700 cursor-pointer appearance-none'
                     >
                       <option value=''>Pilih Pendidikan</option>
@@ -644,12 +857,15 @@ export default function AssessmentPage() {
                           !predefined.includes(formData.targetKonsultasi);
                         const isSelected =
                           target.title === 'Lainnya'
-                            ? isCustom || formData.targetKonsultasi === 'Lainnya'
+                            ? isCustom ||
+                              formData.targetKonsultasi === 'Lainnya'
                             : formData.targetKonsultasi === target.title;
 
                         return (
-                          <div
+                          <motion.div
                             key={target.title}
+                            whileHover={{ scale: 1.015, y: -2 }}
+                            whileTap={{ scale: 0.99 }}
                             onClick={() =>
                               handleChange(
                                 'targetKonsultasi',
@@ -678,7 +894,7 @@ export default function AssessmentPage() {
                                 {target.desc}
                               </p>
                             </div>
-                          </div>
+                          </motion.div>
                         );
                       })}
                     </div>
@@ -770,10 +986,11 @@ export default function AssessmentPage() {
               {step === 2 && (
                 <motion.div
                   key='step2'
-                  initial='hidden'
-                  animate='visible'
+                  custom={direction}
+                  variants={stepSlideVariants}
+                  initial='enter'
+                  animate='center'
                   exit='exit'
-                  variants={fadeUpVariants}
                   className='space-y-6 text-xs md:text-sm'
                 >
                   <div className='space-y-3'>
@@ -789,7 +1006,11 @@ export default function AssessmentPage() {
                       className='w-full px-4 py-3.5 bg-gray-50 border border-transparent rounded-xl outline-none focus:bg-white focus:border-primary focus:ring-4 focus:ring-orange-100 transition-all font-medium text-gray-700 placeholder:text-gray-400 min-h-[100px]'
                     />
                     <div className='mt-2'>
-                      <label className='flex items-center justify-center w-full px-4 py-5 bg-orange-50/30 border-2 border-dashed border-orange-200 rounded-xl cursor-pointer hover:bg-orange-50/80 transition-all group overflow-hidden'>
+                      <motion.label
+                        whileHover={{ scale: 1.01 }}
+                        whileTap={{ scale: 0.99 }}
+                        className='flex items-center justify-center w-full px-4 py-5 bg-orange-50/30 border-2 border-dashed border-orange-200 rounded-xl cursor-pointer hover:bg-orange-50/80 transition-all group overflow-hidden'
+                      >
                         <div className='flex flex-col items-center gap-2 group cursor-pointer relative'>
                           {isUploadingFile ? (
                             <>
@@ -845,7 +1066,7 @@ export default function AssessmentPage() {
                                 } else {
                                   toast.error('Gagal unggah file');
                                 }
-                              } catch (err) {
+                              } catch {
                                 toast.error('Gagal unggah file');
                               } finally {
                                 setIsUploadingFile(false);
@@ -853,7 +1074,7 @@ export default function AssessmentPage() {
                             }
                           }}
                         />
-                      </label>
+                      </motion.label>
                     </div>
                   </div>
                   <div className='space-y-3'>
@@ -872,26 +1093,53 @@ export default function AssessmentPage() {
                       ].map((item) => {
                         const isSelected = formData.keluhan.includes(item);
                         return (
-                          <button
+                          <motion.button
                             type='button'
                             key={item}
-                            onClick={() => handleCheckboxChange('keluhan', item)}
+                            whileHover={{ scale: 1.03 }}
+                            whileTap={{ scale: 0.97 }}
+                            onClick={() =>
+                              handleCheckboxChange('keluhan', item)
+                            }
                             className={`px-4 py-3 rounded-xl text-xs md:text-sm font-medium transition-all duration-200 border-2
                                ${isSelected ? 'border-primary bg-primary/5 text-primary' : 'border-gray-100 bg-gray-50 text-gray-500 hover:bg-gray-100'}`}
                           >
                             {item}
-                          </button>
+                          </motion.button>
                         );
                       })}
                       {/* Opsi Lainnya */}
-                      <button
+                      <motion.button
                         type='button'
+                        whileHover={{ scale: 1.03 }}
+                        whileTap={{ scale: 0.97 }}
                         onClick={() => {
-                          const hasLainnya = formData.keluhan.some(k => !['Mual', 'Muntah', 'Alergi makanan', 'Pantangan makanan', 'Demam', 'Sariawan', 'Gangguan mengunyah'].includes(k));
+                          const hasLainnya = formData.keluhan.some(
+                            (k) =>
+                              ![
+                                'Mual',
+                                'Muntah',
+                                'Alergi makanan',
+                                'Pantangan makanan',
+                                'Demam',
+                                'Sariawan',
+                                'Gangguan mengunyah',
+                              ].includes(k),
+                          );
                           if (hasLainnya) {
                             // Jika sudah ada keluhan custom, hapus semua yang bukan predefined
-                            const predefined = ['Mual', 'Muntah', 'Alergi makanan', 'Pantangan makanan', 'Demam', 'Sariawan', 'Gangguan mengunyah'];
-                            const cleaned = formData.keluhan.filter(k => predefined.includes(k));
+                            const predefined = [
+                              'Mual',
+                              'Muntah',
+                              'Alergi makanan',
+                              'Pantangan makanan',
+                              'Demam',
+                              'Sariawan',
+                              'Gangguan mengunyah',
+                            ];
+                            const cleaned = formData.keluhan.filter((k) =>
+                              predefined.includes(k),
+                            );
                             handleChange('keluhan', cleaned);
                           } else {
                             // Tambahkan placeholder untuk memicu input
@@ -899,25 +1147,74 @@ export default function AssessmentPage() {
                           }
                         }}
                         className={`px-4 py-3 rounded-xl text-xs md:text-sm font-medium transition-all duration-200 border-2
-                        ${formData.keluhan.some(k => !['Mual', 'Muntah', 'Alergi makanan', 'Pantangan makanan', 'Demam', 'Sariawan', 'Gangguan mengunyah'].includes(k))
+                        ${
+                          formData.keluhan.some(
+                            (k) =>
+                              ![
+                                'Mual',
+                                'Muntah',
+                                'Alergi makanan',
+                                'Pantangan makanan',
+                                'Demam',
+                                'Sariawan',
+                                'Gangguan mengunyah',
+                              ].includes(k),
+                          )
                             ? 'border-primary bg-primary/5 text-primary'
-                            : 'border-gray-100 bg-gray-50 text-gray-500 hover:bg-gray-100'}`}
+                            : 'border-gray-100 bg-gray-50 text-gray-500 hover:bg-gray-100'
+                        }`}
                       >
                         Lainnya
-                      </button>
+                      </motion.button>
                     </div>
 
                     {/* Input untuk Keluhan Lainnya */}
-                    {formData.keluhan.some(k => k === '' || !['Mual', 'Muntah', 'Alergi makanan', 'Pantangan makanan', 'Demam', 'Sariawan', 'Gangguan mengunyah', ''].includes(k)) && (
+                    {formData.keluhan.some(
+                      (k) =>
+                        k === '' ||
+                        ![
+                          'Mual',
+                          'Muntah',
+                          'Alergi makanan',
+                          'Pantangan makanan',
+                          'Demam',
+                          'Sariawan',
+                          'Gangguan mengunyah',
+                          '',
+                        ].includes(k),
+                    ) && (
                       <div className='animate-slide-down mt-3'>
                         <input
                           type='text'
                           placeholder='Sebutkan keluhan lainnya...'
-                          value={formData.keluhan.find(k => !['Mual', 'Muntah', 'Alergi makanan', 'Pantangan makanan', 'Demam', 'Sariawan', 'Gangguan mengunyah'].includes(k)) || ''}
+                          value={
+                            formData.keluhan.find(
+                              (k) =>
+                                ![
+                                  'Mual',
+                                  'Muntah',
+                                  'Alergi makanan',
+                                  'Pantangan makanan',
+                                  'Demam',
+                                  'Sariawan',
+                                  'Gangguan mengunyah',
+                                ].includes(k),
+                            ) || ''
+                          }
                           onChange={(e) => {
                             const val = e.target.value;
-                            const predefined = ['Mual', 'Muntah', 'Alergi makanan', 'Pantangan makanan', 'Demam', 'Sariawan', 'Gangguan mengunyah'];
-                            const others = formData.keluhan.filter(k => predefined.includes(k));
+                            const predefined = [
+                              'Mual',
+                              'Muntah',
+                              'Alergi makanan',
+                              'Pantangan makanan',
+                              'Demam',
+                              'Sariawan',
+                              'Gangguan mengunyah',
+                            ];
+                            const others = formData.keluhan.filter((k) =>
+                              predefined.includes(k),
+                            );
                             handleChange('keluhan', [...others, val]);
                           }}
                           className='w-full px-4 py-3 bg-white border border-gray-200 rounded-xl outline-none focus:border-primary focus:ring-4 focus:ring-orange-100 transition-all font-medium text-gray-700'
@@ -953,10 +1250,11 @@ export default function AssessmentPage() {
               {step === 3 && (
                 <motion.div
                   key='step3'
-                  initial='hidden'
-                  animate='visible'
+                  custom={direction}
+                  variants={stepSlideVariants}
+                  initial='enter'
+                  animate='center'
                   exit='exit'
-                  variants={fadeUpVariants}
                   className='space-y-6 text-xs md:text-sm'
                 >
                   <div className='bg-orange-50/50 p-6 rounded-2xl border border-orange-100/50'>
@@ -965,21 +1263,24 @@ export default function AssessmentPage() {
                     </label>
                     <div className='flex flex-wrap gap-3'>
                       {['1x', '2x', '3x'].map((opt) => (
-                        <button
+                        <motion.button
                           key={opt}
                           type='button'
+                          whileHover={{ scale: 1.08 }}
+                          whileTap={{ scale: 0.95 }}
                           onClick={() => {
                             handleChange('frekuensiMakan', opt);
                             handleChange('frekuensiMakanLainnya', '');
                           }}
                           className={`w-14 h-14 rounded-full border-2 text-sm font-bold transition-all duration-200 flex items-center justify-center
-                            ${formData.frekuensiMakan === opt
-                              ? 'bg-primary border-primary text-white shadow-lg shadow-orange-200 scale-105'
-                              : 'bg-white text-gray-500 border-gray-200 hover:border-gray-300'
+                            ${
+                              formData.frekuensiMakan === opt
+                                ? 'bg-primary border-primary text-white shadow-lg shadow-orange-200 scale-105'
+                                : 'bg-white text-gray-500 border-gray-200 hover:border-gray-300'
                             }`}
                         >
                           {opt}
-                        </button>
+                        </motion.button>
                       ))}
                       <div className='flex-1 min-w-30'>
                         <input
@@ -987,14 +1288,18 @@ export default function AssessmentPage() {
                           placeholder='Lainnya...'
                           value={formData.frekuensiMakanLainnya}
                           onChange={(e) => {
-                            handleChange('frekuensiMakanLainnya', e.target.value);
+                            handleChange(
+                              'frekuensiMakanLainnya',
+                              e.target.value,
+                            );
                             handleChange('frekuensiMakan', 'Lainnya');
                           }}
                           className={`w-full px-5 py-3.5 rounded-2xl border bg-white outline-none font-medium transition-all
-                             ${formData.frekuensiMakan === 'Lainnya'
-                              ? 'border-primary ring-2 ring-orange-100'
-                              : 'border-gray-200 text-gray-500'
-                            }`}
+                             ${
+                               formData.frekuensiMakan === 'Lainnya'
+                                 ? 'border-primary ring-2 ring-orange-100'
+                                 : 'border-gray-200 text-gray-500'
+                             }`}
                         />
                       </div>
                     </div>
@@ -1009,8 +1314,10 @@ export default function AssessmentPage() {
                         (item) => {
                           const isSelected = formData.polaMakan.includes(item);
                           return (
-                            <div
+                            <motion.div
                               key={item}
+                              whileHover={{ scale: 1.02 }}
+                              whileTap={{ scale: 0.98 }}
                               onClick={() =>
                                 handleCheckboxChange('polaMakan', item)
                               }
@@ -1023,7 +1330,7 @@ export default function AssessmentPage() {
                               {isSelected && (
                                 <CheckCircle className='w-3 h-3 md:w-4 md:h-4' />
                               )}
-                            </div>
+                            </motion.div>
                           );
                         },
                       )}
@@ -1042,8 +1349,10 @@ export default function AssessmentPage() {
                     </label>
                     <div className='flex flex-wrap gap-4 mb-4'>
                       {['Ya', 'Tidak', 'Lainnya'].map((opt) => (
-                        <label
+                        <motion.label
                           key={opt}
+                          whileHover={{ scale: 1.03 }}
+                          whileTap={{ scale: 0.97 }}
                           className='flex items-center gap-2 cursor-pointer group'
                         >
                           <div
@@ -1065,7 +1374,7 @@ export default function AssessmentPage() {
                           >
                             {opt}
                           </span>
-                        </label>
+                        </motion.label>
                       ))}
                     </div>
 
@@ -1075,7 +1384,9 @@ export default function AssessmentPage() {
                           label='Alasan berhenti / deskripsi singkat diet'
                           placeholder='Ceritakan pengalaman diet Anda...'
                           value={formData.alasanBerhentiDiet}
-                          onChange={(v) => handleChange('alasanBerhentiDiet', v)}
+                          onChange={(v) =>
+                            handleChange('alasanBerhentiDiet', v)
+                          }
                           className='bg-white'
                         />
                       </div>
@@ -1088,10 +1399,11 @@ export default function AssessmentPage() {
               {step === 4 && (
                 <motion.div
                   key='step4'
-                  initial='hidden'
-                  animate='visible'
+                  custom={direction}
+                  variants={stepSlideVariants}
+                  initial='enter'
+                  animate='center'
                   exit='exit'
-                  variants={fadeUpVariants}
                   className='space-y-8 text-xs md:text-sm'
                 >
                   <div className='flex items-start gap-3 md:gap-4 p-4 bg-orange-50 rounded-2xl border border-orange-200/60 shadow-inner'>
@@ -1104,10 +1416,10 @@ export default function AssessmentPage() {
                           Panduan Pengisian Konsumsi
                         </p>
                         <p className='opacity-90 mt-0.5'>
-                          Mohon <strong>jawab lengkap</strong> dengan menyebutkan
-                          bahan, porsi, frekuensi, dan cara memasaknya! Semakin
-                          lengkap pengisiannya, semakin mempermudah assessment
-                          gizi awal Anda.
+                          Mohon <strong>jawab lengkap</strong> dengan
+                          menyebutkan bahan, porsi, frekuensi, dan cara
+                          memasaknya! Semakin lengkap pengisiannya, semakin
+                          mempermudah assessment gizi awal Anda.
                         </p>
                       </div>
 
@@ -1236,10 +1548,11 @@ export default function AssessmentPage() {
               {step === 5 && (
                 <motion.div
                   key='step5'
-                  initial='hidden'
-                  animate='visible'
+                  custom={direction}
+                  variants={stepSlideVariants}
+                  initial='enter'
+                  animate='center'
                   exit='exit'
-                  variants={fadeUpVariants}
                   className='space-y-6'
                 >
                   <div className='bg-green-50/50 rounded-2xl p-6 border border-green-100/50'>
@@ -1248,15 +1561,17 @@ export default function AssessmentPage() {
                     </label>
                     <div className='grid grid-cols-2 gap-4'>
                       {['Ya', 'Tidak'].map((opt) => (
-                        <button
+                        <motion.button
                           key={opt}
                           type='button'
+                          whileHover={{ scale: 1.03 }}
+                          whileTap={{ scale: 0.97 }}
                           onClick={() => handleChange('olahraga', opt)}
                           className={`py-3 rounded-xl font-bold text-sm transition-all border-2
                              ${formData.olahraga === opt ? 'bg-green-600 border-green-600 text-white shadow-lg shadow-green-200' : 'bg-white border-gray-100 text-gray-400 hover:border-gray-300'}`}
                         >
                           {opt}
-                        </button>
+                        </motion.button>
                       ))}
                     </div>
 
@@ -1268,9 +1583,11 @@ export default function AssessmentPage() {
                           </label>
                           <div className='flex flex-wrap gap-3'>
                             {['1-2x', '3-4x', 'Lebih dari 4x'].map((opt) => (
-                              <button
+                              <motion.button
                                 key={opt}
                                 type='button'
+                                whileHover={{ scale: 1.04 }}
+                                whileTap={{ scale: 0.96 }}
                                 onClick={() =>
                                   handleChange('frekuensiOlahraga', opt)
                                 }
@@ -1278,7 +1595,7 @@ export default function AssessmentPage() {
                                       ${formData.frekuensiOlahraga === opt ? 'bg-green-100 border-green-200 text-green-800' : 'bg-white border-gray-200 text-gray-500 hover:bg-gray-50'}`}
                               >
                                 {opt}
-                              </button>
+                              </motion.button>
                             ))}
                           </div>
                         </div>
@@ -1298,10 +1615,11 @@ export default function AssessmentPage() {
               {step === 6 && (
                 <motion.div
                   key='step6'
-                  initial='hidden'
-                  animate='visible'
+                  custom={direction}
+                  variants={stepSlideVariants}
+                  initial='enter'
+                  animate='center'
                   exit='exit'
-                  variants={fadeUpVariants}
                   className='space-y-6 text-xs md:text-sm'
                 >
                   <div className='bg-orange-50/50 p-6 rounded-2xl border border-orange-100/50'>
@@ -1317,8 +1635,10 @@ export default function AssessmentPage() {
 
                         <div className='grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4'>
                           {pricingPlans.map((plan) => (
-                            <div
+                            <motion.div
                               key={plan.name}
+                              whileHover={{ scale: 1.02, y: -2 }}
+                              whileTap={{ scale: 0.99 }}
                               onClick={() =>
                                 handleChange('pilihanPaket', plan.name)
                               }
@@ -1338,7 +1658,7 @@ export default function AssessmentPage() {
                                   /{plan.duration}
                                 </span>
                               </div>
-                            </div>
+                            </motion.div>
                           ))}
                         </div>
 
@@ -1426,14 +1746,16 @@ export default function AssessmentPage() {
                                 6872452296
                               </p>
                               {/* copy nomer rekerinng */}
-                              <button
+                              <motion.button
+                                whileHover={{ scale: 1.15 }}
+                                whileTap={{ scale: 0.9 }}
                                 onClick={() =>
                                   navigator.clipboard.writeText('6872452296')
                                 }
                                 className='text-xs text-gray-500 hover:text-primary cursor-pointer'
                               >
                                 <CopyIcon className='w-4 h-4' />
-                              </button>
+                              </motion.button>
                             </div>
                             <p className='text-sm text-gray-600 font-medium mt-1'>
                               a.n Zahra Hidayati Krisnadi
@@ -1446,7 +1768,11 @@ export default function AssessmentPage() {
                             Unggah Bukti Pembayaran{' '}
                             <span className='text-red-500'>*</span>
                           </label>
-                          <label className='flex items-center justify-center w-full px-4 py-8 bg-white border-2 border-dashed border-orange-200 rounded-xl cursor-pointer hover:bg-orange-50/50 hover:border-primary transition-all group overflow-hidden'>
+                          <motion.label
+                            whileHover={{ scale: 1.01 }}
+                            whileTap={{ scale: 0.99 }}
+                            className='flex items-center justify-center w-full px-4 py-8 bg-white border-2 border-dashed border-orange-200 rounded-xl cursor-pointer hover:bg-orange-50/50 hover:border-primary transition-all group overflow-hidden'
+                          >
                             <div className='flex flex-col items-center gap-3 group cursor-pointer relative'>
                               {isUploadingFile ? (
                                 <>
@@ -1507,7 +1833,7 @@ export default function AssessmentPage() {
                                     } else {
                                       toast.error('Gagal unggah file');
                                     }
-                                  } catch (err) {
+                                  } catch {
                                     toast.error('Gagal unggah file');
                                   } finally {
                                     setIsUploadingFile(false);
@@ -1515,7 +1841,7 @@ export default function AssessmentPage() {
                                 }
                               }}
                             />
-                          </label>
+                          </motion.label>
                           {errors.buktiPembayaran && (
                             <p className='text-xs text-red-500 font-bold mt-2 text-center md:text-left'>
                               {errors.buktiPembayaran}
@@ -1531,22 +1857,27 @@ export default function AssessmentPage() {
 
             {/* Navigation Buttons */}
             <div className='flex items-center justify-between pt-8 border-t border-slate-100 mt-8'>
-              <button
+              <motion.button
                 type='button'
                 onClick={handleBack}
                 disabled={step === 1}
-                className={`flex text-xs sm:text-sm items-center gap-2 px-6 py-3 rounded-full font-bold transition-all cursor-pointer ${step === 1
-                  ? 'text-slate-300 bg-slate-50 cursor-not-allowed border border-slate-200/50'
-                  : 'text-slate-700 bg-slate-100 hover:bg-slate-200 border border-slate-200/80'
-                  }`}
+                whileHover={step === 1 ? undefined : { scale: 1.03 }}
+                whileTap={step === 1 ? undefined : { scale: 0.97 }}
+                className={`flex text-xs sm:text-sm items-center gap-2 px-6 py-3 rounded-full font-bold transition-all cursor-pointer ${
+                  step === 1
+                    ? 'text-slate-300 bg-slate-50 cursor-not-allowed border border-slate-200/50'
+                    : 'text-slate-700 bg-slate-100 hover:bg-slate-200 border border-slate-200/80 shadow-2xs hover:shadow-xs'
+                }`}
               >
                 <ChevronLeft className='w-4 h-4' />
                 Kembali
-              </button>
+              </motion.button>
 
-              <button
+              <motion.button
                 type='button'
                 onClick={step === steps.length ? handleSubmit : handleNext}
+                whileHover={{ scale: 1.03 }}
+                whileTap={{ scale: 0.97 }}
                 className='cursor-pointer flex text-xs sm:text-sm items-center gap-2 px-7 py-3 rounded-full bg-amber-500 hover:bg-amber-600 text-white font-bold shadow-xs hover:shadow-md transition-all'
               >
                 {step === steps.length ? 'Kirim Assessment' : 'Lanjut'}
@@ -1555,11 +1886,10 @@ export default function AssessmentPage() {
                 ) : (
                   <ChevronRight className='w-4 h-4' />
                 )}
-              </button>
+              </motion.button>
             </div>
           </form>
-        </div>
-
+        </motion.div>
       </main>
       <Footer />
     </div>
@@ -1608,10 +1938,11 @@ function InputField({
           onChange={(e) => onChange(e.target.value)}
           placeholder={placeholder}
           className={`text-xs md:text-sm w-full ${icon ? 'pl-11' : 'px-4'} pr-4 py-3.5 bg-gray-50 border rounded-xl outline-none transition-all duration-200 font-medium text-gray-900 placeholder:text-gray-400 ${className}
-             ${error
-              ? 'border-red-300 bg-red-50 focus:border-red-500 focus:ring-4 focus:ring-red-100'
-              : 'border-transparent focus:bg-white focus:border-primary focus:ring-4 focus:ring-orange-100'
-            }`}
+             ${
+               error
+                 ? 'border-red-300 bg-red-50 focus:border-red-500 focus:ring-4 focus:ring-red-100'
+                 : 'border-transparent focus:bg-white focus:border-primary focus:ring-4 focus:ring-orange-100'
+             }`}
         />
       </div>
       {error && (
@@ -1649,7 +1980,7 @@ function TextAreaField({
       </label>
       <textarea
         placeholder={placeholder}
-        className={`w-full px-4 py-3 bg-gray-50 border rounded-xl outline-none transition-all duration-200 font-medium text-sm lg:text-base min-h-[100px] resize-y
+        className={`w-full px-4 py-3 bg-gray-50 border rounded-xl outline-none transition-all duration-200 font-medium text-sm lg:text-base min-h-[100px] resize-y ${className}
            ${error ? 'border-red-300 bg-red-50 focus:border-red-500 focus:ring-4 focus:ring-red-100' : 'border-transparent focus:bg-white focus:border-primary focus:ring-4 focus:ring-orange-100 placeholder:text-gray-400'}`}
         value={value}
         onChange={(e) => onChange(e.target.value)}
@@ -1683,7 +2014,9 @@ function FoodCategoryCard({
   error,
 }: FoodCategoryCardProps) {
   return (
-    <div
+    <motion.div
+      whileHover={{ y: -2 }}
+      transition={{ duration: 0.2 }}
       className={`bg-white rounded-2xl border p-4 shadow-sm flex flex-col gap-3 transition-colors ${error ? 'border-red-200 bg-red-50/10' : 'border-gray-200/60 hover:border-orange-300'}`}
     >
       <div className='flex items-center gap-3 border-b border-gray-100 pb-3'>
@@ -1710,6 +2043,6 @@ function FoodCategoryCard({
           <p className='text-xs text-red-500 font-bold mt-1.5 ml-1'>{error}</p>
         )}
       </div>
-    </div>
+    </motion.div>
   );
 }

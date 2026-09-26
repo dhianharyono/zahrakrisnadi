@@ -73,8 +73,11 @@ const BMICalculator: React.FC = () => {
   };
 
   return (
-    <section id='bmi-calculator' className='py-16 sm:py-24 bg-slate-50/60 relative overflow-hidden'>
-      <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10'>
+    <section
+      id='bmi-calculator'
+      className='py-16 sm:py-24 bg-slate-50/60 relative overflow-hidden'
+    >
+      <div className='max-w-7xl mx-auto px-5 sm:px-6 lg:px-8 relative z-10'>
         <div className='grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start'>
           {/* Left Side: Text Content */}
           <motion.div
@@ -82,16 +85,18 @@ const BMICalculator: React.FC = () => {
             whileInView='visible'
             viewport={{ once: true, margin: '-100px' }}
             variants={itemVariants}
-            className='lg:col-span-5 space-y-4 sm:space-y-6'
+            className='lg:col-span-5 space-y-4 sm:space-y-6 text-left'
           >
-            <span className='inline-flex items-center rounded-full bg-amber-100/80 px-4 py-1.5 text-xs font-bold uppercase tracking-wider text-amber-800 ring-1 ring-amber-200/60 mb-3 sm:mb-4'>
+            <span className='inline-flex items-center rounded-full bg-amber-100/80 px-4 py-1.5 text-[11px] sm:text-xs font-bold uppercase tracking-wider text-amber-800 ring-1 ring-amber-200/60 mb-3 sm:mb-4'>
               Pantau Progressmu
             </span>
-            <h2 className='text-2xl sm:text-3xl lg:text-3xl font-bold text-slate-900 tracking-tight leading-tight'>
+            <h2 className='text-xl sm:text-2xl lg:text-3xl font-bold text-slate-900 tracking-tight leading-tight'>
               Ketahui Indeks Massa Tubuh (BMI) Anda
             </h2>
-            <p className='text-sm text-slate-600 leading-relaxed'>
-              Body Mass Index (BMI) adalah indikator sederhana rasio berat badan terhadap tinggi badan yang digunakan secara luas untuk mengukur status gizi dan kesehatan tubuh secara rasional.
+            <p className='text-xs sm:text-sm md:text-base  text-slate-600 leading-relaxed'>
+              Body Mass Index (BMI) adalah indikator sederhana rasio berat badan
+              terhadap tinggi badan yang digunakan secara luas untuk mengukur
+              status gizi dan kesehatan tubuh secara rasional.
             </p>
             <ul className='space-y-3.5 pt-2'>
               <li className='flex items-center gap-3'>
@@ -329,16 +334,25 @@ const BMICalculator: React.FC = () => {
 
                     {(resultCategory?.label.includes('Obesitas') ||
                       resultCategory?.label === 'Berat badan lebih') && (
-                        <div className='text-xs sm:text-sm text-slate-600 space-y-2.5 leading-relaxed'>
-                          <p>
-                            Memiliki IMT (BMI){' '}
-                            <span className='font-bold text-slate-900'>{bmi}</span> berarti berat badan Anda <span className='font-semibold text-slate-900'>{resultCategory?.description}</span>.
-                          </p>
-                          <p>
-                            Menjaga berat badan ideal dapat secara signifikan mengurangi risiko gangguan metabolisme dan penyakit sistemik jangka panjang.
-                          </p>
-                        </div>
-                      )}
+                      <div className='text-xs sm:text-sm text-slate-600 space-y-2.5 leading-relaxed'>
+                        <p>
+                          Memiliki IMT (BMI){' '}
+                          <span className='font-bold text-slate-900'>
+                            {bmi}
+                          </span>{' '}
+                          berarti berat badan Anda{' '}
+                          <span className='font-semibold text-slate-900'>
+                            {resultCategory?.description}
+                          </span>
+                          .
+                        </p>
+                        <p>
+                          Menjaga berat badan ideal dapat secara signifikan
+                          mengurangi risiko gangguan metabolisme dan penyakit
+                          sistemik jangka panjang.
+                        </p>
+                      </div>
+                    )}
                   </div>
 
                   {/* CTAs */}
@@ -358,7 +372,8 @@ const BMICalculator: React.FC = () => {
                   </div>
 
                   <p className='text-[11px] text-slate-500 text-center italic'>
-                    *Hasil kalkulator ini adalah indikator awal. Silakan konsultasikan kondisi spesifik Anda dengan Dietisien.
+                    *Hasil kalkulator ini adalah indikator awal. Silakan
+                    konsultasikan kondisi spesifik Anda dengan Dietisien.
                   </p>
                 </motion.div>
               )}

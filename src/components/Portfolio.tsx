@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { createPortal } from 'react-dom';
-import { X, ZoomIn } from 'lucide-react';
+import { X } from 'lucide-react';
 import { motion, AnimatePresence, Variants } from 'framer-motion';
 
 const containerVariants: Variants = {
@@ -91,7 +91,7 @@ const Portfolio: React.FC = () => {
   return (
     <section
       id='portfolio'
-      className='py-16 sm:py-24 bg-white relative overflow-hidden'
+      className='py-16 sm:py-24 bg-slate-50/60 relative overflow-hidden'
     >
       <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10'>
         <motion.div

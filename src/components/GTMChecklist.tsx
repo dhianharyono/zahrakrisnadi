@@ -84,7 +84,7 @@ const GTMChecklist: React.FC = () => {
   return (
     <section
       id='gtm-checklist'
-      className='py-20 lg:py-28 relative overflow-hidden bg-gradient-to-b from-orange-50/50 via-white to-orange-50/30'
+      className='py-20 lg:py-28 relative overflow-hidden bg-slate-50/60'
     >
       {/* Decorative Background Elements */}
       <div className='absolute inset-0 pointer-events-none overflow-hidden'>
@@ -112,14 +112,14 @@ const GTMChecklist: React.FC = () => {
           className='text-center max-w-2xl mx-auto mb-12 sm:mb-16'
         >
           <span className='inline-flex items-center gap-2 rounded-full bg-amber-100/80 px-4 py-1.5 text-xs font-bold uppercase tracking-wider text-amber-800 ring-1 ring-amber-200/60 mb-3 sm:mb-4'>
-            <Stethoscope size={15} />
             Edukasi Kesehatan
           </span>
           <h2 className='text-2xl sm:text-3xl lg:text-3xl font-bold text-slate-900 tracking-tight leading-tight'>
             Checklist Penyebab GTM (Gerakan Tutup Mulut)
           </h2>
           <p className='text-slate-600 text-sm sm:text-base mt-3 sm:mt-4 leading-relaxed max-w-2xl mx-auto'>
-            Temukan potensi penyebab anak sulit makan untuk membantu AyBun memberikan penanganan medis yang tepat.
+            Temukan potensi penyebab anak sulit makan untuk membantu AyBun
+            memberikan penanganan medis yang tepat.
           </p>
         </motion.div>
 
@@ -139,15 +139,24 @@ const GTMChecklist: React.FC = () => {
               className='rounded-3xl bg-white p-7 sm:p-8 shadow-xs ring-1 ring-slate-200/80 hover:ring-amber-300/60 hover:shadow-md transition-all duration-300'
             >
               <div className='flex items-center gap-3.5 mb-4'>
-                <div className='w-11 h-11 rounded-2xl bg-amber-100/80 text-amber-600 flex items-center justify-center shrink-0'>
-                  <HelpCircle className='w-5 h-5' />
+                <div className='w-7 h-7 lg:w-11 lg:h-11 rounded-2xl bg-amber-100/80 text-amber-600 flex items-center justify-center shrink-0'>
+                  <HelpCircle className='w-4 h-4 lg:w-5 lg:h-5' />
                 </div>
-                <h3 className='text-base sm:text-lg font-bold text-slate-900 tracking-tight'>
+                <h3 className='text-sm sm:text-lg font-bold text-slate-900 tracking-tight'>
                   Untuk Siapa Checklist Ini?
                 </h3>
               </div>
-              <p className='text-sm text-slate-600 leading-relaxed'>
-                Jika si Kecil mengalami kesulitan makan, <span className='italic font-semibold text-slate-800'>picky eater</span>, maupun <strong className='text-slate-900'>Gerakan Tutup Mulut (GTM)</strong> berkepanjangan, checklist ini membantu AyBun menemukan akar masalahnya.
+              <p className='text-xs lg:text-sm text-slate-600 leading-relaxed'>
+                Jika si Kecil mengalami kesulitan makan,{' '}
+                <span className='italic font-semibold text-slate-800'>
+                  picky eater
+                </span>
+                , maupun{' '}
+                <strong className='text-slate-900'>
+                  Gerakan Tutup Mulut (GTM)
+                </strong>{' '}
+                berkepanjangan, checklist ini membantu AyBun menemukan akar
+                masalahnya.
               </p>
             </motion.div>
 
@@ -157,15 +166,19 @@ const GTMChecklist: React.FC = () => {
               className='rounded-3xl bg-white p-7 sm:p-8 shadow-xs ring-1 ring-slate-200/80 hover:ring-rose-300/60 hover:shadow-md transition-all duration-300'
             >
               <div className='flex items-center gap-3.5 mb-4'>
-                <div className='w-11 h-11 rounded-2xl bg-rose-100/80 text-rose-600 flex items-center justify-center shrink-0'>
-                  <Stethoscope className='w-5 h-5' />
+                <div className='w-7 h-7 lg:w-11 lg:h-11 rounded-2xl bg-rose-100/80 text-rose-600 flex items-center justify-center shrink-0'>
+                  <Stethoscope className='w-4 h-4 lg:w-5 lg:h-5' />
                 </div>
-                <h3 className='text-base sm:text-lg font-bold text-slate-900 tracking-tight'>
+                <h3 className='text-sm sm:text-lg font-bold text-slate-900 tracking-tight'>
                   Skrining Risiko PFD
                 </h3>
               </div>
               <p className='text-sm text-slate-600 leading-relaxed'>
-                <span className='font-semibold text-slate-900'>Paediatric Feeding Disorder (PFD)</span> adalah kondisi saat asupan oral tidak mencukupi kebutuhan nutrisi & perkembangan usia anak.
+                <span className='font-semibold text-slate-900'>
+                  Paediatric Feeding Disorder (PFD)
+                </span>{' '}
+                adalah kondisi saat asupan oral tidak mencukupi kebutuhan
+                nutrisi & perkembangan usia anak.
               </p>
             </motion.div>
 
@@ -176,8 +189,8 @@ const GTMChecklist: React.FC = () => {
             >
               <div className='flex flex-col sm:flex-row sm:items-center justify-between gap-4'>
                 <div className='flex gap-3.5 items-center'>
-                  <div className='w-11 h-11 rounded-2xl bg-amber-100/80 text-amber-600 flex items-center justify-center shrink-0'>
-                    <FileText className='w-5 h-5' />
+                  <div className='w-7 h-7 lg:w-11 lg:h-11 rounded-2xl bg-amber-100/80 text-amber-600 flex items-center justify-center shrink-0'>
+                    <FileText className='w-4 h-4 lg:w-5 lg:h-5' />
                   </div>
                   <div>
                     <h4 className='text-sm font-bold text-slate-900 leading-snug'>
@@ -239,12 +252,13 @@ const GTMChecklist: React.FC = () => {
                               <button
                                 key={option}
                                 onClick={() => toggleAnswer(idx, option)}
-                                className={`cursor-pointer px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all duration-200 uppercase tracking-wider ${isSelected
+                                className={`cursor-pointer px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all duration-200 uppercase tracking-wider ${
+                                  isSelected
                                     ? isRisk
                                       ? 'bg-amber-500 text-white shadow-xs'
                                       : 'bg-slate-900 text-white shadow-xs'
                                     : 'bg-transparent text-slate-600 hover:text-slate-900 hover:bg-slate-100'
-                                  }`}
+                                }`}
                               >
                                 {option}
                               </button>
@@ -285,7 +299,9 @@ const GTMChecklist: React.FC = () => {
                           Peringatan Dini:
                         </p>
                         <p className='text-xs sm:text-sm font-medium leading-relaxed'>
-                          Si Kecil menunjukkan indikasi risiko Paediatric Feeding Disorder. Segera konsultasikan dengan Dokter Spesialis Anak (DSA).
+                          Si Kecil menunjukkan indikasi risiko Paediatric
+                          Feeding Disorder. Segera konsultasikan dengan Dokter
+                          Spesialis Anak (DSA).
                         </p>
                       </div>
                     </motion.div>
@@ -303,7 +319,9 @@ const GTMChecklist: React.FC = () => {
                           Hasil Skrining:
                         </p>
                         <p className='text-xs sm:text-sm font-medium leading-relaxed'>
-                          Si Kecil dalam kategori risiko rendah. Tetap konsisten menjaga pola makan & feeding rules yang baik ya, AyBun!
+                          Si Kecil dalam kategori risiko rendah. Tetap konsisten
+                          menjaga pola makan & feeding rules yang baik ya,
+                          AyBun!
                         </p>
                       </div>
                     </motion.div>
